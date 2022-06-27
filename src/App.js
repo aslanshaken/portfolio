@@ -1,10 +1,12 @@
-import Home from "./pages/Home/Home";
+import Header from "./pages/Header/Header";
+import TextCarousel from "./pages/TextCarousel/TextCarousel"
 import './App.css'
 
 function App() {
   return(
   <div className="App">
-    <Home/>
+    <Header/>
+    <TextCarousel/>
     {/* About */}
     {/* Work Experiance */}
     {/* Projects */}
