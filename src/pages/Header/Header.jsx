@@ -3,13 +3,13 @@ import React from "react";
 
 function Header() {
   return (
-    <Navbar expand="xl" variant="light" sticky="top" className="gap-3 px-3">
-      <Container className="align-items:center">
-        <Navbar.Brand href="#home">Logo</Navbar.Brand>
+    <Navbar expand="xl" fixed="top" className="gap-3 px-3" variant="dark">
+      <Container className="align-items:center text-white">
+        <Navbar.Brand href="#home">*</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="flex-grow-1 justify-content-center align-items-center">
-            <Nav.Link href="#home">Home</Nav.Link>
+            <Nav.Link href="#home" >Home</Nav.Link>
             <Nav.Link href="#link">About</Nav.Link>
             <Nav.Link href="#link">Work Experience</Nav.Link>
             <Nav.Link href="#home">Projects</Nav.Link>

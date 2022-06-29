@@ -1,0 +1,51 @@
+.green-bg {
+    color: aliceblue;
+    font-size: xx-large;
+}
+
+
+.main {
+    width: 100%;
+    height: 100vh;
+}
+
+video {
+    /* width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: fixed;
+    z-index: -9999;
+    -webkit-user-select: none;
+    user-select: none;
+    -ms-transform: scale(1, 2);
+    -webkit-transform: scale(1, 2);
+    transform: scale(1, 2); */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -100;
+    /* -ms-transform: scale(1, 2);
+    -webkit-transform: scale(1, 2);
+    transform: scale(1, 2); */
+}
+
+.content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /* top: 0; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+
+.overlay {
+    position: absolute;
+    /* top: 0;
+    left: 0; */
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .4);
+}
