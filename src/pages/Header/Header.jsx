@@ -5,7 +5,7 @@ function Header() {
   return (
     <Navbar expand="xl" fixed="top" className="gap-3 px-3" variant="dark">
       <Container className="align-items:center text-white">
-        <Navbar.Brand href="#home">*</Navbar.Brand>
+        <Navbar.Brand href="#home">Logo</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="flex-grow-1 justify-content-center align-items-center">

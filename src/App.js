@@ -3,6 +3,7 @@ import TextCarousel from "./pages/TextCarousel/TextCarousel"
 import './App.css'
 import Welcome from "./pages/Welcome/Welcome";
 import About from "./pages/About/About";
+import WorkExperiance from "./pages/WorkExperience/WorkExperience";
 
 function App() {
   return(
@@ -11,7 +12,7 @@ function App() {
     {/* <TextCarousel/> */}
     <Welcome/>
     <About/>
-    {/* About */}
+    <WorkExperiance/>
     {/* Work Experiance */}
     {/* Projects */}
     {/* Skills */}

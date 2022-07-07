@@ -8,7 +8,7 @@ import Slow from "../../assets/slow.mp4";
 function Welcome() {
   return (
     <div className="main">
-      <div className="overlay"></div>
+      <div className="overlay"/>
       <video src={Slow} autoPlay loop muted />
       <div className="content">
         <Container fluid className="green-bg">
