@@ -4,6 +4,8 @@ import './App.css'
 import Welcome from "./pages/Welcome/Welcome";
 import About from "./pages/About/About";
 import WorkExperiance from "./pages/WorkExperience/WorkExperience";
+import Steps from "./pages/Steps/Steps";
+import Waterfall from "./pages/Waterfall/Waterfall";
 
 function App() {
   return(
@@ -12,6 +14,8 @@ function App() {
     {/* <TextCarousel/> */}
     <Welcome/>
     <About/>
+    <Waterfall/>
+    {/* <Steps/> */}
     <WorkExperiance/>
     {/* Work Experiance */}
     {/* Projects */}

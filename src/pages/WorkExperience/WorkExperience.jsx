@@ -4,14 +4,18 @@ import CardGroup from "react-bootstrap/CardGroup";
 import Republic from '../../assets/republic.png';
 import Datadog from '../../assets/datadog.jpg'
 import GA from '../../assets/ga.png'
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
+
 
 function WorkExperience() {
   return (
-    <Container>
+    <Container className="m-5">
       <h3 class="text-center">Work Experience</h3>
       <p class="text-center">Problem solver with strong analytical skills </p>
       <CardGroup>
-        <Card>
+        <Card className="m-3 border">
           <Card.Img variant="top" height="250px" src={Republic} />
           <Card.Body>
             <Card.Title>Republic - NYC</Card.Title>
@@ -38,7 +42,7 @@ function WorkExperience() {
             </Card.Text>
           </Card.Body>
         </Card>
-        <Card>
+        <Card className="m-3 border">
           <Card.Img variant="top" height="250px" src={Datadog} />
           <Card.Body>
             <Card.Title>Datadog - NYC</Card.Title>
@@ -62,7 +66,7 @@ function WorkExperience() {
             </Card.Text>
           </Card.Body>
         </Card>
-        <Card>
+        <Card className="m-3 border">
           <Card.Img variant="top" height="250px" src={GA} />
           <Card.Body>
             <Card.Title>General Assembly - NYC</Card.Title>
