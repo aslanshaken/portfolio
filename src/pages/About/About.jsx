@@ -2,10 +2,10 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Ava from "../../assets/copy.jpg";
-import Image from "react-bootstrap/Image";
 import "./About.css";
 import Card from "react-bootstrap/Card";
 import * as React from 'react';
+
 
 function About() {
   return (

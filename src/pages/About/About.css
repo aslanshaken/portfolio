@@ -1,5 +1,9 @@
-.bg-same{
-    /* background-color: #363A43;
-    background: linear-gradient(#454545, #363A43);
+.bg-same {
+    /* background-color: #E7EBF0; */
+    /* background: linear-gradient(#454545, #363A43);
     background-blend-mode: multiply; */
+}
+
+.bg.color {
+    background-color: #E7EBF0;
 }

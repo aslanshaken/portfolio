@@ -8,47 +8,54 @@ import TimelineDot from '@mui/lab/TimelineDot';
 
 export default function Waterfall() {
   return (
-    <Timeline position="alternate">
+    <Timeline position="alternate" style={{backgroundColor: '#F6F6F6', padding:"10% 5% 10% 5%" }}>
+      <h3 class="text-center mb-5">Education</h3>
       <TimelineItem>
         <TimelineSeparator>
           <TimelineDot variant="outlined" />
           <TimelineConnector />
         </TimelineSeparator>
-        <TimelineContent>Requirements</TimelineContent>
-      </TimelineItem>
-      <TimelineItem>
-        <TimelineSeparator>
-          <TimelineDot variant="outlined" color="primary" />
-          <TimelineConnector />
-        </TimelineSeparator>
-        <TimelineContent>Design</TimelineContent>
-      </TimelineItem>
-      <TimelineItem>
-        <TimelineSeparator>
-          <TimelineDot variant="outlined" color="secondary" />
-          <TimelineConnector />
-        </TimelineSeparator>
-        <TimelineContent>Developement</TimelineContent>
+        <TimelineContent>
+          Borough of Manhattan Community College - 
+          C.S. Networking and Telecommunications
+          </TimelineContent>
       </TimelineItem>
       <TimelineItem>
         <TimelineSeparator>
           <TimelineDot variant="outlined" color="error" />
           <TimelineConnector />
         </TimelineSeparator>
-        <TimelineContent>Quality assurance</TimelineContent>
+        <TimelineContent>
+        Technical Support Fundamentals by Google
+        </TimelineContent>
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineSeparator>
+          <TimelineDot variant="outlined" color="primary" />
+          <TimelineConnector />
+        </TimelineSeparator>
+        <TimelineContent>
+          General Assembly - Coding bootcamp
+          </TimelineContent>
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineSeparator>
+          <TimelineDot variant="outlined" color="secondary" />
+          <TimelineConnector />
+        </TimelineSeparator>
+        <TimelineContent>
+          NY City College of Technology - 
+          Computer Systems (Software Development)
+        </TimelineContent>
       </TimelineItem>
       <TimelineItem>
         <TimelineSeparator>
           <TimelineDot variant="outlined" color="success"  />
-          <TimelineConnector />
         </TimelineSeparator>
-        <TimelineContent>Deployment</TimelineContent>
-      </TimelineItem>
-      <TimelineItem>
-        <TimelineSeparator>
-          <TimelineDot variant="outlined"  color="inherit"/>
-        </TimelineSeparator>
-        <TimelineContent>Maintenance</TimelineContent>
+        <TimelineContent>
+          Foundations: Data, Data, Everywhere
+          by Google
+          </TimelineContent>
       </TimelineItem>
     </Timeline>
   );

@@ -36,7 +36,7 @@ export default function Steps() {
       <Grid  container rowSpacing={5} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         <Grid item xs={6}>
           <ThemeProvider theme={theme}>
-          <Typography variant="h5" className='mb-2'>Strategy</Typography>
+          <Typography variant="h5" className='mb-2'>Requirements</Typography>
             <Typography>
                 Ask first. Before jumping into designing 
                 I always make sure that we’re asking the 

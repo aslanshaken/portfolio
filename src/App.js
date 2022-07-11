@@ -3,24 +3,49 @@ import TextCarousel from "./pages/TextCarousel/TextCarousel"
 import './App.css'
 import Welcome from "./pages/Welcome/Welcome";
 import About from "./pages/About/About";
-import WorkExperiance from "./pages/WorkExperience/WorkExperience";
 import Steps from "./pages/Steps/Steps";
 import Waterfall from "./pages/Waterfall/Waterfall";
+import * as React from 'react';
+import {
+  createTheme,
+  responsiveFontSizes,
+  ThemeProvider,
+} from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
+import Project from "./pages/Project/Project";
+import Education from "./pages/Education/Education";
+import Experience from "./pages/Experiance/Experiance";
+import Resume from "./pages/Resume/Resume";
+import Footer from "./pages/Footer/Footer";
+
+let theme = createTheme({
+  typography: {
+    body1: {
+      fontWeight: 300,
+      lineHeight: 1.8
+    },
+  },
+});
+theme = responsiveFontSizes(theme);
+
+
 
 function App() {
   return(
   <div className="App">
-    <Header/>
-    {/* <TextCarousel/> */}
-    <Welcome/>
-    <About/>
-    <Waterfall/>
-    {/* <Steps/> */}
-    <WorkExperiance/>
-    {/* Work Experiance */}
-    {/* Projects */}
-    {/* Skills */}
-    {/* Resume */}
+    <ThemeProvider theme={theme}>
+        <Typography variant="body1">
+          <Header/>
+          <Welcome/>
+          <About/>
+          {/* <Steps/> */}
+          <Experience/>
+          <Waterfall/>
+          <Project/>
+          <Resume/>
+          <Footer/>
+        </Typography>
+    </ThemeProvider>
   </div>
   );
 }

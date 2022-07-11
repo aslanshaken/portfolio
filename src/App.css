@@ -1,4 +1,11 @@
 .App {
   /* text-align: center; */
   /* background-color: #E7EBF0; */
+  border: none;
+  border-color: white;
+  border-radius: 1px solid white;
 }
+
+/* .bg-color {
+  background-color: #E7EBF0;
+} */
