@@ -1,11 +1,10 @@
 .App {
   /* text-align: center; */
-  /* background-color: #E7EBF0; */
+  background-color: #E7EBF0;
   border: none;
   border-color: white;
   border-radius: 1px solid white;
+  font-family: 'Open Sans', sans-serif;
 }
 
-/* .bg-color {
-  background-color: #E7EBF0;
-} */
+@import "~react-image-gallery/styles/css/image-gallery.css";

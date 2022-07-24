@@ -51,9 +51,19 @@ export default function Waterfall() {
       <TimelineItem>
         <TimelineSeparator>
           <TimelineDot variant="outlined" color="success"  />
+          <TimelineConnector />
         </TimelineSeparator>
         <TimelineContent>
           Foundations: Data, Data, Everywhere
+          by Google
+        </TimelineContent>
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineSeparator>
+          <TimelineDot variant="outlined" color="primary" />
+        </TimelineSeparator>
+        <TimelineContent>
+          Ask Questions to Make Data-Driven Decisions
           by Google
           </TimelineContent>
       </TimelineItem>

@@ -3,7 +3,6 @@ import TextCarousel from "./pages/TextCarousel/TextCarousel"
 import './App.css'
 import Welcome from "./pages/Welcome/Welcome";
 import About from "./pages/About/About";
-import Steps from "./pages/Steps/Steps";
 import Waterfall from "./pages/Waterfall/Waterfall";
 import * as React from 'react';
 import {
@@ -16,7 +15,6 @@ import Project from "./pages/Project/Project";
 import Education from "./pages/Education/Education";
 import Experience from "./pages/Experiance/Experiance";
 import Resume from "./pages/Resume/Resume";
-import Footer from "./pages/Footer/Footer";
 
 let theme = createTheme({
   typography: {
@@ -35,15 +33,15 @@ function App() {
   <div className="App">
     <ThemeProvider theme={theme}>
         <Typography variant="body1">
-          <Header/>
+          {/* <Header/> */}
           <Welcome/>
           <About/>
+          {/* <TextCarousel/> */}
           {/* <Steps/> */}
           <Experience/>
           <Waterfall/>
           <Project/>
           <Resume/>
-          <Footer/>
         </Typography>
     </ThemeProvider>
   </div>

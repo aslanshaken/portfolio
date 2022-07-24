@@ -1,9 +1,8 @@
-.bg-same {
-    /* background-color: #E7EBF0; */
-    /* background: linear-gradient(#454545, #363A43);
-    background-blend-mode: multiply; */
+.g-font {
+    font-family: 'Open Sans', sans-serif;
 }
 
-.bg.color {
-    background-color: #E7EBF0;
+.g-p-font {
+    font-family: 'Open Sans', sans-serif;
+    font-size: large;
 }

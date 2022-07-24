@@ -31,42 +31,50 @@ export default function Project() {
          mature team worker
       </p>
       <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-        <Grid item xs={2} sm={4} md={3}>
+        <Grid item xs={2} sm={4} md={3} 
+        sx={{'&:hover': {opacity: [0.9, 0.8, 0.7]}}} >
           <Link href="https://github.com/aslanshaken/KZImmigrantGuide">
           <img src={InfoBox} width="100%" height="auto" alt="ava" />
           </Link>
         </Grid>
-        <Grid item xs={2} sm={4} md={3}>
+        <Grid item xs={2} sm={4} md={3}
+        sx={{'&:hover': {opacity: [0.9, 0.8, 0.7]}}}>
             <Link href="https://github.com/aslanshaken/covid-19">
               <img src={Covid} width="100%" height="auto" alt="ava" />
             </Link>
         </Grid>
-        <Grid item xs={2} sm={4} md={3}>
+        <Grid item xs={2} sm={4} md={3}
+        sx={{'&:hover': {opacity: [0.9, 0.8, 0.7]}}}>
             <Link href="https://github.com/aslanshaken/go4profit-v2">
               <img src={Go4Profit} width="100%" height="auto" alt="ava" />
             </Link>
         </Grid>
-        <Grid item xs={2} sm={4} md={3}>
+        <Grid item xs={2} sm={4} md={3}
+        sx={{'&:hover': {opacity: [0.9, 0.8, 0.7]}}}>
             <Link href="https://github.com/aslanshaken/go4pets">
               <img src={Go4Pets} width="100%" height="auto" alt="ava" />
             </Link>
         </Grid>
-        <Grid item xs={2} sm={4} md={3}>
+        <Grid item xs={2} sm={4} md={3}
+        sx={{'&:hover': {opacity: [0.9, 0.8, 0.7]}}}>
           <Link href="https://github.com/aslanshaken/q-line">
             <img src={QLine} width="100%" height="auto" alt="ava" />
           </Link>
         </Grid>
-        <Grid item xs={2} sm={4} md={3}>
+        <Grid item xs={2} sm={4} md={3}
+         sx={{'&:hover': {opacity: [0.9, 0.8, 0.7]}}}>
             <Link href="https://github.com/aslanshaken/cycleshop">
               <img src={Cycle} width="100%" height="auto" alt="ava" />
             </Link>
         </Grid>
-        <Grid item xs={2} sm={4} md={3}>
+        <Grid item xs={2} sm={4} md={3}
+        sx={{'&:hover': {opacity: [0.9, 0.8, 0.7]}}}>
             <Link href="https://github.com/aslanshaken/gym">
               <img src={Gym} width="100%" height="auto" alt="ava" />
             </Link>
         </Grid>
-        <Grid item xs={2} sm={4} md={3}>
+        <Grid item xs={2} sm={4} md={3}
+        sx={{'&:hover': {opacity: [0.9, 0.8, 0.7]}}}>
             <Link href="https://whimsical-tartufo-1178e3.netlify.app/">
               <img src={Ava} width="100%" height="auto" alt="ava" />
             </Link>
