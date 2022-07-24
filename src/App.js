@@ -1,4 +1,6 @@
-import Header from "./pages/Header/Header";
+// import Header from "./pages/Header/Header";
+// import Education from "./pages/Education/Education";
+// import Experience from "./pages/Experiance/Experiance";
 import TextCarousel from "./pages/TextCarousel/TextCarousel"
 import './App.css'
 import Welcome from "./pages/Welcome/Welcome";
@@ -10,10 +12,7 @@ import {
   responsiveFontSizes,
   ThemeProvider,
 } from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
 import Project from "./pages/Project/Project";
-import Education from "./pages/Education/Education";
-import Experience from "./pages/Experiance/Experiance";
 import Resume from "./pages/Resume/Resume";
 
 let theme = createTheme({
@@ -32,17 +31,15 @@ function App() {
   return(
   <div className="App">
     <ThemeProvider theme={theme}>
-        <Typography variant="body1">
           {/* <Header/> */}
           <Welcome/>
           <About/>
           {/* <Steps/> */}
-          <Experience/>
+          {/* <Experience/> */}
           <Waterfall/>
           <Project/>
           <TextCarousel/>
           <Resume/>
-        </Typography>
     </ThemeProvider>
   </div>
   );

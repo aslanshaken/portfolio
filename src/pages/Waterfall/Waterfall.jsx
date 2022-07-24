@@ -9,7 +9,7 @@ import TimelineDot from '@mui/lab/TimelineDot';
 export default function Waterfall() {
   return (
     <Timeline position="alternate" style={{backgroundColor: '#F6F6F6', padding:"10% 5% 10% 5%" }}>
-      <h3 class="text-center mb-5">Education</h3>
+      <h3 className="text-center mb-5">Education</h3>
       <TimelineItem>
         <TimelineSeparator>
           <TimelineDot variant="outlined" />

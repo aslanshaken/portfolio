@@ -7,7 +7,7 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 function Header() {
   return (
-    <Navbar expand="xl" fixed="top" className="gap-3 px-3" variant="dark">
+    <Navbar expand="xl" fixed="top" bg="light" className="gap-3 px-3" variant="light">
       <Container className="align-items:center text-white">
         <Navbar.Brand href="#home">
         <Avatar>ASLAN SHAKEN</Avatar>

@@ -16,7 +16,7 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function Education() {
   return (
     <Box sx={{ flexGrow: 1 }}> 
-    <h3 class="text-center mb-5">Education</h3>
+    <h3 className="text-center">Education</h3>
       <Grid 
         container 
         justifyContent="space-around"

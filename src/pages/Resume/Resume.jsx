@@ -73,7 +73,7 @@ const ImageMarked = styled('span')(({ theme }) => ({
 
 export default function Resume() {
   return (
-    <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%' }}>
+    <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%', marginBottom:'5%'}}>
       <ImageButton
         focusRipple
         key={"Resume"}
@@ -95,13 +95,16 @@ export default function Resume() {
               pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
             }}
           >
-            <Link text-decoration="none" color="inherit" href="https://docs.google.com/document/d/e/2PACX-1vTYjF00y1yqbsET4w4Tcd_-VD2MSpA4DKraTyMklttpnJHSeI-doC5OR2w3qTCBauHnaWCospu1kYZ-/pub">
+            <Link textDecoration="none" color="inherit" href="https://docs.google.com/document/d/e/2PACX-1vTYjF00y1yqbsET4w4Tcd_-VD2MSpA4DKraTyMklttpnJHSeI-doC5OR2w3qTCBauHnaWCospu1kYZ-/pub">
               <h4>Resume</h4>
             </Link>
             <ImageMarked className="MuiImageMarked-root" />
           </Typography>
         </Image>
       </ImageButton>
+      <br/>
+      <br/>
+      <br/>
     </Box>
   );
 }

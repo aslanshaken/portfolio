@@ -4,8 +4,8 @@ import Grid from '@mui/material/Grid';
 
 export default function TextCarousel() {
   return (
-    <Box sx={{ flexGrow: 1}} class='p-5' >
-      <h3 class="text-center mb-5">Skills</h3>
+    <Box sx={{ flexGrow: 1}} className='p-5' >
+      <h3 className="text-center mb-5">Skills</h3>
       <Grid 
         container 
         spacing={{ xs: 2, md: 3 }} 
@@ -21,7 +21,7 @@ export default function TextCarousel() {
           justifyContent='center'
           alignItems='center'
          >
-            <img   width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original-wordmark.svg" />
+            <img alt='SM'   width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original-wordmark.svg" />
         </Grid>
         <Grid 
           item 
@@ -32,7 +32,7 @@ export default function TextCarousel() {
           justifyContent='center'
           alignItems='center'
          >
-            <img width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" />
+            <img alt='SM' width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" />
         </Grid>
         <Grid 
           item 
@@ -43,7 +43,7 @@ export default function TextCarousel() {
           justifyContent='center'
           alignItems='center'
          >
-            <img width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" />
+            <img alt='SM' width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" />
         </Grid>
         <Grid 
           item 
@@ -54,7 +54,7 @@ export default function TextCarousel() {
           justifyContent='center'
           alignItems='center'
          >
-             <img width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original-wordmark.svg" />
+             <img alt='SM' width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original-wordmark.svg" />
         </Grid>
         <Grid 
           item 
@@ -65,7 +65,7 @@ export default function TextCarousel() {
           justifyContent='center'
           alignItems='center'
          >
-          <img width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" />
+          <img alt='SM' width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" />
         </Grid>
         <Grid 
           item 
@@ -76,7 +76,7 @@ export default function TextCarousel() {
           justifyContent='center'
           alignItems='center'
          >
-          <img width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ruby/ruby-original.svg" />
+          <img alt='SM' width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ruby/ruby-original.svg" />
         </Grid>
         <Grid 
           item 
@@ -87,7 +87,7 @@ export default function TextCarousel() {
           justifyContent='center'
           alignItems='center'
          >
-          <img width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rails/rails-original-wordmark.svg" />
+          <img alt='SM' width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rails/rails-original-wordmark.svg" />
         </Grid>
         <Grid 
           item 
@@ -98,7 +98,7 @@ export default function TextCarousel() {
           justifyContent='center'
           alignItems='center'
          >
-          <img width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original-wordmark.svg" />
+          <img alt='SM' width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original-wordmark.svg" />
         </Grid>
         <Grid 
           item 
@@ -109,7 +109,7 @@ export default function TextCarousel() {
           justifyContent='center'
           alignItems='center'
          >
-          <img width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain-wordmark.svg" />
+          <img alt='SM' width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain-wordmark.svg" />
         </Grid>
         <Grid 
           item 
@@ -120,7 +120,7 @@ export default function TextCarousel() {
           justifyContent='center'
           alignItems='center'
          >
-          <img width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original-wordmark.svg" />
+          <img alt='SM' width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original-wordmark.svg" />
         </Grid>
         <Grid 
           item 
@@ -131,7 +131,7 @@ export default function TextCarousel() {
           justifyContent='center'
           alignItems='center'
          >
-          <img width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" />
+          <img alt='SM' width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" />
         </Grid>
         <Grid 
           item 
@@ -142,7 +142,7 @@ export default function TextCarousel() {
           justifyContent='center'
           alignItems='center'
          >
-          <img width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original-wordmark.svg" />
+          <img alt='SM' width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original-wordmark.svg" />
         </Grid>
         <Grid 
           item 
@@ -153,7 +153,7 @@ export default function TextCarousel() {
           justifyContent='center'
           alignItems='center'
          >
-          <img width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain-wordmark.svg" />
+          <img alt='SM' width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain-wordmark.svg" />
         </Grid>
         <Grid 
           item 
@@ -164,7 +164,7 @@ export default function TextCarousel() {
           justifyContent='center'
           alignItems='center'
          >
-          <img width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" />
+          <img alt='SM' width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" />
         </Grid>
         <Grid 
           item 
@@ -175,7 +175,7 @@ export default function TextCarousel() {
           justifyContent='center'
           alignItems='center'
          >
-          <img width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" />
+          <img alt='SM' width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" />
         </Grid>
         <Grid 
           item 
@@ -186,7 +186,7 @@ export default function TextCarousel() {
           justifyContent='center'
           alignItems='center'
          >
-          <img width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apache/apache-line-wordmark.svg" />
+          <img alt='SM' width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apache/apache-line-wordmark.svg" />
         </Grid>
         <Grid 
           item 
@@ -197,7 +197,7 @@ export default function TextCarousel() {
           justifyContent='center'
           alignItems='center'
          >
-          <img width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jira/jira-original-wordmark.svg" />
+          <img alt='SM' width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jira/jira-original-wordmark.svg" />
         </Grid>
         <Grid 
           item 
@@ -208,7 +208,7 @@ export default function TextCarousel() {
           justifyContent='center'
           alignItems='center'
          >
-          <img width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original-wordmark.svg" />
+          <img alt='SM' width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original-wordmark.svg" />
         </Grid>
         <Grid 
           item 
@@ -219,7 +219,7 @@ export default function TextCarousel() {
           justifyContent='center'
           alignItems='center'
          >
-          <img width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/raspberrypi/raspberrypi-original-wordmark.svg" />
+          <img alt='SM' width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/raspberrypi/raspberrypi-original-wordmark.svg" />
         </Grid>
         <Grid 
           item 
@@ -230,7 +230,7 @@ export default function TextCarousel() {
           justifyContent='center'
           alignItems='center'
          >
-          <img width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sass/sass-original.svg" />
+          <img alt='SM' width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sass/sass-original.svg" />
         </Grid>
         <Grid 
           item 
@@ -241,7 +241,7 @@ export default function TextCarousel() {
           justifyContent='center'
           alignItems='center'
          >
-          <img width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ubuntu/ubuntu-plain-wordmark.svg" />
+          <img alt='SM' width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ubuntu/ubuntu-plain-wordmark.svg" />
         </Grid>
         <Grid 
           item 
@@ -252,7 +252,7 @@ export default function TextCarousel() {
           justifyContent='center'
           alignItems='center'
          >
-          <img width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/webpack/webpack-original-wordmark.svg" />
+          <img alt='SM' width='40%' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/webpack/webpack-original-wordmark.svg" />
         </Grid>
       </Grid>
     </Box>

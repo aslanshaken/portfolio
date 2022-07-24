@@ -4,5 +4,6 @@
 
 .g-p-font {
     font-family: 'Open Sans', sans-serif;
-    font-size: large;
+    font-size: medium;
+    line-height: 35px;
 }

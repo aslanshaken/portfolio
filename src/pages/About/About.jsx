@@ -1,9 +1,6 @@
 import Ava from "../../assets/copy.jpg";
-import Ava2 from "../../assets/aslan-ava.png"
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import './About.css';
@@ -14,12 +11,14 @@ function About() {
   return (
     <Box sx={{ flexGrow: 1}} > 
       <Grid
+        item
         container
         direction="column"
         justifyContent="space-around"
         alignItems="center"
       >
         <Grid 
+         item
          container
          direction="row"
          justifyContent="space-around"
@@ -27,7 +26,7 @@ function About() {
          sm={12}
          md={12}
         >
-          <Grid sm={4} md={6}>
+          <Grid item sm={4} md={6}>
             <img 
               width='100%' 
               height='auto' 
@@ -36,7 +35,7 @@ function About() {
               className="mb-5"
               />
           </Grid>
-          <Grid sm={8} md={6} className="text-center text-muted g-font" >
+          <Grid item sm={8} md={6} className="text-center text-muted g-font" >
             <h2>SOFTWARE ENGINEER</h2>
             <h5>a creative, an innovator, a leader</h5>
             <br/>
@@ -57,7 +56,7 @@ function About() {
             </Grid>
           </Grid>
         </Grid>
-        <Grid textAlign='center' width='85%' className="mt-5 g-p-font">
+        <Grid textAlign='center' width='85%' className="mb-5 mt-5 g-p-font">
           <p>
             During 4+ years of my career I've worked on
             numerous complex business applications (mostly FinTech/AdTech

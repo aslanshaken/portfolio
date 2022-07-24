@@ -7,7 +7,6 @@ import Typography from '@mui/material/Typography';
 import Republic from '../../assets/republic.png';
 import Datadog from '../../assets/datadog.jpg'
 import GA from '../../assets/ga.png'
-import ButtonBase from '@mui/material/ButtonBase';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -27,8 +26,8 @@ const Img = styled('img')({
 export default function Experience() {
   return (
     <Box sx={{ flexGrow: 1, padding:"10% 5% 10% 5%" }} > 
-      <h3 class="text-center">Work Experience</h3>
-      <p class="text-center">Problem solver with strong analytical skills </p>
+      <h3 className="text-center">Work Experience</h3>
+      <p className="text-center">Problem solver with strong analytical skills </p>
       <Grid 
         container 
         justifyContent="space-around"
@@ -39,9 +38,9 @@ export default function Experience() {
          >
         <Grid item xs={3} sm={5} md={4}>
           <Item >
-            <Grid item xs={12} sm container direction="column">
+            <Grid item xs={12} sm container direction="column" height={80}>
               <Grid item>
-                <Img alt="complex" src={Republic} height={150} />
+                <Img alt="complex" src={Republic} height={75}/>
               </Grid>
               <Grid item>
                 <Typography variant="body1" gutterBottom>
@@ -59,9 +58,9 @@ export default function Experience() {
         </Grid>
         <Grid item xs={3} sm={5} md={4}>
           <Item >
-            <Grid item xs={12} sm container direction="column">
+            <Grid item xs={12} sm container direction="column" height={80}>
               <Grid item>
-                <Img alt="complex" src={Datadog} height={150}/>
+                <Img alt="complex" src={Datadog} height={80}/>
               </Grid>
               <Grid item>
                 <Typography variant="body1" gutterBottom>
@@ -79,9 +78,9 @@ export default function Experience() {
         </Grid>
         <Grid item xs={3} sm={5} md={4}>
           <Item >
-            <Grid item xs={12} sm container direction="column">
+            <Grid item xs={12} sm container direction="column" height={80}>
               <Grid item>
-                <Img alt="complex" src={GA} height={150} />
+                <Img alt="complex" src={GA} height={80} />
               </Grid>
               <Grid item>
                 <Typography variant="body1" gutterBottom>
