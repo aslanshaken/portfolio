@@ -36,11 +36,11 @@ function App() {
           {/* <Header/> */}
           <Welcome/>
           <About/>
-          {/* <TextCarousel/> */}
           {/* <Steps/> */}
           <Experience/>
           <Waterfall/>
           <Project/>
+          <TextCarousel/>
           <Resume/>
         </Typography>
     </ThemeProvider>

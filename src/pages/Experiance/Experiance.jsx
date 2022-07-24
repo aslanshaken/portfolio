@@ -33,9 +33,9 @@ export default function Experience() {
         container 
         justifyContent="space-around"
         alignItems="stretch" 
-        textAlign='center'
         spacing={{ xs: 2, md: 3 }} 
         columns={{ xs: 4, sm: 8, md: 12 }}
+        textAlign='center'
          >
         <Grid item xs={3} sm={5} md={4}>
           <Item >
@@ -43,7 +43,7 @@ export default function Experience() {
               <Grid item>
                 <Img alt="complex" src={Republic} height={150} />
               </Grid>
-              <Grid item textAlign='center'>
+              <Grid item>
                 <Typography variant="body1" gutterBottom>
                   Software Engineer
                 </Typography>
