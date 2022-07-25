@@ -23,7 +23,7 @@ const ImageButton = styled(ButtonBase)(({ theme }) => ({
       opacity: 0,
     },
     '& .MuiTypography-root': {
-      border: '4px solid currentColor',
+      border: '1px solid currentColor',
     },
   },
 }));
@@ -92,7 +92,7 @@ export default function Resume() {
               position: 'relative',
               p: 4,
               pt: 2,
-              pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
+              pb: (theme) => `calc(${theme.spacing(1)} + 3px)`,
             }}
           >
             <Link textDecoration="none" color="inherit" href="https://docs.google.com/document/d/e/2PACX-1vTYjF00y1yqbsET4w4Tcd_-VD2MSpA4DKraTyMklttpnJHSeI-doC5OR2w3qTCBauHnaWCospu1kYZ-/pub">

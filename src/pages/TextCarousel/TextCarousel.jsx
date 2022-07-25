@@ -9,7 +9,7 @@ export default function TextCarousel() {
       <Grid 
         container 
         spacing={{ xs: 2, md: 3 }} 
-        columns={{ xs: 10, sm: 10, md: 18 }}
+        columns={{ xs: 8, sm: 8, md: 16 }}
         justifyContent="center"
         >
         <Grid 

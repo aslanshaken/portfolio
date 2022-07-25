@@ -8,7 +8,7 @@ import TimelineDot from '@mui/lab/TimelineDot';
 
 export default function Waterfall() {
   return (
-    <Timeline position="alternate" style={{backgroundColor: '#F6F6F6', padding:"10% 5% 10% 5%" }}>
+    <Timeline position="alternate" style={{backgroundColor: '#F6F6F6', padding:"5%" }}>
       <h3 className="text-center mb-5">Education</h3>
       <TimelineItem>
         <TimelineSeparator>
@@ -17,7 +17,7 @@ export default function Waterfall() {
         </TimelineSeparator>
         <TimelineContent>
           Borough of Manhattan Community College - 
-          C.S. Networking and Telecommunications
+          C.S.
           </TimelineContent>
       </TimelineItem>
       <TimelineItem>
@@ -45,27 +45,16 @@ export default function Waterfall() {
         </TimelineSeparator>
         <TimelineContent>
           NY City College of Technology - 
-          Computer Systems (Software Development)
+          C.S. (Software Development)
         </TimelineContent>
       </TimelineItem>
       <TimelineItem>
         <TimelineSeparator>
           <TimelineDot variant="outlined" color="success"  />
-          <TimelineConnector />
         </TimelineSeparator>
         <TimelineContent>
-          Foundations: Data, Data, Everywhere
-          by Google
+         Google Data Analytics Certification
         </TimelineContent>
-      </TimelineItem>
-      <TimelineItem>
-        <TimelineSeparator>
-          <TimelineDot variant="outlined" color="primary" />
-        </TimelineSeparator>
-        <TimelineContent>
-          Ask Questions to Make Data-Driven Decisions
-          by Google
-          </TimelineContent>
       </TimelineItem>
     </Timeline>
   );
