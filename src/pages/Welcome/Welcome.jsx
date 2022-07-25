@@ -9,7 +9,7 @@ function Welcome() {
   return (
     <div className="main">
       <div className="overlay"/>
-      <video src={Slow} loop={true} muted={true} autoPlay={true} playsInLine={true}/>
+      <video src={Slow} autoPlay loop muted />
       <div className="content">
         <Container fluid className="green-bg">
           <Row>

@@ -32,11 +32,11 @@ function About() {
               height='auto' 
               src={Ava} 
               alt="ava"  
-              className="mb-5"
+              className="mb-5 ab-img"
               />
           </Grid>
           <Grid item sm={8} md={6} className="text-center text-muted g-font" >
-            <h2>SOFTWARE ENGINEER</h2>
+            <h3>SOFTWARE ENGINEER</h3>
             <h5>a creative, an innovator, a leader</h5>
             <br/>
             <Divider />

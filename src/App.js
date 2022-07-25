@@ -3,7 +3,7 @@
 // import Experience from "./pages/Experiance/Experiance";
 import TextCarousel from "./pages/TextCarousel/TextCarousel"
 import './App.css'
-import Welcome from "./pages/Welcome/Welcome";
+// import Welcome from "./pages/Welcome/Welcome";
 import About from "./pages/About/About";
 import Waterfall from "./pages/Waterfall/Waterfall";
 import * as React from 'react';
@@ -32,7 +32,7 @@ function App() {
   <div className="App">
     <ThemeProvider theme={theme}>
           {/* <Header/> */}
-          <Welcome/>
+          {/* <Welcome/> */}
           <About/>
           {/* <Steps/> */}
           {/* <Experience/> */}
