@@ -4,7 +4,7 @@ import Layout from '../layouts';
 import Page from '../components/Page';
 // sections
 import HomeHero from '../sections/home/HomeHero';
-import AwesomeFood from 'src/sections/home/AwesomeFood';
+import AwesomeFood from '../sections/home/AwesomeFood';
 
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
