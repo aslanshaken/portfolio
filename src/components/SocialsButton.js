@@ -44,7 +44,7 @@ export default function SocialsButton({ initialColor = false, simple = true, lin
       alignItems="center"
       justifyContent={'space-between'}
       maxWidth={200}
-      m={{ xs: 'auto', md: 0 }}
+      m={{ xs: 'auto', sm: 0 }}
     >
       {SOCIALS.map((social) => {
         const { name, icon, path, socialColor } = social;

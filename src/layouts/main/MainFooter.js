@@ -35,19 +35,19 @@ export default function MainFooter() {
       <Container maxWidth={'xl'} sx={{ py: 10 }}>
         <Grid
           container
-          justifyContent={{ xs: 'center', md: 'space-between' }}
-          sx={{ textAlign: { xs: 'center', md: 'left' } }}
+          justifyContent={{ xs: 'center', sm: 'space-between' }}
+          sx={{ textAlign: { xs: 'center', sm: 'left' } }}
         >
-          <Grid item xs={12} md={4} sx={{ mb: 4, pr: { md: 5 } }}>
-            <Logo sx={{ mx: { xs: 'auto', md: 'inherit' }, width: { xs: 150, md: 245 } }} />
+          <Grid item xs={12} sm={6} md={4} sx={{ mb: 4, pr: { sm: 5 } }}>
+            <Logo sx={{ mx: { xs: 'auto', sm: 'inherit' }, width: 245 }} />
 
-            <Box width={1} display={'flex'} justifyContent={{ xs: 'center', md: 'flex-start' }}>
+            <Box width={1} display={'flex'} justifyContent={{ xs: 'center', sm: 'flex-start' }}>
               <Typography variant="body1" color={'text.secondary'} mt={3} maxWidth={350}>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
               </Typography>
             </Box>
           </Grid>
-          <Grid item xs={12} md={3} sx={{ mb: 4, ppr: { md: 5 } }}>
+          <Grid item xs={12} sm={6} md={3} sx={{ mb: 4, ppr: { sm: 5 } }}>
             <Typography variant="h5" mb={3}>
               {'Address'}
             </Typography>
@@ -64,12 +64,13 @@ export default function MainFooter() {
           <Grid
             item
             xs={12}
+            sm={6}
             md={3}
             sx={{
               mb: 4,
-              pr: { md: 5 },
+              pr: { sm: 5 },
               position: 'relative',
-              justifyContent: { xs: 'center', md: 'flex-start' },
+              justifyContent: { xs: 'center', sm: 'flex-start' },
               display: 'flex',
             }}
           >
@@ -87,12 +88,12 @@ export default function MainFooter() {
               ))}
             </Box>
 
-            <IconButton sx={{ position: 'absolute', top: 0, right: { xs: 0, md: '25%' }, borderRadius: 30 }}>
+            <IconButton sx={{ position: 'absolute', top: 0, right: { xs: 0, sm: '25%' }, borderRadius: 30, p: 0.3 }}>
               <ArrowTopIcon />
             </IconButton>
           </Grid>
 
-          <Grid item xs={12} md={2} sx={{ mb: 4 }}>
+          <Grid item xs={12} sm={6} md={2} sx={{ mb: 4 }}>
             <Typography variant="h5" mb={3}>
               {'Get in touch'}
             </Typography>
