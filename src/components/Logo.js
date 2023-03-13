@@ -3,15 +3,12 @@ import { forwardRef } from 'react';
 // next
 import NextLink from 'next/link';
 // @mui
-import { useTheme } from '@mui/material/styles';
 import { Box } from '@mui/material';
 import Image from './Image';
 
 // ----------------------------------------------------------------------
 
 const Logo = forwardRef(({ disabledLink = false, sx }, ref) => {
-  const theme = useTheme();
-
   // OR
   // const logo = '/logo/logo_single.svg';
 

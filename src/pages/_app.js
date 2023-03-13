@@ -10,6 +10,9 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 import 'react-lazy-load-image-component/src/effects/opacity.css';
 import 'react-lazy-load-image-component/src/effects/black-and-white.css';
 
+//
+import '../../public/fonts/index.css';
+
 import PropTypes from 'prop-types';
 // next
 import Head from 'next/head';
@@ -33,7 +36,7 @@ MyApp.propTypes = {
 };
 
 export default function MyApp(props) {
-  const { Component, pageProps, settings } = props;
+  const { Component, pageProps } = props;
 
   const getLayout = Component.getLayout ?? ((page) => page);
 

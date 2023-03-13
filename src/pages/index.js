@@ -3,7 +3,7 @@ import Layout from '../layouts';
 // components
 import Page from '../components/Page';
 // sections
-import HomeHero from 'src/sections/home/HomeHero';
+import HomeHero from '../sections/home/HomeHero';
 
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------

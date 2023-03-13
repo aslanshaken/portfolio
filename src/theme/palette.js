@@ -3,16 +3,16 @@ import { alpha } from '@mui/material/styles';
 // ----------------------------------------------------------------------
 
 function createGradient(color1, color2) {
-  return `linear-gradient(to bottom, ${color1}, ${color2})`;
+  return `linear-gradient(92.97deg, ${color1}, ${color2})`;
 }
 
 // SETUP COLORS
 const PRIMARY = {
-  lighter: '#C8FACD',
-  light: '#5BE584',
-  main: '#00AB55',
-  dark: '#007B55',
-  darker: '#005249',
+  lighter: '#f7db94',
+  light: '#F5D37A',
+  main: '#CFAA4C',
+  dark: '#907635',
+  darker: '#645225',
 };
 const SECONDARY = {
   lighter: '#D6E4FF',
