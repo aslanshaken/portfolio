@@ -15,11 +15,11 @@ const PRIMARY = {
   darker: '#645225',
 };
 const SECONDARY = {
-  lighter: '#D6E4FF',
-  light: '#84A9FF',
-  main: '#3366FF',
-  dark: '#1939B7',
-  darker: '#091A7A',
+  lighter: '#446455',
+  light: '#163E2B',
+  main: '#0B2619',
+  dark: '#071a11',
+  darker: '#04120b',
 };
 const INFO = {
   lighter: '#D0F2FF',
@@ -54,13 +54,14 @@ const GREY = {
   0: '#FFFFFF',
   100: '#F9FAFB',
   200: '#F4F6F8',
-  300: '#DFE3E8',
+  300: '#D9D9D9',
   400: '#C4CDD5',
   500: '#919EAB',
   600: '#637381',
   700: '#454F5B',
   800: '#212B36',
   900: '#161C24',
+  300_50: alpha('#D9D9D9', 0.5),
   500_8: alpha('#919EAB', 0.08),
   500_12: alpha('#919EAB', 0.12),
   500_16: alpha('#919EAB', 0.16),
@@ -73,6 +74,7 @@ const GREY = {
 
 const GRADIENTS = {
   primary: createGradient(PRIMARY.light, PRIMARY.main),
+  secondary: createGradient(SECONDARY.light, SECONDARY.main),
   info: createGradient(INFO.light, INFO.main),
   success: createGradient(SUCCESS.light, SUCCESS.main),
   warning: createGradient(WARNING.light, WARNING.main),
