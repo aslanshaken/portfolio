@@ -13,12 +13,8 @@ const Logo = forwardRef(({ disabledLink = false, sx }, ref) => {
   // const logo = '/logo/logo_single.svg';
 
   const logo = (
-    <Box ref={ref} sx={{ width: 150, height: 50, cursor: 'pointer', ...sx }}>
-      <Image
-        disabledEffect
-        alt="logo"
-        src={'/assets/logo-white.png'}
-      />
+    <Box ref={ref} sx={{ width: { xs: 150, md: 209 }, cursor: 'pointer', ...sx }}>
+      <Image disabledEffect alt="logo" src={'/assets/logo-white.png'} />
     </Box>
   );
 

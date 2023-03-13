@@ -3,20 +3,23 @@ import { styled } from '@mui/material/styles';
 import { Box, Stack, Typography, Container, Button, Grid } from '@mui/material';
 import Image from 'src/components/Image';
 import GradientText from 'src/components/GradientText';
+import { HEADER } from 'src/config';
 // ----------------------------------------------------------------------
 
 const RootStyle = styled('div')(({ theme }) => ({
   position: 'relative !important',
-  background: 'linear-gradient(106.35deg, #163E2B 0%, #0B2619 100%)',
+  boxShadow: 0,
+  background: 'linear-gradient(106.35deg, #163E2B, #0B2619)',
+  paddingTop: HEADER.MOBILE_HEIGHT,
   [theme.breakpoints.up('md')]: {
     top: 0,
     left: 0,
     width: '100%',
-    height: 'calc(100vh - 88px)',
+    height: '100vh',
     display: 'flex',
     position: 'fixed',
     alignItems: 'center',
-    marginTop: '88px'
+    paddingTop: HEADER.MAIN_DESKTOP_HEIGHT,
   },
 }));
 
@@ -27,7 +30,7 @@ export default function HomeHero() {
     <RootStyle>
       <Container maxWidth="xl">
         <Grid container>
-          <Grid item xs={12} md={6} order={{ xs: 1, md: 0 }} display="flex">
+          <Grid item xs={12} md={6} order={{ xs: 1, md: 0 }} display="flex" justifyContent={{ xs: 'center', md: 'flex-start' }}>
             <Stack
               width={1}
               spacing={1}
@@ -43,17 +46,19 @@ export default function HomeHero() {
                 maxWidth: '700px',
               }}
             >
-              <GradientText variant="h1" fontFamily="Rockville">
+              <GradientText variant="h1" fontFamily="Rockville" fontSize={'80px !important'} lineHeight={1.2}>
                 Delicious
               </GradientText>
               <Typography
                 variant="h1"
                 fontFamily="Poppins"
+                fontSize={'64px !important'} 
                 color="white"
                 sx={{
                   lineHeight: '164%',
                   letterSpacing: '0.05em',
                   fontWeight: 700,
+                  mb: '24px !important'
                 }}
               >
                 Find out and taste delicious food in the world

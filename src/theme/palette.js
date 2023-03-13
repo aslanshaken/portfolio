@@ -2,8 +2,8 @@ import { alpha } from '@mui/material/styles';
 
 // ----------------------------------------------------------------------
 
-function createGradient(color1, color2) {
-  return `linear-gradient(92.97deg, ${color1}, ${color2})`;
+function createGradient(color1, color2, direction = '92.97deg') {
+  return `linear-gradient(${direction}, ${color1}, ${color2})`;
 }
 
 // SETUP COLORS
@@ -43,11 +43,11 @@ const WARNING = {
   darker: '#7A4F01',
 };
 const ERROR = {
-  lighter: '#FFE7D9',
-  light: '#FFA48D',
-  main: '#FF4842',
-  dark: '#B72136',
-  darker: '#7A0C2E',
+  lighter: '#ff8888',
+  light: '#ff6b6b',
+  main: '#FF4646',
+  dark: '#b23131',
+  darker: '#7c2222',
 };
 
 const GREY = {
@@ -57,9 +57,9 @@ const GREY = {
   300: '#DFE3E8',
   400: '#C4CDD5',
   500: '#919EAB',
-  600: '#637381',
+  600: '#AEAEAE',
   700: '#454F5B',
-  800: '#212B36',
+  800: '#31342B',
   900: '#161C24',
   500_8: alpha('#919EAB', 0.08),
   500_12: alpha('#919EAB', 0.12),
@@ -69,6 +69,7 @@ const GREY = {
   500_48: alpha('#919EAB', 0.48),
   500_56: alpha('#919EAB', 0.56),
   500_80: alpha('#919EAB', 0.8),
+  600_75: alpha('#AEAEAE', 0.75),
 };
 
 const GRADIENTS = {
@@ -115,14 +116,24 @@ const palette = {
     ...COMMON,
     mode: 'light',
     text: { primary: GREY[800], secondary: GREY[600], disabled: GREY[500] },
-    background: { paper: '#fff', default: '#fff', neutral: GREY[200] },
+    background: {
+      paper: '#fff',
+      default: '#fff',
+      neutral: GREY[200],
+      hero: createGradient('#163E2B', '#0B2619', '106.35deg'),
+    },
     action: { active: GREY[600], ...COMMON.action },
   },
   dark: {
     ...COMMON,
     mode: 'dark',
-    text: { primary: '#fff', secondary: GREY[500], disabled: GREY[600] },
-    background: { paper: GREY[800], default: GREY[900], neutral: GREY[500_16] },
+    text: { primary: '#fff', secondary: GREY[500_75], disabled: GREY[600] },
+    background: {
+      paper: GREY[800],
+      default: GREY[900],
+      neutral: GREY[500_16],
+      hero: createGradient('#163E2B', '#0B2619', '106.35deg'),
+    },
     action: { active: GREY[500], ...COMMON.action },
   },
 };
