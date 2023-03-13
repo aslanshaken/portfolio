@@ -3,6 +3,9 @@
 export default function Button(theme) {
   return {
     MuiButton: {
+      defaultProps: {
+        // disableRipple: true,
+      },
       styleOverrides: {
         root: {
           '&:hover': {
@@ -10,7 +13,8 @@ export default function Button(theme) {
           },
         },
         sizeLarge: {
-          height: 48,
+          height: 70,
+          borderRadius: 20,
         },
         // contained
         containedInherit: {
@@ -21,22 +25,22 @@ export default function Button(theme) {
           },
         },
         containedPrimary: {
-          boxShadow: theme.customShadows.primary,
+          background: theme.palette.gradients.primary,
         },
         containedSecondary: {
-          boxShadow: theme.customShadows.secondary,
+          background: theme.palette.gradients.secondary,
         },
         containedInfo: {
-          boxShadow: theme.customShadows.info,
+          background: theme.palette.gradients.info,
         },
         containedSuccess: {
-          boxShadow: theme.customShadows.success,
+          background: theme.palette.gradients.success,
         },
         containedWarning: {
-          boxShadow: theme.customShadows.warning,
+          background: theme.palette.gradients.warning,
         },
         containedError: {
-          boxShadow: theme.customShadows.error,
+          background: theme.palette.gradients.error,
         },
         // outlined
         outlinedInherit: {

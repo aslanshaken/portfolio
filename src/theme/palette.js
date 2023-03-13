@@ -2,24 +2,24 @@ import { alpha } from '@mui/material/styles';
 
 // ----------------------------------------------------------------------
 
-function createGradient(color1, color2) {
-  return `linear-gradient(to bottom, ${color1}, ${color2})`;
+function createGradient(color1, color2, direction = '92.97deg') {
+  return `linear-gradient(${direction}, ${color1}, ${color2})`;
 }
 
 // SETUP COLORS
 const PRIMARY = {
-  lighter: '#C8FACD',
-  light: '#5BE584',
-  main: '#00AB55',
-  dark: '#007B55',
-  darker: '#005249',
+  lighter: '#f7db94',
+  light: '#F5D37A',
+  main: '#CFAA4C',
+  dark: '#907635',
+  darker: '#645225',
 };
 const SECONDARY = {
-  lighter: '#D6E4FF',
-  light: '#84A9FF',
-  main: '#3366FF',
-  dark: '#1939B7',
-  darker: '#091A7A',
+  lighter: '#446455',
+  light: '#163E2B',
+  main: '#0B2619',
+  dark: '#071a11',
+  darker: '#04120b',
 };
 const INFO = {
   lighter: '#D0F2FF',
@@ -43,24 +43,25 @@ const WARNING = {
   darker: '#7A4F01',
 };
 const ERROR = {
-  lighter: '#FFE7D9',
-  light: '#FFA48D',
-  main: '#FF4842',
-  dark: '#B72136',
-  darker: '#7A0C2E',
+  lighter: '#ff8888',
+  light: '#ff6b6b',
+  main: '#FF4646',
+  dark: '#b23131',
+  darker: '#7c2222',
 };
 
 const GREY = {
   0: '#FFFFFF',
   100: '#F9FAFB',
   200: '#F4F6F8',
-  300: '#DFE3E8',
+  300: '#D9D9D9',
   400: '#C4CDD5',
   500: '#919EAB',
-  600: '#637381',
+  600: '#AEAEAE',
   700: '#454F5B',
-  800: '#212B36',
+  800: '#31342B',
   900: '#161C24',
+  300_50: alpha('#D9D9D9', 0.5),
   500_8: alpha('#919EAB', 0.08),
   500_12: alpha('#919EAB', 0.12),
   500_16: alpha('#919EAB', 0.16),
@@ -69,10 +70,12 @@ const GREY = {
   500_48: alpha('#919EAB', 0.48),
   500_56: alpha('#919EAB', 0.56),
   500_80: alpha('#919EAB', 0.8),
+  600_75: alpha('#AEAEAE', 0.75),
 };
 
 const GRADIENTS = {
   primary: createGradient(PRIMARY.light, PRIMARY.main),
+  secondary: createGradient(SECONDARY.light, SECONDARY.main),
   info: createGradient(INFO.light, INFO.main),
   success: createGradient(SUCCESS.light, SUCCESS.main),
   warning: createGradient(WARNING.light, WARNING.main),
@@ -115,14 +118,24 @@ const palette = {
     ...COMMON,
     mode: 'light',
     text: { primary: GREY[800], secondary: GREY[600], disabled: GREY[500] },
-    background: { paper: '#fff', default: '#fff', neutral: GREY[200] },
+    background: {
+      paper: '#fff',
+      default: '#fff',
+      neutral: GREY[200],
+      hero: createGradient('#163E2B', '#0B2619', '106.35deg'),
+    },
     action: { active: GREY[600], ...COMMON.action },
   },
   dark: {
     ...COMMON,
     mode: 'dark',
-    text: { primary: '#fff', secondary: GREY[500], disabled: GREY[600] },
-    background: { paper: GREY[800], default: GREY[900], neutral: GREY[500_16] },
+    text: { primary: '#fff', secondary: GREY[500_75], disabled: GREY[600] },
+    background: {
+      paper: GREY[800],
+      default: GREY[900],
+      neutral: GREY[500_16],
+      hero: createGradient('#163E2B', '#0B2619', '106.35deg'),
+    },
     action: { active: GREY[500], ...COMMON.action },
   },
 };

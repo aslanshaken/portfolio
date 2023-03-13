@@ -3,7 +3,8 @@ import Layout from '../layouts';
 // components
 import Page from '../components/Page';
 // sections
-import HomeHero from 'src/sections/home/HomeHero';
+import HomeHero from '../sections/home/HomeHero';
+import AwesomeFood from '../sections/home/AwesomeFood';
 
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
@@ -18,6 +19,7 @@ export default function HomePage() {
   return (
     <Page title="The starting point for your next project">
       <HomeHero />
+      <AwesomeFood />
     </Page>
   );
 }

@@ -28,20 +28,7 @@ export default function MainLayout({ children }) {
 
       <Box sx={{ flexGrow: 1 }} />
 
-      {!isHome ? (
-        <MainFooter />
-      ) : (
-        <Box
-          sx={{
-            py: 5,
-            textAlign: 'center',
-            position: 'relative',
-            bgcolor: 'background.default',
-          }}
-        >
-          footer
-        </Box>
-      )}
+      <MainFooter />
     </Stack>
   );
 }
