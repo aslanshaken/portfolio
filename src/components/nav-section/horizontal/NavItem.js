@@ -44,19 +44,19 @@ export const NavItemRoot = forwardRef(({ item, active, open, onMouseEnter, onMou
         disabled={disabled}
         roles={roles}
       >
-        <NavItemContent icon={icon} title={translate(title)} children={children} />
+        <NavItemContent icon={icon} title={title} children={children} />
       </ListItem>
     );
   }
 
   return isExternalLink(path) ? (
     <ListItem component={Link} href={path} target="_blank" rel="noopener" disabled={disabled} roles={roles}>
-      <NavItemContent icon={icon} title={translate(title)} children={children} />
+      <NavItemContent icon={icon} title={title} children={children} />
     </ListItem>
   ) : (
     <NextLink href={path} passHref>
       <ListItem activeRoot={active} disabled={disabled} roles={roles}>
-        <NavItemContent icon={icon} title={translate(title)} children={children} />
+        <NavItemContent icon={icon} title={title} children={children} />
       </ListItem>
     </NextLink>
   );
@@ -80,8 +80,6 @@ NavItemRoot.propTypes = {
 // ----------------------------------------------------------------------
 
 export const NavItemSub = forwardRef(({ item, active, open, onMouseEnter, onMouseLeave }, ref) => {
-  const { translate } = useLocales();
-
   const { title, path, icon, children, disabled, roles } = item;
 
   if (children) {
@@ -97,7 +95,7 @@ export const NavItemSub = forwardRef(({ item, active, open, onMouseEnter, onMous
         disabled={disabled}
         roles={roles}
       >
-        <NavItemContent icon={icon} title={translate(title)} children={children} subItem />
+        <NavItemContent icon={icon} title={title} children={children} subItem />
       </ListItem>
     );
   }
@@ -113,12 +111,12 @@ export const NavItemSub = forwardRef(({ item, active, open, onMouseEnter, onMous
       disabled={disabled}
       roles={roles}
     >
-      <NavItemContent icon={icon} title={translate(title)} children={children} subItem />
+      <NavItemContent icon={icon} title={title} children={children} subItem />
     </ListItem>
   ) : (
     <NextLink href={path} passHref>
       <ListItem disableRipple activeSub={active} subItem disabled={disabled} roles={roles}>
-        <NavItemContent icon={icon} title={translate(title)} children={children} subItem />
+        <NavItemContent icon={icon} title={title} children={children} subItem />
       </ListItem>
     </NextLink>
   );
@@ -149,8 +147,6 @@ NavItemContent.propTypes = {
 };
 
 function NavItemContent({ icon, title, children, subItem }) {
-  const { translate } = useLocales();
-
   return (
     <>
       {icon && (
@@ -167,7 +163,7 @@ function NavItemContent({ icon, title, children, subItem }) {
         </Box>
       )}
 
-      {translate(title)}
+      {title}
 
       {children && (
         <Iconify
