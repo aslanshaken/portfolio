@@ -51,8 +51,6 @@ export default function HomeHero() {
               </GradientText>
               <Typography
                 variant="h1"
-                fontFamily="Poppins"
-                fontSize={'64px !important'} 
                 color="white"
                 sx={{
                   lineHeight: '164%',
