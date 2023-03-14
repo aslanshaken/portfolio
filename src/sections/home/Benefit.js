@@ -21,6 +21,12 @@ const RootStyle = styled('div')(({ theme }) => ({
   boxShadow: 0,
   background: 'white',
   padding: theme.spacing(1),
+  '& .overlay': {
+    position: 'absolute',
+    background: 'url(/assets/home/benefit_bg.png)',
+    visibility: 'visible !important',
+    opacity: 'unset !important',
+  },
 }));
 
 const RockvilleText = styled(Typography)(({ theme }) => ({
@@ -55,15 +61,7 @@ const STYLES = {
 export default function Benefit() {
   return (
     <RootStyle>
-      <Backdrop
-        open={true}
-        sx={{
-          position: 'absolute',
-          background: 'url(/assets/home/benefit_bg.png)',
-          visibility: 'visible !important',
-          opacity: 'unset !important',
-        }}
-      ></Backdrop>
+      <Backdrop open={true} className="overlay" />      
       <Container maxWidth="xl">
         <Grid container spacing={20}>
           <Grid item md={5} xs={12}>
