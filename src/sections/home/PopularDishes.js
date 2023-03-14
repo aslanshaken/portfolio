@@ -2,25 +2,20 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useRef } from 'react';
 import Slider from 'react-slick';
-import { Box, Typography, Container, Paper } from '@mui/material';
+import { Box, Typography, Container, Paper, useTheme } from '@mui/material';
 import CarouselArrows from './CarouselArrows';
 import GradientText from 'src/components/GradientText';
 import DisheCard from 'src/components/DisheCard';
 import styled from '@emotion/styled';
 
 const RootStyle = styled(Box)(({ theme }) => ({
-  '& .MuiPaper-root': {
-    '&:hover .feature-btn-box': {
-      opacity: 1,
-    },
-  },
   '& .slick-current': {
     '& .MuiPaper-root': {
       boxShadow: theme.customShadows.z12,
       transform: 'scale(1.08)',
       transition: '300ms',
-      '&:hover .feature-btn-box': {
-        opacity: 1,
+      '& .feature-btn-box': {
+        display: 'flex',
       },
     },
   },
@@ -51,6 +46,7 @@ const carouselData = [
 
 export default function PopularDishes() {
   const carouselRef = useRef(null);
+  const theme = useTheme();
 
   const settings = {
     infinite: true,
@@ -58,6 +54,29 @@ export default function PopularDishes() {
     slidesToShow: 3,
     centerMode: true,
     centerPadding: '20px',
+    responsive: [
+      {
+        breakpoint: theme.breakpoints.values['lg'],
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+        },
+      },
+      {
+        breakpoint: theme.breakpoints.values['md'],
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: theme.breakpoints.values['sm'],
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
   const handlePrevious = () => {
     carouselRef.current?.slickPrev();
@@ -67,7 +86,7 @@ export default function PopularDishes() {
     carouselRef.current?.slickNext();
   };
   return (
-    <RootStyle sx={{ position: 'relative', pt: '60px' }}>
+    <RootStyle sx={{ pt: '60px' }}>
       <GradientText color="secondary" variant="subtitle1" sx={{ textAlign: 'center', fontWeight: 700 }}>
         Also you may like
       </GradientText>
@@ -77,30 +96,32 @@ export default function PopularDishes() {
       >
         Most popular dishes
       </Typography>
-      <CarouselArrows
-        onNext={handleNext}
-        onPrevious={handlePrevious}
-        sx={{
-          '& .arrow': {
-            '&.left': { left: 16 },
-            '&.right': { right: 16 },
-          },
-        }}
-      >
-        <Container maxWidth="xl">
-          <Slider ref={carouselRef} {...settings}>
-            {carouselData.map((item) => (
-              <DisheCard
-                key={item.title}
-                name={item.title}
-                cover={`/assets/home/slide/${item.filename}.png`}
-                description={item.description}
-                isActive={item.isActive}
-              />
-            ))}
-          </Slider>
-        </Container>
-      </CarouselArrows>
+      <Box sx={{ position: 'relative' }}>
+        <CarouselArrows
+          onNext={handleNext}
+          onPrevious={handlePrevious}
+          sx={{
+            '& .arrow': {
+              '&.left': { left: 16 },
+              '&.right': { right: 16 },
+            },
+          }}
+        >
+          <Container maxWidth="xl">
+            <Slider ref={carouselRef} {...settings}>
+              {carouselData.map((item) => (
+                <DisheCard
+                  key={item.title}
+                  name={item.title}
+                  cover={`/assets/home/slide/${item.filename}.png`}
+                  description={item.description}
+                  isActive={item.isActive}
+                />
+              ))}
+            </Slider>
+          </Container>
+        </CarouselArrows>
+      </Box>
       <Box mt={10} />
     </RootStyle>
   );

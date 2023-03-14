@@ -34,7 +34,7 @@ export default function DisheCard(props) {
           direction="row"
           justifyContent={'space-between'}
           sx={{
-            opacity: 0,
+            display: 'none',
           }}
         >
           <IconButtonAnimate sx={{ p: 0, width: 33, height: 33 }}>
