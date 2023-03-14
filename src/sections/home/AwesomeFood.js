@@ -85,6 +85,7 @@ export default function AwesomeFood() {
         <Grid container>
           {IMAGES.map((image, index) => (
             <Grid
+              key={image.name}
               item
               md={4}
               xs={12}
