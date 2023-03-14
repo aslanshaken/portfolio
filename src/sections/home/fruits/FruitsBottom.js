@@ -16,7 +16,7 @@ export default function FruitsBottom() {
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center', gap: { md: 20, xs: 5 } }}>
       {IMAGES.map((image) => (
-        <Image src={`/assets/home/bottom_vegetable/${image.name}.png`} alt={image.name} sx={STYLES[image.name]} />
+        <Image key={image.name} src={`/assets/home/bottom_vegetable/${image.name}.png`} alt={image.name} sx={STYLES[image.name]} />
       ))}
     </Box>
   );
