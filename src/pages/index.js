@@ -5,6 +5,8 @@ import Page from '../components/Page';
 // sections
 import HomeHero from '../sections/home/HomeHero';
 import AwesomeFood from '../sections/home/AwesomeFood';
+import Menu from '../sections/home/Menu';
+import Benefit from '../sections/home/Benefit';
 
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
@@ -20,6 +22,8 @@ export default function HomePage() {
     <Page title="The starting point for your next project">
       <HomeHero />
       <AwesomeFood />
+      <Menu />
+      <Benefit />
     </Page>
   );
 }

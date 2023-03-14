@@ -26,7 +26,6 @@ const ImageBox = styled(Box)(() => ({
 const RockvilleText = styled(Typography)(({ theme }) => ({
   fontFamily: 'Rockville',
   color: theme.palette.grey[300_50],
-
   pl: 5,
 }));
 
