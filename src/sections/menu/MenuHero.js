@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
-import { Backdrop, Box, Container, Grid, Stack, Typography } from '@mui/material';
-import { HEADER } from 'src/config';
+import { Backdrop, Box, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import Iconify from 'src/components/Iconify';
-import { IconButtonAnimate } from 'src/components/animate';
+import { HEADER } from '../../config';
+import Iconify from '../../components/Iconify';
+import { IconButtonAnimate } from '../../components/animate';
 import { useRouter } from 'next/router';
 
 const RootStyle = styled('div')(({ theme }) => ({
@@ -17,6 +17,7 @@ const RootStyle = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.background.neutral,
   backgroundPositionX: 'center',
   backgroundRepeat: 'no-repeat',
+  backgroundSize: 'cover',
   [theme.breakpoints.up('md')]: {
     paddingTop: HEADER.MAIN_DESKTOP_HEIGHT,
   },
@@ -60,7 +61,7 @@ export default function MenuHero({ image, title }) {
 
   return (
     <Box>
-      <RootStyle sx={{ backgroundImage: `url(${image})`}}>
+      <RootStyle sx={{ backgroundImage: `url(${image})` }}>
         <Backdrop className="overlay" open />
 
         <Box className="overlay-body">

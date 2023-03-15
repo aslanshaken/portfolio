@@ -8,7 +8,7 @@ import {
   ListItemText,
   Typography,
 } from '@mui/material';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 const allergy_data = [{ name: 'Nuts' }, { name: 'Eggs' }];
 
@@ -34,8 +34,8 @@ export default function MenuAllerogyForm() {
         {allergy_data.map((item, index) => {
           const labelId = `checkbox-list-label-${item.name}`;
           return (
-            <>
-              <ListItemButton className="listItemBtn" key={item.name} onClick={handleCheck(item.name)}>
+            <React.Fragment key={item.name}>
+              <ListItemButton className="listItemBtn" onClick={handleCheck(item.name)}>
                 <ListItemText primary={item.name} id={labelId} />
                 <ListItemSecondaryAction sx={{ marginRight: '-10px' }}>
                   <FormControlLabel
@@ -46,7 +46,7 @@ export default function MenuAllerogyForm() {
                 </ListItemSecondaryAction>
               </ListItemButton>
               {index !== allergy_data.length - 1 && <Divider />}
-            </>
+            </React.Fragment>
           );
         })}
       </List>

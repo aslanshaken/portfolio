@@ -1,3 +1,4 @@
+import React from 'react';
 import { Divider, List, ListItemButton, ListItemText, Typography } from '@mui/material';
 
 const categroy_data = [
@@ -31,14 +32,14 @@ export default function MenuCategoryForm() {
       </Typography>
       <List>
         {categroy_data.map((item, index) => (
-          <>
+          <React.Fragment key={item.name}>
             {index === 0 && <Divider />}
-            <ListItemButton className="listItemBtn" key={item.name}>
+            <ListItemButton className="listItemBtn">
               <ListItemText primary={item.name} />
               <ListItemText secondary={`(${item.count})`} sx={{ textAlign: 'right' }} />
             </ListItemButton>
             <Divider />
-          </>
+          </React.Fragment>
         ))}
       </List>
     </>

@@ -13,11 +13,10 @@ DisheCard.propTypes = {
   name: PropTypes.string,
   cover: PropTypes.string,
   description: PropTypes.string,
-  isActive: PropTypes.bool,
 };
 
 export default function DisheCard(props) {
-  const { name, cover, description, isActive } = props;
+  const { name, cover, description } = props;
 
   return (
     <Card elevation={0} sx={{ m: 5, borderRadius: 1 }} square>

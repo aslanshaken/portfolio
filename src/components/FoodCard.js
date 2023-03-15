@@ -13,8 +13,8 @@ import GradientText from './GradientText';
 FoodCard.propTypes = {
   name: PropTypes.string,
   cover: PropTypes.string,
-  description: PropTypes.string,
-  isActive: PropTypes.bool,
+  price: PropTypes.string,
+  we_kc: PropTypes.string,
 };
 
 export default function FoodCard(props) {
@@ -55,7 +55,7 @@ export default function FoodCard(props) {
           <GradientText color="primary" variant="subtitle1">
             ${price}
           </GradientText>
-          <Typography variant="h6" color={'text.primary'}></Typography>
+          
           <Typography variant="body1" color={colors.grey[400]} letterSpacing={1.5}>
             {we_kc}
           </Typography>

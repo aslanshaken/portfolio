@@ -204,13 +204,12 @@ const RootStyle = styled('div')(({ theme }) => ({
     '& *': {
       border: 0,
     },
-  }
+  },
 }));
 
 // --------------------------------------------
 
 export default function FoodSection() {
-
   return (
     <RootStyle>
       <Container maxWidth="xl">
@@ -246,9 +245,8 @@ export default function FoodSection() {
 
             <Grid container>
               {foodData.map((item) => (
-                <Grid item lg={4} md={6} sm={6} xs={12}>
+                <Grid key={item.id} item lg={4} md={6} sm={6} xs={12}>
                   <FoodCard
-                    key={item.id}
                     name={item.name}
                     cover={`/assets/menu/foods/${item.filename}.png`}
                     price={item.price}

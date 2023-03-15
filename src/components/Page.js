@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Head from 'next/head';
 // @mui
 import { Box } from '@mui/material';
-import getAppInfo from 'src/utils/getAppInfo';
+import getAppInfo from '../utils/getAppInfo';
 
 // ----------------------------------------------------------------------
 

@@ -5,6 +5,7 @@ import Page from '../../components/Page';
 // sections
 import MenuHero from '../../sections/menu/MenuHero';
 import { useRouter } from 'next/router';
+import FoodSection from '../../sections/menu/FoodSection';
 
 // ----------------------------------------------------------------------
 
@@ -46,6 +47,7 @@ export default function Menupage() {
   return (
     <Page title="Menu">
       <MenuHero title={data ? data?.title : "No Data"} image={data?.img} />
+      <FoodSection />
     </Page>
   );
 }
