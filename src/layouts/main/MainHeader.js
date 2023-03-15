@@ -64,6 +64,9 @@ export default function MainHeader() {
       <ToolbarStyle
         disableGutters
         sx={{
+          ...(!isHome && {
+            background: theme.palette.secondary.main,
+          }),
           ...(isOffset && {
             ...cssStyles(theme).bgGradient({ direction: 'right', startColor: '#163E2B', endColor: '#0B2619' }),
             height: { md: HEADER.MAIN_DESKTOP_HEIGHT - 16 },
@@ -99,8 +102,8 @@ export default function MainHeader() {
                 p: 0,
                 ml: {
                   xs: 2,
-                  md: 5
-                }
+                  md: 5,
+                },
               }}
             >
               <MyAvatar sx={{ width: 50, height: 50 }} />
