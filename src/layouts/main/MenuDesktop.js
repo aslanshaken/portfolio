@@ -15,7 +15,7 @@ import Iconify from '../../components/Iconify';
 const LinkStyle = styled(Link)(({ theme }) => ({
   ...theme.typography.subtitle2,
   fontWeight: 400,
-  color: theme.palette.text.primary,
+  color: theme.palette.common.white,
   marginRight: theme.spacing(8),
   transition: theme.transitions.create('opacity', {
     duration: theme.transitions.duration.shorter,
@@ -27,7 +27,6 @@ const LinkStyle = styled(Link)(({ theme }) => ({
 }));
 
 const ListItemStyle = styled(Link)(({ theme }) => ({
-  // ...theme.typography.body2,
   display: 'flex',
   alignItems: 'center',
   padding: 0,
@@ -138,8 +137,6 @@ function MenuDesktopItem({ item, isHome, isOpen, isOffset, onOpen, onClose }) {
             display: 'flex',
             cursor: 'pointer',
             alignItems: 'center',
-            ...(isHome && { color: 'common.white' }),
-            // ...(isOffset && { color: 'text.primary' }),
             ...(isOpen && { opacity: 0.48 }),
           }}
         >
@@ -197,7 +194,6 @@ function MenuDesktopItem({ item, isHome, isOpen, isOffset, onOpen, onClose }) {
                           underline="none"
                           sx={{
                             ...(isActive(item.path) && {
-                              color: 'text.primary',
                               typography: 'subtitle2',
                             }),
                           }}
@@ -249,7 +245,6 @@ function MenuDesktopItem({ item, isHome, isOpen, isOffset, onOpen, onClose }) {
         target="_blank"
         rel="noopener"
         sx={{
-          ...(isHome && { color: 'common.white' }),
           ...(isOffset && { color: 'text.primary' }),
         }}
       >
@@ -262,7 +257,6 @@ function MenuDesktopItem({ item, isHome, isOpen, isOffset, onOpen, onClose }) {
     <NextLink href={path} passHref>
       <LinkStyle
         sx={{
-          ...(isHome && { color: 'common.white' }),
           ...(isActive(path) && {
             color: 'primary.main',
           }),

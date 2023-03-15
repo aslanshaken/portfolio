@@ -4,13 +4,14 @@ import PropTypes from 'prop-types';
 import Head from 'next/head';
 // @mui
 import { Box } from '@mui/material';
+import getAppInfo from 'src/utils/getAppInfo';
 
 // ----------------------------------------------------------------------
 
 const Page = forwardRef(({ children, title = '', meta, ...other }, ref) => (
   <>
     <Head>
-      <title>{`${title} | Hickory United Food`}</title>
+      <title>{`${title} | ${getAppInfo('name')}`}</title>
       {meta}
     </Head>
 

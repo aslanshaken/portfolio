@@ -20,12 +20,12 @@ HomePage.getLayout = function getLayout(page) {
 
 export default function HomePage() {
   return (
-    <Page title="The starting point for your next project">
+    <Page title="Home">
       <HomeHero />
       <AwesomeFood />
       <Menu />
       <Benefit />
-      <PopularDishes/>
+      <PopularDishes />
     </Page>
   );
 }
