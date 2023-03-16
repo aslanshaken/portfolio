@@ -4,6 +4,7 @@ import Layout from '../../layouts';
 import Page from '../../components/Page';
 // sections
 import MenuHero from '../../sections/menu/MenuHero';
+import ChooseCuisine from '../../sections/menu/ChooseCuisine';
 
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
@@ -18,6 +19,7 @@ export default function Menupage() {
   return (
     <Page title="Menu">
       <MenuHero />
+      <ChooseCuisine />
     </Page>
   );
 }

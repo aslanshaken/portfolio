@@ -53,8 +53,7 @@ export default function ChooseCuisine({}) {
   return (
     <>
       <Container maxWidth="lg">
-        asdasda
-        <Grid container spacing={4}>
+        <Grid container spacing={4} py={10}>
           {country_data.map((item) => (
             <Grid item md={6} key={item.country}>
               <ChooseCard country={item.country} title={item.title} />
