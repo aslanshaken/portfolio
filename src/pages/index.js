@@ -5,6 +5,9 @@ import Page from '../components/Page';
 // sections
 import HomeHero from '../sections/home/HomeHero';
 import AwesomeFood from '../sections/home/AwesomeFood';
+import Menu from '../sections/home/Menu';
+import Benefit from '../sections/home/Benefit';
+import PopularDishes from '../sections/home/PopularDishes';
 
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
@@ -17,9 +20,12 @@ HomePage.getLayout = function getLayout(page) {
 
 export default function HomePage() {
   return (
-    <Page title="The starting point for your next project">
+    <Page title="Home">
       <HomeHero />
       <AwesomeFood />
+      <Menu />
+      <Benefit />
+      <PopularDishes />
     </Page>
   );
 }

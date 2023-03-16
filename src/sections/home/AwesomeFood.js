@@ -26,7 +26,6 @@ const ImageBox = styled(Box)(() => ({
 const RockvilleText = styled(Typography)(({ theme }) => ({
   fontFamily: 'Rockville',
   color: theme.palette.grey[300_50],
-
   pl: 5,
 }));
 
@@ -85,6 +84,7 @@ export default function AwesomeFood() {
         <Grid container>
           {IMAGES.map((image, index) => (
             <Grid
+              key={image.name}
               item
               md={4}
               xs={12}

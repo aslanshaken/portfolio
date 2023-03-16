@@ -41,7 +41,7 @@ export default function FruitsTop() {
   return (
     <>
       {IMAGES.map((image) => (
-        <Box sx={POSITIONS[image.name]}>
+        <Box key={image.name} sx={POSITIONS[image.name]}>
           <Image src={`/assets/home/vegetable/${image.name}.png`} alt={image.name} sx={STYLES[image.name]} />
         </Box>
       ))}
