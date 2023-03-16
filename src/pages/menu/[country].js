@@ -16,10 +16,10 @@ Menupage.getLayout = function getLayout(page) {
 // ----------------------------------------------------------------------
 
 const MOCK_DATA = {
-  japan: {
+  mexican: {
     cuisineName: '',
     img: '/assets/menu/hero_bg.png',
-    title: 'Japan Cuisine',
+    title: 'Mapan Cuisine',
     price: '500',
     description: '',
     gram: '',
@@ -30,6 +30,26 @@ const MOCK_DATA = {
     cuisineName: '',
     img: '/assets/menu/hero_bg.png',
     title: 'Italian Cuisine',
+    price: '500',
+    description: '',
+    gram: '',
+    allergies: [{}],
+    typeOfCategories: [{}],
+  },
+  japan: {
+    cuisineName: '',
+    img: '/assets/menu/hero_bg.png',
+    title: 'Japan Cuisine',
+    price: '500',
+    description: '',
+    gram: '',
+    allergies: [{}],
+    typeOfCategories: [{}],
+  },
+  ukrainian: {
+    cuisineName: '',
+    img: '/assets/menu/hero_bg.png',
+    title: 'Ukrainian Cuisine',
     price: '500',
     description: '',
     gram: '',
