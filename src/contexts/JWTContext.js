@@ -24,7 +24,6 @@ const handlers = {
   },
   LOGIN: (state, action) => {
     const { user } = action.payload;
-
     return {
       ...state,
       isAuthenticated: true,
@@ -109,7 +108,7 @@ function AuthProvider({ children }) {
   }, []);
 
   const login = async (email, password) => {
-    const response = await axios.post('/api/account/login', {
+    const response = await axios.post(`/api/${process.env.API_VERSION}/login`, {
       email,
       password,
     });
@@ -125,8 +124,8 @@ function AuthProvider({ children }) {
     });
   };
 
-  const register = async (email, password, firstName, lastName) => {
-    const response = await axios.post('/api/account/register', {
+  const register = async (firstName, lastName, email, password) => {
+    const response = await axios.post(`/api/${process.env.API_VERSION}/register`, {
       email,
       password,
       firstName,

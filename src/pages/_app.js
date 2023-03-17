@@ -26,6 +26,7 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { store } from '../redux/store';
 // theme
 import ThemeProvider from '../theme';
+import { AuthProvider } from 'src/contexts/JWTContext';
 
 // ----------------------------------------------------------------------
 
@@ -46,13 +47,13 @@ export default function MyApp(props) {
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
 
-      <ReduxProvider store={store}>
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <ThemeProvider>
-            {getLayout(<Component {...pageProps} />)}
-          </ThemeProvider>
-        </LocalizationProvider>
-      </ReduxProvider>
+      <AuthProvider>
+        <ReduxProvider store={store}>
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <ThemeProvider>{getLayout(<Component {...pageProps} />)}</ThemeProvider>
+          </LocalizationProvider>
+        </ReduxProvider>
+      </AuthProvider>
     </>
   );
 }
