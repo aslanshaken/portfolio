@@ -13,8 +13,7 @@ export default function Button(theme) {
           },
         },
         sizeLarge: {
-          height: 70,
-          borderRadius: 20,
+          height: 48,
         },
         // contained
         containedInherit: {

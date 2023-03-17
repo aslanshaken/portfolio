@@ -4,6 +4,8 @@ import { styled } from '@mui/material/styles';
 import Image from 'src/components/Image';
 import FruitsTop from './fruits/FruitsTop';
 import FruitsBottom from './fruits/FruitsBottom';
+import NextLink from 'next/link';
+import { PATH_PAGE } from 'src/routes/paths';
 
 // -----------------------------------------------------
 const ImageText = styled(Typography)((theme) => ({
@@ -51,12 +53,12 @@ export default function AwesomeFood() {
   return (
     <>
       <Box sx={{ position: 'relative' }}>
-        <Container maxWidth="xl">
-          <Box pt={10} sx={{ position: 'relative' }}>
+        <Container maxWidth="lg">
+          <Box pt={5} sx={{ position: 'relative' }}>
             <RockvilleText
               variant="h1"
               sx={{
-                fontSize: { md: '150px !important', xs: '100px !important' },
+                fontSize: { md: '7rem !important', xs: '100px !important' },
               }}
             >
               Features
@@ -80,7 +82,7 @@ export default function AwesomeFood() {
           <FruitsTop />
         </Container>
       </Box>
-      <Container maxWidth="xl" sx={{ pt: 6 }}>
+      <Container maxWidth="lg" sx={{ pt: 6 }}>
         <Grid container>
           {IMAGES.map((image, index) => (
             <Grid
@@ -98,7 +100,7 @@ export default function AwesomeFood() {
             >
               <ImageBox>
                 <Image sx={{ width: '100%' }} src={`/assets/home/features/${image.name}.png`} alt={image.name} />
-                <ImageText variant="h2">{image.label}</ImageText>
+                <ImageText variant="h3">{image.label}</ImageText>
               </ImageBox>
             </Grid>
           ))}
@@ -110,12 +112,12 @@ export default function AwesomeFood() {
             variant="h1"
             pl={3}
             sx={{
-              fontSize: { md: '150px !important', xs: '100px !important' },
+              fontSize: { md: '7rem !important', xs: '100px !important' },
             }}
           >
             Welcome
           </RockvilleText>
-          <GradientText color="secondary" variant="subtitle1" sx={{ position: 'absolute', bottom: '35px' }}>
+          <GradientText color="secondary" variant="subtitle1" sx={{ position: 'absolute', bottom: '15px' }}>
             About us
           </GradientText>
         </Box>
@@ -123,7 +125,7 @@ export default function AwesomeFood() {
           <Grid item md={6} xs={12} sx={{ pr: 3 }}>
             <Typography
               variant="h2"
-              sx={{ width: { md: '75%', xs: '100%' }, fontSize: '50px !important', color: 'common.black', mt: '-10px' }}
+              sx={{ width: { md: '75%', xs: '100%' }, fontSize: '50px !important', color: 'common.black',  }}
             >
               Good dishes for better future
             </Typography>
@@ -135,10 +137,11 @@ export default function AwesomeFood() {
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
               dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
             </Typography>
-
-            <Button variant="contained" size="large" sx={{ px: 10, mt: 2 }}>
-              MORE ABOUT US
-            </Button>
+            <NextLink href={PATH_PAGE.aboutUs} passHref>
+              <Button variant="contained" size="large" sx={{ px: 10, mt: 2 }}>
+                MORE ABOUT US
+              </Button>
+            </NextLink>
           </Grid>
           <Grid item md={6} xs={12} sx={{ mt: { md: '-90px', xs: 3 } }}>
             <Image src="/assets/home/cooking.png" alt="cooking" sx={{ borderRadius: 1 }} />
