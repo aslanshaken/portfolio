@@ -6,7 +6,7 @@ module.exports = withTM({
   env: {
     APP_NAME: 'Hickory - United Food',
     // HOST
-    HOST_API_KEY: 'https://fff7-175-101-156-41.in.ngrok.io',
+    HOST_API_KEY: 'https://96a8-175-101-156-41.in.ngrok.io',
     API_VERSION: 'v1'
   },
 });

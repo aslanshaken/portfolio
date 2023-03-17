@@ -6,6 +6,8 @@ import { Box, Button, AppBar, Toolbar, Container, Badge, Stack } from '@mui/mate
 // hooks
 import useOffSetTop from '../../hooks/useOffSetTop';
 import useResponsive from '../../hooks/useResponsive';
+// import { useSnackbar } from 'notistack';
+
 // utils
 import cssStyles from '../../utils/cssStyles';
 // config
@@ -19,6 +21,8 @@ import navConfig from './MenuConfig';
 import { IconButtonAnimate } from 'src/components/animate';
 import { ShoppingCartIcon } from 'src/assets';
 import MyAvatar from 'src/components/MyAvatar';
+import useAuth from 'src/hooks/useAuth';
+import { PATH_AUTH } from 'src/routes/paths';
 
 // ----------------------------------------------------------------------
 
@@ -49,15 +53,36 @@ const ToolbarShadowStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function MainHeader() {
+
+  const { user, logout, isAuthenticated } = useAuth();
   const isOffset = useOffSetTop(HEADER.MAIN_DESKTOP_HEIGHT);
 
   const theme = useTheme();
 
-  const { pathname } = useRouter();
+  const { pathname, push, router } = useRouter();
 
   const isDesktop = useResponsive('up', 'md');
 
+
   const isHome = pathname === '/';
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      router.replace(PATH_AUTH.login);
+
+      if (isMountedRef.current) {
+        handleClose();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleClickAvatar = async () => {
+    if (isAuthenticated) await handleLogout();
+    else push(PATH_AUTH.login);
+  };
 
   return (
     <AppBar sx={{ boxShadow: 0, bgcolor: 'transparent' }}>
@@ -74,7 +99,7 @@ export default function MainHeader() {
         }}
       >
         <Container
-          maxWidth="xl"
+          maxWidth="lg"
           sx={{
             display: 'flex',
             alignItems: 'center',
@@ -90,25 +115,25 @@ export default function MainHeader() {
           <Box sx={{ flexGrow: 1 }} />
 
           <Stack>
-            <Badge badgeContent={3} color="error" sx={{ width: 20, height: 10, top: 3 }} />
+            {/* <Badge badgeContent={3} color="error" sx={{ width: 20, height: 10, top: 3 }} /> */}
             <IconButtonAnimate>
               <ShoppingCartIcon sx={{ width: 28, height: 28 }} />
             </IconButtonAnimate>
           </Stack>
 
-          <Badge badgeContent={3} color="error">
-            <IconButtonAnimate
-              sx={{
-                p: 0,
-                ml: {
-                  xs: 2,
-                  md: 5,
-                },
-              }}
-            >
-              <MyAvatar sx={{ width: 50, height: 50 }} />
-            </IconButtonAnimate>
-          </Badge>
+          {/* <Badge badgeContent={3} color="error"> */}
+          <IconButtonAnimate
+            sx={{
+              p: 0,
+              ml: {
+                xs: 2,
+                md: 5,
+              },
+            }}
+          >
+            <MyAvatar sx={{ width: 50, height: 50 }} onClick={handleClickAvatar} />
+          </IconButtonAnimate>
+          {/* </Badge> */}
 
           {!isDesktop && <MenuMobile isOffset={isOffset} isHome={isHome} navConfig={navConfig} />}
         </Container>

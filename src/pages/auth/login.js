@@ -49,10 +49,10 @@ const RootStyle = styled('div')(({ theme }) => ({
 
 export default function Login() {
   return (
-    <Page title="Auth">
+    <Page title="Login">
       <RootStyle>
         <Container maxWidth={'xs'}>
-          <GradientText variant="h1" color="secondary" mb={2}>
+          <GradientText variant="h2" color="secondary" mb={2}>
             Log in
           </GradientText>
           <Typography color={'text.secondary'} mb={7.5}>

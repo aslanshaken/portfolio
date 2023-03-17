@@ -62,11 +62,11 @@ export default function Benefit() {
   return (
     <RootStyle>
       <Backdrop open={true} className="overlay" />      
-      <Container maxWidth="xl">
+      <Container maxWidth="lg">
         <Grid container spacing={20}>
           <Grid item md={5} xs={12}>
             <RockvilleText
-              pt={10}
+              pt={5}
               variant="h1"
               sx={{
                 fontSize: { md: '150px !important', xs: '100px !important' },

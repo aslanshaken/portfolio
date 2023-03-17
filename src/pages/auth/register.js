@@ -44,10 +44,10 @@ const RootStyle = styled('div')(({ theme }) => ({
 
 export default function Register() {
   return (
-    <Page title="Auth">
+    <Page title="Register">
       <RootStyle>
         <Container maxWidth={'xs'}>
-          <GradientText variant="h1" color="secondary" mb={6}>
+          <GradientText variant="h2" color="secondary" mb={6}>
             Sign Up!
           </GradientText>
           <RegisterForm />

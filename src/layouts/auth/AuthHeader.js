@@ -12,15 +12,13 @@ const ToolbarStyle = styled(Toolbar)(({ theme }) => ({
   }),
   background: theme.palette.background.hero,
   [theme.breakpoints.up('md')]: {
-    height: HEADER.MAIN_DESKTOP_HEIGHT,
     background: 'transparent',
   },
 }));
 
 const LinkStyle = styled(Link)(({ theme }) => ({
   ...theme.typography.subtitle2,
-  fontWeight: 700,
-  fontSize: '1.125rem',
+  fontWeight: 400,
   letterSpacing: '0.05em',
   color: theme.palette.common.white,
   width: '25%',

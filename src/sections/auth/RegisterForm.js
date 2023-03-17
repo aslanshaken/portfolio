@@ -25,7 +25,7 @@ export default function RegisterForm() {
     lastName: Yup.string().required('Last name required'),
     email: Yup.string().email('Email must be a valid email address').required('Email is required'),
     password: Yup.string().required('Password is required'),
-    confirmPassword: Yup.string().required('Password is required'),
+    password_confirmation: Yup.string().required('Password is required'),
   });
 
   const defaultValues = {
@@ -33,7 +33,7 @@ export default function RegisterForm() {
     lastName: '',
     email: '',
     password: '',
-    confirmPassword: '',
+    password_confirmation: '',
   };
 
   const methods = useForm({
@@ -50,7 +50,7 @@ export default function RegisterForm() {
 
   const onSubmit = async (data) => {
     try {
-      await register(data.firstName, data.lastName, data.email, data.password, data.confirmpassword);
+      await register(data.firstName, data.lastName, data.email, data.password, data.password_confirmation);
     } catch (error) {
       console.error(error);
       reset();
@@ -79,7 +79,7 @@ export default function RegisterForm() {
           }}
         />
         <RHFTextField
-          name="confirmPassword"
+          name="password_confirmation"
           label="Confirm password"
           type={showCPassword ? 'text' : 'password'}
           InputProps={{
@@ -93,12 +93,12 @@ export default function RegisterForm() {
           }}
         />
         <Stack direction={'row'} sx={{ alignItems: 'center' }}>
-          <RHFCheckbox name="Accept" label="Accept " />
+          {/* <RHFCheckbox name="Accept" label="Accept " />
           <NextLink href={'/terms'} passHref>
             <Link>
               <Typography className="terms">terms and conditions</Typography>
             </Link>
-          </NextLink>
+          </NextLink> */}
         </Stack>
         <LoadingButton fullWidth size="medium" type="submit" variant="contained" loading={isSubmitting}>
           Continue

@@ -70,10 +70,10 @@ const RootStyle = styled('div')(({ theme }) => ({
 
 export default function CreatePass() {
   return (
-    <Page title="Auth">
+    <Page title="Create Password">
       <RootStyle>
         <Container maxWidth={'xl'}>
-          <GradientText variant="h1" color="secondary" mb={2} className="forgot-title">
+          <GradientText variant="h2" color="secondary" mb={2} className="forgot-title">
             Create new password
           </GradientText>
           <Typography color={'text.secondary'} mb={7.5} className="forgot-description">
