@@ -1,9 +1,12 @@
+// next
+import NextLink from 'next/link';
 // @mui
 import { styled } from '@mui/material/styles';
 import { Box, Stack, Typography, Container, Button, Grid } from '@mui/material';
 import Image from 'src/components/Image';
 import GradientText from 'src/components/GradientText';
 import { HEADER } from 'src/config';
+import { PATH_PAGE } from 'src/routes/paths';
 // ----------------------------------------------------------------------
 
 const RootStyle = styled('div')(({ theme }) => ({
@@ -20,6 +23,7 @@ const RootStyle = styled('div')(({ theme }) => ({
     position: 'fixed',
     alignItems: 'center',
     paddingTop: HEADER.MAIN_DESKTOP_HEIGHT,
+    paddingBottom: HEADER.MAIN_DESKTOP_HEIGHT,
   },
 }));
 
@@ -28,9 +32,16 @@ const RootStyle = styled('div')(({ theme }) => ({
 export default function HomeHero() {
   return (
     <RootStyle>
-      <Container maxWidth="xl">
+      <Container maxWidth="lg">
         <Grid container>
-          <Grid item xs={12} md={6} order={{ xs: 1, md: 0 }} display="flex" justifyContent={{ xs: 'center', md: 'flex-start' }}>
+          <Grid
+            item
+            xs={12}
+            md={6}
+            order={{ xs: 1, md: 0 }}
+            display="flex"
+            justifyContent={{ xs: 'center', md: 'flex-start' }}
+          >
             <Stack
               width={1}
               spacing={1}
@@ -50,23 +61,25 @@ export default function HomeHero() {
                 Delicious
               </GradientText>
               <Typography
-                variant="h1"
+                variant="h2"
                 color="white"
                 sx={{
                   lineHeight: '164%',
                   letterSpacing: '0.05em',
                   fontWeight: 700,
-                  mb: '24px !important'
+                  mb: '24px !important',
                 }}
               >
                 Find out and taste delicious food in the world
               </Typography>
 
               <Box>
-                <Button variant="contained" size="large" sx={{ px: 10 }}>
-                  GO TO MENU
-                  <Image src="/assets/home/arrow.png" sx={{ width: '85px', pl: 1 }} />
-                </Button>
+                <NextLink href={PATH_PAGE.menu} passHref>
+                  <Button variant="contained" size="large" sx={{ px: 10 }}>
+                    GO TO MENU
+                    <Image src="/assets/home/arrow.png" sx={{ width: '85px', pl: 1 }} />
+                  </Button>
+                </NextLink>
               </Box>
             </Stack>
           </Grid>

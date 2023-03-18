@@ -96,7 +96,7 @@ export default function PopularDishes() {
       >
         Most popular dishes
       </Typography>
-      <Box sx={{ position: 'relative' }}>
+      <Box sx={{ position: 'relative', width: '100%',overflowX: 'hidden' }}>
         <CarouselArrows
           onNext={handleNext}
           onPrevious={handlePrevious}
@@ -107,7 +107,7 @@ export default function PopularDishes() {
             },
           }}
         >
-          <Container maxWidth="xl">
+          <Container maxWidth="lg">
             <Slider ref={carouselRef} {...settings}>
               {carouselData.map((item) => (
                 <DisheCard

@@ -2,6 +2,9 @@ import { Backdrop, Box, Button, Container, Grid, Typography } from '@mui/materia
 import { styled } from '@mui/material/styles';
 import GradientText from 'src/components/GradientText';
 import Image from 'src/components/Image';
+// next
+import NextLink from 'next/link';
+import { PATH_PAGE } from 'src/routes/paths';
 
 // ----------------------------------------
 const RootStyle = styled('div')(({ theme }) => ({
@@ -26,7 +29,7 @@ const RockvilleText = styled(Typography)(({ theme }) => ({
 export default function Menu() {
   return (
     <RootStyle>
-      <Container maxWidth="xl">
+      <Container maxWidth="lg">
         <Backdrop
           open={true}
           sx={{
@@ -37,13 +40,13 @@ export default function Menu() {
           }}
         />
         <Grid container>
-          <Grid item md={6} xs={12} py={{ md: 20, sm: 10, xs: 5 }}>
+          <Grid item md={6} xs={12} py={{ md: 10, sm: 5, xs: 5 }}>
             <Box pr={3}>
               <Box sx={{ position: 'relative' }}>
                 <RockvilleText
                   variant="h1"
                   sx={{
-                    fontSize: { md: '150px !important', xs: '100px !important' },
+                    fontSize: { md: '7rem !important', xs: '100px !important' },
                     paddingLeft: 3,
                   }}
                 >
@@ -76,9 +79,11 @@ export default function Menu() {
                 dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
                 aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
               </Typography>
-              <Button variant="contained" size="large" sx={{ px: 10, mt: 6 }}>
-                GO TO MENU
-              </Button>
+              <NextLink href={PATH_PAGE.menu} passHref>
+                <Button variant="contained" size="large" sx={{ px: 10, mt: 6 }}>
+                  GO TO MENU
+                </Button>
+              </NextLink>
             </Box>
           </Grid>
           <Grid item md={6} xs={12} sx={{ mt: { md: '100px' } }}>
