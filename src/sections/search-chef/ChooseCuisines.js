@@ -131,6 +131,7 @@ function ChooseCard({ cuisine, title }) {
             borderRadius: 1,
             border: '1px solid',
             borderColor: colors.grey[200],
+            cursor: 'pointer'
           }}
         >
           <Image

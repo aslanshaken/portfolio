@@ -114,7 +114,7 @@ function ChooseCard({ city, title }) {
   return (
     <RootStyle>
       <NextLink href={PATH_PAGE.searchChef.cities({ city })} passHref>
-        <Card sx={{ position: 'relative', boxShadow: 0, borderRadius: 0 }}>
+        <Card sx={{ position: 'relative', boxShadow: 0, borderRadius: 0, cursor: 'pointer' }}>
           <Image
             src={`/assets/search-chef/country/${city}.png`}
             alt={title}
