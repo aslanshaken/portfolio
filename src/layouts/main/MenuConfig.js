@@ -10,8 +10,8 @@ const menuConfig = [
     path: '/about-us',
   },
   {
-    title: 'Menu',
-    path: '/menu',
+    title: 'Search Chef',
+    path: '/search-chef',
   },
   {
     title: 'Contact Us',

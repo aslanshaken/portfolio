@@ -26,7 +26,7 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { store } from '../redux/store';
 // theme
 import ThemeProvider from '../theme';
-import { AuthProvider } from 'src/contexts/JWTContext';
+import { AuthProvider } from '../contexts/JWTContext';
 
 // ----------------------------------------------------------------------
 

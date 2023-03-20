@@ -2,7 +2,7 @@
 import { useRouter } from 'next/router';
 // @mui
 import { styled, useTheme } from '@mui/material/styles';
-import { Box, Button, AppBar, Toolbar, Container, Badge, Stack } from '@mui/material';
+import { Box, AppBar, Toolbar, Container, Stack } from '@mui/material';
 // hooks
 import useOffSetTop from '../../hooks/useOffSetTop';
 import useResponsive from '../../hooks/useResponsive';
@@ -18,11 +18,11 @@ import Logo from '../../components/Logo';
 import MenuDesktop from './MenuDesktop';
 import MenuMobile from './MenuMobile';
 import navConfig from './MenuConfig';
-import { IconButtonAnimate } from 'src/components/animate';
-import { ShoppingCartIcon } from 'src/assets';
-import MyAvatar from 'src/components/MyAvatar';
-import useAuth from 'src/hooks/useAuth';
-import { PATH_AUTH } from 'src/routes/paths';
+import { IconButtonAnimate } from '../../components/animate';
+import { ShoppingCartIcon } from '../../assets';
+import MyAvatar from '../../components/MyAvatar';
+import useAuth from '../../hooks/useAuth';
+import { PATH_AUTH } from '../../routes/paths';
 
 // ----------------------------------------------------------------------
 
@@ -54,7 +54,7 @@ const ToolbarShadowStyle = styled('div')(({ theme }) => ({
 
 export default function MainHeader() {
 
-  const { user, logout, isAuthenticated } = useAuth();
+  const { logout, isAuthenticated } = useAuth();
   const isOffset = useOffSetTop(HEADER.MAIN_DESKTOP_HEIGHT);
 
   const theme = useTheme();
@@ -70,10 +70,6 @@ export default function MainHeader() {
     try {
       await logout();
       router.replace(PATH_AUTH.login);
-
-      if (isMountedRef.current) {
-        handleClose();
-      }
     } catch (error) {
       console.error(error);
     }

@@ -1,16 +1,14 @@
-import { Backdrop, Box, Container, Grid, Stack, Typography } from '@mui/material';
-import { HEADER } from 'src/config';
+import { Backdrop, Box, Typography } from '@mui/material';
+import { HEADER } from '../../config';
 import { styled } from '@mui/material/styles';
-import Image from 'src/components/Image';
-import Iconify from 'src/components/Iconify';
-import { IconButtonAnimate } from 'src/components/animate';
-import { DropDocumentIcon } from 'src/assets';
+import Iconify from '../../components/Iconify';
+import { IconButtonAnimate } from '../../components/animate';
 
 const RootStyle = styled('div')(({ theme }) => ({
   position: 'relative !important',
   boxShadow: 0,
   paddingTop: HEADER.MOBILE_HEIGHT,
-  backgroundImage: 'url(/assets/menu/hero_bg.png)',
+  backgroundImage: 'url(/assets/search-chef/hero_bg.png)',
   color: theme.palette.common.white,
   display: 'flex',
   justifyContent: 'center',

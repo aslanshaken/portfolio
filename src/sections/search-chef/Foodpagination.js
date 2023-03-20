@@ -27,11 +27,7 @@ export default function Foodpagination() {
       variant="outlined"
       shape="rounded"
       color="primary"
-      renderItem={(item) => {
-        const label = item.type === 'next' ? 'next' : 'previous';
-
-        return <PaginationItem {...item} variant="text" aria-label={item.type === 'next' ? 'next' : 'previous'} />;
-      }}
+      renderItem={(item) => <PaginationItem {...item} variant="text" aria-label={item.type === 'next' ? 'next' : 'previous'} />}
     />
   );
 }

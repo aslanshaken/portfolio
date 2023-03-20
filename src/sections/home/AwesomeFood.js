@@ -1,11 +1,13 @@
-import { Box, Typography, Container, Grid, Button } from '@mui/material';
-import GradientText from 'src/components/GradientText';
+import { Box, Typography, Grid, Button } from '@mui/material';
+import GradientText from '../../components/GradientText';
 import { styled } from '@mui/material/styles';
-import Image from 'src/components/Image';
+import Image from '../../components/Image';
 import FruitsTop from './fruits/FruitsTop';
 import FruitsBottom from './fruits/FruitsBottom';
 import NextLink from 'next/link';
-import { PATH_PAGE } from 'src/routes/paths';
+import { PATH_PAGE } from '../../routes/paths';
+import Container from '../../components/Container';
+
 
 // -----------------------------------------------------
 const ImageText = styled(Typography)((theme) => ({
@@ -53,7 +55,7 @@ export default function AwesomeFood() {
   return (
     <>
       <Box sx={{ position: 'relative' }}>
-        <Container maxWidth="lg">
+        <Container>
           <Box pt={5} sx={{ position: 'relative' }}>
             <RockvilleText
               variant="h1"
@@ -82,8 +84,8 @@ export default function AwesomeFood() {
           <FruitsTop />
         </Container>
       </Box>
-      <Container maxWidth="lg" sx={{ pt: 6 }}>
-        <Grid container>
+      <Container>
+        <Grid container pt={6}>
           {IMAGES.map((image, index) => (
             <Grid
               key={image.name}

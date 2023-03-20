@@ -121,7 +121,7 @@ MenuDesktopItem.propTypes = {
   }),
 };
 
-function MenuDesktopItem({ item, isHome, isOpen, isOffset, onOpen, onClose }) {
+function MenuDesktopItem({ item, isOpen, onOpen, onClose }) {
   const { pathname } = useRouter();
 
   const { title, path, children } = item;

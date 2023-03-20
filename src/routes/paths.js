@@ -5,7 +5,6 @@ function path(root, sublink) {
 }
 
 const ROOTS_AUTH = '/auth';
-const ROOTS_DASHBOARD = '/dashboard';
 
 // ----------------------------------------------------------------------
 
@@ -19,7 +18,14 @@ export const PATH_AUTH = {
 export const PATH_PAGE = {
   home: '/',
   aboutUs: '/about-us',
-  menu: '/menu',
+  searchChef: {
+    root: '/search-chef',
+    cities: ({ city, cuisine, chef } = '') =>
+      path(
+        '/search-chef',
+        `/cities${city ? '/' + city : ''}${cuisine ? '/' + cuisine : ''}${chef ? '/' + chef : ''}`
+      ),
+  },
   contactUs: '/contact-us',
   ingredients: '/ingredients',
 };

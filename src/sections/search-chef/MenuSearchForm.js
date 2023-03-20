@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { InputAdornment, Stack, TextField, Typography } from '@mui/material';
-import { DropDocumentIcon } from 'src/assets';
-import Iconify from 'src/components/Iconify';
+import { DropDocumentIcon } from '../../assets';
+import Iconify from '../../components/Iconify';
 
 const SearchFieldStyle = styled('div')(({ theme }) => ({
   '& .MuiTextField-root': {
