@@ -29,25 +29,46 @@ export default function ChefHeader(theme) {
             <Box px={2} width={'100%'}>
               <Box display={'flex'} justifyContent={'space-between'} flexWrap={'wrap'} width={'100%'}>
                 <Box display={'flex'} gap={2}>
-                  <Avatar
-                    alt="Travis Howard"
-                    src={`/assets/search-chef/chefs/${chef}.png`}
-                    sx={{
-                      width: {
-                        md: 150,
-                        xs: 100,
-                      },
-                      height: {
-                        md: 150,
-                        xs: 100,
-                      },
-                    }}
-                  />
+                  <Box position={'relative'}>
+                    <Avatar
+                      alt="Travis Howard"
+                      src={`/assets/search-chef/chefs/${chef}.png`}
+                      sx={{
+                        width: {
+                          md: 150,
+                          xs: 100,
+                        },
+                        height: {
+                          md: 150,
+                          xs: 100,
+                        },
+                      }}
+                    />
+                    <Iconify
+                      icon={'material-symbols:verified'}
+                      sx={{
+                        position: 'absolute',
+                        top: { xs: 2, md: 8 },
+                        right: { xs: 2, md: 8 },
+                        width: { xs: 20, md: 24 },
+                        height: { xs: 20, md: 24 },
+                        color: '#0ED3CF',
+                      }}
+                    />
+                  </Box>
                   <Box>
-                    <Typography variant="h3" color={'black'}>
+                    <Typography
+                      color={'black'}
+                      sx={(theme) => ({
+                        ...theme.typography.h5,
+                        [theme.breakpoints.up('md')]: {
+                          ...theme.typography.h3,
+                        },
+                      })}
+                    >
                       Sheff's Michael menu
                     </Typography>
-                    <Box display={'flex'} gap={2} flexWrap={'wrap'}>
+                    <Box display={'flex'} gap={2} flexWrap={'wrap'} py={1}>
                       <Typography color={'black'} variant={'subtitle1'}>
                         Japan Cuisine
                       </Typography>
