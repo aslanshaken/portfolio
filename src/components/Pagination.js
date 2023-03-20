@@ -1,9 +1,8 @@
+import { Pagination as MUIpagination, PaginationItem } from '@mui/material';
 
-import { Pagination, PaginationItem } from "@mui/material";
-
-export default function Foodpagination() {
+export default function Pagination() {
   return (
-    <Pagination
+    <MUIpagination
       sx={{
         '& .MuiPaginationItem-root': {
           '&.Mui-selected': {
@@ -22,12 +21,16 @@ export default function Foodpagination() {
         },
         display: 'flex',
         justifyContent: 'end',
+        marginBottom: 4,
+        marginTop: 4
       }}
       count={3}
       variant="outlined"
       shape="rounded"
       color="primary"
-      renderItem={(item) => <PaginationItem {...item} variant="text" aria-label={item.type === 'next' ? 'next' : 'previous'} />}
+      renderItem={(item) => (
+        <PaginationItem {...item} variant="text" aria-label={item.type === 'next' ? 'next' : 'previous'} />
+      )}
     />
   );
 }
