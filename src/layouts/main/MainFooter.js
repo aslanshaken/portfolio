@@ -29,6 +29,13 @@ const RootStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function MainFooter() {
+  const scrollToTop = () =>{
+    window.scrollTo({
+      top: 0, 
+      behavior: 'smooth'
+    });
+  };
+
   return (
     <RootStyle>
       <Divider />
@@ -88,7 +95,10 @@ export default function MainFooter() {
               ))}
             </Box>
 
-            <IconButton sx={{ position: 'absolute', top: 0, right: { xs: 0, sm: '25%' }, borderRadius: 30, p: 0.3 }}>
+            <IconButton
+              onClick={scrollToTop}
+              sx={{ position: 'absolute', top: 0, right: { xs: 0, sm: '25%' }, borderRadius: 30, p: 0.3 }}
+            >
               <ArrowTopIcon />
             </IconButton>
           </Grid>
