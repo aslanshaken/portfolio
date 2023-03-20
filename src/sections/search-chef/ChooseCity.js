@@ -8,6 +8,7 @@ import GradientText from '../../components/GradientText';
 import Iconify from '../../components/Iconify';
 import Image from '../../components/Image';
 import Container from '../../components/Container';
+import Pagination from '../../components/Pagination';
 
 // ----------------------------------------------------------------------
 
@@ -76,13 +77,16 @@ export default function ChooseCity() {
 
         <Divider />
 
-        <Grid container spacing={4} py={10} justifyContent={{ xs: 'center', md: 'flex-start' }}>
+        <Grid container spacing={4} mt={10} justifyContent={{ xs: 'center', md: 'flex-start' }}>
           {city_data.map((item) => (
             <Grid item md={4} key={item.city}>
               <ChooseCard city={item.city} title={item.title} />
             </Grid>
           ))}
         </Grid>
+
+        <Pagination />
+
       </Container>
     </>
   );

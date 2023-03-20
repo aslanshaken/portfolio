@@ -7,9 +7,9 @@ import {
 import Container from '../../components/Container';
 import FoodCard from '../../components/FoodCard';
 import MenuSearchForm from './MenuSearchForm';
-import Foodpagination from './Foodpagination';
 import MenuCategoryForm from './MenuCategoryForm';
 import MenuAllerogyForm from './MenuAllerogyForm';
+import Pagination from '../../components/Pagination';
 // --------------------------------------------
 
 const sort_type = [{ name: 'sort by Popularity' }, { name: 'sort by New' }, { name: 'sort by Oldest' }];
@@ -201,7 +201,7 @@ export default function FoodSection() {
   return (
     <RootStyle>
       <Container>
-        <Grid container spacing={15} pt={15} pb={8}>
+        <Grid container spacing={15} pt={15}>
           <Grid item md={4} xs={12}>
             <MenuSearchForm />
             <MenuCategoryForm />
@@ -243,7 +243,7 @@ export default function FoodSection() {
                 </Grid>
               ))}
             </Grid>
-            <Foodpagination />
+            <Pagination />
           </Grid>
         </Grid>
       </Container>

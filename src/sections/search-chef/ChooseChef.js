@@ -1,16 +1,14 @@
 import styled from '@emotion/styled';
 import { Autocomplete, Box, Link, colors, Grid, InputAdornment, Stack, TextField, Typography } from '@mui/material';
 import FoodCard from '../../components/FoodCard';
-import Foodpagination from './Foodpagination';
 import Container from '../../components/Container';
 import Iconify from '../../components/Iconify';
 import Avatar from '../../components/Avatar';
 import NextLink from 'next/link';
 import { PATH_PAGE } from '../../routes/paths';
 import { useRouter } from 'next/router';
-import { useRef } from 'react';
-import { useTheme } from '@emotion/react';
 import FoodCarousel from './FoodCarousel';
+import Pagination from '../../components/Pagination';
 // --------------------------------------------
 
 const sort_type = [{ name: 'sort by Popularity' }, { name: 'sort by New' }, { name: 'sort by Oldest' }];
@@ -185,7 +183,6 @@ const chefData = [
 // --------------------------------------------
 
 const RootStyle = styled('div')(({ theme }) => ({
-  paddingBottom: 80,
   '& .search_bar': {
     justifyContent: 'space-between',
     marginTop: 2,
@@ -237,42 +234,11 @@ export default function ChooseChef() {
   const router = useRouter();
   const { city } = router.query;
   const { cuisine } = router.query;
-  const carouselRef = useRef(null);
-  const theme = useTheme();
-
-  const settings = {
-    slidesToShow: 3,
-    centerMode: true,
-    centerPadding: '60px',
-    rtl: Boolean(theme.direction === 'rtl'),
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: { slidesToShow: 2 },
-      },
-      {
-        breakpoint: 600,
-        settings: { slidesToShow: 2 },
-      },
-      {
-        breakpoint: 480,
-        settings: { slidesToShow: 1, centerPadding: '0' },
-      },
-    ],
-  };
-
-  const handlePrevious = () => {
-    carouselRef.current?.slickPrev();
-  };
-
-  const handleNext = () => {
-    carouselRef.current?.slickNext();
-  };
 
   return (
     <RootStyle>
       <Container>
-        <Box spacing={15} pt={15} pb={8}>
+        <Box spacing={15} pt={15}>
           <Grid container>
             <Grid item md={4} xs={12}>
               <Typography variant="h3" color={'black'} display={'flex'} alignItems={'center'}>
@@ -405,7 +371,7 @@ export default function ChooseChef() {
             </Box>
           ))}
         </Box>
-        <Foodpagination />
+        <Pagination />
       </Container>
     </RootStyle>
   );
