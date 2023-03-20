@@ -1,11 +1,12 @@
-import { Avatar, Box, Button, colors, Divider, IconButton, Typography, Hidden } from '@mui/material';
+import { Avatar, Box, Button, Divider, IconButton, Typography, Hidden } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { HEADER } from '../../config';
 import Container from '../../components/Container';
 import { useRouter } from 'next/router';
 import Iconify from '../../components/Iconify';
 import GradientText from '../../components/GradientText';
-import cssStyles from '../../utils/cssStyles';
+import { useState } from 'react';
+import ReadMore from '../../components/ReadMore';
 
 const RootStyle = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -17,9 +18,10 @@ const RootStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function ChefHeader(theme) {
+export default function ChefHeader() {
   const router = useRouter();
   const { chef } = router.query;
+  const [ isReadMore, setIsReadMore ] = useState(false);
 
   return (
     <Box>
@@ -84,9 +86,13 @@ export default function ChefHeader(theme) {
                     </Box>
                     <Hidden mdDown>
                       <Box maxWidth={'600px'}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia
-                        in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere
-                        cubilia Curae.
+                        <ReadMore>
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut
+                          lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices
+                          posuere cubilia Curae. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit
+                          nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci
+                          luctus ultrices posuere cubilia Curae.
+                        </ReadMore>
                       </Box>
                     </Hidden>
                   </Box>
@@ -101,7 +107,7 @@ export default function ChefHeader(theme) {
                       mr: 2,
                     }}
                   >
-                    Follow
+                    Follow 
                   </Button>
                   <IconButton color={'secondary'} sx={{ border: '2px solid', borderRadius: '8px' }}>
                     <Iconify icon={'mdi:cards-heart-outline'} />
@@ -110,8 +116,13 @@ export default function ChefHeader(theme) {
               </Box>
               <Hidden mdUp>
                 <Box maxWidth={'600px'}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in,
-                  elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.
+                  <ReadMore>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in,
+                    elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia
+                    Curae. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut
+                    lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere
+                    cubilia Curae.
+                  </ReadMore>
                 </Box>
               </Hidden>
             </Box>
@@ -124,26 +135,26 @@ export default function ChefHeader(theme) {
                   Available dates
                 </Typography>
               </Box>
-              <Box display={'flex'} justifyContent={'space-between'} flexWrap={'wrap'} gap={2} py={2}>
-                <Box bgcolor={'#DAEFE5'} py={2} px={4} borderRadius={1}>
+              <Box display={'flex'} justifyContent={'space-between'} flexWrap={'nowrap'} overflow={'auto'} gap={2} py={2}>
+                <Box bgcolor={'#DAEFE5'} whiteSpace={'nowrap'} py={2} px={4} borderRadius={1}>
                   March 17
                 </Box>
-                <Box bgcolor={'#DAEFE5'} py={2} px={4} borderRadius={1}>
+                <Box bgcolor={'#DAEFE5'} whiteSpace={'nowrap'} py={2} px={4} borderRadius={1}>
                   March 17
                 </Box>
-                <Box bgcolor={'#DAEFE5'} py={2} px={4} borderRadius={1}>
+                <Box bgcolor={'#DAEFE5'} whiteSpace={'nowrap'} py={2} px={4} borderRadius={1}>
                   March 17
                 </Box>
-                <Box bgcolor={'#DAEFE5'} py={2} px={4} borderRadius={1}>
+                <Box bgcolor={'#DAEFE5'} whiteSpace={'nowrap'} py={2} px={4} borderRadius={1}>
                   March 17
                 </Box>
-                <Box bgcolor={'#DAEFE5'} py={2} px={4} borderRadius={1}>
+                <Box bgcolor={'#DAEFE5'} whiteSpace={'nowrap'} py={2} px={4} borderRadius={1}>
                   March 17
                 </Box>
-                <Box bgcolor={'#DAEFE5'} py={2} px={4} borderRadius={1}>
+                <Box bgcolor={'#DAEFE5'} whiteSpace={'nowrap'} py={2} px={4} borderRadius={1}>
                   March 17
                 </Box>
-                <Box bgcolor={'#DAEFE5'} py={2} px={4} borderRadius={1}>
+                <Box bgcolor={'#DAEFE5'} whiteSpace={'nowrap'} py={2} px={4} borderRadius={1}>
                   March 17
                 </Box>
               </Box>
