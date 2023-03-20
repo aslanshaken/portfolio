@@ -142,7 +142,7 @@ export default function MainHeader() {
                 </NextLink>
               </Box>
               <NextLink href={PATH_AUTH.login} passHref>
-                <Button variant="contained" size="medium" sx={{ px: 5 }}>
+                <Button variant="contained" size="medium" sx={{ px: {lg:5, md:0, xs:5} }}>
                   Log in
                 </Button>
               </NextLink>

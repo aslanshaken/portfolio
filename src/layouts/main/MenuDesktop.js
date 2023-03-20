@@ -16,7 +16,6 @@ const LinkStyle = styled(Link)(({ theme }) => ({
   ...theme.typography.subtitle2,
   fontWeight: 400,
   color: theme.palette.common.white,
-  marginRight: theme.spacing(8),
   transition: theme.transitions.create('opacity', {
     duration: theme.transitions.duration.shorter,
   }),
@@ -66,7 +65,7 @@ export default function MenuDesktop({ isOffset, isHome, navConfig }) {
   };
 
   return (
-    <Stack direction="row">
+    <Stack direction="row" sx={{gap:{lg:8, xs:3}}}>
       {navConfig.map((link) => (
         <MenuDesktopItem
           key={link.title}
