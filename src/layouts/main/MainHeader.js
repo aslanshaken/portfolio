@@ -1,8 +1,9 @@
 // next
 import { useRouter } from 'next/router';
+import NextLink from 'next/link';
 // @mui
 import { styled, useTheme } from '@mui/material/styles';
-import { Box, AppBar, Toolbar, Container, Stack } from '@mui/material';
+import { Box, AppBar, Toolbar, Container, Stack, Button } from '@mui/material';
 // hooks
 import useOffSetTop from '../../hooks/useOffSetTop';
 import useResponsive from '../../hooks/useResponsive';
@@ -55,6 +56,7 @@ const ToolbarShadowStyle = styled('div')(({ theme }) => ({
 export default function MainHeader() {
 
   const { logout, isAuthenticated } = useAuth();
+  console.log('isAuthenticated: ', isAuthenticated);
   const isOffset = useOffSetTop(HEADER.MAIN_DESKTOP_HEIGHT);
 
   const theme = useTheme();
@@ -110,25 +112,44 @@ export default function MainHeader() {
 
           <Box sx={{ flexGrow: 1 }} />
 
-          <Stack>
-            {/* <Badge badgeContent={3} color="error" sx={{ width: 20, height: 10, top: 3 }} /> */}
-            <IconButtonAnimate>
-              <ShoppingCartIcon sx={{ width: 28, height: 28 }} />
-            </IconButtonAnimate>
-          </Stack>
-
           {/* <Badge badgeContent={3} color="error"> */}
-          <IconButtonAnimate
-            sx={{
-              p: 0,
-              ml: {
-                xs: 2,
-                md: 5,
-              },
-            }}
-          >
-            <MyAvatar sx={{ width: 50, height: 50 }} onClick={handleClickAvatar} />
-          </IconButtonAnimate>
+          {isAuthenticated ? (
+            <>
+              <Stack>
+                {/* <Badge badgeContent={3} color="error" sx={{ width: 20, height: 10, top: 3 }} /> */}
+                <IconButtonAnimate>
+                  <ShoppingCartIcon sx={{ width: 28, height: 28 }} />
+                </IconButtonAnimate>
+              </Stack>
+              <IconButtonAnimate
+                sx={{
+                  p: 0,
+                  ml: {
+                    xs: 2,
+                    md: 5,
+                  },
+                }}
+              >
+                <MyAvatar sx={{ width: 50, height: 50 }} onClick={handleClickAvatar} />
+              </IconButtonAnimate>
+            </>
+          ) : (
+            <Box display={'flex'} gap={2}>
+              <Box display={{ xs: 'none', md: 'block' }}>
+                <NextLink href={PATH_AUTH.register} passHref>
+                  <Button variant="outlined" size="medium">
+                    Sign up
+                  </Button>
+                </NextLink>
+              </Box>
+              <NextLink href={PATH_AUTH.login} passHref>
+                <Button variant="contained" size="medium" sx={{ px: 5 }}>
+                  Log in
+                </Button>
+              </NextLink>
+            </Box>
+          )}
+
           {/* </Badge> */}
 
           {!isDesktop && <MenuMobile isOffset={isOffset} isHome={isHome} navConfig={navConfig} />}

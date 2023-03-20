@@ -5,7 +5,7 @@ import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 // @mui
 import { alpha, styled } from '@mui/material/styles';
-import { Box, List, Drawer, Collapse, ListItemText, ListItemIcon, ListItemButton } from '@mui/material';
+import { Box, List, Drawer, Collapse, ListItemText, ListItemIcon, ListItemButton, Button } from '@mui/material';
 // config
 import { NAVBAR } from '../../config';
 // components
@@ -14,6 +14,7 @@ import Iconify from '../../components/Iconify';
 import Scrollbar from '../../components/Scrollbar';
 import { IconButtonAnimate } from '../../components/animate';
 import { NavSectionVertical } from '../../components/nav-section';
+import { PATH_AUTH } from '../../routes/paths';
 
 // ----------------------------------------------------------------------
 
@@ -78,12 +79,18 @@ export default function MenuMobile({ isOffset, isHome, navConfig }) {
       >
         <Scrollbar>
           <Logo sx={{ mx: 2.5, my: 3 }} />
-
           <List disablePadding>
             {navConfig.map((link) => (
               <MenuMobileItem key={link.title} item={link} isOpen={open} onOpen={handleOpen} />
             ))}
           </List>
+          <Box mt={2} ml={4}>
+            <NextLink href={PATH_AUTH.register} passHref>
+              <Button variant="outlined" size="medium">
+                Sign up
+              </Button>
+            </NextLink>
+          </Box>
         </Scrollbar>
       </Drawer>
     </>
