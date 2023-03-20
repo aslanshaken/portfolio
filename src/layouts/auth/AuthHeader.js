@@ -11,7 +11,6 @@ const ToolbarStyle = styled(Toolbar)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'end',
   height: HEADER.MOBILE_HEIGHT,
-  minWidth: 430,
   transition: theme.transitions.create(['height', 'background-color'], {
     easing: theme.transitions.easing.easeInOut,
     duration: theme.transitions.duration.shorter,
