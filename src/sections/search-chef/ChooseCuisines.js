@@ -83,8 +83,8 @@ export default function ChooseCuisines() {
           mx="auto"
           maxWidth={'700px'}
         >
-          {cuisines_data.map((item) => (
-            <Grid item md={4} sm={6} xs={12} key={item.cuisine} display={'flex'} justifyContent={'center'}>
+          {cuisines_data.map((item, _i) => (
+            <Grid item md={4} sm={6} xs={12} key={_i} display={'flex'} justifyContent={'center'}>
               <ChooseCard cuisine={item.cuisine} title={item.title} />
             </Grid>
           ))}

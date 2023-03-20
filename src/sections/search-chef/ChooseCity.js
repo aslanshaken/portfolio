@@ -78,8 +78,8 @@ export default function ChooseCity() {
         <Divider />
 
         <Grid container spacing={4} mt={10} justifyContent={{ xs: 'center', md: 'flex-start' }}>
-          {city_data.map((item) => (
-            <Grid item md={4} key={item.city}>
+          {city_data.map((item, _i) => (
+            <Grid item md={4} key={_i}>
               <ChooseCard city={item.city} title={item.title} />
             </Grid>
           ))}
