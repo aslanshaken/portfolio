@@ -5,7 +5,7 @@ import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 // @mui
 import { alpha, styled } from '@mui/material/styles';
-import { Box, List, Link, Drawer, Collapse, ListItemText, ListItemIcon, ListItemButton } from '@mui/material';
+import { Box, List, Drawer, Collapse, ListItemText, ListItemIcon, ListItemButton } from '@mui/material';
 // config
 import { NAVBAR } from '../../config';
 // components

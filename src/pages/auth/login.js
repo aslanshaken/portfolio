@@ -3,10 +3,9 @@ import Layout from '../../layouts';
 // components
 import Page from '../../components/Page';
 // sections
-import Register from '../../sections/auth/RegisterForm';
 import LoginForm from '../../sections/auth/LoginForm';
 import { Container, Typography, styled } from '@mui/material';
-import GradientText from 'src/components/GradientText';
+import GradientText from '../../components/GradientText';
 
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------

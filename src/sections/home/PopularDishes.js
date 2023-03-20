@@ -1,12 +1,12 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import { useRef } from 'react';
 import Slider from 'react-slick';
-import { Box, Typography, Container, Paper, useTheme } from '@mui/material';
+import { Box, Typography, useTheme } from '@mui/material';
 import CarouselArrows from './CarouselArrows';
-import GradientText from 'src/components/GradientText';
-import DisheCard from 'src/components/DisheCard';
+import GradientText from '../../components/GradientText';
+import DisheCard from '../../components/DisheCard';
 import styled from '@emotion/styled';
+import Container from '../../components/Container';
 
 const RootStyle = styled(Box)(({ theme }) => ({
   '& .slick-current': {
@@ -38,7 +38,6 @@ const carouselData = [
   {
     id: '4',
     filename: 'slide1',
-    title: 'slide4',
     title: 'Vestibulum ante ipsum',
     description: 'Ingredients placeholder is here, until we will have our own',
   },
@@ -107,7 +106,7 @@ export default function PopularDishes() {
             },
           }}
         >
-          <Container maxWidth="lg">
+          <Container>
             <Slider ref={carouselRef} {...settings}>
               {carouselData.map((item) => (
                 <DisheCard

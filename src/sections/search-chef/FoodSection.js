@@ -1,22 +1,11 @@
 import styled from '@emotion/styled';
 import {
   Autocomplete,
-  Box,
-  Checkbox,
-  Container,
-  Divider,
-  FormControlLabel,
   Grid,
-  IconButton,
-  InputAdornment,
-  List,
-  ListItemButton,
-  ListItemSecondaryAction,
-  ListItemText,
   TextField,
-  Typography,
 } from '@mui/material';
-import FoodCard from 'src/components/FoodCard';
+import Container from '../../components/Container';
+import FoodCard from '../../components/FoodCard';
 import MenuSearchForm from './MenuSearchForm';
 import Foodpagination from './Foodpagination';
 import MenuCategoryForm from './MenuCategoryForm';
@@ -175,7 +164,6 @@ const foodData = [
 // --------------------------------------------
 
 const RootStyle = styled('div')(({ theme }) => ({
-  backgroundColor: '#F3F3F3',
   '& .search_bar': {
     justifyContent: 'space-between',
     marginTop: 2,
@@ -212,7 +200,7 @@ const RootStyle = styled('div')(({ theme }) => ({
 export default function FoodSection() {
   return (
     <RootStyle>
-      <Container maxWidth="xl">
+      <Container>
         <Grid container spacing={15} pt={15} pb={8}>
           <Grid item md={4} xs={12}>
             <MenuSearchForm />
@@ -221,7 +209,7 @@ export default function FoodSection() {
           </Grid>
           <Grid item md={8}>
             <Grid container sx={{ marginTop: '-20px', marginBottom: '20px' }}>
-              <Grid item md={8} sm={4}></Grid>
+              <Grid item md={8} sm={4} />
               <Grid item md={4} sm={12} xs={12}>
                 <Autocomplete
                   fullWidth
@@ -248,7 +236,7 @@ export default function FoodSection() {
                 <Grid key={item.id} item lg={4} md={6} sm={6} xs={12}>
                   <FoodCard
                     name={item.name}
-                    cover={`/assets/menu/foods/${item.filename}.png`}
+                    cover={`/assets/search-chef/foods/${item.filename}.png`}
                     price={item.price}
                     we_kc={`${item.weight} gr / ${item.kc} kc`}
                   />
