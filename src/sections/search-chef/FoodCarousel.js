@@ -33,7 +33,11 @@ export default function FoodCarousel({foods}) {
     rtl: Boolean(theme.direction === 'rtl'),
     responsive: [
       {
-        breakpoint: 600,
+        breakpoint: 900,
+        settings: { slidesToShow: 4, centerPadding: '0' },
+      },
+      {
+        breakpoint: 650,
         settings: { slidesToShow: 3, centerPadding: '0' },
       },
       {
@@ -56,12 +60,6 @@ export default function FoodCarousel({foods}) {
       <CarouselArrows
         onNext={handleNext}
         onPrevious={handlePrevious}
-        sx={{
-          '& .arrow': {
-            '&.left': { left: 16 },
-            '&.right': { right: 16 },
-          },
-        }}
       >
         <Slider ref={carouselRef} {...settings}>
             {foods.map((food, _i) => (

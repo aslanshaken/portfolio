@@ -8,13 +8,10 @@ import { IconButtonAnimate } from '../animate';
 
 // ----------------------------------------------------------------------
 
-const BUTTON_SIZE = 40;
 
 const ArrowStyle = styled(IconButtonAnimate, {
   shouldForwardProp: (prop) => prop !== 'filled',
 })(({ filled, theme }) => ({
-  width: BUTTON_SIZE,
-  height: BUTTON_SIZE,
   cursor: 'pointer',
   borderRadius: '50%',
   display: 'flex',
@@ -101,10 +98,10 @@ export default function CarouselArrows({
 
 const leftIcon = (customIcon, isRTL) => (
   <Iconify
-    icon={customIcon ? customIcon : 'eva:arrow-right-fill'}
+    icon={customIcon ? customIcon : 'material-symbols:chevron-right'}
     sx={{
-      width: 20,
-      height: 20,
+      width: 30,
+      height: 30,
       transform: ' scaleX(-1)',
       ...(isRTL && { transform: ' scaleX(1)' }),
     }}
@@ -113,10 +110,10 @@ const leftIcon = (customIcon, isRTL) => (
 
 const rightIcon = (customIcon, isRTL) => (
   <Iconify
-    icon={customIcon ? customIcon : 'eva:arrow-right-fill'}
+    icon={customIcon ? customIcon : 'material-symbols:chevron-right'}
     sx={{
-      width: 20,
-      height: 20,
+      width: 30,
+      height: 30,
       ...(isRTL && { transform: ' scaleX(-1)' }),
     }}
   />
