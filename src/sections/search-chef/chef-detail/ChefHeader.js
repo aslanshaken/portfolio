@@ -1,12 +1,12 @@
 import { Avatar, Box, Button, Divider, IconButton, Typography, Hidden } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { HEADER } from '../../config';
-import Container from '../../components/Container';
+import { HEADER } from '../../../config';
+import Container from '../../../components/Container';
 import { useRouter } from 'next/router';
-import Iconify from '../../components/Iconify';
-import GradientText from '../../components/GradientText';
+import Iconify from '../../../components/Iconify';
+import GradientText from '../../../components/GradientText';
 import { useState } from 'react';
-import ReadMore from '../../components/ReadMore';
+import ReadMore from '../../../components/ReadMore';
 
 const RootStyle = styled('div')(({ theme }) => ({
   position: 'relative',

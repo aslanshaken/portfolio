@@ -35,7 +35,7 @@ const foodPersistConfig = {
 };
 
 const rootReducer = combineReducers({
-  product: persistReducer(foodPersistConfig, foodReducer),
+  food: persistReducer(foodPersistConfig, foodReducer),
 });
 
 export { rootPersistConfig, rootReducer };

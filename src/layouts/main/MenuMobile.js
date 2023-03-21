@@ -84,15 +84,20 @@ export default function MenuMobile({ isOffset, isHome, navConfig }) {
               <MenuMobileItem key={link.title} item={link} isOpen={open} onOpen={handleOpen} />
             ))}
           </List>
-          {pathname != '/auth/register' && (
-            <Box mt={2} ml={4}>
-              <NextLink href={PATH_AUTH.register} passHref>
-                <Button variant="outlined" size="medium">
-                  Sign up
-                </Button>
-              </NextLink>
-            </Box>
-          )}
+          <Box mt={2} ml={4}>
+            <NextLink href={PATH_AUTH.register} passHref>
+              <Button variant="outlined" size="medium">
+                Sign up
+              </Button>
+            </NextLink>
+          </Box>
+          <Box mt={2} ml={4}>
+            <NextLink href={PATH_AUTH.login} passHref>
+              <Button variant="contained" size="medium" sx={{ px: { lg: 5, md: 0, xs: 5 } }}>
+                Log in
+              </Button>
+            </NextLink>
+          </Box>
         </Scrollbar>
       </Drawer>
     </>

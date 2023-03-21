@@ -1,4 +1,4 @@
-import { AppBar, Box,  Toolbar, styled, Link } from '@mui/material';
+import { AppBar, Box, Toolbar, styled, Link, Hidden } from '@mui/material';
 import useResponsive from '../../hooks/useResponsive';
 import { HEADER } from '../../config';
 import MenuMobile from '../main/MenuMobile';
@@ -6,6 +6,7 @@ import authConfig from './AuthConfig';
 import useOffSetTop from '../../hooks/useOffSetTop';
 import { useRouter } from 'next/router';
 import NextLink from 'next/link';
+import Logo from 'src/components/Logo';
 
 const ToolbarStyle = styled(Toolbar)(({ theme }) => ({
   display: 'flex',
@@ -69,6 +70,12 @@ export default function AuthHeader() {
           }}
         >
           <ToolbarStyle>
+            <Hidden mdUp>
+              <Logo />
+
+              <Box flexGrow={1} />
+            </Hidden>
+
             {isDesktop ? (
               <>
                 {authConfig.map((item) => (

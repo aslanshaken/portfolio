@@ -5,10 +5,10 @@ import { useRef } from 'react';
 import { alpha, useTheme, styled } from '@mui/material/styles';
 import { Box, Paper, Link, CardContent } from '@mui/material';
 // components
-import Image from '../../components/Image';
-import Iconify from '../../components/Iconify';
-import { CarouselArrows } from '../../components/carousel';
-import FoodCard from '../../components/FoodCard';
+import Image from '../../../components/Image';
+import Iconify from '../../../components/Iconify';
+import { CarouselArrows } from '../../../components/carousel';
+import FoodCard from '../../../components/FoodCard';
 
 // ----------------------------------------------------------------------
 

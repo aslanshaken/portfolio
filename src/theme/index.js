@@ -23,7 +23,7 @@ export default function ThemeProvider({ children }) {
       palette: palette.light,
       typography,
       breakpoints,
-      shape: { borderRadius: 8 },
+      shape: { borderRadius: 5 },
       shadows: shadows.light,
       customShadows: customShadows.light,
     }),

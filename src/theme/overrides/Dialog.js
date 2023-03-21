@@ -4,8 +4,13 @@ export default function Dialog(theme) {
   return {
     MuiDialog: {
       styleOverrides: {
+        root: {
+          '& .MuiBackdrop-root': {
+            backdropFilter: `blur(10px)`,
+            background: `rgba(255, 255, 255, 0.5)`,
+          },
+        },
         paper: {
-          boxShadow: theme.customShadows.dialog,
           '&.MuiPaper-rounded': {
             borderRadius: Number(theme.shape.borderRadius) * 2,
           },

@@ -1,5 +1,7 @@
 // ----------------------------------------------------------------------
 
+import { PATH_PAGE } from '../../routes/paths';
+
 const menuConfig = [
   {
     title: 'Home',
@@ -11,7 +13,7 @@ const menuConfig = [
   },
   {
     title: 'Search Chef',
-    path: '/search-chef',
+    path: PATH_PAGE.searchChef.root,
   },
   {
     title: 'Contact Us',
