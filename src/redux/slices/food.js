@@ -29,7 +29,8 @@ const slice = createSlice({
   initialState,
   reducers: {
     addFoodCart(state, action) {
-      state.checkout.cart = [...state.checkout.cart, action.payload];
+      const newDatas = Array.isArray(action.payload) ? action.payload : [action.payload];
+      state.checkout.cart = [...state.checkout.cart, ...newDatas];
     },
     removeFoodCart(state, action) {
       state.checkout.cart = [...state.checkout.cart.filter(({ _id }) => _id !== action.payload._id)];
@@ -45,4 +46,3 @@ export const { addFoodCart, removeFoodCart } = slice.actions;
 
 // Selector
 export const FOOD_SELECTOR = (state) => state.food;
-

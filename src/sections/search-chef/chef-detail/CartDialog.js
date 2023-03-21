@@ -8,6 +8,8 @@ import { IconButtonAnimate } from 'src/components/animate';
 import Iconify from 'src/components/Iconify';
 import { useRouter } from 'next/router';
 import { PATH_PAGE } from 'src/routes/paths';
+import { useDispatch } from 'src/redux/store';
+import { addFoodCart } from 'src/redux/slices/food';
 
 //
 CartDialog.propTypes = {
@@ -20,10 +22,12 @@ CartDialog.defaultProps = {
 export default function CartDialog({ data, ...other }) {
   const [orderCount, setOrderCount] = useState(1);
 
-  const router = useRouter();
+  const dispatch = useDispatch();
 
   const handleClickAddCart = () => {
-    router.push(PATH_PAGE.cart);
+    const arrDatas = [...Array(orderCount).keys()].map(() => data);
+    dispatch(addFoodCart(arrDatas));
+    other.onClose();
   };
 
   return (
