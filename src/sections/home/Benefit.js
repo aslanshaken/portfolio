@@ -1,7 +1,8 @@
-import { Backdrop, Box, Button, Container, Grid, Typography } from '@mui/material';
+import { Backdrop, Box, Grid, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import Image from 'src/components/Image';
-import MyAvatar from 'src/components/MyAvatar';
+import Image from '../../components/Image';
+import MyAvatar from '../../components/MyAvatar';
+import Container from '../../components/Container';
 
 // --------------------------------------------------------
 
@@ -62,7 +63,7 @@ export default function Benefit() {
   return (
     <RootStyle>
       <Backdrop open={true} className="overlay" />      
-      <Container maxWidth="lg">
+      <Container>
         <Grid container spacing={20}>
           <Grid item md={5} xs={12}>
             <RockvilleText

@@ -5,38 +5,36 @@ import { HEADER } from '../../config';
 import Iconify from '../../components/Iconify';
 import { IconButtonAnimate } from '../../components/animate';
 import { useRouter } from 'next/router';
+import Container from '../../components/Container';
 
 const RootStyle = styled('div')(({ theme }) => ({
   position: 'relative !important',
   boxShadow: 0,
   paddingTop: HEADER.MOBILE_HEIGHT,
-  color: theme.palette.common.white,
+  color: theme.palette.common.black,
   display: 'flex',
   alignItems: 'center',
   width: '100%',
-  backgroundColor: theme.palette.background.neutral,
+  backgroundColor: theme.palette.background.paper,
   backgroundPositionX: 'center',
   backgroundRepeat: 'no-repeat',
   backgroundSize: 'cover',
+  borderBottom: '1px solid #DCDCDC',
   [theme.breakpoints.up('md')]: {
     paddingTop: HEADER.MAIN_DESKTOP_HEIGHT,
   },
   '& .overlay': {
     position: 'absolute',
-    opacity: `0.2 !important`,
+    opacity: `0 !important`,
   },
   '& .overlay-body': {
     width: '100%',
     position: 'relative',
     alignItems: 'center',
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'left',
     paddingTop: 80,
     paddingBottom: 80,
-    [theme.breakpoints.up('md')]: {
-      paddingTop: 200,
-      paddingBottom: 200,
-    },
   },
 }));
 
@@ -47,13 +45,13 @@ MenuHero.propTypes = {
 };
 
 MenuHero.defaultProps = {
-  image: '/assets/menu/hero_bg.png',
+  image: '/assets/search-chef/hero_bg.png',
   title: '',
 };
 
 // ----------------------------------------------------------------------
 
-export default function MenuHero({ image, title }) {
+export default function MenuHero({ title }) {
   const router = useRouter();
 
   const country = router.query?.country;
@@ -61,23 +59,27 @@ export default function MenuHero({ image, title }) {
 
   return (
     <Box>
-      <RootStyle sx={{ backgroundImage: `url(${image})` }}>
-        <Backdrop className="overlay" open />
+      <Container>
+        <RootStyle>
+          <Backdrop className="overlay" open />
 
-        <Box className="overlay-body">
-          {isMainMenuPage && <Typography variant="h2">Choose your cuisine</Typography>}
+          <Box className="overlay-body">
+            {isMainMenuPage && <Typography variant="h2">Choose your city</Typography>}
 
-          {!isMainMenuPage && (
-            <>
-              <Typography variant="h2">{title}</Typography>
+            {!isMainMenuPage && (
+              <>
+                <Typography variant="h2">{title}</Typography>
 
-              <IconButtonAnimate sx={{ p: 0, color: 'inherit', width: 40, height: 40, fontSize: '5rem', mt: 1, ml: 3 }}>
-                <Iconify icon={'material-symbols:keyboard-arrow-down-rounded'} />
-              </IconButtonAnimate>
-            </>
-          )}
-        </Box>
-      </RootStyle>
+                <IconButtonAnimate
+                  sx={{ p: 0, color: 'inherit', width: 40, height: 40, fontSize: '5rem', mt: 1, ml: 3 }}
+                >
+                  <Iconify icon={'material-symbols:keyboard-arrow-down-rounded'} />
+                </IconButtonAnimate>
+              </>
+            )}
+          </Box>
+        </RootStyle>
+      </Container>
     </Box>
   );
 }

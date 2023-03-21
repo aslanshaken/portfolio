@@ -13,14 +13,16 @@ import { LoadingButton } from '@mui/lab';
 import { RHFCheckbox } from '../../components/hook-form/RHFCheckbox';
 import useAuth from '../../hooks/useAuth';
 import { PATH_AUTH } from '../../routes/paths';
-
+import GoogleLogin from 'react-google-login';
 
 // --------------------------------------------------------
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const { login } = useAuth();
 
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { login } = useAuth();
 
   const RegisterSchema = Yup.object().shape({
     email: Yup.string().email('Email must be a valid email address').required('Email is required'),
@@ -53,6 +55,17 @@ export default function LoginForm() {
     }
   };
 
+  // google handlers
+  const handleGoogleLoginSucess = (response) => {
+    console.log('123', response);
+    setIsLoading(false);
+  };
+
+  const handleGoogleLoginFailed = (error) => {
+    console.log('error', error);
+    setIsLoading(false);
+  };
+
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={3}>
@@ -80,13 +93,33 @@ export default function LoginForm() {
             </Link>
           </NextLink>
         </Stack>
+
         <LoadingButton fullWidth size="medium" type="submit" variant="contained" loading={isSubmitting}>
           Continue
         </LoadingButton>
-        <LoadingButton fullWidth size="medium" type="submit" variant="outlined" sx={{ gap: '5px !important' }}>
-          <Iconify icon={'logos:google-icon'} sx={{ width: 20, height: 20 }} />
-          <GradientText color={'secondary'}>Sign in with Google</GradientText>
-        </LoadingButton>
+
+        <GoogleLogin
+          clientId={process.env.GOOGLE_CLIENT_ID}
+          onSuccess={handleGoogleLoginSucess}
+          onFailure={handleGoogleLoginFailed}
+          onRequest={() => {
+            setIsLoading(true);
+          }}
+          render={(renderProps) => (
+            <LoadingButton
+              loading={isLoading}
+              fullWidth
+              size="medium"
+              variant="outlined"
+              sx={{ gap: '5px !important' }}
+              onClick={renderProps.onClick}
+            >
+              <Iconify icon={'logos:google-icon'} sx={{ width: 20, height: 20, mr: 1 }} />
+              <GradientText color={'secondary'}>Sign in with Google</GradientText>
+            </LoadingButton>
+          )}
+        />
+
         <Stack direction={'row'} spacing={1} justifyContent={'center'}>
           <GradientText color={'secondary'}>Don’t have the account?</GradientText>
           <NextLink href={PATH_AUTH.register} passHref>

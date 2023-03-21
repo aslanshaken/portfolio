@@ -2,11 +2,13 @@
 import NextLink from 'next/link';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Box, Stack, Typography, Container, Button, Grid } from '@mui/material';
-import Image from 'src/components/Image';
-import GradientText from 'src/components/GradientText';
-import { HEADER } from 'src/config';
-import { PATH_PAGE } from 'src/routes/paths';
+import { Box, Stack, Typography, Button, Grid } from '@mui/material';
+import Image from '../../components/Image';
+import GradientText from '../../components/GradientText';
+import { HEADER } from '../../config';
+import { PATH_PAGE } from '../../routes/paths';
+import Container from '../../components/Container';
+
 // ----------------------------------------------------------------------
 
 const RootStyle = styled('div')(({ theme }) => ({
@@ -18,7 +20,7 @@ const RootStyle = styled('div')(({ theme }) => ({
     top: 0,
     left: 0,
     width: '100%',
-    height: '100vh',
+    minHeight: '100vh',
     display: 'flex',
     position: 'fixed',
     alignItems: 'center',
@@ -32,7 +34,7 @@ const RootStyle = styled('div')(({ theme }) => ({
 export default function HomeHero() {
   return (
     <RootStyle>
-      <Container maxWidth="lg">
+      <Container>
         <Grid container>
           <Grid
             item
@@ -74,10 +76,10 @@ export default function HomeHero() {
               </Typography>
 
               <Box>
-                <NextLink href={PATH_PAGE.menu} passHref>
+                <NextLink href={PATH_PAGE.searchChef.root} passHref>
                   <Button variant="contained" size="large" sx={{ px: 10 }}>
                     GO TO MENU
-                    <Image src="/assets/home/arrow.png" sx={{ width: '85px', pl: 1 }} />
+                    <Image src="/assets/home/arrow.png" sx={{ width: '85px', pl: 1 }} alt='arrow' />
                   </Button>
                 </NextLink>
               </Box>

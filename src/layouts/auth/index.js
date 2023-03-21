@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material';
 import AuthHeader from './AuthHeader';
-import GuestGuard from 'src/guards/GuestGuard';
+import GuestGuard from '../../guards/GuestGuard';
 
 export default function AuthLayout({ children }) {
   return (

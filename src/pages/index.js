@@ -5,7 +5,7 @@ import Page from '../components/Page';
 // sections
 import HomeHero from '../sections/home/HomeHero';
 import AwesomeFood from '../sections/home/AwesomeFood';
-import Menu from '../sections/home/Menu';
+import SearchChef from '../sections/home/Menu';
 import Benefit from '../sections/home/Benefit';
 import PopularDishes from '../sections/home/PopularDishes';
 
@@ -23,7 +23,7 @@ export default function HomePage() {
     <Page title="Home">
       <HomeHero />
       <AwesomeFood />
-      <Menu />
+      <SearchChef />
       <Benefit />
       <PopularDishes />
     </Page>

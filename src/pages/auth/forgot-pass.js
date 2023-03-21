@@ -5,7 +5,7 @@ import Page from '../../components/Page';
 // sections
 import ForgotPassForm from '../../sections/auth/ForgotPassForm';
 import { Box, Container, Typography, styled } from '@mui/material';
-import GradientText from 'src/components/GradientText';
+import GradientText from '../../components/GradientText';
 
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
@@ -36,7 +36,7 @@ const RootStyle = styled('div')(({ theme }) => ({
     letterSpacing: '0 !important',
     [theme.breakpoints.up('md')]: {
       paddingLeft: theme.spacing(1),
-      paddingLeft: theme.spacing(1),
+      paddingRight: theme.spacing(1),
     },
     [theme.breakpoints.up('lg')]: {
       paddingLeft: theme.spacing(10),
@@ -48,7 +48,7 @@ const RootStyle = styled('div')(({ theme }) => ({
     fontSize: theme.spacing(2.5),
     [theme.breakpoints.up('md')]: {
       paddingLeft: theme.spacing(1),
-      paddingLeft: theme.spacing(1),
+      paddingRight: theme.spacing(1),
     },
     [theme.breakpoints.up('lg')]: {
       marginLeft: 0,

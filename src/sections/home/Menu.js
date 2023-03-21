@@ -1,10 +1,10 @@
-import { Backdrop, Box, Button, Container, Grid, Typography } from '@mui/material';
+import { Backdrop, Box, Button, Grid, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import GradientText from 'src/components/GradientText';
-import Image from 'src/components/Image';
+import Image from '../../components/Image';
+import Container from '../../components/Container';
 // next
 import NextLink from 'next/link';
-import { PATH_PAGE } from 'src/routes/paths';
+import { PATH_PAGE } from '../../routes/paths';
 
 // ----------------------------------------
 const RootStyle = styled('div')(({ theme }) => ({
@@ -29,7 +29,7 @@ const RockvilleText = styled(Typography)(({ theme }) => ({
 export default function Menu() {
   return (
     <RootStyle>
-      <Container maxWidth="lg">
+      <Container>
         <Backdrop
           open={true}
           sx={{
@@ -79,7 +79,7 @@ export default function Menu() {
                 dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
                 aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
               </Typography>
-              <NextLink href={PATH_PAGE.menu} passHref>
+              <NextLink href={PATH_PAGE.searchChef.root} passHref>
                 <Button variant="contained" size="large" sx={{ px: 10, mt: 6 }}>
                   GO TO MENU
                 </Button>

@@ -1,11 +1,16 @@
-import { AppBar, Box, Link, Toolbar, Typography, styled } from '@mui/material';
-import NextLink from 'next/link';
+import { AppBar, Box,  Toolbar, styled, Link } from '@mui/material';
+import useResponsive from '../../hooks/useResponsive';
 import { HEADER } from '../../config';
+import MenuMobile from '../main/MenuMobile';
 import authConfig from './AuthConfig';
+import useOffSetTop from '../../hooks/useOffSetTop';
+import { useRouter } from 'next/router';
+import NextLink from 'next/link';
 
 const ToolbarStyle = styled(Toolbar)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'end',
   height: HEADER.MOBILE_HEIGHT,
-  minWidth: 430,
   transition: theme.transitions.create(['height', 'background-color'], {
     easing: theme.transitions.easing.easeInOut,
     duration: theme.transitions.duration.shorter,
@@ -34,6 +39,11 @@ const LinkStyle = styled(Link)(({ theme }) => ({
 
 //--------------------------------------------------
 export default function AuthHeader() {
+  const { pathname } = useRouter();
+  const isDesktop = useResponsive('up', 'md');
+  const isOffset = useOffSetTop(HEADER.MAIN_DESKTOP_HEIGHT);
+  const isHome = pathname === '/';
+
   return (
     <>
       <Box
@@ -59,19 +69,25 @@ export default function AuthHeader() {
           }}
         >
           <ToolbarStyle>
-            {authConfig.map((item) => (
-              <NextLink href={item.path} passHref key={item.title}>
-                <LinkStyle
-                  sx={{
-                    ...{
-                      color: 'text.white',
-                    },
-                  }}
-                >
-                  {item.title}
-                </LinkStyle>
-              </NextLink>
-            ))}
+            {isDesktop ? (
+              <>
+                {authConfig.map((item) => (
+                  <NextLink href={item.path} passHref key={item.title}>
+                    <LinkStyle
+                      sx={{
+                        ...{
+                          color: 'text.white',
+                        },
+                      }}
+                    >
+                      {item.title}
+                    </LinkStyle>
+                  </NextLink>
+                ))}
+              </>
+            ) : (
+              <MenuMobile isOffset={isOffset} isHome={isHome} navConfig={authConfig} />
+            )}
           </ToolbarStyle>
         </AppBar>
       </Box>

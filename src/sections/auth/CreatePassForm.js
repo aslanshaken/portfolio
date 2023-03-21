@@ -1,15 +1,13 @@
 import * as Yup from 'yup';
 // next
-import NextLink from 'next/link';
-import { IconButton, InputAdornment, Link, Stack, Typography } from '@mui/material';
+import { IconButton, InputAdornment, Stack } from '@mui/material';
 import FormProvider from '../../components/hook-form/FormProvider';
 import { RHFTextField } from '../../components/hook-form';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { LoadingButton } from '@mui/lab';
 import { useState } from 'react';
-import Iconify from 'src/components/Iconify';
-import { RHFCheckbox } from 'src/components/hook-form/RHFCheckbox';
+import Iconify from '../../components/Iconify';
 
 // --------------------------------------------------------
 
@@ -34,9 +32,8 @@ export default function CreatePassForm() {
 
   const {
     reset,
-    setError,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { isSubmitting },
   } = methods;
 
   const onSubmit = async (data) => {

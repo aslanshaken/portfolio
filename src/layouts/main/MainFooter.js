@@ -2,14 +2,14 @@
 import NextLink from 'next/link';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Grid, Link, Divider, Container, Typography, Stack, IconButton } from '@mui/material';
+import { Grid, Link, Divider, Container, Typography, IconButton } from '@mui/material';
 // routes
 import { PATH_PAGE } from '../../routes/paths';
 // components
 import Logo from '../../components/Logo';
-import GradientText from 'src/components/GradientText';
-import SocialsButton from 'src/components/SocialsButton';
-import { ArrowTopIcon } from 'src/assets';
+import GradientText from '../../components/GradientText';
+import SocialsButton from '../../components/SocialsButton';
+import { ArrowTopIcon } from '../../assets';
 import { Box } from '@mui/system';
 
 // ----------------------------------------------------------------------
@@ -29,6 +29,13 @@ const RootStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function MainFooter() {
+  const scrollToTop = () =>{
+    window.scrollTo({
+      top: 0, 
+      behavior: 'smooth'
+    });
+  };
+
   return (
     <RootStyle>
       <Divider />
@@ -88,7 +95,10 @@ export default function MainFooter() {
               ))}
             </Box>
 
-            <IconButton sx={{ position: 'absolute', top: 0, right: { xs: 0, sm: '25%' }, borderRadius: 30, p: 0.3 }}>
+            <IconButton
+              onClick={scrollToTop}
+              sx={{ position: 'absolute', top: 0, right: { xs: 0, sm: '25%' }, borderRadius: 30, p: 0.3 }}
+            >
               <ArrowTopIcon />
             </IconButton>
           </Grid>
