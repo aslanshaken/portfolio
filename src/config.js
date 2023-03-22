@@ -1,6 +1,11 @@
 // API
+
+import { PATH_DASHBOARD } from './routes/paths';
+
 // ----------------------------------------------------------------------
 export const MAPBOX_API = process.env.MAPBOX_API;
+
+export const PATH_AFTER_LOGIN = PATH_DASHBOARD.account;
 
 // LAYOUT
 // ----------------------------------------------------------------------
