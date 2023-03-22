@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { styled } from '@mui/material/styles';
 import { Typography, Box } from '@mui/material';
 //
-import Image from './Image';
 
 // ----------------------------------------------------------------------
 
@@ -21,11 +20,10 @@ const RootStyle = styled(Box)(({ theme }) => ({
 
 EmptyContent.propTypes = {
   title: PropTypes.string.isRequired,
-  img: PropTypes.string,
   description: PropTypes.string,
 };
 
-export default function EmptyContent({ title, description, img, ...other }) {
+export default function EmptyContent({ title, description, ...other }) {
   return (
     <RootStyle {...other}>
 

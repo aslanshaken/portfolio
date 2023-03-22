@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 // @mui
-import { Box, Checkbox, TableRow, TableCell, TableHead, TableSortLabel } from '@mui/material';
+import { Box, TableRow, TableCell, TableHead, TableSortLabel } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -29,16 +29,7 @@ TableHeadCustom.propTypes = {
   sx: PropTypes.object,
 };
 
-export default function TableHeadCustom({
-  order,
-  orderBy,
-  rowCount = 0,
-  headLabel,
-  numSelected = 0,
-  onSort,
-  onSelectAllRows,
-  sx,
-}) {
+export default function TableHeadCustom({ order, orderBy, headLabel, onSort, sx }) {
   return (
     <TableHead sx={sx}>
       <TableRow>

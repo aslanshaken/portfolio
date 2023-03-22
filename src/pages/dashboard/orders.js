@@ -1,29 +1,13 @@
 // layouts
 import Layout from '../../layouts';
 // components
-import {
-  Autocomplete,
-  Box,
-  Divider,
-  FormControlLabel,
-  Grid,
-  Stack,
-  Table,
-  TableBody,
-  TableContainer,
-  TablePagination,
-  TextField,
-} from '@mui/material';
+import { Autocomplete, Box, Stack, Table, TableBody, TableContainer, TextField } from '@mui/material';
 import Page from '../../components/Page';
-import Profile from '../../sections/@dashboard/account/Profile';
-import AccountInformationForm from '../../sections/@dashboard/account/AccountInformationForm';
-import AccountPasswordForm from 'src/sections/@dashboard/account/AccountPasswordForm';
-import Container from 'src/components/Container';
 import Scrollbar from 'src/components/Scrollbar';
 import { TableEmptyRows, TableHeadCustom, TableNoData } from 'src/components/table';
 import OrderTableRow from 'src/sections/@dashboard/orders/OrderTableRow';
 import { useState } from 'react';
-import useTable, { emptyRows, getComparator } from 'src/hooks/useTable';
+import useTable, { emptyRows } from 'src/hooks/useTable';
 import Pagination from 'src/components/Pagination';
 // sections
 
@@ -93,34 +77,11 @@ OrderPage.getLayout = function getLayout(page) {
 // ----------------------------------------------------------------------
 
 export default function OrderPage() {
-  const {
-    dense,
-    page,
-    order,
-    orderBy,
-    rowsPerPage,
-    setPage,
-    //
-    selected,
-    setSelected,
-    onSelectRow,
-    onSelectAllRows,
-    //
-    onSort,
-    onChangeDense,
-    onChangePage,
-    onChangeRowsPerPage,
-  } = useTable({
+  const { page, order, orderBy, rowsPerPage } = useTable({
     defaultOrderBy: 'order_number',
   });
 
   const [tableData, setTableData] = useState(datas);
-
-  const [filterName, setFilterName] = useState('');
-
-  const [filterRole, setFilterRole] = useState('');
-
-  const { filterStatus, onChangeFilterStatus } = useState('');
 
   const dataFiltered = tableData;
 
@@ -178,15 +139,7 @@ export default function OrderPage() {
 
             <TableBody>
               {dataFiltered.map((row) => (
-                <OrderTableRow
-                  headLabel={TABLE_HEAD}
-                  key={row._id}
-                  row={row}
-                  selected={selected.includes(row.id)}
-                  onSelectRow={() => onSelectRow(row.id)}
-                  onDeleteRow={() => handleDeleteRow(row.id)}
-                  onEditRow={() => handleEditRow(row.name)}
-                />
+                <OrderTableRow headLabel={TABLE_HEAD} key={row._id} row={row} />
               ))}
 
               <TableEmptyRows emptyRows={emptyRows(page, rowsPerPage, tableData.length)} />
@@ -202,32 +155,4 @@ export default function OrderPage() {
       <Pagination />
     </Page>
   );
-}
-
-// ----------------------------------------------------------------------
-
-function applySortFilter({ tableData, comparator, filterName, filterStatus, filterRole }) {
-  const stabilizedThis = tableData.map((el, index) => [el, index]);
-
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) return order;
-    return a[1] - b[1];
-  });
-
-  tableData = stabilizedThis.map((el) => el[0]);
-
-  if (filterName) {
-    tableData = tableData.filter((item) => item.name.toLowerCase().indexOf(filterName.toLowerCase()) !== -1);
-  }
-
-  if (filterStatus !== 'all') {
-    tableData = tableData.filter((item) => item.status === filterStatus);
-  }
-
-  if (filterRole !== 'all') {
-    tableData = tableData.filter((item) => item.role === filterRole);
-  }
-
-  return tableData;
 }

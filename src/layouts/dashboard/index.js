@@ -26,8 +26,8 @@ const MainStyle = styled('main', {
 })(({ collapseClick, theme }) => ({
   flexGrow: 1,
   paddingBottom: HEADER.MOBILE_HEIGHT + 24,
-  paddingLeft: theme.spacing(1),
-  paddingRight: theme.spacing(1),
+  paddingLeft: theme.spacing(2),
+  paddingRight: theme.spacing(2),
   paddingTop: theme.spacing(1),
   [theme.breakpoints.up('md')]: {
     paddingLeft: theme.spacing(5),

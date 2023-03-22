@@ -61,7 +61,7 @@ export default function AccountPasswordForm() {
           type={showPassword ? 'text' : 'password'}
           InputProps={{
             endAdornment: (
-              <InputAdornment>
+              <InputAdornment position="start">
                 <IconButton onClick={() => setShowPassword(!showPassword)}>
                   <Iconify icon={showPassword ? 'ph:eye-slash-light' : 'ic:outline-remove-red-eye'} />
                 </IconButton>

@@ -143,7 +143,7 @@ export default function WishlistPage() {
     <Page title="Personal Account : Dashboard">
       <Grid container spacing={3}>
         {foodData.map((item) => (
-          <Grid item xs={12} sm={6} md={4} lg={3}>
+          <Grid key={item.id} item xs={12} sm={6} md={4} lg={3}>
             <FoodCartCard
               name={item.name}
               cover={`/assets/search-chef/foods/${item.filename}.png`}
