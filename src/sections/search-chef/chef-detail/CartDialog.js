@@ -2,14 +2,12 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { LoadingButton } from '@mui/lab';
 import { Box, Dialog, Divider, Grid, Stack, styled, Typography } from '@mui/material';
-import GradientText from 'src/components/GradientText';
-import Image from 'src/components/Image';
-import { IconButtonAnimate } from 'src/components/animate';
-import Iconify from 'src/components/Iconify';
-import { useRouter } from 'next/router';
-import { PATH_PAGE } from 'src/routes/paths';
-import { useDispatch } from 'src/redux/store';
-import { addFoodCart } from 'src/redux/slices/food';
+import GradientText from '../../../components/GradientText';
+import Image from '../../../components/Image';
+import { IconButtonAnimate } from '../../../components/animate';
+import Iconify from '../../../components/Iconify';
+import { useDispatch } from '../../../redux/store';
+import { addFoodCart } from '../../../redux/slices/food';
 
 //
 CartDialog.propTypes = {
@@ -108,6 +106,11 @@ const CartCountStyle = styled(Stack)(({ theme }) => ({
   alignItems: 'center',
   cursor: 'pointer',
 }));
+
+CartCountBox.propTypes = {
+  value: PropTypes.any,
+  onChange: PropTypes.func,
+};
 
 function CartCountBox({ value = 0, onChange }) {
   const handleChange = (type) => {

@@ -25,8 +25,8 @@ import { ShoppingCartIcon } from '../../assets';
 import MyAvatar from '../../components/MyAvatar';
 import useAuth from '../../hooks/useAuth';
 import { PATH_AUTH, PATH_PAGE } from '../../routes/paths';
-import { useSelector } from 'src/redux/store';
-import { FOOD_SELECTOR } from 'src/redux/slices/food';
+import { useSelector } from '../../redux/store';
+import { FOOD_SELECTOR } from '../../redux/slices/food';
 
 const Badge = dynamic(() => import('@mui/material/Badge'), { ssr: false })
 

@@ -1,8 +1,9 @@
-import { Box, Grid, Stack, styled, Typography } from '@mui/material';
-import Avatar from 'src/components/Avatar';
-import Iconify from 'src/components/Iconify';
-import Image from 'src/components/Image';
-import cssStyles from 'src/utils/cssStyles';
+import PropTypes from 'prop-types';
+import { Box, Stack, styled, Typography } from '@mui/material';
+import Avatar from '../../components/Avatar';
+import Iconify from '../../components/Iconify';
+import Image from '../../components/Image';
+import cssStyles from '../../utils/cssStyles';
 
 const RootStyle = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -32,6 +33,14 @@ const InfoStyle = styled('div')(({ theme }) => ({
 }));
 
 //
+
+ProfileCover.propTypes = {
+  cover: PropTypes.string,
+  avatar: PropTypes.string,
+  name: PropTypes.string,
+  cuisineType: PropTypes.string,
+};
+
 export default function ProfileCover({
   cover = '/assets/cart/cheff-back.png',
   avatar = '/assets/search-chef/chefs/adam-sandler.png',

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 // @mui
-import { Autocomplete, Grid, TextField, Card, Box, Stack, Typography, colors, Collapse } from '@mui/material';
+import { Autocomplete, Grid, TextField, Card, Box, Stack, Typography, colors } from '@mui/material';
 // components
 import Container from '../../../components/Container';
 import Pagination from '../../../components/Pagination';
@@ -14,11 +14,11 @@ import { IconButtonAnimate } from '../../../components/animate';
 import MenuSearchForm from './MenuSearchForm';
 import MenuCategoryForm from './MenuCategoryForm';
 import MenuAllerogyForm from './MenuAllerogyForm';
-import DropHiddenButton from 'src/components/DropHiddenButton';
+import DropHiddenButton from '../../../components/DropHiddenButton';
 import CartDialog from './CartDialog';
-import { useDispatch } from 'src/redux/store';
-import { addFoodCart } from 'src/redux/slices/food';
-import { getMockTypeData } from 'src/utils/functions';
+import { useDispatch } from '../../../redux/store';
+import { addFoodCart } from '../../../redux/slices/food';
+import { getMockTypeData } from '../../../utils/functions';
 // --------------------------------------------
 
 const sort_type = [{ name: 'sort by Popularity' }, { name: 'sort by New' }, { name: 'sort by Oldest' }];
@@ -330,7 +330,7 @@ const RootStyle = styled('div')(({ theme }) => ({
   },
 }));
 
-const SideBarStyle = styled(Box)(({ theme }) => ({
+const SideBarStyle = styled(Box)(() => ({
   '& *': {
     transition: '500ms !important',
   },
@@ -429,8 +429,12 @@ export default function FoodSection() {
 ItemCard.propTypes = {
   name: PropTypes.string,
   cover: PropTypes.string,
+  price: PropTypes.string,
+  we_kc: PropTypes.string,
   description: PropTypes.string,
   isActive: PropTypes.bool,
+  onClick: PropTypes.func,
+  onClickPlus: PropTypes.func,
 };
 
 function ItemCard(props) {
@@ -472,7 +476,7 @@ function ItemCard(props) {
           <GradientText color="primary" variant="subtitle1">
             ${price}
           </GradientText>
-          <Typography variant="h6" color={'text.primary'}></Typography>
+          <Typography variant="h6" color={'text.primary'} />
           <Typography variant="body1" color={colors.grey[400]} letterSpacing={1.5}>
             {we_kc}
           </Typography>

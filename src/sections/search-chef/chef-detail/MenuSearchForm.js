@@ -1,7 +1,5 @@
 import styled from '@emotion/styled';
 import { Box, InputAdornment, Stack, TextField, Typography } from '@mui/material';
-import DropHiddenButton from 'src/components/DropHiddenButton';
-import { DropDocumentIcon } from '../../../assets';
 import Iconify from '../../../components/Iconify';
 
 const SearchFieldStyle = styled('div')(({ theme }) => ({

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import {
   Box,
   Checkbox,
@@ -13,6 +14,10 @@ import {
 import React, { useState } from 'react';
 
 const allergy_data = [{ name: 'Nuts' }, { name: 'Eggs' }];
+
+MenuAllerogyForm.propTypes = {
+  isOpen: PropTypes.bool,
+};
 
 export default function MenuAllerogyForm({ isOpen = true, ...other }) {
   const [checked, setChecked] = useState([0]);

@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 // @mui
 import { useTheme, styled } from '@mui/material/styles';
-import { Box, IconButton, Stack } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 //
-import Iconify from 'src/components/Iconify';
-import { IconButtonAnimate } from 'src/components/animate';
+import Iconify from '../../components/Iconify';
+import { IconButtonAnimate } from '../../components/animate';
 
 // ----------------------------------------------------------------------
 
@@ -54,6 +54,7 @@ export default function CarouselArrows({
   onNext,
   onPrevious,
   children,
+  filled,
   ...other
 }) {
   const theme = useTheme();
@@ -97,7 +98,7 @@ export default function CarouselArrows({
 
 // ----------------------------------------------------------------------
 
-const leftIcon = (customIcon, isRTL) => (
+const leftIcon = (customIcon) => (
   <Iconify
     icon={customIcon ? customIcon : 'material-symbols:arrow-back-ios-new-rounded'}
     sx={{
@@ -107,7 +108,7 @@ const leftIcon = (customIcon, isRTL) => (
   />
 );
 
-const rightIcon = (customIcon, isRTL) => (
+const rightIcon = (customIcon) => (
   <Iconify
     icon={customIcon ? customIcon : 'material-symbols:arrow-forward-ios-rounded'}
     sx={{

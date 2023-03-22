@@ -379,7 +379,7 @@ export default function ChooseChef() {
 
 // -------------------------------------------------
 
-function VisitChef({}) {
+function VisitChef() {
   return (
     <VisitChefLinkStyle underline="none">
       <Stack direction="row" spacing={1}>

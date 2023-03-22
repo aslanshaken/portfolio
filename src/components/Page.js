@@ -36,7 +36,7 @@ const Page = forwardRef(({ children, title = '', meta, gutterTop = false, ...oth
 Page.propTypes = {
   children: PropTypes.node.isRequired,
   title: PropTypes.string,
-  topGutter: PropTypes.bool,
+  gutterTop: PropTypes.bool,
   meta: PropTypes.node,
 };
 

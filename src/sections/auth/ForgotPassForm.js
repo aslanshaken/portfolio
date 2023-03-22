@@ -1,6 +1,5 @@
 import * as Yup from 'yup';
 // next
-import NextLink from 'next/link';
 import {Stack } from '@mui/material';
 import FormProvider from '../../components/hook-form/FormProvider';
 import { RHFTextField } from '../../components/hook-form';
@@ -26,14 +25,14 @@ export default function ForgotPassForm() {
 
   const {
     reset,
-    setError,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { isSubmitting },
   } = methods;
 
   const onSubmit = async (data) => {
     try {
-      await ForgotPassword(data.email_phone);
+      console.log(data);
+      // await ForgotPassword(data.email_phone);
     } catch (error) {
       console.error(error);
       reset();

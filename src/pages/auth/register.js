@@ -4,7 +4,7 @@ import Layout from '../../layouts';
 import Page from '../../components/Page';
 // sections
 import RegisterForm from '../../sections/auth/RegisterForm';
-import { Container, styled } from '@mui/material';
+import { Container } from '@mui/material';
 import GradientText from '../../components/GradientText';
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------

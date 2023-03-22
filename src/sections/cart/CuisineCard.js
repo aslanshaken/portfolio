@@ -1,9 +1,15 @@
+import PropTypes from 'prop-types';
 import { Box, Stack, Typography } from '@mui/material';
-import { IconButtonAnimate } from 'src/components/animate';
-import Iconify from 'src/components/Iconify';
-import Image from 'src/components/Image';
+import { IconButtonAnimate } from '../../components/animate';
+import Iconify from '../../components/Iconify';
+import Image from '../../components/Image';
 
 //
+
+CuisineCard.propTypes = {
+  data: PropTypes.object,
+};
+
 export default function CuisineCard({ data = {} }) {
   return (
     <Stack direction={'row'} alignItems={'center'} spacing={2} width={1}>
@@ -25,9 +31,7 @@ export default function CuisineCard({ data = {} }) {
       <Box sx={{ flexGrow: 1 }} />
 
       <Box sx={{ backgroundColor: 'background.paper', py: 1.5, px: 3, borderRadius: 1 }}>
-        <Typography color="text.secondary">
-          {'2'}
-        </Typography>
+        <Typography color="text.secondary">{'2'}</Typography>
       </Box>
 
       <IconButtonAnimate color="error">

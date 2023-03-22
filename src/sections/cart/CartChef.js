@@ -1,8 +1,5 @@
 import { LoadingButton } from '@mui/lab';
-import { Backdrop, Box, Stack } from '@mui/material';
-import Avatar from 'src/components/Avatar';
-import Iconify from 'src/components/Iconify';
-import Image from 'src/components/Image';
+import { Box, Stack } from '@mui/material';
 import CuisineList from './CuisineList';
 import ProfileCover from './ProfileCover';
 

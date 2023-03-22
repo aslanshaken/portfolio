@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Box, Collapse, Divider, List, ListItemButton, ListItemText, Typography } from '@mui/material';
 
@@ -23,6 +24,10 @@ const categroy_data = [
     count: '9',
   },
 ];
+
+MenuCategoryForm.propTypes = {
+  isOpen: PropTypes.bool,
+};
 
 export default function MenuCategoryForm({ isOpen = true, ...other }) {
   return (

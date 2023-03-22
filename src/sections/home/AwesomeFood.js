@@ -8,9 +8,8 @@ import NextLink from 'next/link';
 import { PATH_PAGE } from '../../routes/paths';
 import Container from '../../components/Container';
 
-
 // -----------------------------------------------------
-const ImageText = styled(Typography)((theme) => ({
+const ImageText = styled(Typography)(() => ({
   position: 'absolute',
   color: 'white',
   width: '100%',
@@ -127,7 +126,7 @@ export default function AwesomeFood() {
           <Grid item md={6} xs={12} sx={{ pr: 3 }}>
             <Typography
               variant="h2"
-              sx={{ width: { md: '75%', xs: '100%' }, fontSize: '50px !important', color: 'common.black',  }}
+              sx={{ width: { md: '75%', xs: '100%' }, fontSize: '50px !important', color: 'common.black' }}
             >
               Good dishes for better future
             </Typography>

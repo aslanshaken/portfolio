@@ -5,7 +5,6 @@ import Container from '../../../components/Container';
 import { useRouter } from 'next/router';
 import Iconify from '../../../components/Iconify';
 import GradientText from '../../../components/GradientText';
-import { useState } from 'react';
 import ReadMore from '../../../components/ReadMore';
 
 const RootStyle = styled('div')(({ theme }) => ({
@@ -21,7 +20,6 @@ const RootStyle = styled('div')(({ theme }) => ({
 export default function ChefHeader() {
   const router = useRouter();
   const { chef } = router.query;
-  const [ isReadMore, setIsReadMore ] = useState(false);
 
   return (
     <Box>

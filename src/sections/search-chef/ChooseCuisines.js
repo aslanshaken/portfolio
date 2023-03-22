@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Card, colors, Divider, Grid, Stack } from '@mui/material';
+import { colors, Divider, Grid, Stack } from '@mui/material';
 import { Box } from '@mui/system';
 import NextLink from 'next/link';
 import PropTypes from 'prop-types';

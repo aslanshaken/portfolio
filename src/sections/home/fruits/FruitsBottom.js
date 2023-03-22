@@ -1,6 +1,6 @@
 // @mui
 import { Box } from '@mui/material';
-import Image from 'src/components/Image';
+import Image from '../../../components/Image';
 
 // -----------------------------------------------------
 const STYLES = {

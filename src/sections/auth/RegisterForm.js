@@ -1,7 +1,6 @@
 import * as Yup from 'yup';
 // next
-import NextLink from 'next/link';
-import { IconButton, InputAdornment, Link, Stack, Typography } from '@mui/material';
+import { IconButton, InputAdornment, Stack } from '@mui/material';
 import FormProvider from '../../components/hook-form/FormProvider';
 import { RHFTextField } from '../../components/hook-form';
 import { useForm } from 'react-hook-form';
@@ -9,8 +8,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useState } from 'react';
 import Iconify from '../../components/Iconify';
 import { LoadingButton } from '@mui/lab';
-import { RHFCheckbox } from '../../components/hook-form/RHFCheckbox';
-import useAuth from 'src/hooks/useAuth';
+import useAuth from '../../hooks/useAuth';
 
 // --------------------------------------------------------
 

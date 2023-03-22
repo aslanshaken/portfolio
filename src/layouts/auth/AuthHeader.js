@@ -6,7 +6,7 @@ import authConfig from './AuthConfig';
 import useOffSetTop from '../../hooks/useOffSetTop';
 import { useRouter } from 'next/router';
 import NextLink from 'next/link';
-import Logo from 'src/components/Logo';
+import Logo from '../../components/Logo';
 
 const ToolbarStyle = styled(Toolbar)(({ theme }) => ({
   display: 'flex',

@@ -1,6 +1,6 @@
 //
 
-import { DropDocumentIcon } from 'src/assets';
+import { DropDocumentIcon } from '../assets';
 import { IconButtonAnimate } from './animate';
 
 export default function DropHiddenButton(props) {
