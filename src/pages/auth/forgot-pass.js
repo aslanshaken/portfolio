@@ -18,8 +18,6 @@ const RootStyle = styled('div')(({ theme }) => ({
   // maxWidth: '100%',
   display: 'flex',
   flexDirection: 'column',
-  marginTop: theme.spacing(25),
-  marginBottom: theme.spacing(3),
   '& .content': {
     maxWidth: '520px',
     [theme.breakpoints.up('md')]: {
@@ -71,9 +69,9 @@ const RootStyle = styled('div')(({ theme }) => ({
 
 export default function ForgotPass() {
   return (
-    <Page title="Forgot Password">
+    <Page title="Forgot Password" gutterTop>
       <RootStyle>
-        <Container maxWidth={'xl'}>
+        <Container maxWidth={'xl'} sx={{ pt: 3 }}>
           <GradientText variant="h2" color="secondary" mb={2} className="forgot-title">
             Forgot your password?
           </GradientText>

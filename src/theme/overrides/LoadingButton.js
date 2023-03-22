@@ -5,6 +5,7 @@ export default function LoadingButton() {
     MuiLoadingButton: {
       styleOverrides: {
         root: {
+          fontWeight: 500,
           '&.MuiButton-text': {
             '& .MuiLoadingButton-startIconPendingStart': {
               marginLeft: 0,

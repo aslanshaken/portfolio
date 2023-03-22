@@ -120,7 +120,7 @@ const palette = {
     text: { primary: GREY[800], secondary: GREY[600], disabled: GREY[500] },
     background: {
       paper: '#fff',
-      default: '#fff',
+      default: '#F9F9F9',
       neutral: GREY[200],
       hero: createGradient('#163E2B', '#0B2619', '106.35deg'),
     },

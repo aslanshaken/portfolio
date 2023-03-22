@@ -1,9 +1,10 @@
 // next
 import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
 import NextLink from 'next/link';
 // @mui
 import { styled, useTheme } from '@mui/material/styles';
-import { Box, AppBar, Toolbar, Container, Stack, Button } from '@mui/material';
+import { Box, AppBar, Toolbar, Container, Stack, Button, Hidden } from '@mui/material';
 // hooks
 import useOffSetTop from '../../hooks/useOffSetTop';
 import useResponsive from '../../hooks/useResponsive';
@@ -23,7 +24,11 @@ import { IconButtonAnimate } from '../../components/animate';
 import { ShoppingCartIcon } from '../../assets';
 import MyAvatar from '../../components/MyAvatar';
 import useAuth from '../../hooks/useAuth';
-import { PATH_AUTH } from '../../routes/paths';
+import { PATH_AUTH, PATH_PAGE } from '../../routes/paths';
+import { useSelector } from '../../redux/store';
+import { FOOD_SELECTOR } from '../../redux/slices/food';
+
+const Badge = dynamic(() => import('@mui/material/Badge'), { ssr: false })
 
 // ----------------------------------------------------------------------
 
@@ -54,16 +59,19 @@ const ToolbarShadowStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function MainHeader() {
-
   const { logout, isAuthenticated } = useAuth();
+
   const isOffset = useOffSetTop(HEADER.MAIN_DESKTOP_HEIGHT);
 
   const theme = useTheme();
 
   const { pathname, push, router } = useRouter();
 
-  const isDesktop = useResponsive('up', 'md');
+  const { checkout } = useSelector(FOOD_SELECTOR);
 
+  const cartCount = checkout.cart.length;
+
+  const isDesktop = useResponsive('up', 'md');
 
   const isHome = pathname === '/';
 
@@ -111,42 +119,47 @@ export default function MainHeader() {
 
           <Box sx={{ flexGrow: 1 }} />
 
-          {/* <Badge badgeContent={3} color="error"> */}
+          <Stack
+            mr={{
+              xs: 2,
+              md: 3,
+            }}
+          >
+            {cartCount > 0 ? <Badge component="div" badgeContent={cartCount} color="error" sx={{ width: 20, height: 10, top: 3 }} /> : ''}
+            <NextLink passHref href={PATH_PAGE.cart}>
+              <IconButtonAnimate>
+                <ShoppingCartIcon sx={{ width: 28, height: 28 }} />
+              </IconButtonAnimate>
+            </NextLink>
+          </Stack>
           {isAuthenticated ? (
             <>
-              <Stack>
-                {/* <Badge badgeContent={3} color="error" sx={{ width: 20, height: 10, top: 3 }} /> */}
-                <IconButtonAnimate>
-                  <ShoppingCartIcon sx={{ width: 28, height: 28 }} />
-                </IconButtonAnimate>
-              </Stack>
+              {/* <Badge badgeContent={3} color="error"> */}
               <IconButtonAnimate
                 sx={{
                   p: 0,
-                  ml: {
-                    xs: 2,
-                    md: 5,
-                  },
                 }}
               >
                 <MyAvatar sx={{ width: 50, height: 50 }} onClick={handleClickAvatar} />
               </IconButtonAnimate>
             </>
           ) : (
-            <Box display={'flex'} gap={2}>
-              <Box display={{ xs: 'none', md: 'block' }}>
-                <NextLink href={PATH_AUTH.register} passHref>
-                  <Button variant="outlined" size="medium">
-                    Sign up
+            <Hidden mdDown>
+              <Box display={'flex'} gap={2}>
+                <Box display={{ xs: 'none', md: 'block' }}>
+                  <NextLink href={PATH_AUTH.register} passHref>
+                    <Button variant="outlined" size="medium">
+                      Sign up
+                    </Button>
+                  </NextLink>
+                </Box>
+                <NextLink href={PATH_AUTH.login} passHref>
+                  <Button variant="contained" size="medium" sx={{ px: { lg: 5, md: 0, xs: 5 } }}>
+                    Log in
                   </Button>
                 </NextLink>
               </Box>
-              <NextLink href={PATH_AUTH.login} passHref>
-                <Button variant="contained" size="medium" sx={{ px: {lg:5, md:0, xs:5} }}>
-                  Log in
-                </Button>
-              </NextLink>
-            </Box>
+            </Hidden>
           )}
 
           {/* </Badge> */}

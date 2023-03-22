@@ -1,10 +1,10 @@
 // layouts
-import Layout from '../../../layouts';
+import Layout from '../../layouts';
 // components
-import Page from '../../../components/Page';
+import Page from '../../components/Page';
 // sections
-import ChooseCity from '../../../sections/search-chef/ChooseCity';
-import HeroHeader from '../../../components/HeroHeader';
+import ChooseCity from '../../sections/search-chef/ChooseCity';
+import HeroHeader from '../../components/HeroHeader';
 
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------

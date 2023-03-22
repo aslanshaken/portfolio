@@ -4,7 +4,7 @@ import Layout from '../../layouts';
 import Page from '../../components/Page';
 // sections
 import RegisterForm from '../../sections/auth/RegisterForm';
-import { Container, styled } from '@mui/material';
+import { Container } from '@mui/material';
 import GradientText from '../../components/GradientText';
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
@@ -15,44 +15,15 @@ Register.getLayout = function getLayout(page) {
 
 // ----------------------------------------------------------------------
 
-const RootStyle = styled('div')(({ theme }) => ({
-  maxWidth: '100%',
-  display: 'flex',
-  flexDirection: 'column',
-  marginTop: theme.spacing(25),
-  marginBottom: theme.spacing(3),
-  '& .MuiContainer-root': {
-    maxWidth: 550,
-    [theme.breakpoints.up('md')]: {
-      marginLeft: 0,
-      paddingLeft: theme.spacing(8),
-      paddingRight: theme.spacing(8),
-    },
-    [theme.breakpoints.up('lg')]: {
-      marginLeft: 0,
-      paddingLeft: theme.spacing(10),
-      paddingRight: theme.spacing(10),
-    },
-  },
-  '& .terms': {
-    color: theme.palette.secondary.light,
-    fontWeight: 600,
-    textDecoration: 'underline',
-  },
-}));
-// ----------------------------------------------------------------------
-
 export default function Register() {
   return (
-    <Page title="Register">
-      <RootStyle>
-        <Container maxWidth={'xs'}>
-          <GradientText variant="h2" color="secondary" mb={6}>
-            Sign Up!
-          </GradientText>
-          <RegisterForm />
-        </Container>
-      </RootStyle>
+    <Page title="Register" gutterTop>
+      <Container maxWidth={'xs'} sx={{ pt: 3 }}>
+        <GradientText variant="h2" color="secondary" mb={6}>
+          Sign Up!
+        </GradientText>
+        <RegisterForm />
+      </Container>
     </Page>
   );
 }

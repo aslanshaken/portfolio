@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
-import { InputAdornment, Stack, TextField, Typography } from '@mui/material';
-import { DropDocumentIcon } from '../../assets';
-import Iconify from '../../components/Iconify';
+import { Box, InputAdornment, Stack, TextField, Typography } from '@mui/material';
+import Iconify from '../../../components/Iconify';
 
 const SearchFieldStyle = styled('div')(({ theme }) => ({
   '& .MuiTextField-root': {
@@ -13,14 +12,13 @@ const SearchFieldStyle = styled('div')(({ theme }) => ({
   },
 }));
 
-export default function MenuSearchForm() {
+export default function MenuSearchForm(props) {
   return (
-    <>
+    <Box {...props}>
       <Stack direction="row" spacing={2} className="search_bar">
         <Typography variant="h4" color={'text.primary'}>
           Search
         </Typography>
-        <DropDocumentIcon className="defaultIconSize" />
       </Stack>
       <SearchFieldStyle>
         <TextField
@@ -36,6 +34,6 @@ export default function MenuSearchForm() {
           }}
         />
       </SearchFieldStyle>
-    </>
+    </Box>
   );
 }

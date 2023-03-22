@@ -1,6 +1,11 @@
+import PropTypes from 'prop-types';
 import { Grid } from '@mui/material';
 import AuthHeader from './AuthHeader';
 import GuestGuard from '../../guards/GuestGuard';
+
+AuthLayout.propTypes = {
+  children: PropTypes.node,
+};
 
 export default function AuthLayout({ children }) {
   return (

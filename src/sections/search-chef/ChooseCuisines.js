@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Card, colors, Divider, Grid, Stack } from '@mui/material';
+import { colors, Divider, Grid, Stack } from '@mui/material';
 import { Box } from '@mui/system';
 import NextLink from 'next/link';
 import PropTypes from 'prop-types';
@@ -73,16 +73,9 @@ export default function ChooseCuisines() {
   return (
     <>
       <Container>
-        {/* <Typography variant="h2">Choose your city</Typography> */}
-
         <Divider />
 
-        <Grid
-          container
-          py={10}
-          mx="auto"
-          maxWidth={'700px'}
-        >
+        <Grid container py={10} mx="auto" maxWidth={'700px'}>
           {cuisines_data.map((item, _i) => (
             <Grid item md={4} sm={6} xs={12} key={_i} display={'flex'} justifyContent={'center'}>
               <ChooseCard cuisine={item.cuisine} title={item.title} />
@@ -98,11 +91,16 @@ export default function ChooseCuisines() {
 // ----------------------------------------------------------------------
 
 const RootStyle = styled(Box)(() => ({
+  cursor: 'pointer',
+  transition: '500ms !important',
   '& *': {
-    transition: '300ms !important',
+    transition: '1s !important',
   },
   '&:hover img': {
-    transform: 'scale(1.5)',
+    transform: 'scale(1.1)',
+  },
+  '&:hover': {
+    opacity: 0.8,
   },
 }));
 
@@ -119,9 +117,9 @@ function ChooseCard({ cuisine, title }) {
   return (
     <RootStyle>
       <NextLink href={PATH_PAGE.searchChef.cities({ city, cuisine })} passHref>
-        <Card
+        <Box
           sx={{
-            mb:2,
+            mb: 2,
             width: 200,
             display: 'flex',
             flexFlow: 'column',
@@ -131,13 +129,14 @@ function ChooseCard({ cuisine, title }) {
             borderRadius: 1,
             border: '1px solid',
             borderColor: colors.grey[200],
-            cursor: 'pointer'
+            cursor: 'pointer',
           }}
         >
           <Image
             src={`/assets/search-chef/cuisines/${cuisine}.png`}
             alt={title}
             sx={{ borderRadius: 1, overflow: 'hidden', width: 150, height: 150 }}
+            disabledEffect
           />
           <Stack direction="row" my={3} spacing={1}>
             <GradientText variant="subtitle1" color={'secondary'}>
@@ -148,7 +147,7 @@ function ChooseCard({ cuisine, title }) {
               sx={{ width: 21, height: 21, color: 'primary.main', transform: 'rotate(315deg)' }}
             />
           </Stack>
-        </Card>
+        </Box>
       </NextLink>
     </RootStyle>
   );

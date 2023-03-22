@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Icon } from '@iconify/react';
 // @mui
 import { Box } from '@mui/material';
+import { ICON } from '../config';
 
 // ----------------------------------------------------------------------
 
@@ -12,5 +13,7 @@ Iconify.propTypes = {
 };
 
 export default function Iconify({ icon, sx, ...other }) {
-  return <Box component={Icon} icon={icon} sx={{ ...sx }} {...other} />;
+  return (
+    <Box component={Icon} icon={icon} sx={{ width: ICON.NAVBAR_ITEM, height: ICON.NAVBAR_ITEM, ...sx }} {...other} />
+  );
 }

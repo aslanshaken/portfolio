@@ -38,7 +38,8 @@ export default function CreatePassForm() {
 
   const onSubmit = async (data) => {
     try {
-      await ForgotPassword(data.email_phone);
+      console.log(data);
+      // await ForgotPassword(data.email_phone);
     } catch (error) {
       console.error(error);
       reset();

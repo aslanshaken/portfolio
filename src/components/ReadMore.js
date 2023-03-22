@@ -14,11 +14,11 @@ export default function ReadMore({ children }) {
     <Box position={'relative'} display={'flex'} sx={{ flexFlow: 'column', alignItems: { md: 'end' } }}>
       {isReadMore && (
         <Backdrop
-          sx={{
+          sx={(theme) => ({
             position: 'absolute',
             opacity: 0.5,
-            background: `linear-gradient(to bottom, transparent 0%, white 100%)`,
-          }}
+            background: `linear-gradient(to bottom, transparent 0%, ${theme.palette.background.default} 100%)`,
+          })}
           open
         />
       )}

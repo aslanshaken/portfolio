@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Card, Divider, Grid, Stack } from '@mui/material';
+import { Divider, Grid, Stack } from '@mui/material';
 import { Box } from '@mui/system';
 import NextLink from 'next/link';
 import PropTypes from 'prop-types';
@@ -14,8 +14,9 @@ import Pagination from '../../components/Pagination';
 
 const city_data = [
   {
-    city: 'mexican',
+    city: 'new_york',
     title: 'New york',
+    image: '/assets/search-chef/country/mexican.png',
     price: '500',
     description: '',
     gram: '',
@@ -23,8 +24,9 @@ const city_data = [
     typeOfCategories: [{}],
   },
   {
-    city: 'italian',
+    city: 'chicago',
     title: 'Chicago',
+    image: '/assets/search-chef/country/italian.png',
     price: '500',
     description: '',
     gram: '',
@@ -32,8 +34,9 @@ const city_data = [
     typeOfCategories: [{}],
   },
   {
-    city: 'japan',
+    city: 'chicago',
     title: 'Chicago',
+    image: '/assets/search-chef/country/japan.png',
     price: '500',
     description: '',
     gram: '',
@@ -41,8 +44,9 @@ const city_data = [
     typeOfCategories: [{}],
   },
   {
-    city: 'ukrainian',
+    city: 'chicago',
     title: 'Chicago',
+    image: '/assets/search-chef/country/ukrainian.png',
     price: '500',
     description: '',
     gram: '',
@@ -50,8 +54,9 @@ const city_data = [
     typeOfCategories: [{}],
   },
   {
-    city: 'japan',
+    city: 'chicago',
     title: 'Chicago',
+    image: '/assets/search-chef/country/japan.png',
     price: '500',
     description: '',
     gram: '',
@@ -59,8 +64,9 @@ const city_data = [
     typeOfCategories: [{}],
   },
   {
-    city: 'ukrainian',
+    city: 'chicago',
     title: 'Chicago',
+    image: '/assets/search-chef/country/ukrainian.png',
     price: '500',
     description: '',
     gram: '',
@@ -80,13 +86,12 @@ export default function ChooseCity() {
         <Grid container spacing={4} mt={10} justifyContent={{ xs: 'center', md: 'flex-start' }}>
           {city_data.map((item, _i) => (
             <Grid item md={4} key={_i}>
-              <ChooseCard city={item.city} title={item.title} />
+              <ChooseCard data={item} />
             </Grid>
           ))}
         </Grid>
 
         <Pagination />
-
       </Container>
     </>
   );
@@ -96,40 +101,44 @@ export default function ChooseCity() {
 // ----------------------------------------------------------------------
 
 const RootStyle = styled(Box)(() => ({
+  cursor: 'pointer',
+  transition: '500ms !important',
   '& *': {
-    transition: '300ms !important',
+    transition: '1s !important',
   },
   '&:hover img': {
-    transform: 'scale(1.5)',
+    transform: 'scale(1.1)',
+  },
+  '&:hover': {
+    opacity: 0.8,
   },
 }));
 
 ChooseCard.propTypes = {
-  city: PropTypes.string,
-  title: PropTypes.string,
+  data: PropTypes.object
 };
 
 // ----------------------------------------------------------------------
-function ChooseCard({ city, title }) {
+function ChooseCard({ data = {}}) {
   return (
     <RootStyle>
-      <NextLink href={PATH_PAGE.searchChef.cities({ city })} passHref>
-        <Card sx={{ position: 'relative', boxShadow: 0, borderRadius: 0, cursor: 'pointer' }}>
+      <NextLink href={PATH_PAGE.searchChef.cities({ city: data.city })} passHref>
+        <Stack>
           <Image
-            src={`/assets/search-chef/country/${city}.png`}
-            alt={title}
+            src={data.image}
+            alt={data.title}
             sx={{ borderRadius: 1, overflow: 'hidden', width: 1, height: 200 }}
           />
-          <Stack direction="row" my={3} spacing={1}>
+          <Stack direction={'row'} my={3} spacing={1}>
             <GradientText variant="subtitle1" color={'secondary'}>
-              {title}
+              {data.title}
             </GradientText>
             <Iconify
               icon={'material-symbols:arrow-right-alt-rounded'}
               sx={{ width: 21, height: 21, color: 'primary.main', transform: 'rotate(315deg)' }}
             />
           </Stack>
-        </Card>
+        </Stack>
       </NextLink>
     </RootStyle>
   );

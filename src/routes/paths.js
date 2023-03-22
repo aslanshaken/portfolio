@@ -19,13 +19,11 @@ export const PATH_PAGE = {
   home: '/',
   aboutUs: '/about-us',
   searchChef: {
-    root: '/search-chef',
+    root: '/cities',
     cities: ({ city, cuisine, chef } = '') =>
-      path(
-        '/search-chef',
-        `/cities${city ? '/' + city : ''}${cuisine ? '/' + cuisine : ''}${chef ? '/' + chef : ''}`
-      ),
+      path('/cities', `${city ? '/' + city : ''}${cuisine ? '/' + cuisine : ''}${chef ? '/' + chef : ''}`),
   },
   contactUs: '/contact-us',
   ingredients: '/ingredients',
+  cart: '/cart',
 };

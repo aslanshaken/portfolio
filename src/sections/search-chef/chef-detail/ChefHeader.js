@@ -1,12 +1,11 @@
 import { Avatar, Box, Button, Divider, IconButton, Typography, Hidden } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { HEADER } from '../../config';
-import Container from '../../components/Container';
+import { HEADER } from '../../../config';
+import Container from '../../../components/Container';
 import { useRouter } from 'next/router';
-import Iconify from '../../components/Iconify';
-import GradientText from '../../components/GradientText';
-import { useState } from 'react';
-import ReadMore from '../../components/ReadMore';
+import Iconify from '../../../components/Iconify';
+import GradientText from '../../../components/GradientText';
+import ReadMore from '../../../components/ReadMore';
 
 const RootStyle = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -21,7 +20,6 @@ const RootStyle = styled('div')(({ theme }) => ({
 export default function ChefHeader() {
   const router = useRouter();
   const { chef } = router.query;
-  const [ isReadMore, setIsReadMore ] = useState(false);
 
   return (
     <Box>

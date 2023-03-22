@@ -12,7 +12,7 @@ export default function TextField(theme) {
             display: 'none',
           },
           '& label': {
-            color: theme.palette.grey[300]
+            color: theme.palette.grey[500]
           },
         },
       },

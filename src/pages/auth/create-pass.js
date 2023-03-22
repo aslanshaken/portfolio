@@ -17,8 +17,6 @@ CreatePass.getLayout = function getLayout(page) {
 const RootStyle = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  marginTop: theme.spacing(25),
-  marginBottom: theme.spacing(3),
   '& .content': {
     maxWidth: '520px',
     [theme.breakpoints.up('md')]: {
@@ -70,9 +68,9 @@ const RootStyle = styled('div')(({ theme }) => ({
 
 export default function CreatePass() {
   return (
-    <Page title="Create Password">
+    <Page title="Create Password" gutterTop>
       <RootStyle>
-        <Container maxWidth={'xl'}>
+        <Container maxWidth={'xl'} sx={{ pt: 3 }}>
           <GradientText variant="h2" color="secondary" mb={2} className="forgot-title">
             Create new password
           </GradientText>

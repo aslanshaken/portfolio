@@ -3,8 +3,8 @@ import Layout from '../../../../layouts';
 // components
 import Page from '../../../../components/Page';
 // sections
-import ChooseCuisines from '../../../../sections/search-chef/ChooseCuisines';
-import HeroHeader from '../../../../components/HeroHeader';
+import FoodSection from '../../../../sections/search-chef/chef-detail/FoodSection';
+import ChefHeader from '../../../../sections/search-chef/chef-detail/ChefHeader';
 
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
@@ -18,8 +18,8 @@ CityPage.getLayout = function getLayout(page) {
 export default function CityPage() {
   return (
     <Page title="Search Chef">
-      <HeroHeader title="New-York cuisines" topBorder={true} backgroundImage="/assets/search-chef/hero-header.png" />
-      <ChooseCuisines />
+      <ChefHeader title="Japan cuisine" topBorder={true} backgroundImage="/assets/search-chef/hero-header.png" />
+      <FoodSection />
     </Page>
   );
 }

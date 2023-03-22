@@ -6,6 +6,10 @@ Container.propTypes = {
   children: PropTypes.node,
 };
 
-export default function Container({ children }) {
-  return <MUIContainer maxWidth={'lg'}>{children}</MUIContainer>;
+export default function Container({ children, ...other }) {
+  return (
+    <MUIContainer maxWidth={'lg'} {...other}>
+      {children}
+    </MUIContainer>
+  );
 }

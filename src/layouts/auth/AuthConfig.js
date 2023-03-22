@@ -1,19 +1,21 @@
+import { PATH_PAGE } from '../../routes/paths';
+
 const authConfig = [
   {
     title: 'About Us',
-    path: '/about-us'
+    path: '/about-us',
   },
   {
     title: 'Search Chef',
-    path: '/search-chef'
+    path: PATH_PAGE.searchChef.root,
   },
   {
     title: 'Contacts',
-    path: '/contacts'
+    path: '/contacts',
   },
   {
     title: 'Help',
-    path: '/help'
+    path: '/help',
   },
 ];
 
