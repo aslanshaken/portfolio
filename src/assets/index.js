@@ -1,3 +1,4 @@
 export { default as ShoppingCartIcon } from './icon_shopping_cart';
+export { default as ShoppingCartSmallIcon } from './icon_shopping_cart_small';
 export { default as ArrowTopIcon } from './icon_arrow_top';
 export { default as DropDocumentIcon } from './icon_drop_document';

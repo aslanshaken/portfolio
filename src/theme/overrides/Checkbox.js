@@ -14,7 +14,12 @@ export default function Checkbox(theme) {
 
       styleOverrides: {
         root: {
-          padding: theme.spacing(1),
+          padding: 0,
+          background: theme.palette.common.white,
+          borderRadius: theme.shape.borderRadius,
+          '&.Mui-checked': {
+            color: theme.palette.text.primary,
+          },
           '&.Mui-checked.Mui-disabled, &.Mui-disabled': {
             color: theme.palette.action.disabled,
           },
