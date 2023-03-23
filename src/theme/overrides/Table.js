@@ -1,10 +1,13 @@
 // ----------------------------------------------------------------------
 
+import { colors } from "@mui/material";
+
 export default function Table(theme) {
   return {
     MuiTableRow: {
       styleOverrides: {
         root: {
+          height: 80,
           '&.Mui-selected': {
             backgroundColor: theme.palette.action.selected,
             '&:hover': {
@@ -17,23 +20,11 @@ export default function Table(theme) {
     MuiTableCell: {
       styleOverrides: {
         root: {
-          borderBottom: 'none',
+          borderColor: colors.grey[300],
         },
         head: {
-          color: theme.palette.text.secondary,
-          backgroundColor: theme.palette.background.neutral,
-          '&:first-of-type': {
-            paddingLeft: theme.spacing(3),
-            borderTopLeftRadius: theme.shape.borderRadius,
-            borderBottomLeftRadius: theme.shape.borderRadius,
-            boxShadow: `inset 8px 0 0 ${theme.palette.background.paper}`,
-          },
-          '&:last-of-type': {
-            paddingRight: theme.spacing(3),
-            borderTopRightRadius: theme.shape.borderRadius,
-            borderBottomRightRadius: theme.shape.borderRadius,
-            boxShadow: `inset -8px 0 0 ${theme.palette.background.paper}`,
-          },
+          borderBottom: 'none',
+          fontWeight: 700,
         },
         stickyHeader: {
           backgroundColor: theme.palette.background.paper,
@@ -46,6 +37,7 @@ export default function Table(theme) {
           '&:last-of-type': {
             paddingRight: theme.spacing(3),
           },
+          fontWeight: 500,
         },
       },
     },

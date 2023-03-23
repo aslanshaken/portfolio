@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 // components
 import MainLayout from './main';
 import AuthLayout from './auth';
+import DashboardLayout from './dashboard';
 
 // ----------------------------------------------------------------------
 
@@ -18,5 +19,5 @@ export default function Layout({ variant = 'dashboard', children }) {
     return <AuthLayout>{children}</AuthLayout>;
   }
 
-  return (<></>);
+  return <DashboardLayout>{children}</DashboardLayout>
 }

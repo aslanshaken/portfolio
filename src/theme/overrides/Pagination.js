@@ -7,6 +7,7 @@ export default function Pagination(theme) {
     MuiPaginationItem: {
       styleOverrides: {
         root: {
+          color: theme.palette.text.secondary,
           '&.Mui-selected': {
             fontWeight: theme.typography.fontWeightBold,
           },
@@ -14,7 +15,7 @@ export default function Pagination(theme) {
         textPrimary: {
           '&.Mui-selected': {
             color: theme.palette.primary.main,
-            backgroundColor: alpha(theme.palette.primary.main, 0.08),
+            background: theme.palette.gradients.primary,
             '&:hover, &.Mui-focusVisible': {
               backgroundColor: `${alpha(theme.palette.primary.main, 0.24)} !important`,
             },
