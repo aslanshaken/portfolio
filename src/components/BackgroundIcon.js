@@ -5,20 +5,22 @@ import Iconify from './Iconify';
 //
 
 BackgroundIcon.propTypes = {
-  icon: PropTypes.string || PropTypes.node,
+  icon: PropTypes.any,
   sx: PropTypes.object,
   iconSx: PropTypes.object,
+  color: PropTypes.string,
+  variant: PropTypes.string,
 };
 
-export default function BackgroundIcon({ icon = '', sx, iconSx, ...others }) {
+export default function BackgroundIcon({ icon = '', color, sx, iconSx, variant, ...others }) {
   return (
     <Box
       sx={(theme) => ({
-        background: theme.palette.secondary.main,
+        background: variant === 'contained' ? 'white' : theme.palette.secondary.main,
         width: 25,
         height: 25,
         borderRadius: '50%',
-        color: 'white',
+        color: variant === 'contained' ? theme.palette.secondary.main : 'white',
         display: 'flex',
         ...sx,
       })}

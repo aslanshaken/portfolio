@@ -1,10 +1,9 @@
 // layouts
-import Layout from '../../layouts';
+import Layout from 'src/layouts';
 // components
-import Page from '../../components/Page';
+import Page from 'src/components/Page';
 // sections
-import ChooseCity from '../../sections/search-chef/ChooseCity';
-import HeroHeader from '../../components/HeroHeader';
+import HeroHeader from 'src/components/HeroHeader';
 import { Grid, Stack } from '@mui/material';
 import PickDeliverSwitchCard from 'src/sections/checkout/PickDeliverSwitchCard';
 import Container from 'src/components/Container';

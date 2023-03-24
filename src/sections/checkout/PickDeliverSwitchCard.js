@@ -1,4 +1,6 @@
 import { Button, ButtonGroup, colors, Stack, styled, Typography } from '@mui/material';
+import { useState } from 'react';
+import AddressesDialog from './AddressesDialog';
 
 const RootStyle = styled(Stack)(({ theme }) => ({
   padding: theme.spacing(3),
@@ -9,10 +11,15 @@ const RootStyle = styled(Stack)(({ theme }) => ({
 
 //
 export default function PickDeliverSwitchCard() {
+  const [isOpenAddressesDialog, setIsOpenAddressesDialog] = useState(false);
+
   return (
     <RootStyle>
+      <AddressesDialog open={isOpenAddressesDialog} onClose={() => setIsOpenAddressesDialog(false)} />
       <ButtonGroup color="secondary">
-        <Button sx={{ px: 5, fontWeight: 500 }}>{'Pickup'}</Button>
+        <Button sx={{ px: 5, fontWeight: 500 }} onClick={() => setIsOpenAddressesDialog(true)}>
+          {'Pickup'}
+        </Button>
         <Button variant="contained" sx={{ px: 5, fontWeight: 500 }}>
           {'Delivery'}
         </Button>

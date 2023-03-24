@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 // @mui
 import { Box, Button, ButtonGroup, Card, colors, List, ListItem, Stack, styled, Typography } from '@mui/material';
 import { ShoppingCartSmallIcon } from 'src/assets';
-import { IconButtonAnimate } from 'src/components/animate';
 import CardHeader from 'src/components/card/CardHeader';
 import Iconify from 'src/components/Iconify';
 import Image from 'src/components/Image';

@@ -1,4 +1,15 @@
-import { Box, Button, ButtonGroup, Card, Checkbox, Divider, FormControlLabel, Stack, styled, TextField, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Checkbox,
+  Divider,
+  FormControlLabel,
+  Stack,
+  styled,
+  TextField,
+  Typography,
+} from '@mui/material';
 import Iconify from 'src/components/Iconify';
 
 //
@@ -21,7 +32,6 @@ export default function OrderCard() {
     <Stack
       sx={{
         borderRadius: 1,
-        border: `solid 1px grey`,
         background: 'url(/assets/textures/cuisine-cart.png)',
         padding: 5,
       }}
@@ -106,7 +116,11 @@ export default function OrderCard() {
 
       <Box mt={5} />
 
-      <FormControlLabel control={<Checkbox sx={{ mr: 1 }} />} label={'I’ve read and agree to the website terms and conditions'} sx={{ alignItems: 'flex-start' }}  />
+      <FormControlLabel
+        control={<Checkbox sx={{ mr: 1 }} />}
+        label={'I’ve read and agree to the website terms and conditions'}
+        sx={{ alignItems: 'flex-start' }}
+      />
     </Stack>
   );
 }

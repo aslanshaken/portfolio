@@ -1,4 +1,4 @@
-import { Box, Card, IconButton, Stack, styled, Typography, useTheme } from '@mui/material';
+import { Box, Card, Stack, styled, Typography, useTheme } from '@mui/material';
 import { IconButtonAnimate } from 'src/components/animate';
 import BackgroundIcon from 'src/components/BackgroundIcon';
 import CardHeader from 'src/components/card/CardHeader';
@@ -37,7 +37,7 @@ export default function DeliveryLocation() {
   return (
     <RootStyle>
       <InfoStyle>
-        <CardHeader icon={'material-symbols:location-on-outline'} title={'Delivery Location'} hideDivider />
+        <CardHeader icon="material-symbols:location-on-outline" title={'Delivery Location'} hideDivider />
 
         <Stack
           direction={'row'}
