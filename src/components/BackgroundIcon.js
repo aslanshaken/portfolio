@@ -8,11 +8,10 @@ BackgroundIcon.propTypes = {
   icon: PropTypes.any,
   sx: PropTypes.object,
   iconSx: PropTypes.object,
-  color: PropTypes.string,
   variant: PropTypes.string,
 };
 
-export default function BackgroundIcon({ icon = '', color, sx, iconSx, variant, ...others }) {
+export default function BackgroundIcon({ icon = '', sx, iconSx, variant, ...others }) {
   return (
     <Box
       sx={(theme) => ({
