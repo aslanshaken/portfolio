@@ -1,10 +1,8 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Box, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
 // hooks
-import useCollapseDrawer from '../../hooks/useCollapseDrawer';
 // config
 import { HEADER, NAVBAR } from '../../config';
 //
@@ -28,8 +26,9 @@ const MainStyle = styled('main', {
   paddingBottom: HEADER.MOBILE_HEIGHT + 24,
   paddingLeft: theme.spacing(2),
   paddingRight: theme.spacing(2),
-  paddingTop: theme.spacing(1),
+  paddingTop: theme.spacing(4),
   [theme.breakpoints.up('md')]: {
+    paddingTop: theme.spacing(1),
     paddingLeft: theme.spacing(5),
     paddingRight: theme.spacing(5),
     paddingBottom: HEADER.DASHBOARD_DESKTOP_HEIGHT + 24,
@@ -50,16 +49,12 @@ DashboardLayout.propTypes = {
 };
 
 export default function DashboardLayout({ children }) {
-  const [open, setOpen] = useState(true);
-
-  const { collapseClick, isCollapse } = useCollapseDrawer();
-
   return (
     <Stack sx={{ minHeight: 1 }}>
       <MainHeader />
 
-      <BodyStyle direction={'row'} position={'relative'} mt={5}>
-        <NavbarVertical isOpenSidebar={open} onCloseSidebar={() => setOpen(false)} />
+      <BodyStyle direction={'row'} position={'relative'}>
+        <NavbarVertical />
 
         <MainStyle>{children}</MainStyle>
       </BodyStyle>
