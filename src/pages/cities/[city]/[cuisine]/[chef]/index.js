@@ -1,10 +1,10 @@
 // layouts
-import Layout from '../../../../layouts';
+import Layout from 'src/layouts';
 // components
-import Page from '../../../../components/Page';
+import Page from 'src/components/Page';
 // sections
-import FoodSection from '../../../../sections/search-chef/chef-detail/FoodSection';
-import ChefHeader from '../../../../sections/search-chef/chef-detail/ChefHeader';
+import FoodSection from 'src/sections/search-chef/chef-detail/FoodSection';
+import ChefHeader from 'src/sections/search-chef/chef-detail/ChefHeader';
 
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------

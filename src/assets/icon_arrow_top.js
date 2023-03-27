@@ -4,7 +4,7 @@ import { Box } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
-function PlanFreeIcon(props) {
+function ArrowTopIcon(props) {
   return (
     <Box {...props}>
       <svg width="24" height="56" viewBox="0 0 24 56" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -30,4 +30,4 @@ function PlanFreeIcon(props) {
   );
 }
 
-export default memo(PlanFreeIcon);
+export default memo(ArrowTopIcon);

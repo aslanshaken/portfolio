@@ -12,15 +12,13 @@ const RootStyle = styled(Box)(({ theme }) => ({
     paddingTop: HEADER.MAIN_DESKTOP_HEIGHT + 50,
   },
   '& .background-image': {
-    paddingLeft: theme.spacing(4),
-    borderRadius: theme.spacing(1),
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     position: 'relative',
   },
   '& .overlay': {
-    borderRadius: theme.spacing(1),
+    borderRadius: theme.shape.borderRadius * 2,
     position: 'absolute',
     opacity: `0.5 !important`,
   },
@@ -55,12 +53,12 @@ export default function HeroHeader(props) {
         {topBorder && <Divider mt={5} />}
         <Box
           className="background-image"
-          sx={{ backgroundImage: `url(${backgroundImage})`, my: backgroundImage ? 6 : 0 }}
+          sx={{ backgroundImage: `url(${backgroundImage})`, my: backgroundImage ? 6 : 0, px: backgroundImage ? 4 : 0 }}
         >
           <Backdrop className="overlay" open={!!backgroundImage} />
 
           <Box className="overlay-body">
-            <Typography variant="h2" py={6} color={backgroundImage ? 'white' : 'black'}>
+            <Typography variant="h3" py={6} sx={theme => ({ color: backgroundImage ? 'white' : theme.palette.grey[800], fontWeight: 600 })}>
               {title}
             </Typography>
           </Box>

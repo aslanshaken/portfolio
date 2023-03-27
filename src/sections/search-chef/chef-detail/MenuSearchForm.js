@@ -5,7 +5,7 @@ import Iconify from '../../../components/Iconify';
 const SearchFieldStyle = styled('div')(({ theme }) => ({
   '& .MuiTextField-root': {
     background: theme.palette.common.white,
-    borderRadius: theme.spacing(1),
+    borderRadius: theme.shape.borderRadius * 2,
     '& *': {
       border: 0,
     },

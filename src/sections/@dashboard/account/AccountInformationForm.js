@@ -35,6 +35,7 @@ export default function AccountInformationForm() {
 
   const onSubmit = async (data) => {
     try {
+      console.log(data);
     } catch (error) {
       console.error(error.message);
       errorAlert(error.message);

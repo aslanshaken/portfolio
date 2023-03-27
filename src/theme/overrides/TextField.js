@@ -6,7 +6,7 @@ export default function TextField(theme) {
       styleOverrides: {
         root: {
           '& .MuiFilledInput-root': {
-            borderRadius: theme.spacing(1),
+            borderRadius: theme.shape.borderRadius,
           },
           '& .MuiFilledInput-root::before, & .MuiFilledInput-root::after': {
             display: 'none',

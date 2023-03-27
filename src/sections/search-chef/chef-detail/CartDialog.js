@@ -98,7 +98,7 @@ const CartCountStyle = styled(Stack)(({ theme }) => ({
   },
   border: `solid 1px`,
   borderColor: theme.palette.secondary.main,
-  borderRadius: theme.spacing(1),
+  borderRadius: theme.shape.borderRadius * 2,
   paddingLeft: theme.spacing(2),
   paddingRight: theme.spacing(2),
   paddingTop: theme.spacing(0.5),

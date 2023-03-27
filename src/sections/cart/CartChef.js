@@ -2,9 +2,11 @@ import { LoadingButton } from '@mui/lab';
 import { Box, Stack } from '@mui/material';
 import CuisineList from './CuisineList';
 import ProfileCover from './ProfileCover';
+import NextLink from 'next/link';
 
 //
 export default function CartChef() {
+
   return (
     <Stack>
       <Stack
@@ -18,7 +20,9 @@ export default function CartChef() {
 
       <Box mt={5} />
 
-      <LoadingButton variant="outlined">View More</LoadingButton>
+      <NextLink href="/cities/chicago/ukrainian-cuisine/adam-sandler/checkout/" passHref>
+        <LoadingButton variant="outlined">View More</LoadingButton>
+      </NextLink>
     </Stack>
   );
 }

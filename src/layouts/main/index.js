@@ -18,7 +18,7 @@ export default function MainLayout({ children }) {
 
       {children}
 
-      <Box sx={{ flexGrow: 1 }} />
+      <Box sx={{ flexGrow: 1, mt: 5 }} />
 
       <MainFooter />
     </Stack>

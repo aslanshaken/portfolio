@@ -7,7 +7,7 @@ import cssStyles from '../../utils/cssStyles';
 
 const RootStyle = styled('div')(({ theme }) => ({
   position: 'relative',
-  borderRadius: theme.spacing(1),
+  borderRadius: theme.shape.borderRadius * 2,
   overflow: 'hidden',
   '&:before': {
     ...cssStyles().bgBlur({ blur: 1, opacity: 0.2 }),

@@ -1,15 +1,10 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 // @mui
-import { Autocomplete, Grid, TextField, Card, Box, Stack, Typography, colors } from '@mui/material';
+import { Autocomplete, Grid, TextField, Box } from '@mui/material';
 // components
 import Container from '../../../components/Container';
 import Pagination from '../../../components/Pagination';
-import Image from '../../../components/Image';
-import GradientText from '../../../components/GradientText';
-import Iconify from '../../../components/Iconify';
-import { IconButtonAnimate } from '../../../components/animate';
 // sections
 import MenuSearchForm from './MenuSearchForm';
 import MenuCategoryForm from './MenuCategoryForm';
@@ -325,7 +320,7 @@ const RootStyle = styled('div')(({ theme }) => ({
   },
   '& .MuiOutlinedInput-root': {
     background: theme.palette.common.white,
-    borderRadius: theme.spacing(1),
+    borderRadius: theme.shape.borderRadius * 2,
     '& *': {
       border: 0,
     },
