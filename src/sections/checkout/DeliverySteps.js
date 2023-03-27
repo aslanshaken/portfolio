@@ -3,32 +3,32 @@ import { Box, Button, Card, Stack, Typography } from '@mui/material';
 import CardHeader from '../../components/card/CardHeader';
 import PaymentDialog from './PaymentDialog';
 import { useState } from 'react';
-import DeliveryInstructionsPanel from './DeliveryInstructionsPanel';
-import DeliverySchedulePanel from './DeliverySchedulePanel';
+import NotesPanel from './NotesPanel';
+import SchedulePanel from './SchedulePanel';
 
 //
-export default function DeliverySteps() {
+export default function DeliverySteps({address, isPickup}) {
   const [isOpenPaymentDialog, setIsOpenPaymentDialog] = useState(false);
-  const [isOpenDeliverySchedulePanel, setIsOpenDeliverySchedulePanel] = useState(false);
-  const [isOpenDeliveryInstructionsPanel, setIsOpenDeliveryInstructionsPanel] = useState(false);
+  const [isOpenSchedulePanel, setIsOpenSchedulePanel] = useState(false);
+  const [isOpenNotesPanel, setIsOpenNotesPanel] = useState(false);
 
   const STEPS = [
     {
       icon: 'uil:schedule',
-      title: 'Delivery Schedule',
+      title: `${isPickup ? 'Pick Up Schedule' : 'Delivery Schedule'}`,
       subtitle: 'Tuesday, March 14th',
-      time: '3:40 PM - 4 PM',
+      content: 'Please select time',
       buttonText: 'Change',
       onClickButton: () => {
-        setIsOpenDeliverySchedulePanel(true);
+        setIsOpenSchedulePanel(true);
       },
-      status: isOpenDeliverySchedulePanel,
+      status: isOpenSchedulePanel,
     },
     {
       icon: 'ic:baseline-payment',
       title: 'Payment',
       subtitle: 'You do not have saved credit cards',
-      time: '',
+      content: '',
       buttonText: 'Add a new card',
       onClickButton: () => {
         setIsOpenPaymentDialog(true);
@@ -37,14 +37,14 @@ export default function DeliverySteps() {
     },
     {
       icon: 'jam:pen',
-      title: 'Delivery instructions',
-      subtitle: 'Please lift up on the 7th floor',
-      time: '',
+      title: 'Notes',
+      subtitle: '',
+      content: `Is there anything else you'd like us to know about ?`,
       buttonText: 'Change',
       onClickButton: () => {
-        setIsOpenDeliveryInstructionsPanel(true);
+        setIsOpenNotesPanel(true);
       },
-      status: isOpenDeliveryInstructionsPanel,
+      status: isOpenNotesPanel,
     },
   ];
 
@@ -57,13 +57,14 @@ export default function DeliverySteps() {
           <Box key={step.title + _i}>
             {step.status ? (
               <>
-                {step.title === 'Delivery Schedule' && (
-                  <DeliverySchedulePanel onClose={() => setIsOpenDeliverySchedulePanel(false)} />
+                {step.title === `${isPickup ? 'Pick Up Schedule' : 'Delivery Schedule'}` && (
+                  <SchedulePanel isPickup={isPickup} onClose={() => setIsOpenSchedulePanel(false)} />
                 )}
-                {step.title === 'Delivery instructions' && (
-                  <DeliveryInstructionsPanel
+                {step.title === 'Notes' && (
+                  <NotesPanel
+                    data={address}
                     onClose={() => {
-                      setIsOpenDeliveryInstructionsPanel(false);
+                      setIsOpenNotesPanel(false);
                     }}
                   />
                 )}
@@ -73,7 +74,7 @@ export default function DeliverySteps() {
                 icon={step.icon}
                 title={step.title}
                 subtitle={step.subtitle}
-                time={step.time}
+                content={step.content}
                 buttonText={step.buttonText}
                 onClickButton={step.onClickButton}
               />
@@ -91,7 +92,7 @@ DeliveryStepCard.propTypes = {
   icon: PropTypes.string || PropTypes.node,
   title: PropTypes.string,
   subtitle: PropTypes.string,
-  time: PropTypes.string,
+  content: PropTypes.string,
   buttonText: PropTypes.string,
   onClickButton: PropTypes.func,
 };
@@ -100,7 +101,7 @@ function DeliveryStepCard({
   icon = '',
   title = '',
   subtitle = '',
-  time = '',
+  content = '',
   buttonText = 'Change',
   onClickButton = () => {},
 }) {
@@ -113,7 +114,7 @@ function DeliveryStepCard({
             {subtitle}
           </Typography>
           <Typography variant="caption" color={'text.secondary'}>
-            {time}
+            {content}
           </Typography>
         </Stack>
         <Button variant={'outlined'} color="secondary" onClick={onClickButton}>

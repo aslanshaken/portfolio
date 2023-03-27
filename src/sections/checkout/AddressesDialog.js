@@ -1,7 +1,11 @@
+import * as Yup from 'yup';
 import PropTypes from 'prop-types';
-import { Button, Dialog, Divider, Grid, IconButton, Stack, Typography } from '@mui/material';
-import { useState } from 'react';
+import { Button, Dialog, IconButton, Stack, TextField, Typography } from '@mui/material';
 import Iconify from '../../components/Iconify';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
+import { FormProvider, RHFTextField } from 'src/components/hook-form';
+import { useEffect } from 'react';
 
 //
 AddressesDialog.propTypes = {
@@ -11,77 +15,68 @@ AddressesDialog.defaultProps = {
   data: {},
 };
 
-export default function AddressesDialog({ data, ...other }) {
-  const [selectedAddress, setSelectedAddress] = useState('1');
+const inputs = [
+  { type: '', name: 'address', label: 'Address' },
+  { type: '', name: 'apartment', label: 'Apartment' },
+  { type: '', name: 'state', label: 'State' },
+  { type: '', name: 'city', label: 'City' },
+  { type: '', name: 'zip', label: 'ZIP' },
+];
 
-  const addAddress = () => {
+export default function AddressesDialog({ data, onChangeAddress, ...other }) {
+  const schema = Yup.object().shape({
+    address: Yup.string().required('Address is required'),
+    apartment: Yup.string().required('Apartment is required'),
+    state: Yup.string().required('State is required'),
+    city: Yup.string().required('City is required'),
+    zip: Yup.string().required('Zip is required'),
+  });
+
+  const methods = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      address: '',
+      apartment: '',
+      state: '',
+      city: '',
+      zip: '',
+    },
+  });
+
+  const {
+    handleSubmit,
+    formState: { errors },
+  } = methods;
+
+  const onSubmit = async (data) => {
+    onChangeAddress(data);
     other.onClose();
-  }
+  };
 
   return (
     <Dialog maxWidth={'sm'} {...other}>
       <IconButton onClick={() => other.onClose()} width={'fit-content'} sx={{ position: 'absolute', right: '0' }}>
         <Iconify icon={'iconoir:cancel'} />
       </IconButton>
-      <Stack p={8} gap={6}>
-        <Typography variant="h3">Recent addressAes</Typography>
-        <Grid container display={'flex'} alignItems={'flex-start'}>
-          <Grid
-            item
-            xs={9}
-            onClick={() => {
-              setSelectedAddress('1');
-            }}
-            sx={{ cursor: 'pointer' }}
+      <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+        <Stack p={8} gap={3} width={500}>
+          <Typography variant="h3">Add address</Typography>
+
+          {inputs.map((item, _i) => (
+            <RHFTextField key={_i} type={item.type} name={item.name} label={item.label} variant="filled" size="small" />
+          ))}
+
+          <Button
+            type="submit"
+            size="large"
+            variant="outlined"
+            color="secondary"
+            sx={{ padding: '20px 40px', width: 'fit-content' }}
           >
-            <Typography pt={1}>3678 Summit Park Avenue Southfield, MI 69735, US</Typography>
-          </Grid>
-          <Grid item xs={3} display={'flex'} justifyContent={'end'}>
-            <IconButton
-              color="secondary"
-              onClick={() => {
-                setSelectedAddress('1');
-              }}
-            >
-              <Iconify
-                icon={`${
-                  selectedAddress == '1' ? 'material-symbols:check-circle-rounded' : 'material-symbols:circle-outline'
-                }`}
-              />
-            </IconButton>
-          </Grid>
-          <Grid item xs={12} py={3}>
-            <Divider />
-          </Grid>
-          <Grid
-            item
-            xs={9}
-            onClick={() => {
-              setSelectedAddress('2');
-            }}
-            sx={{ cursor: 'pointer' }}
-          >
-            <Typography pt={1}>3678 Summit Park Avenue Southfield, MI 69735, US</Typography>
-          </Grid>
-          <Grid item xs={3} display={'flex'} justifyContent={'end'}>
-            <IconButton
-              color="secondary"
-              onClick={() => {
-                setSelectedAddress('2');
-              }}
-            >
-              <Iconify
-                icon={`${
-                  selectedAddress == '2' ? 'material-symbols:check-circle-rounded' : 'material-symbols:circle-outline'
-                }`}
-              />
-            </IconButton>
-          </Grid>
-        </Grid>
-        <Button size="large" variant="outlined" color="secondary" sx={{ padding: '20px 40px', width: 'fit-content' }} onClick={addAddress}>
-          Enter new address
-        </Button>
-      </Stack>
+            Save
+          </Button>
+        </Stack>
+      </FormProvider>
     </Dialog>
   );
 }

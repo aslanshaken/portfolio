@@ -31,13 +31,17 @@ const InfoStyle = styled('div')(({ theme }) => ({
   justifyContent: 'space-between',
 }));
 
-export default function DeliveryLocation() {
+export default function Location({ isPickup }) {
   const theme = useTheme();
 
   return (
     <RootStyle>
       <InfoStyle>
-        <CardHeader icon="material-symbols:location-on-outline" title={'Delivery Location'} hideDivider />
+        <CardHeader
+          icon="material-symbols:location-on-outline"
+          title={isPickup ? 'Pick Up Location' : 'Delivery Location'}
+          hideDivider
+        />
 
         <Stack
           direction={'row'}

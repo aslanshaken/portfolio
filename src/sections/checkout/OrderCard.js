@@ -64,19 +64,25 @@ export default function OrderCard() {
       <Divider sx={{ mb: 2 }} />
       <Stack direction={'row'} justifyContent={'space-between'} mb={2}>
         <Typography variant={'body2'}>{'Subtotal:'}</Typography>
-        <Typography variant="subtitle1">{'$23.98'}</Typography>
+        <Typography fontWeight={'bold'} color={'secondary'}>
+          {'$66.96'}
+        </Typography>
       </Stack>
 
       <Divider sx={{ mb: 2 }} />
       <Stack direction={'row'} justifyContent={'space-between'} mb={2}>
-        <Typography variant={'body2'}>{'Shipping:'}</Typography>
-        <Typography variant="subtitle1">{'$23.98'}</Typography>
+        <Typography variant={'body2'}>{'Service Fee:'}</Typography>
+        <Typography fontWeight={'bold'} color={'secondary'}>
+          {'$9.99'}
+        </Typography>
       </Stack>
 
       <Divider sx={{ mb: 2 }} />
       <Stack direction={'row'} justifyContent={'space-between'} mb={2}>
         <Typography variant={'body2'}>{'Total:'}</Typography>
-        <Typography variant="subtitle1">{'$23.98'}</Typography>
+        <Typography fontWeight={'bold'} color={'secondary'}>
+          {'$79.95'}
+        </Typography>
       </Stack>
 
       <Divider sx={{ mb: 2 }} />
@@ -104,7 +110,7 @@ export default function OrderCard() {
         {'Enter your promocode here'}
       </Typography>
 
-      <TextField fullWidth label={'coupon'} variant={'filled'} size={'small'} />
+      <TextField fullWidth label={'Promocode'} variant={'filled'} size={'small'} />
 
       <Box mt={5} />
 
@@ -121,6 +127,12 @@ export default function OrderCard() {
         label={'I’ve read and agree to the website terms and conditions'}
         sx={{ alignItems: 'flex-start' }}
       />
+
+      <Box mt={5} />
+
+      <Button size="large" variant={'contained'} sx={{ borderRadius: '30px' }}>
+        ORDER
+      </Button>
     </Stack>
   );
 }

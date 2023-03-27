@@ -7,53 +7,25 @@ import { StaticDatePicker } from '@mui/lab';
 import styled from '@emotion/styled';
 
 //
-DeliverySchedulePanel.propTypes = {
+SchedulePanel.propTypes = {
   data: PropTypes.object,
 };
-DeliverySchedulePanel.defaultProps = {
+SchedulePanel.defaultProps = {
   data: {},
 };
 
 const times = [
   {
     id: '1',
-    label: '08AM-10AM',
+    label: '09AM-11AM',
   },
   {
     id: '2',
-    label: '10AM-12PM',
+    label: '12AM-5PM',
   },
   {
     id: '3',
-    label: '12PM-2PM',
-  },
-  {
-    id: '4',
-    label: '2PM-4PM',
-  },
-  {
-    id: '5',
-    label: '4PM-6PM',
-  },
-  {
-    id: '6',
-    label: '6PM-8PM',
-  },
-  {
-    id: '7',
-    label: '8PM-10PM',
-  },
-  {
-    id: '8',
-    label: '10PM-12AM',
-  },
-  {
-    id: '9',
-    label: '12AM-2AM',
-  },
-  {
-    id: '10',
-    label: '2AM-4AM',
+    label: '6PM-9PM',
   },
 ];
 
@@ -76,8 +48,8 @@ const DatePicker = styled('div')(({ theme }) => ({
   '.css-1n2mv2k': {
     background: '#E8E8E8',
   },
-  '.css-1v994a0':{
-    marginRight:'12px'
+  '.css-1v994a0': {
+    marginRight: '12px',
   },
   '.MuiTypography-caption': {
     color: 'white',
@@ -119,26 +91,32 @@ const DatePicker = styled('div')(({ theme }) => ({
   },
 }));
 
-export default function DeliverySchedulePanel() {
-  const [activedTime, setAcitvedTime] = useState(times[3].id);
-  const [date, setDate] = useState(new Date);
+export default function SchedulePanel({isPickup}) {
+  const [activedTime, setAcitvedTime] = useState(times[1].id);
+  const [date, setDate] = useState(new Date());
 
   return (
     <Card>
-      <CardHeader variant="contained" icon="jam:pen-f" title="Delivery Schedule" />
-      <Grid px={3} py={2} display={'flex'} flexWrap={{ md: 'nowrap', xs: 'wrap' }} gap={4}>
-        <DatePicker>
-          <StaticDatePicker
-            renderInput={(params) => <Box {...params} />}
-            dayOfWeekFormatter={(day) => day.charAt(0).toUpperCase()}
-            showDaysOutsideCurrentMonth
-            value={date}
-            onChange={(newValue) => {
-              setDate(newValue);
-            }}
-          />
-        </DatePicker>
-        <Box display="flex" flexWrap={'wrap'} gap={3}>
+      <CardHeader
+        variant="contained"
+        icon="jam:pen-f"
+        title={`${isPickup ? 'Pick Up Schedule' : 'Delivery Schedule'}`}
+      />
+      <Box sx={{ display: 'flex', gap: { xs: 4, sm: 0 }, justifyContent: 'space-around', flexWrap: 'wrap', p: 2 }}>
+        <Box>
+          <DatePicker>
+            <StaticDatePicker
+              renderInput={(params) => <Box {...params} />}
+              dayOfWeekFormatter={(day) => day.charAt(0).toUpperCase()}
+              showDaysOutsideCurrentMonth
+              value={date}
+              onChange={(newValue) => {
+                setDate(newValue);
+              }}
+            />
+          </DatePicker>
+        </Box>
+        <Box sx={{ my: 'auto', display: 'flex', flexFlow: 'column', gap: 4 }}>
           {times.map((item) => (
             <Box
               key={item.id}
@@ -157,7 +135,7 @@ export default function DeliverySchedulePanel() {
             </Box>
           ))}
         </Box>
-      </Grid>
+      </Box>
     </Card>
   );
 }
