@@ -18,12 +18,13 @@ const selects = [
 //
 NotesPanel.propTypes = {
   data: PropTypes.object,
+  isPickup: PropTypes.bool
 };
 NotesPanel.defaultProps = {
   data: {},
 };
 
-export default function NotesPanel({ data, ...other }) {
+export default function NotesPanel({ data, isPickup, ...other }) {
   const [selectedAddress, setSelectedAddress] = useState('1');
 
   const saveData = () => {
@@ -35,7 +36,7 @@ export default function NotesPanel({ data, ...other }) {
       <CardHeader variant="contained" icon="jam:pen-f" title="Notes" />
       <Stack px={3} py={2} spacing={2}>
         <Stack sx={{ width: '100%', gap: 2 }}>
-          {data.address && (
+          {!isPickup && (
             <>
               <Typography variant="subtitle1">Leave order at door?</Typography>
               <Grid spacing={{ md: 12 }} container display={'flex'} alignItems={'flex-start'}>

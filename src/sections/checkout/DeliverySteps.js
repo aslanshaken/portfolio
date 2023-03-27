@@ -62,6 +62,7 @@ export default function DeliverySteps({address, isPickup}) {
                 )}
                 {step.title === 'Notes' && (
                   <NotesPanel
+                    isPickup={isPickup}
                     data={address}
                     onClose={() => {
                       setIsOpenNotesPanel(false);

@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 import PropTypes from 'prop-types';
-import { Button, Dialog, IconButton, Stack, TextField, Typography } from '@mui/material';
+import { Button, Dialog, DialogContent, IconButton, Stack, TextField, Typography } from '@mui/material';
 import Iconify from '../../components/Iconify';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
@@ -54,29 +54,38 @@ export default function AddressesDialog({ data, onChangeAddress, ...other }) {
   };
 
   return (
-    <Dialog maxWidth={'sm'} {...other}>
+    <Dialog maxWidth={'sm'} fullWidth {...other}>
       <IconButton onClick={() => other.onClose()} width={'fit-content'} sx={{ position: 'absolute', right: '0' }}>
         <Iconify icon={'iconoir:cancel'} />
       </IconButton>
-      <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-        <Stack p={8} gap={3} width={500}>
-          <Typography variant="h3">Add address</Typography>
+      <DialogContent>
+        <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+          <Stack spacing={3}>
+            <Typography variant="h3">Add address</Typography>
 
-          {inputs.map((item, _i) => (
-            <RHFTextField key={_i} type={item.type} name={item.name} label={item.label} variant="filled" size="small" />
-          ))}
+            {inputs.map((item, _i) => (
+              <RHFTextField
+                key={_i}
+                type={item.type}
+                name={item.name}
+                label={item.label}
+                variant="filled"
+                size="small"
+              />
+            ))}
 
-          <Button
-            type="submit"
-            size="large"
-            variant="outlined"
-            color="secondary"
-            sx={{ padding: '20px 40px', width: 'fit-content' }}
-          >
-            Save
-          </Button>
-        </Stack>
-      </FormProvider>
+            <Button
+              type="submit"
+              size="large"
+              variant="outlined"
+              color="secondary"
+              sx={{ padding: '20px 40px', width: 'fit-content' }}
+            >
+              Save
+            </Button>
+          </Stack>
+        </FormProvider>
+      </DialogContent>
     </Dialog>
   );
 }
