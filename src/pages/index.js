@@ -14,6 +14,9 @@ import { useState } from 'react';
 import CityDialog from 'src/sections/home/CityDialog';
 import CuisineDialog from 'src/sections/home/CuisineDialog';
 import GeneralQuestions from 'src/sections/home/GeneralQuestions';
+import SearchHomeHero from 'src/sections/home/SearchHomeHero';
+import HowItWork from 'src/sections/home/HowItWork';
+import { Box } from '@mui/material';
 
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
@@ -44,12 +47,15 @@ export default function HomePage() {
       />
       <CuisineDialog isOpen={cuisineDialogIsOpen} setIsOpen={setCuisineDialogIsOpen} />
 
-      <HomeHero />
+      {/* <HomeHero /> */}
+      <SearchHomeHero />
+      {/* <HowItWork /> */}
       <AwesomeFood />
       <SearchChef />
       <Benefit />
       <PopularDishes />
       <GeneralQuestions />
+      <Box mt={10} />
     </Page>
   );
 }
