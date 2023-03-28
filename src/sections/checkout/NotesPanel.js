@@ -35,7 +35,7 @@ export default function NotesPanel({ data, ...other }) {
       <CardHeader variant="contained" icon="jam:pen-f" title="Notes" />
       <Stack px={3} py={2} spacing={2}>
         <Stack sx={{ width: '100%', gap: 2 }}>
-          {data.address && (
+          {!other.isPickup && (
             <>
               <Typography variant="subtitle1">Leave order at door?</Typography>
               <Grid spacing={{ md: 12 }} container display={'flex'} alignItems={'flex-start'}>

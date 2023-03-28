@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 import PropTypes from 'prop-types';
-import { Button, Dialog, IconButton, Stack, TextField, Typography } from '@mui/material';
+import { Button, Dialog, FormControl, Grid, IconButton, Paper, Stack, TextField, Typography } from '@mui/material';
 import Iconify from '../../components/Iconify';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
@@ -59,7 +59,7 @@ export default function AddressesDialog({ data, onChangeAddress, ...other }) {
         <Iconify icon={'iconoir:cancel'} />
       </IconButton>
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-        <Stack p={8} gap={3} width={500}>
+        <Stack p={8} gap={3}>
           <Typography variant="h3">Add address</Typography>
 
           {inputs.map((item, _i) => (
