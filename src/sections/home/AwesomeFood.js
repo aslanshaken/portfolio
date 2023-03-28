@@ -80,7 +80,7 @@ export default function AwesomeFood() {
             dolore magna aliqua.
           </Typography>
 
-          <FruitsTop />
+          {/* <FruitsTop /> */}
         </Container>
       </Box>
       <Container>

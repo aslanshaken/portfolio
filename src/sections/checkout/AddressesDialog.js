@@ -5,7 +5,6 @@ import Iconify from '../../components/Iconify';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { FormProvider, RHFTextField } from 'src/components/hook-form';
-import { useEffect } from 'react';
 
 //
 AddressesDialog.propTypes = {

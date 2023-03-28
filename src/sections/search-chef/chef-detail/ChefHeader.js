@@ -15,152 +15,176 @@ const RootStyle = styled('div')(({ theme }) => ({
   },
 }));
 
+const dates = [
+  {
+    id: '1',
+    label: 'March 17',
+  },
+  {
+    id: '2',
+    label: 'March 17',
+  },
+  {
+    id: '3',
+    label: 'March 17',
+  },
+  {
+    id: '4',
+    label: 'March 17',
+  },
+  {
+    id: '5',
+    label: 'March 17',
+  },
+  {
+    id: '6',
+    label: 'March 17',
+  },
+  {
+    id: '7',
+    label: 'March 17',
+  },
+];
+
 // ----------------------------------------------------------------------
 
-export default function ChefHeader() {
+export default function ChefHeader({ seledtedDate , setSelectedDate}) {
   const router = useRouter();
   const { chef } = router.query;
 
   return (
-    <Box>
+    <RootStyle>
       <Container>
-        <RootStyle>
-          <Box display={'flex'} p={2} mb={4} mt={8}>
-            <Box px={2} width={'100%'}>
-              <Box display={'flex'} justifyContent={'space-between'} flexWrap={'wrap'} width={'100%'}>
-                <Box display={'flex'} gap={2}>
-                  <Box position={'relative'}>
-                    <Avatar
-                      alt="Travis Howard"
-                      src={`/assets/search-chef/chefs/${chef}.png`}
-                      sx={{
-                        width: {
-                          md: 150,
-                          xs: 100,
-                        },
-                        height: {
-                          md: 150,
-                          xs: 100,
-                        },
-                      }}
-                    />
-                    <Iconify
-                      icon={'material-symbols:verified'}
-                      sx={{
-                        position: 'absolute',
-                        top: { xs: 2, md: 8 },
-                        right: { xs: 2, md: 8 },
-                        width: { xs: 20, md: 24 },
-                        height: { xs: 20, md: 24 },
-                        color: '#0ED3CF',
-                      }}
-                    />
-                  </Box>
-                  <Box>
-                    <Typography
-                      color={'black'}
-                      sx={(theme) => ({
-                        ...theme.typography.h5,
-                        [theme.breakpoints.up('md')]: {
-                          ...theme.typography.h3,
-                        },
-                      })}
-                    >
-                      Sheff's Michael menu
-                    </Typography>
-                    <Box display={'flex'} gap={2} flexWrap={'wrap'} py={1}>
-                      <Typography color={'black'} variant={'subtitle1'}>
-                        Japan Cuisine
-                      </Typography>
-                      <Typography color={'black'} variant={'subtitle1'}>
-                        Rating: 5
-                      </Typography>
-                      <Typography color={'black'} variant={'subtitle1'}>
-                        Deliveries: 28
-                      </Typography>
-                      <GradientText color={'primary'} variant={'subtitle1'}>
-                        Deliveries: 28
-                      </GradientText>
-                    </Box>
-                    <Hidden mdDown>
-                      <Box maxWidth={'600px'}>
-                        <ReadMore>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut
-                          lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices
-                          posuere cubilia Curae. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit
-                          nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci
-                          luctus ultrices posuere cubilia Curae.
-                        </ReadMore>
-                      </Box>
-                    </Hidden>
-                  </Box>
-                </Box>
-                <Box display={'felx'} flexWrap={'nowrap'} mt={2} mb={4}>
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    size="large"
+        <Box display={'flex'} p={2} mb={4} mt={8}>
+          <Box px={2} width={'100%'}>
+            <Box display={'flex'} justifyContent={'space-between'} flexWrap={'wrap'} width={'100%'}>
+              <Box display={'flex'} gap={2}>
+                <Box position={'relative'}>
+                  <Avatar
+                    alt="Travis Howard"
+                    src={`/assets/search-chef/chefs/${chef}.png`}
                     sx={{
-                      px: 6,
-                      mr: 2,
+                      width: {
+                        md: 150,
+                        xs: 100,
+                      },
+                      height: {
+                        md: 150,
+                        xs: 100,
+                      },
                     }}
+                  />
+                  <Iconify
+                    icon={'material-symbols:verified'}
+                    sx={{
+                      position: 'absolute',
+                      top: { xs: 2, md: 8 },
+                      right: { xs: 2, md: 8 },
+                      width: { xs: 20, md: 24 },
+                      height: { xs: 20, md: 24 },
+                      color: '#0ED3CF',
+                    }}
+                  />
+                </Box>
+                <Box>
+                  <Typography
+                    color={'black'}
+                    sx={(theme) => ({
+                      ...theme.typography.h5,
+                      [theme.breakpoints.up('md')]: {
+                        ...theme.typography.h3,
+                      },
+                    })}
                   >
-                    Follow 
-                  </Button>
-                  <IconButton color={'secondary'} sx={{ border: '2px solid', borderRadius: '8px' }}>
-                    <Iconify icon={'mdi:cards-heart-outline'} />
-                  </IconButton>
+                    Sheff's Michael menu
+                  </Typography>
+                  <Box display={'flex'} gap={2} flexWrap={'wrap'} py={1}>
+                    <Typography color={'black'} variant={'subtitle1'}>
+                      Japan Cuisine
+                    </Typography>
+                    <Typography color={'black'} variant={'subtitle1'}>
+                      Rating: 5
+                    </Typography>
+                    <Typography color={'black'} variant={'subtitle1'}>
+                      Deliveries: 28
+                    </Typography>
+                    <GradientText color={'primary'} variant={'subtitle1'}>
+                      Deliveries: 28
+                    </GradientText>
+                  </Box>
+                  <Hidden mdDown>
+                    <Box maxWidth={'600px'}>
+                      <ReadMore>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia
+                        in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere
+                        cubilia Curae. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi,
+                        pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus
+                        ultrices posuere cubilia Curae.
+                      </ReadMore>
+                    </Box>
+                  </Hidden>
                 </Box>
               </Box>
-              <Hidden mdUp>
-                <Box maxWidth={'600px'}>
-                  <ReadMore>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in,
-                    elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia
-                    Curae. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut
-                    lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere
-                    cubilia Curae.
-                  </ReadMore>
-                </Box>
-              </Hidden>
-            </Box>
-          </Box>
-          <Box>
-            <Divider />
-            <Box my={4}>
-              <Box>
-                <Typography variant="h3" color={'black'}>
-                  Available dates
-                </Typography>
-              </Box>
-              <Box display={'flex'} justifyContent={'space-between'} flexWrap={'nowrap'} overflow={'auto'} gap={2} py={2}>
-                <Box bgcolor={'#DAEFE5'} whiteSpace={'nowrap'} py={2} px={4} borderRadius={1}>
-                  March 17
-                </Box>
-                <Box bgcolor={'#DAEFE5'} whiteSpace={'nowrap'} py={2} px={4} borderRadius={1}>
-                  March 17
-                </Box>
-                <Box bgcolor={'#DAEFE5'} whiteSpace={'nowrap'} py={2} px={4} borderRadius={1}>
-                  March 17
-                </Box>
-                <Box bgcolor={'#DAEFE5'} whiteSpace={'nowrap'} py={2} px={4} borderRadius={1}>
-                  March 17
-                </Box>
-                <Box bgcolor={'#DAEFE5'} whiteSpace={'nowrap'} py={2} px={4} borderRadius={1}>
-                  March 17
-                </Box>
-                <Box bgcolor={'#DAEFE5'} whiteSpace={'nowrap'} py={2} px={4} borderRadius={1}>
-                  March 17
-                </Box>
-                <Box bgcolor={'#DAEFE5'} whiteSpace={'nowrap'} py={2} px={4} borderRadius={1}>
-                  March 17
-                </Box>
+              <Box display={'felx'} flexWrap={'nowrap'} mt={2} mb={4}>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  size="large"
+                  sx={{
+                    px: 6,
+                    mr: 2,
+                  }}
+                >
+                  Follow
+                </Button>
+                <IconButton color={'secondary'} sx={{ border: '2px solid', borderRadius: '8px' }}>
+                  <Iconify icon={'mdi:cards-heart-outline'} />
+                </IconButton>
               </Box>
             </Box>
-            <Divider />
+            <Hidden mdUp>
+              <Box maxWidth={'600px'}>
+                <ReadMore>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in,
+                  elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in,
+                  elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.
+                </ReadMore>
+              </Box>
+            </Hidden>
           </Box>
-        </RootStyle>
+        </Box>
+        <Box>
+          <Divider />
+          <Box my={4}>
+            <Box>
+              <Typography variant="h3" color={'black'}>
+                Available dates
+              </Typography>
+            </Box>
+            <Box display={'flex'} justifyContent={'space-between'} flexWrap={'nowrap'} overflow={'auto'} gap={2} py={2}>
+              {dates.map((item) => (
+                <Box
+                  key={item.id}
+                  display={'flex'}
+                  alignItems={'center'}
+                  justifyContent={'center'}
+                  width={150}
+                  height={40}
+                  color={item.id === seledtedDate ? '#506C60' : 'rgba(80, 108, 96, 0.5)'}
+                  bgcolor={item.id === seledtedDate ? '#C1DED1' : 'rgba(193, 222, 209, 0.28)'}
+                  borderRadius={2}
+                  sx={{ cursor: 'pointer', zIndex: 20 }}
+                  onClick={() => setSelectedDate(item.id)}
+                >
+                  {item.label}
+                </Box>
+              ))}
+            </Box>
+          </Box>
+          <Divider />
+        </Box>
       </Container>
-    </Box>
+    </RootStyle>
   );
 }
