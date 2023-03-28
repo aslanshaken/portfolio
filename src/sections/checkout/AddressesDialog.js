@@ -1,11 +1,10 @@
 import * as Yup from 'yup';
 import PropTypes from 'prop-types';
-import { Button, Dialog, FormControl, Grid, IconButton, Paper, Stack, TextField, Typography } from '@mui/material';
+import { Button, Dialog, IconButton, Stack, Typography } from '@mui/material';
 import Iconify from '../../components/Iconify';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { FormProvider, RHFTextField } from 'src/components/hook-form';
-import { useEffect } from 'react';
 
 //
 AddressesDialog.propTypes = {

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled from '@emotion/styled';
 // @mui
-import { Autocomplete, Grid, TextField, Box } from '@mui/material';
+import { Autocomplete, Typography, Grid, TextField, Box, Backdrop } from '@mui/material';
 // components
 import Container from '../../../components/Container';
 import Pagination from '../../../components/Pagination';
@@ -296,6 +296,8 @@ const foodData = [
 // --------------------------------------------
 
 const RootStyle = styled('div')(({ theme }) => ({
+  position: 'relative',
+  zIndex: 0,
   '& .search_bar': {
     justifyContent: 'space-between',
     marginTop: 2,
@@ -325,6 +327,13 @@ const RootStyle = styled('div')(({ theme }) => ({
       border: 0,
     },
   },
+  '& .overlay': {
+    position: 'absolute',
+    top: 200,
+    zIndex: 10,
+    background: '#FFFFFF',
+    opacity: `0.5 !important`,
+  },
 }));
 
 const SideBarStyle = styled(Box)(() => ({
@@ -335,7 +344,7 @@ const SideBarStyle = styled(Box)(() => ({
 
 // --------------------------------------------
 
-export default function FoodSection() {
+export default function FoodSection({ seledtedDate }) {
   const [isHiddenCategory, setIsHiddenCategory] = useState(false);
 
   const [isOpenCartDlg, setIsOpenCartDlg] = useState(false);
@@ -362,6 +371,7 @@ export default function FoodSection() {
       <CartDialog data={selectedItemData} open={isOpenCartDlg} onClose={() => setIsOpenCartDlg(false)} />
 
       <Container>
+        {!seledtedDate && <Backdrop open={true} className="overlay" />}
         <Grid container spacing={15} pt={15}>
           <Grid item md={4} xs={12}>
             <SideBarStyle>
@@ -374,7 +384,12 @@ export default function FoodSection() {
               <MenuAllerogyForm isOpen={!isHiddenCategory} mt={isHiddenCategory ? -2 : 3} />
             </SideBarStyle>
           </Grid>
-          <Grid item md={8}>
+          <Grid item md={8} position={'relative'}>
+            {!seledtedDate && (
+              <Typography variant="h3" sx={{ position: 'absolute', left: '40%', top: '50%', zIndex: 5, fontWeight:'500' }}>
+                Choose date first
+              </Typography>
+            )}
             <Grid container sx={{ marginTop: '-20px', marginBottom: '20px' }}>
               <Grid item md={8} sm={4} />
               <Grid item md={4} sm={12} xs={12}>
