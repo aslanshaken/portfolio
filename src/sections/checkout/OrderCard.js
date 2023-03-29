@@ -11,6 +11,7 @@ import {
   Typography,
 } from '@mui/material';
 import Iconify from 'src/components/Iconify';
+import NextLink from 'next/link';
 
 //
 
@@ -130,9 +131,11 @@ export default function OrderCard() {
 
       <Box mt={5} />
 
-      <Button size="large" variant={'contained'} sx={{ borderRadius: '30px' }}>
-        ORDER
-      </Button>
+      <NextLink href="/cities/chicago/ukrainian-cuisine/adam-sandler/checkout/conform" passHref>
+        <Button size="large" variant={'contained'} sx={{ borderRadius: '30px' }}>
+          ORDER
+        </Button>
+      </NextLink>
     </Stack>
   );
 }
