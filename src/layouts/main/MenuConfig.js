@@ -2,7 +2,7 @@
 
 import { PATH_PAGE } from '../../routes/paths';
 
- export const menuConfig = [
+export const menuConfig = [
   {
     title: 'Home',
     path: '/',
@@ -32,7 +32,8 @@ export const homeMenuConfig = [
   },
   {
     title: 'Available Cities',
-    path: '/#',
+    path: '/',
+    target: 'choose_city_dialog',
   },
   {
     title: 'Contact Us',

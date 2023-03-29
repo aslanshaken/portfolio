@@ -3,10 +3,6 @@ import Layout from '../layouts';
 // components
 import Page from '../components/Page';
 // sections
-import HomeHero from '../sections/home/HomeHero';
-import AwesomeFood from '../sections/home/AwesomeFood';
-import SearchChef from '../sections/home/Menu';
-import Benefit from '../sections/home/Benefit';
 import PopularDishes from '../sections/home/PopularDishes';
 import WelcomeDialog from 'src/sections/home/WelcomeDialog';
 import ComingDialog from 'src/sections/home/ComingDialog';
@@ -18,7 +14,8 @@ import SearchHomeHero from 'src/sections/home/SearchHomeHero';
 import HowItWork from 'src/sections/home/HowItWork';
 import { Box } from '@mui/material';
 import BringFood from 'src/sections/home/BringFood';
-import { useRouter } from 'next/router';
+import { useSelector } from 'src/redux/store';
+import { DIALOG_SELECTOR } from 'src/redux/slices/dialog';
 
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
@@ -30,16 +27,19 @@ HomePage.getLayout = function getLayout(page) {
 // ----------------------------------------------------------------------
 
 export default function HomePage() {
-  const { asPath } = useRouter();
-  const cityDialogOpen = asPath === '/#';
+  const { current: openedDialog } = useSelector(DIALOG_SELECTOR);
+
+  const isOpenCityDialog = openedDialog === 'choose_city_dialog';
+
   const [welcomeDialogIsOpen, setWelcomeDialogIsOpen] = useState(false);
   const [comingDialogIsOpen, setComingDialogIsOpen] = useState(false);
   const [cityDialogIsOpen, setCityDialogIsOpen] = useState(false);
   const [cuisineDialogIsOpen, setCuisineDialogIsOpen] = useState(false);
+
   useEffect(() => {
-    setWelcomeDialogIsOpen(!cityDialogOpen);
-    setCityDialogIsOpen(cityDialogOpen);
-  }, [cityDialogOpen]);
+    // setWelcomeDialogIsOpen(!cityDialogOpen);
+    setCityDialogIsOpen(isOpenCityDialog);
+  }, [isOpenCityDialog]);
 
   return (
     <Page title="Home">

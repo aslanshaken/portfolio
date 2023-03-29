@@ -17,6 +17,7 @@ export default function HowItWork() {
       <Grid container mt={8}>
         {cards.map((item, _i) => (
           <Grid
+            item
             key={_i}
             md={4}
             xs={12}
