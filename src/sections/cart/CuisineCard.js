@@ -12,7 +12,7 @@ CuisineCard.propTypes = {
 
 export default function CuisineCard({ data = {} }) {
   return (
-    <Stack direction={'row'} alignItems={'center'} spacing={2} width={1}>
+    <Stack direction={'row'} alignItems={'center'} justifyContent='space-between' spacing={{xs:2, md:5, lg:7}} width={1}>
       <Image
         alt={'Cuisine Image'}
         src={'/assets/search-chef/foods/chilli_pepper.png'}
@@ -20,7 +20,7 @@ export default function CuisineCard({ data = {} }) {
       />
 
       <Stack>
-        <Typography variant="h6" color="black" fontWeight={600} gutterBottom>
+        <Typography whiteSpace={'nowrap'} variant="h6" color="black" fontWeight={600} gutterBottom>
           {'Chili pepper'}
         </Typography>
         <Typography variant="body2" color="text.secondary">
@@ -28,9 +28,7 @@ export default function CuisineCard({ data = {} }) {
         </Typography>
       </Stack>
 
-      <Box sx={{ flexGrow: 1 }} />
-
-      <Box sx={{ backgroundColor: 'background.paper', py: 1.5, px: 3, borderRadius: 1 }}>
+      <Box sx={{ backgroundColor: 'background.paper', py: 1.5, borderRadius: 1 }}>
         <Typography color="text.secondary">{'2'}</Typography>
       </Box>
 

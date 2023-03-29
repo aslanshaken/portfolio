@@ -3,16 +3,20 @@ import { useRef } from 'react';
 import Slider from 'react-slick';
 import { Box, Typography, useTheme } from '@mui/material';
 import CarouselArrows from './CarouselArrows';
-import GradientText from '../../components/GradientText';
 import DisheCard from '../../components/DisheCard';
 import styled from '@emotion/styled';
 import Container from '../../components/Container';
 
 const RootStyle = styled(Box)(({ theme }) => ({
+  '& .slick-cloned': {
+    '& .MuiPaper-root': {
+      boxShadow: 'none',
+    },
+  },
   '& .slick-current': {
     '& .MuiPaper-root': {
       boxShadow: theme.customShadows.z12,
-      transform: 'scale(1.08)',
+      // transform: 'scale(1.08)',
       transition: '300ms',
       '& .feature-btn-box': {
         display: 'flex',
@@ -68,13 +72,6 @@ export default function PopularDishes() {
           slidesToScroll: 1,
         },
       },
-      {
-        breakpoint: theme.breakpoints.values['sm'],
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
     ],
   };
   const handlePrevious = () => {
@@ -86,12 +83,10 @@ export default function PopularDishes() {
   };
   return (
     <RootStyle sx={{ pt: '60px' }}>
-      <GradientText color="secondary" variant="subtitle1" sx={{ textAlign: 'center', fontWeight: 700 }}>
-        Also you may like
-      </GradientText>
       <Typography
         variant="h2"
-        sx={{ fontSize: '60px !important', textAlign: 'center', fontWeight: 500, color: 'text.primary', pb: '30px' }}
+        color={'secondary'}
+        sx={{ textAlign: 'center', fontWeight: 500, pb: '30px' }}
       >
         Most popular dishes
       </Typography>
@@ -101,8 +96,8 @@ export default function PopularDishes() {
           onPrevious={handlePrevious}
           sx={{
             '& .arrow': {
-              '&.left': { left: 16 },
-              '&.right': { right: 16 },
+              '&.left': { left: {md:100}},
+              '&.right': { right: {md:100} },
             },
           }}
         >

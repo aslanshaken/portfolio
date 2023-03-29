@@ -9,20 +9,18 @@ export default function CartChef() {
 
   return (
     <Stack>
-      <Stack
-        sx={{
-          background: 'url(/assets/textures/cuisine-cart.png)',
-        }}
-      >
-        <ProfileCover />
-        <CuisineList />
-      </Stack>
+      <ProfileCover />
+      <CuisineList />
 
       <Box mt={5} />
 
-      <NextLink href="/cities/chicago/ukrainian-cuisine/adam-sandler/checkout/" passHref>
-        <LoadingButton variant="outlined">View More</LoadingButton>
-      </NextLink>
+      <Stack px={8}>
+        <NextLink href="/cities/chicago/ukrainian-cuisine/adam-sandler/checkout/" passHref>
+          <LoadingButton size="large" variant="outlined" sx={{ color: 'black' }}>
+            Checkout (10)
+          </LoadingButton>
+        </NextLink>
+      </Stack>
     </Stack>
   );
 }

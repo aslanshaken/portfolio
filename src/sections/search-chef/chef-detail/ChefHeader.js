@@ -1,11 +1,12 @@
-import { Avatar, Box, Button, Divider, IconButton, Typography, Hidden } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import { HEADER } from '../../../config';
+import PropTypes from 'prop-types';
+import { Avatar, Box, Button, Divider, IconButton, Typography, Hidden, Link, Breadcrumbs, styled } from '@mui/material';
 import Container from '../../../components/Container';
 import { useRouter } from 'next/router';
 import Iconify from '../../../components/Iconify';
 import GradientText from '../../../components/GradientText';
 import ReadMore from '../../../components/ReadMore';
+import { HEADER } from 'src/config';
+import Image from 'src/components/Image';
 
 const RootStyle = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -15,47 +16,61 @@ const RootStyle = styled('div')(({ theme }) => ({
   },
 }));
 
-const dates = [
+const categories = [
   {
     id: '1',
-    label: 'March 17',
+    label: 'Frozen Meals',
   },
   {
     id: '2',
-    label: 'March 17',
+    label: 'Cakes',
   },
   {
     id: '3',
-    label: 'March 17',
+    label: 'Vegeterian',
   },
   {
     id: '4',
-    label: 'March 17',
+    label: 'Halal',
   },
   {
     id: '5',
-    label: 'March 17',
+    label: 'Catering',
   },
   {
     id: '6',
-    label: 'March 17',
+    label: 'Popular',
   },
   {
     id: '7',
-    label: 'March 17',
+    label: 'Delivery today',
   },
 ];
 
+ChefHeader.propTypes = {
+  selectedCategory: PropTypes.string,
+  setSelectedCategory: PropTypes.func,
+};
+
 // ----------------------------------------------------------------------
 
-export default function ChefHeader({ seledtedDate , setSelectedDate}) {
+export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
   const router = useRouter();
   const { chef } = router.query;
 
   return (
     <RootStyle>
       <Container>
-        <Box display={'flex'} p={2} mb={4} mt={8}>
+        <Breadcrumbs separator="->" sx={{ fontWeight: 600, py: 2 }}>
+          <Link color="inherit" href="#">
+            Austin
+          </Link>
+          <Link color="inherit" href="#">
+            Central Asia cuisine
+          </Link>
+          <Typography fontWeight={600}>Michael</Typography>
+        </Breadcrumbs>
+        <Box display={'flex'} p={2} mb={4}>
           <Box px={2} width={'100%'}>
             <Box display={'flex'} justifyContent={'space-between'} flexWrap={'wrap'} width={'100%'}>
               <Box display={'flex'} gap={2}>
@@ -127,7 +142,6 @@ export default function ChefHeader({ seledtedDate , setSelectedDate}) {
               </Box>
               <Box display={'felx'} flexWrap={'nowrap'} mt={2} mb={4}>
                 <Button
-                  variant="contained"
                   color="secondary"
                   size="large"
                   sx={{
@@ -135,7 +149,7 @@ export default function ChefHeader({ seledtedDate , setSelectedDate}) {
                     mr: 2,
                   }}
                 >
-                  Follow
+                  <Image src={'assets/search-chef/follow.png'} alt={'follow-image'} />
                 </Button>
                 <IconButton color={'secondary'} sx={{ border: '2px solid', borderRadius: '8px' }}>
                   <Iconify icon={'mdi:cards-heart-outline'} />
@@ -159,26 +173,33 @@ export default function ChefHeader({ seledtedDate , setSelectedDate}) {
           <Box my={4}>
             <Box>
               <Typography variant="h3" color={'black'}>
-                Available dates
+                Austin Chefs
               </Typography>
             </Box>
-            <Box display={'flex'} justifyContent={'space-between'} flexWrap={'nowrap'} overflow={'auto'} gap={2} py={2}>
-              {dates.map((item) => (
-                <Box
+            <Box
+              display={'flex'}
+              position={'relative'}
+              zIndex={10}
+              justifyContent={'space-between'}
+              overflow={'auto'}
+              gap={2}
+              py={2}
+            >
+              {categories.map((item) => (
+                <Button
                   key={item.id}
-                  display={'flex'}
-                  alignItems={'center'}
-                  justifyContent={'center'}
-                  width={150}
-                  height={40}
-                  color={item.id === seledtedDate ? '#506C60' : 'rgba(80, 108, 96, 0.5)'}
-                  bgcolor={item.id === seledtedDate ? '#C1DED1' : 'rgba(193, 222, 209, 0.28)'}
-                  borderRadius={2}
-                  sx={{ cursor: 'pointer', zIndex: 20 }}
-                  onClick={() => setSelectedDate(item.id)}
+                  variant={'outlined'}
+                  sx={(theme) => ({
+                    whiteSpace: 'nowrap',
+                    minWidth: 'fit-content',
+                    border: item.id === selectedCategory && 'none',
+                    background: item.id === selectedCategory ? '#595959' : 'white',
+                    color: item.id === selectedCategory ? theme.palette.GradientText : '#31342B',
+                  })}
+                  onClick={() => setSelectedCategory(item.id)}
                 >
                   {item.label}
-                </Box>
+                </Button>
               ))}
             </Box>
           </Box>

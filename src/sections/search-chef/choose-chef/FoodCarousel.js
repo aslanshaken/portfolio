@@ -63,7 +63,7 @@ export default function FoodCarousel({foods}) {
       >
         <Slider ref={carouselRef} {...settings}>
             {foods.map((food, _i) => (
-              <Box key={_i}>
+              <Box key={_i} position={'relative'} zIndex={0}>
                 <FoodCard
                   name={food.name}
                   cover={`/assets/search-chef/foods/${food.filename}.png`}

@@ -34,7 +34,7 @@ export default function CartDialog({ data, ...other }) {
         <Image
           src={'/assets/search-chef/chefs/splash-cuisine.png'}
           alt="Cuisine Splash"
-          sx={{ width: 1, maxHeight: 200 }}
+          sx={{ width: 1, height: 400 }}
         />
         <Stack py={3} px={5}>
           <Grid container justifyContent={'space-between'}>
@@ -77,6 +77,17 @@ export default function CartDialog({ data, ...other }) {
               {'Allergy warning'}
             </Typography>
             <Typography variant="caption">{data.allergies}</Typography>
+          </Stack>
+
+          <Box mt={2.5}>
+            <Divider />
+          </Box>
+
+          <Stack mt={2.5}>
+            <Typography variant="subtitle1" gutterBottom>
+              {'Notes'}
+            </Typography>
+            <Typography variant="caption">{data.note}</Typography>
           </Stack>
 
           <Box mt={8} />

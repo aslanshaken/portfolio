@@ -1,16 +1,18 @@
 import { Dialog, IconButton, Stack, Typography } from '@mui/material';
-import { useState } from 'react';
+import PropTypes from 'prop-types';
 import Iconify from 'src/components/Iconify';
 
-export default function WelcomeDialog({ setComingDialogIsOpen }) {
-  const [isOpen, setIsOpen] = useState(true);
+WelcomeDialog.propTypes = {
+  isOpen: PropTypes.bool,
+  setIsOpen: PropTypes.func,
+};
 
+export default function WelcomeDialog({ isOpen, setIsOpen }) {
   return (
     <Dialog maxWidth={'sm'} fullWidth open={isOpen}>
       <IconButton
         onClick={() => {
           setIsOpen(false);
-          setComingDialogIsOpen(true);
         }}
         width={'fit-content'}
         sx={{ position: 'absolute', right: '0' }}

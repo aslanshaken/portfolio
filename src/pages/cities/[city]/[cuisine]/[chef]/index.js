@@ -17,12 +17,12 @@ CityPage.getLayout = function getLayout(page) {
 // ----------------------------------------------------------------------
 
 export default function CityPage() {
-  const [seledtedDate, setSelectedDate] = useState();
+  const [selectedCategory, setSelectedCategory] = useState();
 
   return (
     <Page title="Search Chef">
-      <ChefHeader seledtedDate={seledtedDate} setSelectedDate={setSelectedDate} />
-      <FoodSection seledtedDate={seledtedDate} />
+      <ChefHeader selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
+      <FoodSection selectedCategory={selectedCategory} />
     </Page>
   );
 }

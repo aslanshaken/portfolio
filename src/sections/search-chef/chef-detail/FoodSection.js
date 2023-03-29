@@ -35,6 +35,7 @@ const foodData = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
     allergies:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+    note: `Is there anything else you'd like us to know about your order?`,
   },
   {
     id: '2',
@@ -50,6 +51,7 @@ const foodData = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
     allergies:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+    note: `Is there anything else you'd like us to know about your order?`,
   },
   {
     id: '3',
@@ -65,6 +67,7 @@ const foodData = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
     allergies:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+    note: `Is there anything else you'd like us to know about your order?`,
   },
   {
     id: '4',
@@ -80,6 +83,7 @@ const foodData = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
     allergies:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+    note: `Is there anything else you'd like us to know about your order?`,
   },
   {
     id: '5',
@@ -95,6 +99,7 @@ const foodData = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
     allergies:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+    note: `Is there anything else you'd like us to know about your order?`,
   },
   {
     id: '6',
@@ -110,6 +115,7 @@ const foodData = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
     allergies:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+    note: `Is there anything else you'd like us to know about your order?`,
   },
   {
     id: '7',
@@ -125,6 +131,7 @@ const foodData = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
     allergies:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+    note: `Is there anything else you'd like us to know about your order?`,
   },
   {
     id: '8',
@@ -140,6 +147,7 @@ const foodData = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
     allergies:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+    note: `Is there anything else you'd like us to know about your order?`,
   },
   {
     id: '9',
@@ -155,6 +163,7 @@ const foodData = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
     allergies:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+    note: `Is there anything else you'd like us to know about your order?`,
   },
   {
     id: '10',
@@ -170,6 +179,7 @@ const foodData = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
     allergies:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+    note: `Is there anything else you'd like us to know about your order?`,
   },
   {
     id: '11',
@@ -185,6 +195,7 @@ const foodData = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
     allergies:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+    note: `Is there anything else you'd like us to know about your order?`,
   },
   {
     id: '12',
@@ -200,6 +211,7 @@ const foodData = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
     allergies:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+    note: `Is there anything else you'd like us to know about your order?`,
   },
   {
     id: '13',
@@ -215,6 +227,7 @@ const foodData = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
     allergies:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+    note: `Is there anything else you'd like us to know about your order?`,
   },
   {
     id: '14',
@@ -230,6 +243,7 @@ const foodData = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
     allergies:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+    note: `Is there anything else you'd like us to know about your order?`,
   },
   {
     id: '15',
@@ -245,6 +259,7 @@ const foodData = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
     allergies:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+    note: `Is there anything else you'd like us to know about your order?`,
   },
   {
     id: '16',
@@ -260,6 +275,7 @@ const foodData = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
     allergies:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+    note: `Is there anything else you'd like us to know about your order?`,
   },
   {
     id: '17',
@@ -275,6 +291,7 @@ const foodData = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
     allergies:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+    note: `Is there anything else you'd like us to know about your order?`,
   },
   {
     id: '18',
@@ -290,6 +307,7 @@ const foodData = [
       '5 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
     allergies:
       '6 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+    note: `Is there anything else you'd like us to know about your order?`,
   },
 ];
 
@@ -329,7 +347,7 @@ const RootStyle = styled('div')(({ theme }) => ({
   },
   '& .overlay': {
     position: 'absolute',
-    top: 200,
+    top:200,
     zIndex: 10,
     background: '#FFFFFF',
     opacity: `0.5 !important`,
@@ -344,7 +362,7 @@ const SideBarStyle = styled(Box)(() => ({
 
 // --------------------------------------------
 
-export default function FoodSection({ seledtedDate }) {
+export default function FoodSection({ selectedCategory }) {
   const [isHiddenCategory, setIsHiddenCategory] = useState(false);
 
   const [isOpenCartDlg, setIsOpenCartDlg] = useState(false);
@@ -371,7 +389,7 @@ export default function FoodSection({ seledtedDate }) {
       <CartDialog data={selectedItemData} open={isOpenCartDlg} onClose={() => setIsOpenCartDlg(false)} />
 
       <Container>
-        {!seledtedDate && <Backdrop open={true} className="overlay" />}
+        {!selectedCategory && <Backdrop open={true} className="overlay" />}
         <Grid container spacing={15} pt={15}>
           <Grid item md={4} xs={12}>
             <SideBarStyle>
@@ -385,8 +403,11 @@ export default function FoodSection({ seledtedDate }) {
             </SideBarStyle>
           </Grid>
           <Grid item md={8} position={'relative'}>
-            {!seledtedDate && (
-              <Typography variant="h3" sx={{ position: 'absolute', left: '40%', top: '50%', zIndex: 5, fontWeight:'500' }}>
+            {!selectedCategory && (
+              <Typography
+                variant="h3"
+                sx={{ position: 'absolute', left: '40%', top: '50%', zIndex: 5, fontWeight: '500' }}
+              >
                 Choose date first
               </Typography>
             )}
