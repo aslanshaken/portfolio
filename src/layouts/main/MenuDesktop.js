@@ -247,12 +247,25 @@ function MenuDesktopItem({ item, isOpen, onOpen, onClose }) {
     );
   }
 
+  if (target) {
+    return (
+      <LinkStyle
+        onClick={() => handleClick(target)}
+        sx={{
+          cursor: 'pointer',
+          ...(isActive(path) && {
+            color: 'primary.main',
+          }),
+        }}
+      >
+        {title}
+      </LinkStyle>
+    );
+  }
+
   return (
     <NextLink href={path} passHref>
       <LinkStyle
-        {...(target && {
-          onClick: () => handleClick(target),
-        })}
         sx={{
           ...(isActive(path) && {
             color: 'primary.main',
