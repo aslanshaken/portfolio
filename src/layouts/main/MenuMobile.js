@@ -163,22 +163,32 @@ function MenuMobileItem({ item, isOpen, onOpen }) {
   }
 
   return (
-    <NextLink href={path} passHref>
-      <ListItemStyle
-        {...(target && {
-          onClick: () => handleClick(target),
-        })}
-        sx={{
-          ...(isActive && {
-            color: 'primary.main',
-            fontWeight: 'fontWeightMedium',
-            bgcolor: (theme) => alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity),
-          }),
-        }}
-      >
-        <ListItemIcon>{icon}</ListItemIcon>
-        <ListItemText disableTypography primary={title} />
-      </ListItemStyle>
-    </NextLink>
+    <>
+      {target ? (
+        <ListItemStyle
+          {...(target && {
+            onClick: () => handleClick(target),
+          })}
+        >
+          <ListItemIcon>{icon}</ListItemIcon>
+          <ListItemText disableTypography primary={title} />
+        </ListItemStyle>
+      ) : (
+        <NextLink href={path} passHref>
+          <ListItemStyle
+            sx={{
+              ...(isActive && {
+                color: 'primary.main',
+                fontWeight: 'fontWeightMedium',
+                bgcolor: (theme) => alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity),
+              }),
+            }}
+          >
+            <ListItemIcon>{icon}</ListItemIcon>
+            <ListItemText disableTypography primary={title} />
+          </ListItemStyle>
+        </NextLink>
+      )}
+    </>
   );
 }
