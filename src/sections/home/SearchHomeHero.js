@@ -1,16 +1,12 @@
 // next
-import NextLink from 'next/link';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Box, Stack, Typography, Button, Grid, Input, InputAdornment, TextField } from '@mui/material';
-import Image from '../../components/Image';
+import { Box, Stack, Typography } from '@mui/material';
 import GradientText from '../../components/GradientText';
 import { HEADER } from '../../config';
-import { PATH_PAGE } from '../../routes/paths';
 import Container from '../../components/Container';
-import Iconify from 'src/components/Iconify';
-import FruitsBottom from './fruits/FruitsBottom';
 import FruitsTop from './fruits/FruitsTop';
+import SearchInput from 'src/components/SearchInput';
 
 // ----------------------------------------------------------------------
 
@@ -43,10 +39,10 @@ export default function SearchHomeHero() {
           spacing={12}
           sx={{
             mx: 'auto',
-            mt: 10,
+            mt: { xs: 10, md: 0 },
             mb: {
               xs: 40,
-              md: 'auto',
+              md: 10,
             },
             justifyContent: 'center',
             position: 'relative',
@@ -61,31 +57,11 @@ export default function SearchHomeHero() {
             delivered straight to your door - order now
           </Typography>
           <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 2, sm: 0 }} position={'relative'}>
-            <Box width={1}>
-              <TextField
-                placeholder="Enter delivery address"
-                size="small"
-                sx={{ background: 'white', borderRadius: 1, height: 40 }}
-                variant="outlined"
-                fullWidth
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Iconify icon={'ic:outline-location-on'} />
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            </Box>
-            <Box display="flex" justifyContent="center" >
-              <Button
-                variant="contained"
-                size="small"
-                sx={{ borderRadius: 10, px: 6, py: 1, minWidth: 230, ml: { xs: 'auto', sm: -5 }, mr: 'auto', height: 40 }}
-              >
-                fIND LOCAL cHEFS
-              </Button>
-            </Box>
+            <SearchInput
+              icon="ic:outline-location-on"
+              placeholder="Enter delivery address"
+              buttonLabel="fIND LOCAL cHEFS"
+            />
           </Stack>
         </Stack>
         <GradientText

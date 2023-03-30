@@ -9,6 +9,8 @@ import { styled } from '@mui/material/styles';
 import { Box, Link, Grid, List, Stack, Popover, ListSubheader, CardActionArea } from '@mui/material';
 // components
 import Iconify from '../../components/Iconify';
+import { useDispatch } from 'src/redux/store';
+import { openDialog } from 'src/redux/slices/dialog';
 
 // ----------------------------------------------------------------------
 
@@ -65,7 +67,7 @@ export default function MenuDesktop({ isOffset, isHome, navConfig }) {
   };
 
   return (
-    <Stack direction="row" sx={{gap:{lg:8, xs:3}}}>
+    <Stack direction="row" sx={{ gap: { lg: 8, xs: 3 } }}>
       {navConfig.map((link) => (
         <MenuDesktopItem
           key={link.title}
@@ -117,15 +119,22 @@ MenuDesktopItem.propTypes = {
     path: PropTypes.string,
     title: PropTypes.string,
     children: PropTypes.array,
+    target: PropTypes.string,
   }),
 };
 
 function MenuDesktopItem({ item, isOpen, onOpen, onClose }) {
   const { pathname } = useRouter();
 
-  const { title, path, children } = item;
+  const { title, path, children, target } = item;
+
+  const dispatch = useDispatch();
 
   const isActive = (path) => pathname === path;
+
+  const handleClick = (target) => {
+    dispatch(openDialog(target));
+  };
 
   if (children) {
     return (
@@ -240,6 +249,9 @@ function MenuDesktopItem({ item, isOpen, onOpen, onClose }) {
   return (
     <NextLink href={path} passHref>
       <LinkStyle
+        {...(target && {
+          onClick: () => handleClick(target),
+        })}
         sx={{
           ...(isActive(path) && {
             color: 'primary.main',

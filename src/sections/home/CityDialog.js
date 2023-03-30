@@ -1,5 +1,7 @@
 import { Button, Dialog, IconButton, Stack, Typography } from '@mui/material';
 import Iconify from 'src/components/Iconify';
+import { closeDialog } from 'src/redux/slices/dialog';
+import { useDispatch } from 'src/redux/store';
 
 const cities = [
   { id: 'austin', name: 'Austin' },
@@ -8,10 +10,13 @@ const cities = [
 ];
 
 export default function CityDialog({ isOpen, setIsOpen, setCuisineDialogIsOpen }) {
+  const dispatch = useDispatch();
+
   return (
     <Dialog maxWidth={'sm'} fullWidth open={isOpen}>
       <IconButton
         onClick={() => {
+          dispatch(closeDialog());
           setIsOpen(false);
           setCuisineDialogIsOpen(true);
         }}
@@ -31,6 +36,7 @@ export default function CityDialog({ isOpen, setIsOpen, setCuisineDialogIsOpen }
             <Button
               key={item.id}
               onClick={() => {
+                dispatch(closeDialog());
                 setIsOpen(false);
                 setCuisineDialogIsOpen(true);
               }}

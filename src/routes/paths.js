@@ -19,6 +19,7 @@ export const PATH_AUTH = {
 export const PATH_PAGE = {
   home: '/',
   aboutUs: '/about-us',
+  availableCities: '/available-cities',
   searchChef: {
     root: '/cities',
     cities: ({ city, cuisine, chef } = '') =>

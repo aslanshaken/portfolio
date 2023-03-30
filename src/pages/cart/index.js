@@ -20,7 +20,7 @@ export default function CitiesPage() {
     <Page title="Cart" gutterTop>
       <Container sx={{ py: 10 }}>
         <Grid container spacing={2} justifyContent={'center'}>
-          <Grid item xs={12} md={4} mb={3}>
+          <Grid item xs={12} md={6} mb={3}>
             <CartChef />
           </Grid>
         </Grid>

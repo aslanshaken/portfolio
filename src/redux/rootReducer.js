@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { persistReducer } from 'redux-persist';
 import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
+import dialogReducer from './slices/dialog';
 // slices
 import foodReducer from './slices/food';
 
@@ -36,6 +37,7 @@ const foodPersistConfig = {
 
 const rootReducer = combineReducers({
   food: persistReducer(foodPersistConfig, foodReducer),
+  dialog: dialogReducer,
 });
 
 export { rootPersistConfig, rootReducer };

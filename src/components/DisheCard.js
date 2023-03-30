@@ -19,7 +19,7 @@ export default function DisheCard(props) {
   const { name, cover, description } = props;
 
   return (
-    <Card elevation={0} sx={{ m: 5, borderRadius: 1 }} square>
+    <Card elevation={0} sx={{ m: 3, borderRadius: 1 }} square>
       <Box sx={{ position: 'relative' }}>
         <Image alt={name} src={cover} ratio="1/1" />
       </Box>

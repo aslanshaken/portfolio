@@ -19,7 +19,7 @@ import Logo from '../../components/Logo';
 //
 import MenuDesktop from './MenuDesktop';
 import MenuMobile from './MenuMobile';
-import navConfig from './MenuConfig';
+import { menuConfig, homeMenuConfig } from './MenuConfig';
 import { IconButtonAnimate } from '../../components/animate';
 import { ShoppingCartIcon } from '../../assets';
 import MyAvatar from '../../components/MyAvatar';
@@ -28,7 +28,7 @@ import { PATH_AUTH, PATH_PAGE } from '../../routes/paths';
 import { useSelector } from '../../redux/store';
 import { FOOD_SELECTOR } from '../../redux/slices/food';
 
-const Badge = dynamic(() => import('@mui/material/Badge'), { ssr: false })
+const Badge = dynamic(() => import('@mui/material/Badge'), { ssr: false });
 
 // ----------------------------------------------------------------------
 
@@ -74,6 +74,8 @@ export default function MainHeader() {
   const isDesktop = useResponsive('up', 'md');
 
   const isHome = pathname === '/';
+
+  const navConfig = isHome ? homeMenuConfig : menuConfig;
 
   const handleLogout = async () => {
     try {
@@ -125,7 +127,11 @@ export default function MainHeader() {
               md: 3,
             }}
           >
-            {cartCount > 0 ? <Badge component="div" badgeContent={cartCount} color="error" sx={{ width: 20, height: 10, top: 3 }} /> : ''}
+            {cartCount > 0 ? (
+              <Badge component="div" badgeContent={cartCount} color="error" sx={{ width: 20, height: 10, top: 3 }} />
+            ) : (
+              ''
+            )}
             <NextLink passHref href={PATH_PAGE.cart}>
               <IconButtonAnimate>
                 <ShoppingCartIcon sx={{ width: 28, height: 28 }} />
