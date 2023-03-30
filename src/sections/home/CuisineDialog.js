@@ -3,6 +3,8 @@ import { Button, Dialog, IconButton, Stack, Typography } from '@mui/material';
 import Iconify from 'src/components/Iconify';
 import Image from 'src/components/Image';
 import { useRouter } from 'next/router';
+import { closeDialog } from 'src/redux/slices/dialog';
+import { useDispatch } from 'react-redux';
 
 const cuisines = [
   { id: 'Ukrainian-cuisine', img: '', name: 'Ukrainian' },
@@ -11,12 +13,17 @@ const cuisines = [
   { id: 'Italian-cuisine', img: '', name: 'All cakes' },
 ];
 
-export default function CuisineDialog({ isOpen, setIsOpen }) {
+export default function CuisineDialog({ isOpen }) {
   const router = useRouter();
+  const dispatch = useDispatch();
 
   return (
     <Dialog maxWidth={'sm'} fullWidth open={isOpen}>
-      <IconButton onClick={() => setIsOpen(false)} width={'fit-content'} sx={{ position: 'absolute', right: '0' }}>
+      <IconButton
+        onClick={() => dispatch(closeDialog())}
+        width={'fit-content'}
+        sx={{ position: 'absolute', right: '0' }}
+      >
         <Iconify icon={'iconoir:cancel'} />
       </IconButton>
       <Stack p={6} color={'black'}>
@@ -36,7 +43,7 @@ export default function CuisineDialog({ isOpen, setIsOpen }) {
             <Button
               key={_i}
               onClick={() => {
-                setIsOpen(false);
+                dispatch(closeDialog());
                 router.push('/cities/chicago/ukrainian-cuisine/adam-sandler/');
               }}
               direction={'row'}

@@ -1,5 +1,16 @@
 import styled from '@emotion/styled';
-import { Autocomplete, Box, Link, colors, Grid, InputAdornment, Stack, TextField, Typography } from '@mui/material';
+import {
+  Autocomplete,
+  Box,
+  Link,
+  colors,
+  Grid,
+  InputAdornment,
+  Stack,
+  TextField,
+  Typography,
+  Button,
+} from '@mui/material';
 import FoodCard from '../../components/FoodCard';
 import Container from '../../components/Container';
 import Iconify from '../../components/Iconify';
@@ -9,9 +20,41 @@ import { PATH_PAGE } from '../../routes/paths';
 import { useRouter } from 'next/router';
 import FoodCarousel from './choose-chef/FoodCarousel';
 import Pagination from '../../components/Pagination';
+import { useState } from 'react';
 // --------------------------------------------
 
 const sort_type = [{ name: 'sort by Popularity' }, { name: 'sort by New' }, { name: 'sort by Oldest' }];
+
+const categories = [
+  {
+    id: '1',
+    label: 'Frozen Meals',
+  },
+  {
+    id: '2',
+    label: 'Cakes',
+  },
+  {
+    id: '3',
+    label: 'Vegeterian',
+  },
+  {
+    id: '4',
+    label: 'Halal',
+  },
+  {
+    id: '5',
+    label: 'Catering',
+  },
+  {
+    id: '6',
+    label: 'Popular',
+  },
+  {
+    id: '7',
+    label: 'Delivery today',
+  },
+];
 
 const chefData = [
   {
@@ -224,60 +267,66 @@ export default function ChooseChef() {
   const router = useRouter();
   const { city } = router.query;
   const { cuisine } = router.query;
+  const [selectedCategory, setSelectedCategory] = useState();
 
   return (
     <RootStyle>
       <Container>
-        <Box spacing={15} pt={15}>
-          <Grid container>
-            <Grid item md={4} xs={12}>
-              <Typography variant="h3" color={'black'} display={'flex'} alignItems={'center'}>
-                New-York Chefs
-              </Typography>
-            </Grid>
-
-            <Grid item md={8}>
-              <Grid container>
-                <Grid item md={5} sm={4} />
-                <Grid item md={7} sm={12} xs={12} display={'flex'} gap={2}>
-                  <TextField
-                    fullWidth
-                    // label="Search by ZIP"
-                    placeholder="Search by ZIP"
-                    hiddenLabel
-                    type="search"
-                    variant="filled"
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <Iconify icon={'mingcute:search-line'} className="defaultIconSize" />
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-                  <Autocomplete
-                    fullWidth
-                    disablePortal
-                    autoHighlight
-                    options={sort_type}
-                    getOptionLabel={(option) => option.name}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        variant="filled"
-                        placeholder="Choose a short"
-                        label="Choose a short"
-                        inputProps={{
-                          ...params.inputProps,
-                          autoComplete: 'new-password',
-                        }}
-                      />
-                    )}
-                  />
-                </Grid>
+        <Box spacing={15} mt={8}>
+          <Stack my={4}>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={7}>
+                <Typography variant="h3" color={'black'}>
+                  Austin Chefs
+                </Typography>
+              </Grid>
+              <Grid item xs={12} sm={5}>
+                <TextField
+                  size="small"
+                  fullWidth
+                  placeholder="Search by ZIP"
+                  hiddenLabel
+                  type="search"
+                  variant="filled"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Iconify icon={'mingcute:search-line'} className="defaultIconSize" />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
               </Grid>
             </Grid>
-          </Grid>
+            <Box
+              display={'flex'}
+              position={'relative'}
+              zIndex={10}
+              justifyContent={'space-between'}
+              gap={2}
+              px={{md:8}}
+              overflow={'auto'}
+              mt={3}
+              pb={1}
+            >
+              {categories.map((item) => (
+                <Button
+                  key={item.id}
+                  variant={'outlined'}
+                  sx={(theme) => ({
+                    whiteSpace: 'nowrap',
+                    minWidth: 'fit-content',
+                    border: item.id === selectedCategory && 'none',
+                    background: item.id === selectedCategory ? '#595959' : 'white',
+                    color: item.id === selectedCategory ? theme.palette.GradientText : '#31342B',
+                  })}
+                  onClick={() => setSelectedCategory(item.id)}
+                >
+                  {item.label}
+                </Button>
+              ))}
+            </Box>
+          </Stack>
 
           {chefData.map((item, _i) => (
             <NextLink
@@ -286,7 +335,7 @@ export default function ChooseChef() {
               passHref
             >
               <Box
-                mt={4}
+                mb={4}
                 sx={{
                   border: '1px solid',
                   borderColor: colors.grey[300],
@@ -317,8 +366,8 @@ export default function ChooseChef() {
                     </Typography>
                   </Box>
                 </Box>
-                <Box display={'flex'} justifyContent={'space-between'} flexWrap={'wrap'} px={4} py={2}>
-                  <Box display={'flex'} justifyContent={'space-around'} gap={4} alignItems={'center'}>
+                <Grid container px={4}>
+                  <Grid display={'flex'} gap={4} alignItems={'center'} item xs={12} lg={4}>
                     <Avatar
                       alt="Travis Howard"
                       src={`/assets/search-chef/chefs/${item.chef}.png`}
@@ -335,38 +384,29 @@ export default function ChooseChef() {
                       <Typography color={'primary'} variant="subtitle1">
                         {item.status}
                       </Typography>
-                      <Box display={{ xs: 'block', md: 'none' }}>
+                      <Box display={{ xs: 'block', lg: 'none' }}>
                         <VisitChef />
                       </Box>
                     </Box>
-                  </Box>
-                  <Box
-                    display={{ md: 'flex', xs: 'none' }}
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    lg={8}
+                    display={{md:'flex'}}
                     py={2}
-                    overflow={'auto'}
-                    width={{ xs: '100%', lg: 'fit-content' }}
                     justifyContent={'space-between'}
                     alignItems={'center'}
-                    gap={4}
+                    gap={2}
                   >
-                    {item.foods.map((food, _i) => (
-                      <Box key={_i}>
-                        <FoodCard
-                          name={food.name}
-                          cover={`/assets/search-chef/foods/${food.filename}.png`}
-                          price={food.price}
-                          we_kc={`${food.weight} gr / ${food.kc} kc`}
-                        />
-                      </Box>
-                    ))}
-                    <Box display={{ xs: 'none', md: 'block' }}>
+                    <Box flex={'1'}>
+                      <FoodCarousel foods={item.foods} />
+                    </Box>
+                    <Box display={{ xs: 'none', lg: 'block' }}>
                       <VisitChef />
                     </Box>
-                  </Box>
-                  <Box display={{ xs: 'block', md: 'none' }} width={'100%'}>
-                    <FoodCarousel foods={item.foods} />
-                  </Box>
-                </Box>
+                  </Grid>
+                </Grid>
               </Box>
             </NextLink>
           ))}

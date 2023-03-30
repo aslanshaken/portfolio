@@ -1,6 +1,6 @@
 import { Button, Dialog, IconButton, Stack, Typography } from '@mui/material';
 import Iconify from 'src/components/Iconify';
-import { closeDialog } from 'src/redux/slices/dialog';
+import { closeDialog, openDialog } from 'src/redux/slices/dialog';
 import { useDispatch } from 'src/redux/store';
 
 const cities = [
@@ -9,7 +9,7 @@ const cities = [
   { id: 'miami', name: 'Miami' },
 ];
 
-export default function CityDialog({ isOpen, setIsOpen, setCuisineDialogIsOpen }) {
+export default function CityDialog({ isOpen }) {
   const dispatch = useDispatch();
 
   return (
@@ -17,8 +17,7 @@ export default function CityDialog({ isOpen, setIsOpen, setCuisineDialogIsOpen }
       <IconButton
         onClick={() => {
           dispatch(closeDialog());
-          setIsOpen(false);
-          setCuisineDialogIsOpen(true);
+          dispatch(openDialog('choose_cuisine_dialog'))
         }}
         width={'fit-content'}
         sx={{ position: 'absolute', right: '0' }}
@@ -37,8 +36,7 @@ export default function CityDialog({ isOpen, setIsOpen, setCuisineDialogIsOpen }
               key={item.id}
               onClick={() => {
                 dispatch(closeDialog());
-                setIsOpen(false);
-                setCuisineDialogIsOpen(true);
+                dispatch(openDialog('choose_cuisine_dialog'))
               }}
               sx={{ width: 'fit-content' }}
             >
@@ -48,9 +46,6 @@ export default function CityDialog({ isOpen, setIsOpen, setCuisineDialogIsOpen }
             </Button>
           ))}
         </Stack>
-        <Button variant="outlined" color="secondary" size="large" sx={{ px: 6, mt: 6, width: 'fit-content' }}>
-          Search
-        </Button>
       </Stack>
     </Dialog>
   );

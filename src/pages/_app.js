@@ -27,6 +27,7 @@ import { store } from '../redux/store';
 // theme
 import ThemeProvider from '../theme';
 import { AuthProvider } from '../contexts/JWTContext';
+import MotionLazyContainer from 'src/components/animate/MotionLazyContainer';
 
 // ----------------------------------------------------------------------
 
@@ -50,7 +51,9 @@ export default function MyApp(props) {
       <AuthProvider>
         <ReduxProvider store={store}>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <ThemeProvider>{getLayout(<Component {...pageProps} />)}</ThemeProvider>
+            <MotionLazyContainer>
+              <ThemeProvider>{getLayout(<Component {...pageProps} />)}</ThemeProvider>
+            </MotionLazyContainer>
           </LocalizationProvider>
         </ReduxProvider>
       </AuthProvider>

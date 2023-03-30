@@ -116,7 +116,6 @@ function AuthProvider({ children }) {
       password,
     });
 
-    console.log(response.data);
     const { auth_token } = response.data;
 
     const user = {

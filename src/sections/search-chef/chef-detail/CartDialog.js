@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { LoadingButton } from '@mui/lab';
-import { Box, Dialog, Divider, Grid, Stack, styled, Typography } from '@mui/material';
+import { Box, Dialog, Divider, Grid, Stack, styled, TextField, Typography } from '@mui/material';
 import GradientText from '../../../components/GradientText';
 import Image from '../../../components/Image';
 import { IconButtonAnimate } from '../../../components/animate';
@@ -87,7 +87,13 @@ export default function CartDialog({ data, ...other }) {
             <Typography variant="subtitle1" gutterBottom>
               {'Notes'}
             </Typography>
-            <Typography variant="caption">{data.note}</Typography>
+            <TextField
+              size="small"
+              sx={{ textarea: { fontSize: '0.75rem' } }}
+              multiline
+              rows={4}
+              defaultValue={data.note}
+            />
           </Stack>
 
           <Box mt={8} />

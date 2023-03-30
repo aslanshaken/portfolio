@@ -20,8 +20,6 @@ const InfoStyle = styled('div')(({ theme }) => ({
   zIndex: 99,
   position: 'relative',
   minHeight: 100,
-  paddingLeft: theme.spacing(6),
-  paddingRight: theme.spacing(6),
   display: 'flex',
   alignItems: 'center',
 }));
@@ -52,8 +50,8 @@ export default function ProfileCover({
         </Typography>
       </Stack>
       <InfoStyle>
-        <Box position={'relative'} sx={{ width: 120, height: 120 }}>
-          <Avatar alt={'Cheff profile avatar'} src={avatar} sx={{ width: 1, height: 1 }} />
+        <Box position={'relative'} sx={{ width: 120, height: 120 }} ml={{md:6}}>
+          <Avatar alt={'Cheff profile avatar'} src={avatar} sx={{ width: {xs:100,md:120}, height: {xs:100,md:120} }} />
           <Iconify
             icon={'material-symbols:verified'}
             sx={{ color: '#0ED3CF', position: 'absolute', top: 10, right: 0 }}

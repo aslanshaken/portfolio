@@ -1,16 +1,13 @@
 import React from 'react';
-import { Backdrop, Divider, Typography } from '@mui/material';
+import { Divider } from '@mui/material';
 import { Box, styled } from '@mui/system';
 import PropTypes from 'prop-types';
-import { HEADER } from '../config';
 import Container from './Container';
+import Image from './Image';
+import NavLinkHeader from './NavLinkHeader';
 //
 
 const RootStyle = styled(Box)(({ theme }) => ({
-  paddingTop: HEADER.MOBILE_HEIGHT,
-  [theme.breakpoints.up('md')]: {
-    paddingTop: HEADER.MAIN_DESKTOP_HEIGHT + 50,
-  },
   '& .background-image': {
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
@@ -50,7 +47,10 @@ export default function HeroHeader(props) {
   return (
     <RootStyle>
       <Container>
-        {topBorder && <Divider mt={5} />}
+        <NavLinkHeader city="Austin" cuisine="Central Asia cuisine" chef="Michael" />
+        <Image src={'/assets/search-chef/chefs/hero-header.png'} alt={'hero-header'} />
+        <Divider sx={{ mt: 4 }} />
+        {/* {topBorder && <Divider mt={5} />}
         <Box
           className="background-image"
           sx={{ backgroundImage: `url(${backgroundImage})`, my: backgroundImage ? 6 : 0, px: backgroundImage ? 4 : 0 }}
@@ -63,7 +63,7 @@ export default function HeroHeader(props) {
             </Typography>
           </Box>
         </Box>
-        {bottomBorder && <Divider />}
+        {bottomBorder && <Divider />} */}
       </Container>
     </RootStyle>
   );

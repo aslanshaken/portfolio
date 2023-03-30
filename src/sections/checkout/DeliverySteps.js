@@ -64,7 +64,6 @@ export default function DeliverySteps({address, isPickup}) {
                   <NotesPanel
                     isPickup={isPickup}
                     data={address}
-                    isPickup={isPickup}
                     onClose={() => {
                       setIsOpenNotesPanel(false);
                     }}

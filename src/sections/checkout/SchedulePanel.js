@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Card, Grid } from '@mui/material';
+import { Button, Card, Grid, Stack } from '@mui/material';
 import CardHeader from '../../components/card/CardHeader';
 import { useState } from 'react';
 import { Box } from '@mui/system';
@@ -91,7 +91,7 @@ const DatePicker = styled('div')(({ theme }) => ({
   },
 }));
 
-export default function SchedulePanel({isPickup}) {
+export default function SchedulePanel({isPickup, onClose}) {
   const [activedTime, setAcitvedTime] = useState(times[1].id);
   const [date, setDate] = useState(new Date());
 
@@ -102,7 +102,7 @@ export default function SchedulePanel({isPickup}) {
         icon="jam:pen-f"
         title={`${isPickup ? 'Pick Up Schedule' : 'Delivery Schedule'}`}
       />
-      <Box sx={{ display: 'flex', gap: { xs: 4, sm: 0 }, justifyContent: 'space-around', flexWrap: 'wrap', p: 2 }}>
+      <Box sx={{ display: 'flex', p: 2, gap: { xs: 4, sm: 0 }, justifyContent: 'space-around', flexWrap: 'wrap' }}>
         <Box>
           <DatePicker>
             <StaticDatePicker
@@ -134,6 +134,16 @@ export default function SchedulePanel({isPickup}) {
               {item.label}
             </Box>
           ))}
+          <Button
+            onClick={onClose}
+            type="submit"
+            size="large"
+            variant="outlined"
+            color="secondary"
+            sx={{ px: 8, mt: 4, width: 'fit-content' }}
+          >
+            Save
+          </Button>
         </Box>
       </Box>
     </Card>

@@ -19,7 +19,7 @@ import Logo from '../../components/Logo';
 //
 import MenuDesktop from './MenuDesktop';
 import MenuMobile from './MenuMobile';
-import { menuConfig, homeMenuConfig } from './MenuConfig';
+import { homeMenuConfig } from './MenuConfig';
 import { IconButtonAnimate } from '../../components/animate';
 import { ShoppingCartIcon } from '../../assets';
 import MyAvatar from '../../components/MyAvatar';
@@ -75,7 +75,7 @@ export default function MainHeader() {
 
   const isHome = pathname === '/';
 
-  const navConfig = isHome ? homeMenuConfig : menuConfig;
+  const navConfig = homeMenuConfig;
 
   const handleLogout = async () => {
     try {

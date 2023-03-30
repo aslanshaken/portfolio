@@ -1,7 +1,7 @@
 import { Box, Card, Divider, Stack, Typography } from '@mui/material';
 import CardHeader from 'src/components/card/CardHeader';
 
-export default function ConformNotes() {
+export default function ConfirmNotes() {
   return (
     <Stack spacing={8}>
       <Card sx={{ display: { xs: 'none', md: 'block' } }}>

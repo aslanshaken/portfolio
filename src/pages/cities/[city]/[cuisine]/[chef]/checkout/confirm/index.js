@@ -3,9 +3,9 @@ import React from 'react';
 import Container from 'src/components/Container';
 import Page from 'src/components/Page';
 import Layout from 'src/layouts';
-import ConformCartItem from 'src/sections/conform/ConformCartItem';
-import ConformInfo from 'src/sections/conform/ConformInfo';
-import ConformNotes from 'src/sections/conform/ConformNotes';
+import ConfirmCartItem from 'src/sections/confirm/ConfirmCartItem';
+import ConfirmInfo from 'src/sections/confirm/ConfirmInfo';
+import ConfirmNotes from 'src/sections/confirm/ConfirmNotes';
 // ----------------------------------------------------------------------
 
 CheckoutPage.getLayout = function getLayout(page) {
@@ -17,9 +17,9 @@ export default function CheckoutPage({ isPickup = true }) {
     <Page title="Search Chef">
       <Container>
         <Stack spacing={6}>
-          <ConformInfo isPickup={isPickup} />
-          <ConformCartItem />
-          <ConformNotes />
+          <ConfirmInfo isPickup={isPickup} />
+          <ConfirmCartItem />
+          <ConfirmNotes />
         </Stack>
       </Container>
     </Page>

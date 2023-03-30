@@ -1,4 +1,4 @@
-import { AppBar, Box, Toolbar, styled, Link, Hidden } from '@mui/material';
+import { AppBar, Box, Toolbar, styled, Link, Hidden, Stack } from '@mui/material';
 import useResponsive from '../../hooks/useResponsive';
 import { HEADER } from '../../config';
 import MenuMobile from '../main/MenuMobile';
@@ -7,6 +7,8 @@ import useOffSetTop from '../../hooks/useOffSetTop';
 import { useRouter } from 'next/router';
 import NextLink from 'next/link';
 import Logo from '../../components/Logo';
+import { useDispatch } from 'react-redux';
+import { openDialog } from 'src/redux/slices/dialog';
 
 const ToolbarStyle = styled(Toolbar)(({ theme }) => ({
   display: 'flex',
@@ -45,6 +47,12 @@ export default function AuthHeader() {
   const isOffset = useOffSetTop(HEADER.MAIN_DESKTOP_HEIGHT);
   const isHome = pathname === '/';
 
+  const dispatch = useDispatch();
+
+  const handleClick = (target) => {
+    dispatch(openDialog(target));
+  };
+
   return (
     <>
       <Box
@@ -77,10 +85,13 @@ export default function AuthHeader() {
             </Hidden>
 
             {isDesktop ? (
-              <>
+              <Stack direction={'row'} justifyContent={'space-around'} width={'100%'}>
                 {authConfig.map((item) => (
                   <NextLink href={item.path} passHref key={item.title}>
                     <LinkStyle
+                      {...(item.target && {
+                        onClick: () => handleClick(item.target),
+                      })}
                       sx={{
                         ...{
                           color: 'text.white',
@@ -91,7 +102,7 @@ export default function AuthHeader() {
                     </LinkStyle>
                   </NextLink>
                 ))}
-              </>
+              </Stack>
             ) : (
               <MenuMobile isOffset={isOffset} isHome={isHome} navConfig={authConfig} />
             )}

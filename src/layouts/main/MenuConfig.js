@@ -32,7 +32,7 @@ export const homeMenuConfig = [
   },
   {
     title: 'Available Cities',
-    path: '/',
+    path: '/#',
     target: 'choose_city_dialog',
   },
   {

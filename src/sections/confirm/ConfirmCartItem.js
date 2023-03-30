@@ -3,7 +3,7 @@ import { ShoppingCartSmallIcon } from 'src/assets';
 import CardHeader from 'src/components/card/CardHeader';
 import Image from 'src/components/Image';
 
-export default function ConformCartItem() {
+export default function ConfirmCartItem() {
   return (
     <Card>
       <Box sx={{ display: { xs: 'none', md: 'block' } }}>
