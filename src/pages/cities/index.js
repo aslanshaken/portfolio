@@ -18,7 +18,7 @@ CitiesPage.getLayout = function getLayout(page) {
 export default function CitiesPage() {
   return (
     <Page title="Search Chef">
-      <HeroHeader title={'Choose your city'} />
+      <HeroHeader city="Austin" cuisine="Central Asia cuisine" chef="Michael" />
       <ChooseCity />
     </Page>
   );

@@ -6,7 +6,7 @@ import Iconify from '../../../components/Iconify';
 import GradientText from '../../../components/GradientText';
 import ReadMore from '../../../components/ReadMore';
 import Image from 'src/components/Image';
-import NavLinkHeader from 'src/components/NavLinkHeader';
+import HeroHeader from 'src/components/HeroHeader';
 
 const categories = [
   {
@@ -52,8 +52,8 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
 
   return (
     <Container>
-      <NavLinkHeader city="Austin" cuisine="Central Asia cuisine" />
-      <Box display={'flex'} p={2} mb={4}>
+      <HeroHeader city="Austin" cuisine="Central Asia cuisine" chef="Michael" />
+      <Box display={'flex'} mb={4}>
         <Box px={2} width={'100%'}>
           <Box display={'flex'} justifyContent={'space-between'} flexWrap={'wrap'} width={'100%'}>
             <Box display={'flex'} gap={2}>
@@ -85,16 +85,8 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
                 />
               </Box>
               <Box>
-                <Typography
-                  color={'black'}
-                  sx={(theme) => ({
-                    ...theme.typography.h5,
-                    [theme.breakpoints.up('md')]: {
-                      ...theme.typography.h3,
-                    },
-                  })}
-                >
-                  Sheff's Michael menu
+                <Typography color={'black'} variant={'h3'} fontWeight={'600'} pt={1}>
+                  Chef Michael
                 </Typography>
                 <Box display={'flex'} gap={2} flexWrap={'wrap'} py={1}>
                   <Typography color={'black'} variant={'subtitle1'}>
@@ -107,8 +99,11 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
                     Deliveries: 28
                   </Typography>
                   <GradientText color={'primary'} variant={'subtitle1'}>
-                    Deliveries: 28
+                    Certified chef
                   </GradientText>
+                  <Typography color={'black'} variant={'subtitle1'}>
+                    Zip code: 78717
+                  </Typography>
                 </Box>
                 <Hidden mdDown>
                   <Box maxWidth={'600px'}>

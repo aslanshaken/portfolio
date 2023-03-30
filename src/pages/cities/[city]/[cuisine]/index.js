@@ -18,7 +18,11 @@ CityPage.getLayout = function getLayout(page) {
 export default function CityPage() {
   return (
     <Page title="Search Chef">
-      <HeroHeader title="Japan cuisine" topBorder={true} backgroundImage="/assets/search-chef/hero-header.png" />
+      <HeroHeader
+        backgroundImage="/assets/search-chef/chefs/hero-header.png"
+        city="Austin"
+        cuisine="Central Asia cuisine"
+      />
       <ChooseChef />
     </Page>
   );
