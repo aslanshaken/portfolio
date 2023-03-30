@@ -22,7 +22,7 @@ export default function ReadMore({ children }) {
           open
         />
       )}
-      <Typography color={colors.grey[600]}>{isReadMore ? children.slice(0, 200) : children}</Typography>
+      <Typography color={colors.grey[600]}>{isReadMore ? children.slice(0, 135) : children}</Typography>
       <Stack
         zIndex={10}
         direction="row"

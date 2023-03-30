@@ -1,13 +1,18 @@
 import React from 'react';
-import { Divider } from '@mui/material';
-import { Box, styled } from '@mui/system';
+import { Backdrop, Divider, styled, Typography } from '@mui/material';
+import { Box } from '@mui/system';
 import PropTypes from 'prop-types';
 import Container from './Container';
 import Image from './Image';
 import NavLinkHeader from './NavLinkHeader';
+import { HEADER } from 'src/config';
 //
 
 const RootStyle = styled(Box)(({ theme }) => ({
+  paddingTop: HEADER.MOBILE_HEIGHT,
+  [theme.breakpoints.up('md')]: {
+    paddingTop: HEADER.MAIN_DESKTOP_HEIGHT,
+  },
   '& .background-image': {
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
@@ -32,6 +37,9 @@ HeroHeader.propTypes = {
   topBorder: PropTypes.bool,
   bottomBorder: PropTypes.bool,
   title: PropTypes.string,
+  city: PropTypes.string,
+  cuisine: PropTypes.string,
+  chef: PropTypes.string,
 };
 
 HeroHeader.defaultProps = {
@@ -39,31 +47,48 @@ HeroHeader.defaultProps = {
   topBorder: false,
   bottomBorder: true,
   title: '',
+  city: '',
+  cuisine: '',
+  chef: '',
 };
 
 export default function HeroHeader(props) {
-  const { backgroundImage, topBorder, bottomBorder, title } = props;
+  const { backgroundImage, topBorder, bottomBorder, title, city, cuisine, chef } = props;
 
   return (
     <RootStyle>
       <Container>
-        <NavLinkHeader city="Austin" cuisine="Central Asia cuisine" chef="Michael" />
-        <Image src={'/assets/search-chef/chefs/hero-header.png'} alt={'hero-header'} />
-        <Divider sx={{ mt: 4 }} />
-        {/* {topBorder && <Divider mt={5} />}
-        <Box
-          className="background-image"
-          sx={{ backgroundImage: `url(${backgroundImage})`, my: backgroundImage ? 6 : 0, px: backgroundImage ? 4 : 0 }}
-        >
-          <Backdrop className="overlay" open={!!backgroundImage} />
+        {title !== '' ? (
+          <>
+            {topBorder && <Divider mt={5} />}
+            <Box
+              className="background-image"
+              sx={{
+                backgroundImage: `url(${backgroundImage})`,
+                my: backgroundImage ? 6 : 0,
+                px: backgroundImage ? 4 : 0,
+              }}
+            >
+              <Backdrop className="overlay" open={!!backgroundImage} />
 
-          <Box className="overlay-body">
-            <Typography variant="h3" py={6} sx={theme => ({ color: backgroundImage ? 'white' : theme.palette.grey[800], fontWeight: 600 })}>
-              {title}
-            </Typography>
-          </Box>
-        </Box>
-        {bottomBorder && <Divider />} */}
+              <Box className="overlay-body">
+                <Typography
+                  variant="h3"
+                  py={6}
+                  sx={(theme) => ({ color: backgroundImage ? 'white' : theme.palette.grey[800], fontWeight: 600 })}
+                >
+                  {title}
+                </Typography>
+              </Box>
+            </Box>
+            {bottomBorder && <Divider />}
+          </>
+        ) : (
+          <>
+            <NavLinkHeader city={city} cuisine={cuisine} chef={chef} />
+            {backgroundImage && <Image src={backgroundImage} alt={'hero-header'} sx={{ height: 200 }} />}
+          </>
+        )}
       </Container>
     </RootStyle>
   );
