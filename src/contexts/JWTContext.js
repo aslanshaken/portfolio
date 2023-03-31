@@ -123,7 +123,6 @@ function AuthProvider({ children }) {
     };
 
     setSession(auth_token);
-
     dispatch({
       type: 'LOGIN',
       payload: {
@@ -140,6 +139,7 @@ function AuthProvider({ children }) {
         email,
         password,
         password_confirmation,
+        user_type: 'end_user',
       },
     });
     const { accessToken, user } = response.data;

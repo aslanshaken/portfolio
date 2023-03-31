@@ -67,7 +67,7 @@ export default function MainHeader() {
 
   const theme = useTheme();
 
-  const { pathname, push, router } = useRouter();
+  const { pathname, push, replace } = useRouter();
 
   const { checkout } = useSelector(FOOD_SELECTOR);
 
@@ -92,7 +92,7 @@ export default function MainHeader() {
   const handleLogout = async () => {
     try {
       await logout();
-      router.replace(PATH_AUTH.login);
+      replace('/');
     } catch (error) {
       console.error(error);
     }
