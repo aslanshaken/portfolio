@@ -116,11 +116,7 @@ function AuthProvider({ children }) {
       password,
     });
 
-    const { auth_token } = response.data;
-
-    const user = {
-      displayName: 'Test User',
-    };
+    const { auth_token, user } = response.data;
 
     setSession(auth_token);
     dispatch({

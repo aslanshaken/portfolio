@@ -61,7 +61,7 @@ const ToolbarShadowStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function MainHeader() {
-  const { logout, isAuthenticated } = useAuth();
+  const { logout, isAuthenticated, user } = useAuth();
 
   const isOffset = useOffSetTop(HEADER.MAIN_DESKTOP_HEIGHT);
 
@@ -175,10 +175,10 @@ export default function MainHeader() {
               >
                 <Box sx={{ my: 1.5, px: 2.5 }}>
                   <Typography variant="subtitle2" noWrap>
-                    Minimal UI
+                    {`${user?.first_name} ${user?.last_name}`}
                   </Typography>
                   <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-                    demo@minimals.cc
+                    {user.email}
                   </Typography>
                 </Box>
 
