@@ -116,14 +116,9 @@ function AuthProvider({ children }) {
       password,
     });
 
-    const { auth_token } = response.data;
-
-    const user = {
-      displayName: 'Test User',
-    };
+    const { auth_token, user } = response.data;
 
     setSession(auth_token);
-
     dispatch({
       type: 'LOGIN',
       payload: {
@@ -140,6 +135,7 @@ function AuthProvider({ children }) {
         email,
         password,
         password_confirmation,
+        user_type: 'end_user',
       },
     });
     const { accessToken, user } = response.data;

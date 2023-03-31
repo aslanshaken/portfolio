@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 // next
-import { IconButton, InputAdornment, Stack } from '@mui/material';
+import { Alert, IconButton, InputAdornment, Stack } from '@mui/material';
 import FormProvider from '../../components/hook-form/FormProvider';
 import { RHFTextField } from '../../components/hook-form';
 import { useForm } from 'react-hook-form';
@@ -15,6 +15,7 @@ import useAuth from '../../hooks/useAuth';
 export default function RegisterForm() {
   const { register } = useAuth();
 
+  const [errorMsg, setErrorMsg] = useState();
   const [showPassword, setShowPassword] = useState(false);
   const [showCPassword, setShowCPassword] = useState(false);
 
@@ -50,14 +51,19 @@ export default function RegisterForm() {
     try {
       await register(data.firstName, data.lastName, data.email, data.password, data.password_confirmation);
     } catch (error) {
-      console.error(error);
-      reset();
+      setErrorMsg(error.message);
+      // reset();
     }
   };
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={3}>
+        {errorMsg && (
+          <Alert severity="error" sx={{ background: '#FFE7D9' }} onClose={() => {setErrorMsg()}}>
+            {errorMsg}
+          </Alert>
+        )}
         <RHFTextField name="firstName" label="First name" />
         <RHFTextField name="lastName" label="Last name" />
         <RHFTextField name="email" label="Email address" />

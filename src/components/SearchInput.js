@@ -13,8 +13,8 @@ export default function SearchInput({ icon = '', placeholder = '', buttonLabel =
   return (
     <Stack width={'100%'} display={'flex'} direction={'column'} justifyContent={'center'}>
       <TextField
+        size="medium"
         placeholder={placeholder}
-        size="small"
         variant="outlined"
         fullWidth
         InputProps={{
@@ -34,12 +34,11 @@ export default function SearchInput({ icon = '', placeholder = '', buttonLabel =
             <InputAdornment position="end" sx={{ display: { xs: 'none', md: 'flex' } }}>
               <Button
                 variant="contained"
-                size="small"
                 sx={{
                   borderRadius: 100,
                   px: 6,
-                  py: 1,
                   minWidth: 230,
+                  height: 56
                 }}
               >
                 {buttonLabel}
@@ -50,13 +49,12 @@ export default function SearchInput({ icon = '', placeholder = '', buttonLabel =
       />
       <Button
         variant="contained"
-        size="small"
         sx={{
           m: 'auto',
           mt: 6,
           borderRadius: 100,
           px: 6,
-          py: 1,
+          height:56,
           minWidth: 230,
           display: { xs: 'flex', md: 'none' },
         }}

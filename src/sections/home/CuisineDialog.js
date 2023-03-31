@@ -44,7 +44,7 @@ export default function CuisineDialog({ isOpen }) {
               key={_i}
               onClick={() => {
                 dispatch(closeDialog());
-                router.push('/cities/chicago/ukrainian-cuisine/adam-sandler/');
+                router.push('/cities/chicago/ukrainian-cuisine/');
               }}
               direction={'row'}
               sx={{ width: 'fit-content' }}

@@ -32,7 +32,7 @@ const foodPersistConfig = {
   key: 'food',
   storage,
   keyPrefix: 'redux-',
-  whitelist: ['sortBy', 'checkout'],
+  whitelist: ['sortBy'],
 };
 
 const rootReducer = combineReducers({
