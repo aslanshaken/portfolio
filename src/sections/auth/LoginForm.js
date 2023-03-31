@@ -57,7 +57,6 @@ export default function LoginForm() {
 
   // google handlers
   const handleGoogleLoginSucess = (response) => {
-    console.log('123', response);
     setIsLoading(false);
   };
 

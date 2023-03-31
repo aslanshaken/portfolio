@@ -22,7 +22,7 @@ const datas = [
 //
 export default function CuisineList() {
   return (
-    <List sx={{ px: 6, mt: 5, mb: 3, overflowX: 'auto' }}>
+    <List sx={{ mt: 5, mb: 3, overflowX: 'auto', px:{md:6} }}>
       <Typography ml={2} variant={'subtitle1'} color={'black'}>Items in your cart</Typography>
       {datas.map((data, _i) => (
         <ListItem key={'cart-cousine-' + _i} disableGutters>

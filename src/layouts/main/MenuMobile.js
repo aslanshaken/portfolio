@@ -15,6 +15,8 @@ import Scrollbar from '../../components/Scrollbar';
 import { IconButtonAnimate } from '../../components/animate';
 import { NavSectionVertical } from '../../components/nav-section';
 import { PATH_AUTH } from '../../routes/paths';
+import { useDispatch } from 'react-redux';
+import { openDialog } from 'src/redux/slices/dialog';
 
 // ----------------------------------------------------------------------
 
@@ -112,13 +114,19 @@ MenuMobileItem.propTypes = {
     icon: PropTypes.any,
     path: PropTypes.string,
     title: PropTypes.string,
+    target: PropTypes.string
   }),
   onOpen: PropTypes.func,
 };
 
 function MenuMobileItem({ item, isOpen, onOpen }) {
   const { pathname } = useRouter();
-  const { title, path, icon, children } = item;
+  const { title, path, icon, children, target } = item;
+  const dispatch = useDispatch();
+
+  const handleClick = (target) => {
+    dispatch(openDialog(target));
+  };
 
   const isActive = pathname === path;
 
@@ -155,19 +163,32 @@ function MenuMobileItem({ item, isOpen, onOpen }) {
   }
 
   return (
-    <NextLink href={path} passHref>
-      <ListItemStyle
-        sx={{
-          ...(isActive && {
-            color: 'primary.main',
-            fontWeight: 'fontWeightMedium',
-            bgcolor: (theme) => alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity),
-          }),
-        }}
-      >
-        <ListItemIcon>{icon}</ListItemIcon>
-        <ListItemText disableTypography primary={title} />
-      </ListItemStyle>
-    </NextLink>
+    <>
+      {target ? (
+        <ListItemStyle
+          {...(target && {
+            onClick: () => handleClick(target),
+          })}
+        >
+          <ListItemIcon>{icon}</ListItemIcon>
+          <ListItemText disableTypography primary={title} />
+        </ListItemStyle>
+      ) : (
+        <NextLink href={path} passHref>
+          <ListItemStyle
+            sx={{
+              ...(isActive && {
+                color: 'primary.main',
+                fontWeight: 'fontWeightMedium',
+                bgcolor: (theme) => alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity),
+              }),
+            }}
+          >
+            <ListItemIcon>{icon}</ListItemIcon>
+            <ListItemText disableTypography primary={title} />
+          </ListItemStyle>
+        </NextLink>
+      )}
+    </>
   );
 }

@@ -11,7 +11,7 @@ const RootStyle = styled('div')(({ theme }) => ({
   },
 }));
 
-export default function ConformInfo({ isPickup }) {
+export default function ConfirmInfo({ isPickup }) {
   return (
     <RootStyle>
       <Stack py={8} px={3} spacing={4}>

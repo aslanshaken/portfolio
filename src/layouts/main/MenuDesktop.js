@@ -9,8 +9,8 @@ import { styled } from '@mui/material/styles';
 import { Box, Link, Grid, List, Stack, Popover, ListSubheader, CardActionArea } from '@mui/material';
 // components
 import Iconify from '../../components/Iconify';
-import { useDispatch } from 'src/redux/store';
 import { openDialog } from 'src/redux/slices/dialog';
+import { useDispatch } from 'react-redux';
 
 // ----------------------------------------------------------------------
 
@@ -67,19 +67,21 @@ export default function MenuDesktop({ isOffset, isHome, navConfig }) {
   };
 
   return (
-    <Stack direction="row" sx={{ gap: { lg: 8, xs: 3 } }}>
-      {navConfig.map((link) => (
-        <MenuDesktopItem
-          key={link.title}
-          item={link}
-          isOpen={open}
-          onOpen={handleOpen}
-          onClose={handleClose}
-          isOffset={isOffset}
-          isHome={isHome}
-        />
-      ))}
-    </Stack>
+    <>
+      <Stack direction="row" sx={{ gap: { lg: 8, xs: 3 } }}>
+        {navConfig.map((link) => (
+          <MenuDesktopItem
+            key={link.title}
+            item={link}
+            isOpen={open}
+            onOpen={handleOpen}
+            onClose={handleClose}
+            isOffset={isOffset}
+            isHome={isHome}
+          />
+        ))}
+      </Stack>
+    </>
   );
 }
 
@@ -135,7 +137,6 @@ function MenuDesktopItem({ item, isOpen, onOpen, onClose }) {
   const handleClick = (target) => {
     dispatch(openDialog(target));
   };
-
   if (children) {
     return (
       <>
@@ -246,12 +247,25 @@ function MenuDesktopItem({ item, isOpen, onOpen, onClose }) {
     );
   }
 
+  if (target) {
+    return (
+      <LinkStyle
+        onClick={() => handleClick(target)}
+        sx={{
+          cursor: 'pointer',
+          ...(isActive(path) && {
+            color: 'primary.main',
+          }),
+        }}
+      >
+        {title}
+      </LinkStyle>
+    );
+  }
+
   return (
     <NextLink href={path} passHref>
       <LinkStyle
-        {...(target && {
-          onClick: () => handleClick(target),
-        })}
         sx={{
           ...(isActive(path) && {
             color: 'primary.main',

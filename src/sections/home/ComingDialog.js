@@ -1,13 +1,17 @@
 import { Button, Dialog, IconButton, Input, Stack, Typography } from '@mui/material';
+import { useDispatch } from 'react-redux';
 import Iconify from 'src/components/Iconify';
+import { closeDialog, openDialog } from 'src/redux/slices/dialog';
 
-export default function ComingDialog({ isOpen, setIsOpen, setCityDialogIsOpen }) {
+export default function ComingDialog({ isOpen }) {
+  const dispatch = useDispatch();
+
   return (
     <Dialog maxWidth={'sm'} fullWidth open={isOpen}>
       <IconButton
         onClick={() => {
-          setIsOpen(false);
-          setCityDialogIsOpen(true);
+          dispatch(closeDialog());
+          dispatch(openDialog('coming_dialog'));
         }}
         width={'fit-content'}
         sx={{ position: 'absolute', right: '0' }}
@@ -33,8 +37,8 @@ export default function ComingDialog({ isOpen, setIsOpen, setCityDialogIsOpen })
         </Stack>
         <Button
           onClick={() => {
-            setIsOpen(false);
-            setCityDialogIsOpen(true);
+            dispatch(closeDialog());
+            dispatch(openDialog('choose_city_dialog'));
           }}
           variant="outlined"
           color="secondary"

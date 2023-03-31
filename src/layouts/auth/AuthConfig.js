@@ -1,6 +1,19 @@
 import { PATH_PAGE } from '../../routes/paths';
 
 const authConfig = [
+  // {
+  //   title: 'About Us',
+  //   path: '/about-us',
+  // },
+  // {
+  //   title: 'Available Cities',
+  //   path: '/#',
+  //   target: 'choose_city_dialog',
+  // },
+  // {
+  //   title: 'Contact Us',
+  //   path: '/contact-us',
+  // },
   {
     title: 'About Us',
     path: '/about-us',

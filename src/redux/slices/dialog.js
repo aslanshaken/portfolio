@@ -4,6 +4,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   current: null,
+  initialized: false,
 };
 
 const slice = createSlice({
@@ -16,6 +17,9 @@ const slice = createSlice({
     closeDialog(state) {
       state.current = null;
     },
+    setInitialized(state, action) {
+      state.initialized = action.payload;
+    }
   },
 });
 
@@ -23,7 +27,7 @@ const slice = createSlice({
 export default slice.reducer;
 
 // Actions
-export const { openDialog, closeDialog } = slice.actions;
+export const { openDialog, closeDialog, setInitialized } = slice.actions;
 
 // Selector
 export const DIALOG_SELECTOR = (state) => state.dialog;

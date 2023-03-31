@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled from '@emotion/styled';
 // @mui
-import { Autocomplete, Typography, Grid, TextField, Box, Backdrop } from '@mui/material';
+import { Autocomplete, Typography, Grid, TextField, Box, Backdrop, IconButton, Stack } from '@mui/material';
 // components
 import Container from '../../../components/Container';
 import Pagination from '../../../components/Pagination';
@@ -15,6 +15,10 @@ import { useDispatch } from '../../../redux/store';
 import { addFoodCart } from '../../../redux/slices/food';
 import { getMockTypeData } from '../../../utils/functions';
 import FoodCartCard from 'src/components/FoodCartCard';
+import Iconify from 'src/components/Iconify';
+import MotionContainer from 'src/components/animate/MotionContainer';
+import { AnimatePresence } from 'framer-motion';
+import useResponsive from 'src/hooks/useResponsive';
 
 // --------------------------------------------
 
@@ -347,7 +351,7 @@ const RootStyle = styled('div')(({ theme }) => ({
   },
   '& .overlay': {
     position: 'absolute',
-    top:200,
+    top: -50,
     zIndex: 10,
     background: '#FFFFFF',
     opacity: `0.5 !important`,
@@ -364,6 +368,8 @@ const SideBarStyle = styled(Box)(() => ({
 
 export default function FoodSection({ selectedCategory }) {
   const [isHiddenCategory, setIsHiddenCategory] = useState(false);
+
+  const isDesktop = useResponsive('up', 'md');
 
   const [isOpenCartDlg, setIsOpenCartDlg] = useState(false);
 
@@ -389,20 +395,55 @@ export default function FoodSection({ selectedCategory }) {
       <CartDialog data={selectedItemData} open={isOpenCartDlg} onClose={() => setIsOpenCartDlg(false)} />
 
       <Container>
-        {!selectedCategory && <Backdrop open={true} className="overlay" />}
-        <Grid container spacing={15} pt={15}>
-          <Grid item md={4} xs={12}>
-            <SideBarStyle>
-              <Box position={'relative'}>
-                <MenuSearchForm />
-                <DropHiddenButton sx={{ position: 'absolute', top: 0, right: 0 }} onClick={handleClickHideButton} />
-              </Box>
+        <Stack direction={{ xs: 'column', md: 'row' }} spacing={10} mt={10} position="relative" overflow="hidden">
+          {!selectedCategory && <Backdrop open={true} className="overlay" />}
+          <MotionContainer
+            {...(isDesktop && {
+              action: true,
+              animate: isHiddenCategory,
+              variants: {
+                initial: { x: 0 },
+                animate: { x: -355 },
+                exit: { x: 0 },
+              },
+              sx: { minWidth: 350, position: 'relative' },
+            })}
+          >
+            {isDesktop && (
+              <IconButton
+                sx={{
+                  position: 'absolute',
+                  zIndex: 5,
+                  right: isHiddenCategory ? -55 : 0,
+                }}
+                onClick={handleClickHideButton}
+              >
+                <Iconify
+                  icon={
+                    isHiddenCategory
+                      ? 'material-symbols:keyboard-double-arrow-right'
+                      : 'material-symbols:keyboard-double-arrow-left'
+                  }
+                  sx={{ width: '30px', height: '30px' }}
+                />
+              </IconButton>
+            )}
+            <Box position={'relative'} pt={1}>
+              <MenuSearchForm />
+            </Box>
 
-              <MenuCategoryForm isOpen={!isHiddenCategory} mt={isHiddenCategory ? -2 : 3} />
-              <MenuAllerogyForm isOpen={!isHiddenCategory} mt={isHiddenCategory ? -2 : 3} />
-            </SideBarStyle>
-          </Grid>
-          <Grid item md={8} position={'relative'}>
+            <MenuCategoryForm />
+            <MenuAllerogyForm />
+          </MotionContainer>
+
+          <Stack
+            {...(isDesktop && {
+              sx: {
+                marginLeft: isHiddenCategory ? '-350px !important' : 0,
+                transition: '300ms',
+              },
+            })}
+          >
             {!selectedCategory && (
               <Typography
                 variant="h3"
@@ -432,6 +473,7 @@ export default function FoodSection({ selectedCategory }) {
                       }}
                     />
                   )}
+                  sx={{ mt: 3 }}
                 />
               </Grid>
             </Grid>
@@ -451,8 +493,8 @@ export default function FoodSection({ selectedCategory }) {
               ))}
             </Grid>
             <Pagination />
-          </Grid>
-        </Grid>
+          </Stack>
+        </Stack>
       </Container>
     </RootStyle>
   );

@@ -14,7 +14,7 @@ export default function CartChef() {
 
       <Box mt={5} />
 
-      <Stack px={8}>
+      <Stack px={{sm:8}}>
         <NextLink href="/cities/chicago/ukrainian-cuisine/adam-sandler/checkout/" passHref>
           <LoadingButton size="large" variant="outlined" sx={{ color: 'black' }}>
             Checkout (10)

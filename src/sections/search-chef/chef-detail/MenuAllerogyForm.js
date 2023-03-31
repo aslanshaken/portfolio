@@ -45,7 +45,7 @@ export default function MenuAllerogyForm({ isOpen = true, ...other }) {
               <React.Fragment key={item.name}>
                 <ListItemButton className="listItemBtn" onClick={handleCheck(item.name)}>
                   <ListItemText primary={item.name} id={labelId} />
-                  <ListItemSecondaryAction sx={{ marginRight: '-10px' }}>
+                  <ListItemSecondaryAction>
                     <FormControlLabel
                       edge="end"
                       labelPlacement="start"

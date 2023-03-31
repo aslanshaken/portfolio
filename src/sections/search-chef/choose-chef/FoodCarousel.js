@@ -28,50 +28,63 @@ export default function FoodCarousel({foods}) {
   const theme = useTheme();
 
   const settings = {
-    slidesToShow: 3,
-    centerMode: true,
+    slidesToShow: 4,
+    centerMode:true,
     rtl: Boolean(theme.direction === 'rtl'),
     responsive: [
       {
         breakpoint: 900,
-        settings: { slidesToShow: 4, centerPadding: '0' },
+        settings: { slidesToShow: 3, centerMode: false },
       },
       {
         breakpoint: 650,
-        settings: { slidesToShow: 3, centerPadding: '0' },
+        settings: { slidesToShow: 2, centerMode: false },
       },
       {
         breakpoint: 480,
-        settings: { slidesToShow: 2, centerPadding: '0' },
+        settings: { slidesToShow: 1, centerMode: false },
       },
     ],
   };
 
-  const handlePrevious = () => {
+  const handlePrevious = (e) => {
     carouselRef.current?.slickPrev();
+    e.stopPropagation();
   };
 
-  const handleNext = () => {
+  const handleNext = (e) => {
     carouselRef.current?.slickNext();
+    e.stopPropagation();
   };
 
   return (
-    <RootStyle>
+    <RootStyle px={{xs:8,lg:0}}>
       <CarouselArrows
-        onNext={handleNext}
-        onPrevious={handlePrevious}
+        onNext={(e) => handleNext(e)}
+        onPrevious={(e) => handlePrevious(e)}
+        sx={{
+          '& .arrow': {
+            border: '1px solid #163E2B',
+            borderRadius: 10,
+            // '&.left': { left: { xs: -100, lg: 0 } },
+            // '&.right': { right: { xs: -100, lg: 0 } },
+          },
+          '& .MuiButtonBase-root': {
+            color: '#163E2B',
+          },
+        }}
       >
         <Slider ref={carouselRef} {...settings}>
-            {foods.map((food, _i) => (
-              <Box key={_i} position={'relative'} zIndex={0}>
-                <FoodCard
-                  name={food.name}
-                  cover={`/assets/search-chef/foods/${food.filename}.png`}
-                  price={food.price}
-                  we_kc={`${food.weight} gr / ${food.kc} kc`}
-                />
-              </Box>
-            ))}
+          {foods.map((food, _i) => (
+            <Box key={_i} position={'relative'} zIndex={0}>
+              <FoodCard
+                name={food.name}
+                cover={`/assets/search-chef/foods/${food.filename}.png`}
+                price={food.price}
+                we_kc={`${food.weight} gr / ${food.kc} kc`}
+              />
+            </Box>
+          ))}
         </Slider>
       </CarouselArrows>
     </RootStyle>

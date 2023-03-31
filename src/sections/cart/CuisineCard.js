@@ -12,15 +12,15 @@ CuisineCard.propTypes = {
 
 export default function CuisineCard({ data = {} }) {
   return (
-    <Stack direction={'row'} alignItems={'center'} justifyContent='space-between' spacing={{xs:2, md:5, lg:7}} width={1}>
+    <Stack direction={'row'} alignItems={'center'} justifyContent="space-between" width={'100%'} spacing={{ xs: 2, md: 5, lg: 7 }}>
       <Image
         alt={'Cuisine Image'}
         src={'/assets/search-chef/foods/chilli_pepper.png'}
         sx={{ borderRadius: '50%', minWidth: 80, height: 80 }}
       />
 
-      <Stack>
-        <Typography whiteSpace={'nowrap'} variant="h6" color="black" fontWeight={600} gutterBottom>
+      <Stack whiteSpace={'nowrap'}>
+        <Typography variant="h6" color="black" fontWeight={600} gutterBottom>
           {'Chili pepper'}
         </Typography>
         <Typography variant="body2" color="text.secondary">
@@ -28,13 +28,11 @@ export default function CuisineCard({ data = {} }) {
         </Typography>
       </Stack>
 
-      <Box sx={{ backgroundColor: 'background.paper', py: 1.5, borderRadius: 1 }}>
-        <Typography color="text.secondary">{'2'}</Typography>
-      </Box>
+      <Typography color="text.secondary">{'2'}</Typography>
 
-      <IconButtonAnimate color="error">
-        <Iconify icon={'mdi:trash'} />
-      </IconButtonAnimate>
+        <IconButtonAnimate color="error">
+          <Iconify icon={'mdi:trash'} />
+        </IconButtonAnimate>
     </Stack>
   );
 }
