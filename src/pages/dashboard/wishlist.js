@@ -2,7 +2,7 @@
 import Layout from '../../layouts';
 // components
 import Page from '../../components/Page';
-import { Box, Grid } from '@mui/material';
+import { Avatar, Box, Grid, Stack, Typography } from '@mui/material';
 import FoodCartCard from 'src/components/FoodCartCard';
 import Pagination from 'src/components/Pagination';
 // sections
@@ -10,6 +10,8 @@ import Pagination from 'src/components/Pagination';
 const foodData = [
   {
     id: '1',
+    chefavatar: 'adam-sandler',
+    chefname: 'Michael',
     filename: 'chilli_pepper',
     name: 'chillid pepper',
     price: '9.99',
@@ -25,6 +27,8 @@ const foodData = [
   },
   {
     id: '2',
+    chefavatar: 'adam-sandler',
+    chefname: 'Michael',
     filename: 'chilli_pepper',
     name: 'chillid pepper',
     price: '9.99',
@@ -40,6 +44,8 @@ const foodData = [
   },
   {
     id: '3',
+    chefavatar: 'adam-sandler',
+    chefname: 'Michael',
     filename: 'chilli_pepper',
     name: 'chillid pepper',
     price: '9.99',
@@ -55,6 +61,8 @@ const foodData = [
   },
   {
     id: '4',
+    chefavatar: 'adam-sandler',
+    chefname: 'Michael',
     filename: 'chilli_pepper',
     name: 'chillid pepper',
     price: '9.99',
@@ -70,6 +78,8 @@ const foodData = [
   },
   {
     id: '5',
+    chefavatar: 'adam-sandler',
+    chefname: 'Michael',
     filename: 'chilli_pepper',
     name: 'chillid pepper',
     price: '9.99',
@@ -85,6 +95,8 @@ const foodData = [
   },
   {
     id: '6',
+    chefavatar: 'adam-sandler',
+    chefname: 'Michael',
     filename: 'chilli_pepper',
     name: 'chillid pepper',
     price: '9.99',
@@ -100,6 +112,8 @@ const foodData = [
   },
   {
     id: '7',
+    chefavatar: 'adam-sandler',
+    chefname: 'Michael',
     filename: 'chilli_pepper',
     name: 'chillid pepper',
     price: '9.99',
@@ -115,6 +129,8 @@ const foodData = [
   },
   {
     id: '8',
+    chefavatar: 'adam-sandler',
+    chefname: 'Michael',
     filename: 'chilli_pepper',
     name: 'chillid pepper',
     price: '9.99',
@@ -144,7 +160,12 @@ export default function WishlistPage() {
       <Grid container spacing={3}>
         {foodData.map((item) => (
           <Grid key={item.id} item xs={12} sm={6} md={4} lg={3}>
+            <Stack direction={'row'} alignItems={'center'} spacing={2} position={'relative'} zIndex={10}>
+              <Avatar src={`/assets/search-chef/chefs/${item.chefavatar}.png`} sx={{ height: 56, width: 56 }} />
+              <Typography>{item.chefname}</Typography>
+            </Stack>
             <FoodCartCard
+              sx={{ mt: -2 }}
               name={item.name}
               cover={`/assets/search-chef/foods/${item.filename}.png`}
               price={item.price}

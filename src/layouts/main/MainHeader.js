@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 import NextLink from 'next/link';
 // @mui
 import { styled, useTheme } from '@mui/material/styles';
-import { Box, AppBar, Toolbar, Container, Stack, Button, Hidden } from '@mui/material';
+import { Box, AppBar, Toolbar, Container, Stack, Button, Hidden, MenuItem, Divider, Typography } from '@mui/material';
 // hooks
 import useOffSetTop from '../../hooks/useOffSetTop';
 import useResponsive from '../../hooks/useResponsive';
@@ -27,6 +27,8 @@ import useAuth from '../../hooks/useAuth';
 import { PATH_AUTH, PATH_PAGE } from '../../routes/paths';
 import { useSelector } from '../../redux/store';
 import { FOOD_SELECTOR } from '../../redux/slices/food';
+import { useState } from 'react';
+import MenuPopover from 'src/components/MenuPopover';
 
 const Badge = dynamic(() => import('@mui/material/Badge'), { ssr: false });
 
@@ -76,6 +78,16 @@ export default function MainHeader() {
   const isHome = pathname === '/';
 
   const navConfig = homeMenuConfig;
+
+  const [open, setOpen] = useState(null);
+
+  const handleOpen = (event) => {
+    setOpen(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setOpen(null);
+  };
 
   const handleLogout = async () => {
     try {
@@ -140,14 +152,50 @@ export default function MainHeader() {
           </Stack>
           {isAuthenticated ? (
             <>
-              {/* <Badge badgeContent={3} color="error"> */}
               <IconButtonAnimate
                 sx={{
                   p: 0,
                 }}
               >
-                <MyAvatar sx={{ width: 50, height: 50 }} onClick={handleClickAvatar} />
+                <MyAvatar sx={{ width: 50, height: 50 }} onClick={handleOpen} />
               </IconButtonAnimate>
+              <MenuPopover
+                open={Boolean(open)}
+                anchorEl={open}
+                onClose={handleClose}
+                sx={{
+                  p: 0,
+                  mt: 1.5,
+                  ml: 0.75,
+                  '& .MuiMenuItem-root': {
+                    typography: 'body2',
+                    borderRadius: 0.75,
+                  },
+                }}
+              >
+                <Box sx={{ my: 1.5, px: 2.5 }}>
+                  <Typography variant="subtitle2" noWrap>
+                    Minimal UI
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
+                    demo@minimals.cc
+                  </Typography>
+                </Box>
+
+                <Divider sx={{ borderStyle: 'dashed' }} />
+
+                <Stack sx={{ p: 1 }}>
+                  <NextLink href="/dashboard/account" passHref>
+                    <MenuItem>Profile</MenuItem>
+                  </NextLink>
+                </Stack>
+
+                <Divider sx={{ borderStyle: 'dashed' }} />
+
+                <MenuItem onClick={handleLogout} sx={{ m: 1 }}>
+                  Logout
+                </MenuItem>
+              </MenuPopover>
             </>
           ) : (
             <Hidden mdDown>

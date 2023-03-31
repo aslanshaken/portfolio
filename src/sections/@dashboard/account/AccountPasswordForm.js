@@ -5,13 +5,15 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FormProvider, RHFTextField } from 'src/components/hook-form';
 // @mui
-import { Box, IconButton, InputAdornment, Stack, Typography } from '@mui/material';
+import { Box, Button, IconButton, InputAdornment, Stack, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // hooks
 import useNotify from 'src/hooks/useNotify';
 import Iconify from 'src/components/Iconify';
 
 export default function AccountPasswordForm() {
+  const [isDisable, setIsdisable] = useState(true); 
+
   const { successAlert, errorAlert } = useNotify();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -38,6 +40,7 @@ export default function AccountPasswordForm() {
 
   const onSubmit = async (data) => {
     try {
+      console.log(data);
     } catch (error) {
       console.error(error.message);
       errorAlert(error.message);
@@ -51,23 +54,32 @@ export default function AccountPasswordForm() {
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={3} mt={5}>
-        <Typography variant={'h4'} gutterBottom>
-          {'Update password'}
-        </Typography>
+        <Stack direction={'row'} justifyContent={'space-between'}>
+          <Typography variant={'h4'} gutterBottom>
+            {'Update password'}
+          </Typography>
+          <Button sx={{ color: 'black', fontWeight: 'normal' }} onClick={() => setIsdisable(false)}>
+            edit
+          </Button>
+        </Stack>
 
         <RHFTextField
+          disabled={isDisable}
           name="password"
-          hiddenLabel
+          label="Current password"
           type={showPassword ? 'text' : 'password'}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="start">
-                <IconButton onClick={() => setShowPassword(!showPassword)}>
-                  <Iconify icon={showPassword ? 'ph:eye-slash-light' : 'ic:outline-remove-red-eye'} />
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
+        />
+        <RHFTextField
+          disabled={isDisable}
+          name="password"
+          label="New password"
+          type={showPassword ? 'text' : 'password'}
+        />
+        <RHFTextField
+          disabled={isDisable}
+          name="password"
+          label="Confirm new password"
+          type={showPassword ? 'text' : 'password'}
         />
       </Stack>
 
