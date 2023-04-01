@@ -47,7 +47,7 @@ export default function CuisineDialog({ isOpen }) {
                 router.push('/cities/chicago/ukrainian-cuisine/');
               }}
               direction={'row'}
-              sx={{ width: 'fit-content' }}
+              sx={{ width: '100%', justifyContent:'left', px:5 }}
             >
               <Image
                 src={`/assets/search-chef/cuisines/${item.id}.png`}

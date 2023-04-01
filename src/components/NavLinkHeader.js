@@ -21,7 +21,7 @@ export default function NavLinkHeader({ city = '', cuisine = '', chef = '' }) {
         </Link>
       )}
       {cuisine && (
-        <Link color="inherit" href="#" onClick={() => dispatch(openDialog('choose_cuisine_dialog'))}>
+        <Link color="inherit" href="/cities/chicago/ukrainian-cuisine/">
           {cuisine}
         </Link>
       )}

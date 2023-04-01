@@ -17,7 +17,7 @@ export default function CityDialog({ isOpen }) {
       <IconButton
         onClick={() => {
           dispatch(closeDialog());
-          dispatch(openDialog('choose_cuisine_dialog'))
+          dispatch(openDialog('choose_cuisine_dialog'));
         }}
         width={'fit-content'}
         sx={{ position: 'absolute', right: '0' }}
@@ -30,15 +30,15 @@ export default function CityDialog({ isOpen }) {
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
           magna aliqua.
         </Typography>
-        <Stack spacing={2} mt={8}>
+        <Stack spacing={2} mt={8} width={'fit-content'} mx={'auto'}>
           {cities.map((item) => (
             <Button
               key={item.id}
               onClick={() => {
                 dispatch(closeDialog());
-                dispatch(openDialog('choose_cuisine_dialog'))
+                dispatch(openDialog('choose_cuisine_dialog'));
               }}
-              sx={{ width: 'fit-content' }}
+              sx={{ width: '100%', px: 5 }}
             >
               <Typography variant="h4" fontWeight={'500'} color={'secondary'}>
                 {item.name}

@@ -39,9 +39,16 @@ export default function DisheCard(props) {
         >
           <Stack direction={'row'} alignItems={'center'} spacing={2}>
             <Avatar src={'/assets/search-chef/chefs/adam-sandler.png'} sx={{ height: 50, width: 50 }} />
-            <Typography variant="caption">Michael</Typography>
+            <Stack>
+              <Typography variant="caption">Michael</Typography>
+              <Typography variant="caption" display={{ xs: 'block', md: 'none' }}>
+                Central Asia Cuisine
+              </Typography>
+            </Stack>
           </Stack>
-          <Typography variant="caption">Central Asia Cuisine</Typography>
+          <Typography variant="caption" display={{ xs: 'none', md: 'block' }}>
+            Central Asia Cuisine
+          </Typography>
           {/* <IconButtonAnimate sx={{ p: 0, width: 33, height: 33 }}>
             <Iconify icon={'mdi:cards-heart-outline'} sx={{ width: 33, height: 33, color: 'error.main' }} />
           </IconButtonAnimate>
