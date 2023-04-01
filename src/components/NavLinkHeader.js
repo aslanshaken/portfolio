@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import NextLink from 'next/link';
 import { Breadcrumbs, Link, Typography } from '@mui/material';
 import React from 'react';
 import { useDispatch } from 'react-redux';
@@ -16,14 +17,14 @@ export default function NavLinkHeader({ city = '', cuisine = '', chef = '' }) {
   return (
     <Breadcrumbs separator="->" sx={{ fontWeight: 600, py: 2 }}>
       {city && (
-        <Link color="inherit" href="#" onClick={() => dispatch(openDialog('choose_city_dialog'))}>
+        <Link href='#' color="inherit" onClick={() => dispatch(openDialog('choose_city_dialog'))}>
           {city}
         </Link>
       )}
       {cuisine && (
-        <Link color="inherit" href="/cities/chicago/ukrainian-cuisine/">
-          {cuisine}
-        </Link>
+        <NextLink color="inherit" href="/cities/chicago/ukrainian-cuisine/" passHref>
+          <Link color="inherit">{cuisine}</Link>
+        </NextLink>
       )}
       {chef && <Typography fontWeight={600}>{chef}</Typography>}
     </Breadcrumbs>
