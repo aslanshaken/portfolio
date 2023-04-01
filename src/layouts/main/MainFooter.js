@@ -2,7 +2,7 @@
 import NextLink from 'next/link';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Grid, Link, Divider, Container, Typography, IconButton } from '@mui/material';
+import { Grid, Link, Divider, Container, Typography, IconButton, Stack } from '@mui/material';
 // routes
 import { PATH_PAGE } from '../../routes/paths';
 // components
@@ -29,16 +29,77 @@ const RootStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function MainFooter() {
-  const scrollToTop = () =>{
+  const scrollToTop = () => {
     window.scrollTo({
-      top: 0, 
-      behavior: 'smooth'
+      top: 0,
+      behavior: 'smooth',
     });
   };
 
   return (
     <RootStyle>
-      <Divider />
+      <Container>
+        <Stack pt={6} pb={{xs:10, md:2}}>
+          <Stack direction={'row'}>
+            <Stack mx={'auto'}>
+              <Logo sx={{ mx: 'auto', width: 200 }} />
+              <GradientText
+                display={{ xs: 'none', md: 'block' }}
+                mt={2}
+                variant="body1"
+                fontWeight={'bold'}
+                textAlign={'center'}
+              >
+                +1 700 123 45 67
+              </GradientText>
+            </Stack>
+
+            <IconButton
+              onClick={scrollToTop}
+              sx={(theme) => ({
+                display: { xs: 'none', md: 'block' },
+                position: 'absolute',
+                top: theme.spacing(8),
+                right: { xs: 0, sm: '25%' },
+                borderRadius: 30,
+                p: 0.3,
+              })}
+            >
+              <ArrowTopIcon />
+            </IconButton>
+          </Stack>
+          <Stack
+            py={4}
+            spacing={3}
+            display={{ xs: 'block', md: 'none' }}
+            textAlign={'center'}
+            maxWidth={400}
+            mx={'auto'}
+          >
+            <Typography color={'text.secondary'}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
+            </Typography>
+            <Typography>3678 Summit Park Avenue Southfield, MI 697,US</Typography>
+          </Stack>
+          <Stack direction={'row'} justifyContent={{ xs: 'center', md: 'space-between' }}>
+            <Stack direction={'row'} spacing={3} display={{ xs: 'none', md: 'flex' }}>
+              <Typography>© Food 2023</Typography>
+              <Typography>Privacy Policy</Typography>
+              <Typography>Terms of Service</Typography>
+            </Stack>
+            <SocialsButton />
+          </Stack>
+        </Stack>
+        <Box
+        display={{xs:'block', md:'none'}}
+          textAlign={'center'}
+          py={2}
+          sx={{ background: 'white', position: 'absolute', bottom: 0, left: 0, width: '100%' }}
+        >
+          <Typography color={'text.secondary'}>© 2023 Aslan, All rights reserved</Typography>
+        </Box>
+      </Container>
+      {/* <Divider />
       <Container maxWidth={'xl'} sx={{ py: 10 }}>
         <Grid
           container
@@ -111,7 +172,7 @@ export default function MainFooter() {
             <SocialsButton />
           </Grid>
         </Grid>
-      </Container>
+      </Container> */}
     </RootStyle>
   );
 }

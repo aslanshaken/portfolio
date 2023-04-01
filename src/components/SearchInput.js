@@ -12,7 +12,7 @@ SearchInput.propTypes = {
 export default function SearchInput({ icon = '', placeholder = '', buttonLabel = 'Search' }) {
   return (
     <Stack width={'100%'} display={'flex'} direction={'column'} justifyContent={'center'}>
-      <TextField
+      {/* <TextField
         size="medium"
         placeholder={placeholder}
         variant="outlined"
@@ -46,17 +46,17 @@ export default function SearchInput({ icon = '', placeholder = '', buttonLabel =
             </InputAdornment>
           ),
         }}
-      />
+      /> */}
       <Button
         variant="contained"
         sx={{
           m: 'auto',
-          mt: 6,
+          // mt: 6,
           borderRadius: 100,
           px: 6,
           height:56,
           minWidth: 230,
-          display: { xs: 'flex', md: 'none' },
+          // display: { xs: 'flex', md: 'none' },
         }}
       >
         {buttonLabel}

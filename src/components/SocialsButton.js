@@ -39,7 +39,7 @@ export default function SocialsButton({ initialColor = false, simple = true, lin
   return (
     <Stack
       direction="row"
-      spacing={1}
+      spacing={3}
       flexWrap="wrap"
       alignItems="center"
       justifyContent={'space-between'}

@@ -18,18 +18,18 @@ const RootStyle = styled(Box)(() => ({
 }));
 
 FoodCarousel.propTypes = {
-  foods: PropTypes.array
-}
+  foods: PropTypes.array,
+};
 
 // ----------------------------------------------------------------------
 
-export default function FoodCarousel({foods}) {
+export default function FoodCarousel({ foods }) {
   const carouselRef = useRef(null);
   const theme = useTheme();
 
   const settings = {
     slidesToShow: 4,
-    centerMode:true,
+    centerMode: true,
     rtl: Boolean(theme.direction === 'rtl'),
     responsive: [
       {
@@ -39,10 +39,6 @@ export default function FoodCarousel({foods}) {
       {
         breakpoint: 650,
         settings: { slidesToShow: 2, centerMode: false },
-      },
-      {
-        breakpoint: 480,
-        settings: { slidesToShow: 1, centerMode: false },
       },
     ],
   };
@@ -58,16 +54,16 @@ export default function FoodCarousel({foods}) {
   };
 
   return (
-    <RootStyle px={{xs:8,lg:0}}>
+    <RootStyle px={{ xs: 2, sm: 8, lg: 0 }}>
       <CarouselArrows
         onNext={(e) => handleNext(e)}
         onPrevious={(e) => handlePrevious(e)}
         sx={{
           '& .arrow': {
-            border: '1px solid #163E2B',
+            border: { md: '1px solid #163E2B' },
             borderRadius: 10,
-            // '&.left': { left: { xs: -100, lg: 0 } },
-            // '&.right': { right: { xs: -100, lg: 0 } },
+            // '&.left': { left: { xs: 30, lg: 0 } },
+            // '&.right': { right: { xs: 30, lg: 0 } },
           },
           '& .MuiButtonBase-root': {
             color: '#163E2B',

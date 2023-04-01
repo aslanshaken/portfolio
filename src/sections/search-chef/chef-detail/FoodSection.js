@@ -394,10 +394,10 @@ export default function FoodSection({ selectedCategory }) {
     <RootStyle>
       <CartDialog data={selectedItemData} open={isOpenCartDlg} onClose={() => setIsOpenCartDlg(false)} />
 
-      <Container>
+      <Container sx={{display:'flex', justifyContent:'center'}}>
         <Stack direction={{ xs: 'column', md: 'row' }} spacing={10} mt={10} position="relative" overflow="hidden">
-          {!selectedCategory && <Backdrop open={true} className="overlay" />}
-          <MotionContainer
+          {/* {!selectedCategory && <Backdrop open={true} className="overlay" />} */}
+          {/* <MotionContainer
             {...(isDesktop && {
               action: true,
               animate: isHiddenCategory,
@@ -434,7 +434,7 @@ export default function FoodSection({ selectedCategory }) {
 
             <MenuCategoryForm />
             <MenuAllerogyForm />
-          </MotionContainer>
+          </MotionContainer> */}
 
           <Stack
             {...(isDesktop && {
@@ -444,15 +444,15 @@ export default function FoodSection({ selectedCategory }) {
               },
             })}
           >
-            {!selectedCategory && (
+            {/* {!selectedCategory && (
               <Typography
                 variant="h3"
                 sx={{ position: 'absolute', left: '40%', top: '50%', zIndex: 5, fontWeight: '500' }}
               >
                 Choose date first
               </Typography>
-            )}
-            <Grid container sx={{ marginTop: '-20px', marginBottom: '20px' }}>
+            )} */}
+            {/* <Grid container sx={{ marginTop: '-20px', marginBottom: '20px' }}>
               <Grid item md={8} sm={4} />
               <Grid item md={4} sm={12} xs={12}>
                 <Autocomplete
@@ -476,9 +476,9 @@ export default function FoodSection({ selectedCategory }) {
                   sx={{ mt: 3 }}
                 />
               </Grid>
-            </Grid>
+            </Grid> */}
 
-            <Grid container spacing={3}>
+            <Grid container spacing={3} maxWidth={'md'}>
               {getMockTypeData(foodData).map((item) => (
                 <Grid key={item.id} item lg={4} md={6} sm={6} xs={12}>
                   <FoodCartCard

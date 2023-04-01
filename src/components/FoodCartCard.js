@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Box, Card, colors, Stack, Typography } from '@mui/material';
+import { Avatar, Box, Card, colors, Stack, Typography } from '@mui/material';
 import { IconButtonAnimate } from './animate';
 import GradientText from './GradientText';
 import Image from './Image';
@@ -14,10 +14,22 @@ FoodCartCard.propTypes = {
   we_kc: PropTypes.string,
   onClick: PropTypes.func,
   onClickPlus: PropTypes.func,
+  chefname: PropTypes.string,
+  chefavatar: PropTypes.string,
 };
 
 export default function FoodCartCard(props) {
-  const { name, cover, price, we_kc, onClick = () => {}, onClickPlus = () => {}, ...other } = props;
+  const {
+    chefname,
+    chefavatar,
+    name,
+    cover,
+    price,
+    we_kc,
+    onClick = () => {},
+    onClickPlus = () => {},
+    ...other
+  } = props;
 
   return (
     <Card
@@ -29,11 +41,15 @@ export default function FoodCartCard(props) {
       square
       {...other}
     >
+      {chefname && <Stack p={2} direction={'row'} alignItems={'center'} spacing={2} position={'relative'} zIndex={10}>
+        <Avatar src={`/assets/search-chef/chefs/${chefavatar}.png`} sx={{ height: 56, width: 56 }} />
+        <Typography color={'text.secondary'}>{chefname}</Typography>
+      </Stack>}
       <Box
         sx={{
           width: 1,
+          pt: !chefname && '1rem',
           maxWidth: 200,
-          paddingTop: '1rem',
           margin: 'auto',
           cursor: 'pointer',
         }}

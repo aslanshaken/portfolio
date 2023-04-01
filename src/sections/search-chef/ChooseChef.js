@@ -381,12 +381,13 @@ export default function ChooseChef() {
                         {item.name}
                         <Iconify icon={'material-symbols:verified'} sx={{ width: 21, height: 21, color: '#0ED3CF' }} />
                       </Typography>
+                      <Typography variant='caption' >by ADS</Typography>
                       <Typography color={'primary'} variant="subtitle1">
                         {item.status}
                       </Typography>
-                      <Box display={{ xs: 'block', lg: 'none' }}>
+                      {/* <Box display={{ xs: 'block', lg: 'none' }}>
                         <VisitChef />
-                      </Box>
+                      </Box> */}
                     </Box>
                   </Grid>
                   <Grid

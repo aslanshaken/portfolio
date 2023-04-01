@@ -88,7 +88,9 @@ export default function LoginForm() {
           <RHFCheckbox name="Accept" label="Remember me" />
           <NextLink href={PATH_AUTH.forgot} passHref>
             <Link>
-              <Typography className="terms">Forgot password?</Typography>
+              <Typography color={'secondary'} className="terms" sx={{ textDecorationLine: 'underline' }}>
+                Forgot password?
+              </Typography>
             </Link>
           </NextLink>
         </Stack>
@@ -97,7 +99,7 @@ export default function LoginForm() {
           Continue
         </LoadingButton>
 
-        <GoogleLogin
+        {/* <GoogleLogin
           clientId={process.env.GOOGLE_CLIENT_ID}
           onSuccess={handleGoogleLoginSucess}
           onFailure={handleGoogleLoginFailed}
@@ -117,7 +119,7 @@ export default function LoginForm() {
               <GradientText color={'secondary'}>Sign in with Google</GradientText>
             </LoadingButton>
           )}
-        />
+        /> */}
 
         <Stack direction={'row'} spacing={1} justifyContent={'center'}>
           <GradientText color={'secondary'}>Don’t have the account?</GradientText>

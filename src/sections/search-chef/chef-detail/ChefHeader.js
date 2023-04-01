@@ -46,7 +46,7 @@ ChefHeader.propTypes = {
 
 // ----------------------------------------------------------------------
 
-export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
+export default function ChefHeader({ selectedCategory = '1', setSelectedCategory }) {
   const router = useRouter();
   const { chef } = router.query;
 
@@ -89,6 +89,12 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
                   Chef Michael
                 </Typography>
                 <Box display={'flex'} gap={2} flexWrap={'wrap'} py={1}>
+                  <Typography display={{ xs: 'block', md: 'none' }} color={'black'} variant={'subtitle1'}>
+                    by ADS
+                  </Typography>
+                  <Typography display={{ xs: 'block', md: 'none' }} color={'black'} variant={'subtitle1'}>
+                    Zip code: 78717
+                  </Typography>
                   <Typography color={'black'} variant={'subtitle1'}>
                     Japan Cuisine
                   </Typography>
@@ -101,7 +107,7 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
                   <GradientText color={'primary'} variant={'subtitle1'}>
                     Certified chef
                   </GradientText>
-                  <Typography color={'black'} variant={'subtitle1'}>
+                  <Typography display={{ md: 'block', xs: 'none' }} color={'black'} variant={'subtitle1'}>
                     Zip code: 78717
                   </Typography>
                 </Box>

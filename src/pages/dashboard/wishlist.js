@@ -160,11 +160,9 @@ export default function WishlistPage() {
       <Grid container spacing={3}>
         {foodData.map((item) => (
           <Grid key={item.id} item xs={12} sm={6} md={4} lg={3}>
-            <Stack direction={'row'} alignItems={'center'} spacing={2} position={'relative'} zIndex={10}>
-              <Avatar src={`/assets/search-chef/chefs/${item.chefavatar}.png`} sx={{ height: 56, width: 56 }} />
-              <Typography>{item.chefname}</Typography>
-            </Stack>
             <FoodCartCard
+              chefavatar={item.chefavatar}
+              chefname={item.chefname}
               sx={{ mt: -2 }}
               name={item.name}
               cover={`/assets/search-chef/foods/${item.filename}.png`}
