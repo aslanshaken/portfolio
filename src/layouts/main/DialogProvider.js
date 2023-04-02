@@ -5,8 +5,7 @@ import CuisineDialog from 'src/sections/home/CuisineDialog';
 import { useSelector } from 'src/redux/store';
 import { DIALOG_SELECTOR } from 'src/redux/slices/dialog';
 
-export default function DialgProvider() {
-
+export default function DialogProvider({ children }) {
   const { current: openedDialog } = useSelector(DIALOG_SELECTOR);
 
   const isOpenComingDialog = openedDialog === 'coming_dialog';
@@ -34,6 +33,8 @@ export default function DialgProvider() {
       <ComingDialog isOpen={comingDialogIsOpen} />
       <CityDialog isOpen={cityDialogIsOpen} />
       <CuisineDialog isOpen={cuisineDialogIsOpen} />
+
+      {children}
     </>
   );
 }
