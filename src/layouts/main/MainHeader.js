@@ -62,7 +62,7 @@ const ToolbarShadowStyle = styled('div')(({ theme }) => ({
 
 export default function MainHeader() {
   const { logout, isAuthenticated, user } = useAuth();
- 
+
   const isOffset = useOffSetTop(HEADER.MAIN_DESKTOP_HEIGHT);
 
   const theme = useTheme();
@@ -123,6 +123,7 @@ export default function MainHeader() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
+            height: 1,
           }}
         >
           <Logo />
