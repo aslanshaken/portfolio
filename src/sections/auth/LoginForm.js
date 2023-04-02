@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 // next
 import NextLink from 'next/link';
-import { IconButton, InputAdornment, Link, Stack, Typography } from '@mui/material';
+import { Alert, IconButton, InputAdornment, Link, Stack, Typography } from '@mui/material';
 import GradientText from '../../components/GradientText';
 import FormProvider from '../../components/hook-form/FormProvider';
 import { RHFTextField } from '../../components/hook-form';
@@ -19,6 +19,7 @@ import GoogleLogin from 'react-google-login';
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
+  const [errorMsg, setErrorMsg] = useState();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -50,7 +51,7 @@ export default function LoginForm() {
     try {
       await login(data.email, data.password);
     } catch (error) {
-      console.error(error);
+      setErrorMsg(error.message);
       reset();
     }
   };
@@ -68,6 +69,16 @@ export default function LoginForm() {
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={3}>
+        {errorMsg && (
+          <Alert
+            severity="error"
+            onClose={() => {
+              setErrorMsg();
+            }}
+          >
+            {errorMsg}
+          </Alert>
+        )}
         <RHFTextField name="email" label="Email address" />
 
         <RHFTextField

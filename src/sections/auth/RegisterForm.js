@@ -60,7 +60,7 @@ export default function RegisterForm() {
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={3}>
         {errorMsg && (
-          <Alert severity="error" sx={{ background: '#FFE7D9' }} onClose={() => {setErrorMsg()}}>
+          <Alert severity="error" onClose={() => {setErrorMsg()}}>
             {errorMsg}
           </Alert>
         )}

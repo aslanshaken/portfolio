@@ -61,8 +61,8 @@ const ToolbarShadowStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function MainHeader() {
-  const { logout, isAuthenticated } = useAuth();
-
+  const { logout, isAuthenticated, user } = useAuth();
+ 
   const isOffset = useOffSetTop(HEADER.MAIN_DESKTOP_HEIGHT);
 
   const theme = useTheme();
@@ -156,8 +156,9 @@ export default function MainHeader() {
                 sx={{
                   p: 0,
                 }}
+                onClick={handleOpen}
               >
-                <MyAvatar sx={{ width: 50, height: 50 }} onClick={handleOpen} />
+                <MyAvatar sx={{ width: 50, height: 50 }} />
               </IconButtonAnimate>
               <MenuPopover
                 open={Boolean(open)}
@@ -175,10 +176,10 @@ export default function MainHeader() {
               >
                 <Box sx={{ my: 1.5, px: 2.5 }}>
                   <Typography variant="subtitle2" noWrap>
-                    Minimal UI
+                    {user.first_name} {user.last_name}
                   </Typography>
                   <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-                    demo@minimals.cc
+                    {user.email}
                   </Typography>
                 </Box>
 
