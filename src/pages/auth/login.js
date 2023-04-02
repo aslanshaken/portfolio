@@ -24,7 +24,7 @@ export default function Login() {
         <NextLink href={'/'} passHref>
           <Link>
             <Typography mt={2} sx={{position:'absolute', top:0, color:'black', ml:-2}} className="sign-up">
-              Back to hme page
+              Back to home page
             </Typography>
           </Link>
         </NextLink>
