@@ -3,7 +3,6 @@ import { useDropzone } from 'react-dropzone';
 // @mui
 
 //
-import Image from '../Image';
 import Iconify from '../Iconify';
 import RejectionFiles from './RejectionFiles';
 import { styled, Typography } from '@mui/material';

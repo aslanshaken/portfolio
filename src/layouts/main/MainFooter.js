@@ -39,7 +39,7 @@ export default function MainFooter() {
   return (
     <RootStyle>
       <Container>
-        <Stack pt={6} pb={{xs:10, md:2}}>
+        <Stack pt={6} pb={{ xs: 10, md: 2 }}>
           <Stack direction={'row'}>
             <Stack mx={'auto'}>
               <Logo sx={{ mx: 'auto', width: 200 }} />
@@ -50,7 +50,7 @@ export default function MainFooter() {
                 fontWeight={'bold'}
                 textAlign={'center'}
               >
-                +1 700 123 45 67
+                +1 929-928-5292
               </GradientText>
             </Stack>
 
@@ -91,7 +91,7 @@ export default function MainFooter() {
           </Stack>
         </Stack>
         <Box
-        display={{xs:'block', md:'none'}}
+          display={{ xs: 'block', md: 'none' }}
           textAlign={'center'}
           py={2}
           sx={{ background: 'white', position: 'absolute', bottom: 0, left: 0, width: '100%' }}

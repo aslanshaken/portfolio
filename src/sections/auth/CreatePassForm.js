@@ -8,10 +8,13 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { LoadingButton } from '@mui/lab';
 import { useState } from 'react';
 import Iconify from '../../components/Iconify';
+import axios from 'src/utils/axios';
+import useNotify from 'src/hooks/useNotify';
 
 // --------------------------------------------------------
 
 export default function CreatePassForm() {
+  const { successAlert, errorAlert } = useNotify();
   const [showPassword, setShowPassword] = useState(false);
   const [showCPassword, setShowCPassword] = useState(false);
 
@@ -38,10 +41,13 @@ export default function CreatePassForm() {
 
   const onSubmit = async (data) => {
     try {
-      console.log(data);
-      // await ForgotPassword(data.email_phone);
+      const response = await axios.post(`/api/${process.env.API_VERSION}/reset_password`, {
+        token: '6660cd9f1a39e88fe3a4',
+        password: data.password,
+      });
+      successAlert();
     } catch (error) {
-      console.error(error);
+      errorAlert(error.message);
       reset();
     }
   };

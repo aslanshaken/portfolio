@@ -6,10 +6,14 @@ import { RHFTextField } from '../../components/hook-form';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { LoadingButton } from '@mui/lab';
+import axios from 'src/utils/axios';
+import useNotify from 'src/hooks/useNotify';
 
 // --------------------------------------------------------
 
 export default function ForgotPassForm() {
+  const { successAlert, errorAlert } = useNotify();
+
   const RegisterSchema = Yup.object().shape({
     email_phone: Yup.string().email('Email must be a valid email address').required('Email is required'),
   });
@@ -31,10 +35,13 @@ export default function ForgotPassForm() {
 
   const onSubmit = async (data) => {
     try {
-      console.log(data);
+      const response = await axios.post(`/api/${process.env.API_VERSION}/forgot_password`, {
+        email: data.email_phone,
+      });
+      successAlert();
       // await ForgotPassword(data.email_phone);
     } catch (error) {
-      console.error(error);
+      errorAlert(error.message);
       reset();
     }
   };

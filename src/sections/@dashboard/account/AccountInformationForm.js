@@ -10,11 +10,16 @@ import { LoadingButton } from '@mui/lab';
 // hooks
 import useNotify from 'src/hooks/useNotify';
 import axios from 'src/utils/axios';
+import useAuth from 'src/hooks/useAuth';
 
 export default function AccountInformationForm() {
   const [isDisablePersonalInfo, setIsDisablePersonalInfo] = useState(true);
   const [isDisableAddress, setIsDisableAddress] = useState(true);
   const { successAlert, errorAlert } = useNotify();
+
+  const { user } = useAuth();
+
+  const addresses = {};
 
   const personalInfoScahema = Yup.object().shape({
     custom_vocabulary: Yup.string(),
@@ -27,18 +32,26 @@ export default function AccountInformationForm() {
     facebook: Yup.string().required('Facebook is required'),
   });
 
-  const personalInfoDefaultValues = {};
+  const personalInfoDefaultValues = {
+    first_name: user?.first_name,
+    last_name: user?.last_name,
+    username: user?.username,
+    phone_number: user?.mobile,
+    email_address: user?.email,
+    instagram: user?.instagram,
+    facebook: user?.facebook,
+  };
 
   const personalInfoMethods = useForm({
     resolver: yupResolver(personalInfoScahema),
-    personalInfoDefaultValues,
+    defaultValues: personalInfoDefaultValues,
   });
 
   const {
     setValue: setPersonalInfoValue,
     handleSubmit: personalInfoHandleSubmit,
     reset: resetPersonalInfo,
-    formState: { isSubmitting:personalInfoIsSubmitting, isDirty:personalInfoIsDirty },
+    formState: { isSubmitting: personalInfoIsSubmitting, isDirty: personalInfoIsDirty },
   } = personalInfoMethods;
 
   const personalInfoOnSubmit = async (data) => {
@@ -59,11 +72,17 @@ export default function AccountInformationForm() {
     zip: Yup.number().required('ZIP is required'),
   });
 
-  const addressDefaultValues = {};
+  const addressDefaultValues = {
+    address: addresses?.address,
+    apartment: addresses?.apartment,
+    state: addresses?.state,
+    city: addresses?.city,
+    zip: addresses?.zip,
+  };
 
   const addressMethods = useForm({
     resolver: yupResolver(addressScahema),
-    addressDefaultValues,
+    defaultValues: addressDefaultValues,
   });
 
   const {
