@@ -7,6 +7,7 @@ import useAuth from '../hooks/useAuth';
 import Login from '../pages/auth/login';
 // components
 import LoadingScreen from '../components/LoadingScreen';
+import { PATH_AUTH } from 'src/routes/paths';
 
 // ----------------------------------------------------------------------
 
@@ -38,7 +39,8 @@ export default function AuthGuard({ children }) {
     if (pathname !== requestedLocation) {
       setRequestedLocation(pathname);
     }
-    return <Login />;
+    push(PATH_AUTH.login);
+    return null;
   }
 
   return <>{children}</>;

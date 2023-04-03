@@ -131,7 +131,7 @@ export default function OrderCard() {
 
       <Box mt={5} />
 
-      <NextLink href="/cities/chicago/ukrainian-cuisine/adam-sandler/checkout/confirm" passHref>
+      <NextLink href="/cities/austin/ukrainian-cuisine/adam-sandler/checkout/confirm" passHref>
         <Button size="large" variant={'contained'} sx={{ borderRadius: '30px' }}>
           ORDER
         </Button>

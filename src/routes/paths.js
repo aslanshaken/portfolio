@@ -22,8 +22,8 @@ export const PATH_PAGE = {
   availableCities: '/available-cities',
   searchChef: {
     root: '/cities',
-    cities: ({ city, cuisine, chef } = '') =>
-      path('/cities', `${city ? '/' + city : ''}${cuisine ? '/' + cuisine : ''}${chef ? '/' + chef : ''}`),
+    cities: ({ cityId, cuisineId, chefId } = '') =>
+      path('/cities', `${cityId ? '/' + cityId : ''}${cuisineId ? '/' + cuisineId : ''}${chefId ? '/' + chefId : ''}`),
   },
   contactUs: '/contact-us',
   ingredients: '/ingredients',

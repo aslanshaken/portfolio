@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
-import { Button, InputAdornment, Stack, TextField } from '@mui/material';
+import { Button, Stack } from '@mui/material';
 import React from 'react';
-import Iconify from './Iconify';
 import { useDispatch } from 'react-redux';
 import { openDialog } from 'src/redux/slices/dialog';
 
@@ -11,7 +10,7 @@ SearchInput.propTypes = {
   buttonLabel: PropTypes.string,
 };
 
-export default function SearchInput({ icon = '', placeholder = '', buttonLabel = 'Search' }) {
+export default function SearchInput({ buttonLabel = 'Search' }) {
   const dispatch = useDispatch()
   
   return (

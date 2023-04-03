@@ -2,7 +2,7 @@
 import Layout from '../../layouts';
 // components
 import Page from '../../components/Page';
-import { Avatar, Box, Grid, Stack, Typography } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import FoodCartCard from 'src/components/FoodCartCard';
 import Pagination from 'src/components/Pagination';
 // sections
