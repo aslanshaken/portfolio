@@ -83,21 +83,17 @@ export default function PopularDishes() {
   };
   return (
     <RootStyle sx={{ pt: '60px' }}>
-      <Typography
-        variant="h2"
-        color={'secondary'}
-        sx={{ textAlign: 'center', fontWeight: 500, pb: '30px' }}
-      >
+      <Typography variant="h2" color={'secondary'} sx={{ textAlign: 'center', fontWeight: 500, pb: '30px' }}>
         Most popular dishes
       </Typography>
-      <Box sx={{ position: 'relative', width: '100%',overflowX: 'hidden' }}>
+      <Box sx={{ position: 'relative', width: '100%', overflowX: 'hidden' }}>
         <CarouselArrows
           onNext={handleNext}
           onPrevious={handlePrevious}
           sx={{
             '& .arrow': {
-              '&.left': { left: 10, top:'300px'},
-              '&.right': { right: 10, top:'300px'},
+              '&.left': { left: { xs: 10, lg: '5%', xl: '13%' }, top: '300px' },
+              '&.right': { right: { xs: 10, lg: '5%', xl: '13%' }, top: '300px' },
             },
           }}
         >
