@@ -27,11 +27,7 @@ export const menuConfig = [
 
 export const homeMenuConfig = [
   {
-    title: 'About Us',
-    path: '/about-us',
-  },
-  {
-    title: 'Available Cities',
+    title: 'Available Cuisine',
     path: '/#',
     target: 'choose_city_dialog',
   },

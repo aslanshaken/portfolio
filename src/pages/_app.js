@@ -10,6 +10,9 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 import 'react-lazy-load-image-component/src/effects/opacity.css';
 import 'react-lazy-load-image-component/src/effects/black-and-white.css';
 
+// toast
+import 'react-toastify/dist/ReactToastify.css';
+
 //
 import '../../public/fonts/index.css';
 
@@ -28,6 +31,8 @@ import { store } from '../redux/store';
 import ThemeProvider from '../theme';
 import { AuthProvider } from '../contexts/JWTContext';
 import MotionLazyContainer from 'src/components/animate/MotionLazyContainer';
+import DialogProvider from 'src/layouts/main/DialogProvider';
+import ToastifyProvider from 'src/components/ToastifyProvider';
 
 // ----------------------------------------------------------------------
 
@@ -52,7 +57,11 @@ export default function MyApp(props) {
         <ReduxProvider store={store}>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <MotionLazyContainer>
-              <ThemeProvider>{getLayout(<Component {...pageProps} />)}</ThemeProvider>
+              <ThemeProvider>
+                <ToastifyProvider>
+                  <DialogProvider>{getLayout(<Component {...pageProps} />)}</DialogProvider>
+                </ToastifyProvider>
+              </ThemeProvider>
             </MotionLazyContainer>
           </LocalizationProvider>
         </ReduxProvider>

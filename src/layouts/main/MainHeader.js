@@ -123,6 +123,7 @@ export default function MainHeader() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
+            height: 1,
           }}
         >
           <Logo />
@@ -156,8 +157,9 @@ export default function MainHeader() {
                 sx={{
                   p: 0,
                 }}
+                onClick={handleOpen}
               >
-                <MyAvatar sx={{ width: 50, height: 50 }} onClick={handleOpen} />
+                <MyAvatar sx={{ width: 50, height: 50 }} />
               </IconButtonAnimate>
               <MenuPopover
                 open={Boolean(open)}

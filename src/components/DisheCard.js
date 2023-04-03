@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 // @mui
-import { Box, Card, Typography, Stack } from '@mui/material';
+import { Box, Card, Typography, Stack, Avatar } from '@mui/material';
 // routes
 // components
 import Image from './Image';
@@ -32,11 +32,24 @@ export default function DisheCard(props) {
           className="feature-btn-box"
           direction="row"
           justifyContent={'space-between'}
-          sx={{
-            display: 'none',
-          }}
+          alignItems={'center'}
+          // sx={{
+          //   display: 'none',
+          // }}
         >
-          <IconButtonAnimate sx={{ p: 0, width: 33, height: 33 }}>
+          <Stack direction={'row'} alignItems={'center'} spacing={2}>
+            <Avatar src={'/assets/search-chef/chefs/adam-sandler.png'} sx={{ height: 50, width: 50 }} />
+            <Stack>
+              <Typography variant="caption">Michael</Typography>
+              <Typography variant="caption" display={{ xs: 'block', md: 'none' }}>
+                Central Asia Cuisine
+              </Typography>
+            </Stack>
+          </Stack>
+          <Typography variant="caption" display={{ xs: 'none', md: 'block' }}>
+            Central Asia Cuisine
+          </Typography>
+          {/* <IconButtonAnimate sx={{ p: 0, width: 33, height: 33 }}>
             <Iconify icon={'mdi:cards-heart-outline'} sx={{ width: 33, height: 33, color: 'error.main' }} />
           </IconButtonAnimate>
           <IconButtonAnimate sx={{ p: 0, width: 33, height: 33 }}>
@@ -44,7 +57,7 @@ export default function DisheCard(props) {
               icon={'material-symbols:shopping-bag-outline'}
               sx={{ width: 33, height: 33, color: 'text.secondary' }}
             />
-          </IconButtonAnimate>
+          </IconButtonAnimate> */}
         </Stack>
       </Stack>
     </Card>

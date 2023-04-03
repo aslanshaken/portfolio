@@ -42,7 +42,7 @@ export default function HomePage() {
       {/* <HomeHero /> */}
       <SearchHomeHero />
       <HowItWork />
-      <BringFood />
+      {/* <BringFood /> */}
       <PopularDishes />
       {/* <AwesomeFood /> */}
       {/* <SearchChef /> */}

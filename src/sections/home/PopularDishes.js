@@ -96,8 +96,8 @@ export default function PopularDishes() {
           onPrevious={handlePrevious}
           sx={{
             '& .arrow': {
-              '&.left': { left: {md:100}, top:'300px'},
-              '&.right': { right: {md:100}, top:'300px'},
+              '&.left': { left: 10, top:'300px'},
+              '&.right': { right: 10, top:'300px'},
             },
           }}
         >

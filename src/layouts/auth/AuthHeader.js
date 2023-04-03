@@ -77,7 +77,7 @@ export default function AuthHeader() {
             boxShadow: 0,
           }}
         >
-          <ToolbarStyle>
+          {/* <ToolbarStyle>
             <Hidden mdUp>
               <Logo />
 
@@ -106,7 +106,7 @@ export default function AuthHeader() {
             ) : (
               <MenuMobile isOffset={isOffset} isHome={isHome} navConfig={authConfig} />
             )}
-          </ToolbarStyle>
+          </ToolbarStyle> */}
         </AppBar>
       </Box>
     </>

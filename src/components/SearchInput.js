@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import { Button, InputAdornment, Stack, TextField } from '@mui/material';
 import React from 'react';
 import Iconify from './Iconify';
+import { useDispatch } from 'react-redux';
+import { openDialog } from 'src/redux/slices/dialog';
 
 SearchInput.propTypes = {
   icon: PropTypes.string,
@@ -10,9 +12,11 @@ SearchInput.propTypes = {
 };
 
 export default function SearchInput({ icon = '', placeholder = '', buttonLabel = 'Search' }) {
+  const dispatch = useDispatch()
+  
   return (
     <Stack width={'100%'} display={'flex'} direction={'column'} justifyContent={'center'}>
-      <TextField
+      {/* <TextField
         size="medium"
         placeholder={placeholder}
         variant="outlined"
@@ -46,17 +50,18 @@ export default function SearchInput({ icon = '', placeholder = '', buttonLabel =
             </InputAdornment>
           ),
         }}
-      />
+      /> */}
       <Button
+        onClick={() => dispatch(openDialog('choose_cuisine_dialog'))}
         variant="contained"
         sx={{
           m: 'auto',
-          mt: 6,
+          // mt: 6,
           borderRadius: 100,
           px: 6,
-          height:56,
+          height: 56,
           minWidth: 230,
-          display: { xs: 'flex', md: 'none' },
+          // display: { xs: 'flex', md: 'none' },
         }}
       >
         {buttonLabel}

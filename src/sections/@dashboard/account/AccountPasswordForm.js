@@ -10,9 +10,10 @@ import { LoadingButton } from '@mui/lab';
 // hooks
 import useNotify from 'src/hooks/useNotify';
 import Iconify from 'src/components/Iconify';
+import axios from 'src/utils/axios';
 
 export default function AccountPasswordForm() {
-  const [isDisable, setIsdisable] = useState(true); 
+  const [isDisable, setIsdisable] = useState(true);
 
   const { successAlert, errorAlert } = useNotify();
 
@@ -20,6 +21,9 @@ export default function AccountPasswordForm() {
 
   const CustomVocabularyScahema = Yup.object().shape({
     custom_vocabulary: Yup.string(),
+    old_password: Yup.string().required('Old Password is required'),
+    new_password: Yup.string().required('New Password is required'),
+    confirm_password: Yup.string().required('Confirm Password is required').oneOf([Yup.ref("new_password")], "Passwords do not match"),
   });
 
   const defaultValues = {
@@ -40,7 +44,10 @@ export default function AccountPasswordForm() {
 
   const onSubmit = async (data) => {
     try {
-      console.log(data);
+      const response = await axios.post(`/api/${process.env.API_VERSION}/users/update_password  `, {
+        password: data.new_password,
+      });
+      successAlert();
     } catch (error) {
       console.error(error.message);
       errorAlert(error.message);
@@ -58,27 +65,27 @@ export default function AccountPasswordForm() {
           <Typography variant={'h4'} gutterBottom>
             {'Update password'}
           </Typography>
-          <Button sx={{ color: 'black', fontWeight: 'normal' }} onClick={() => setIsdisable(false)}>
+          <Button sx={{ color: 'black', fontWeight: 'normal' }} onClick={() => setIsdisable(!isDisable)}>
             edit
           </Button>
         </Stack>
 
         <RHFTextField
           disabled={isDisable}
-          name="password"
-          label="Current password"
+          name="old_password"
+          label="Old password"
           type={showPassword ? 'text' : 'password'}
         />
         <RHFTextField
           disabled={isDisable}
-          name="password"
+          name="new_password"
           label="New password"
           type={showPassword ? 'text' : 'password'}
         />
         <RHFTextField
           disabled={isDisable}
-          name="password"
-          label="Confirm new password"
+          name="confirm_password"
+          label="Confirm password"
           type={showPassword ? 'text' : 'password'}
         />
       </Stack>
@@ -86,7 +93,9 @@ export default function AccountPasswordForm() {
       <Box mt={5} />
 
       <LoadingButton
-        type="submit"
+        {...(!isDisable && {
+          type: 'submit',
+        })}
         variant="outlined"
         loading={isSubmitting}
         // disabled={!isDirty}

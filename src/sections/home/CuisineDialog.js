@@ -33,12 +33,12 @@ export default function CuisineDialog({ isOpen }) {
           magna aliqua.
         </Typography>
         <Stack sx={{ width: 'fit-content', mx: 'auto' }} py={4}>
-          <IconButton
+          {/* <IconButton
             color={'secondary'}
             sx={{ border: '1px solid', width: 'fit-content', mx: 'auto', borderRadius: 'full' }}
           >
             <Iconify icon={'material-symbols:keyboard-arrow-up'} width={20} height={20} />
-          </IconButton>
+          </IconButton> */}
           {cuisines.map((item, _i) => (
             <Button
               key={_i}
@@ -47,7 +47,7 @@ export default function CuisineDialog({ isOpen }) {
                 router.push('/cities/chicago/ukrainian-cuisine/');
               }}
               direction={'row'}
-              sx={{ width: 'fit-content' }}
+              sx={{ width: '100%', justifyContent:'left', px:5 }}
             >
               <Image
                 src={`/assets/search-chef/cuisines/${item.id}.png`}
@@ -59,12 +59,12 @@ export default function CuisineDialog({ isOpen }) {
               </Typography>
             </Button>
           ))}
-          <IconButton
+          {/* <IconButton
             color={'secondary'}
             sx={{ border: '1px solid', width: 'fit-content', mx: 'auto', borderRadius: 'full' }}
           >
             <Iconify icon={'material-symbols:keyboard-arrow-down'} width={20} height={20} />
-          </IconButton>
+          </IconButton> */}
         </Stack>
       </Stack>
     </Dialog>
