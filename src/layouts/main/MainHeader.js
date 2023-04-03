@@ -126,11 +126,10 @@ export default function MainHeader() {
             height: 1,
           }}
         >
-          <Logo />
+          {isDesktop && <MenuDesktop isOffset={isOffset} isHome={isHome} navConfig={navConfig} />}
 
           <Box sx={{ flexGrow: 1 }} />
-
-          {isDesktop && <MenuDesktop isOffset={isOffset} isHome={isHome} navConfig={navConfig} />}
+          <Logo />
 
           <Box sx={{ flexGrow: 1 }} />
 

@@ -26,11 +26,11 @@ export const menuConfig = [
 ];
 
 export const homeMenuConfig = [
-  {
-    title: 'Available Cuisine',
-    path: '/#',
-    target: 'choose_city_dialog',
-  },
+  // {
+  //   title: 'Available Cuisine',
+  //   path: '/#',
+  //   target: 'choose_city_dialog',
+  // },
   {
     title: 'Contact Us',
     path: '/contact-us',

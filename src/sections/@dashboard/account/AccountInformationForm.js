@@ -38,7 +38,7 @@ export default function AccountInformationForm() {
     setValue: setPersonalInfoValue,
     handleSubmit: personalInfoHandleSubmit,
     reset: resetPersonalInfo,
-    formState: { personalInfoIsSubmitting, personalInfoIsDirty },
+    formState: { isSubmitting:personalInfoIsSubmitting, isDirty:personalInfoIsDirty },
   } = personalInfoMethods;
 
   const personalInfoOnSubmit = async (data) => {
@@ -70,7 +70,7 @@ export default function AccountInformationForm() {
     setValue: setAddressValue,
     handleSubmit: addressHandleSubmit,
     reset: resetAddress,
-    formState: { addressIsSubmitting, addressIsDirty },
+    formState: { isSubmitting: addressIsSubmitting, isDirty: addressIsDirty },
   } = addressMethods;
 
   const addressOnSubmit = async (data) => {

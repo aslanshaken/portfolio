@@ -7,6 +7,7 @@ import Image from '../Image';
 import Iconify from '../Iconify';
 import RejectionFiles from './RejectionFiles';
 import { styled, Typography } from '@mui/material';
+import MyAvatar from '../MyAvatar';
 
 // ----------------------------------------------------------------------
 
@@ -87,7 +88,12 @@ export default function UploadAvatar({ error, file, helperText, sx, ...other }) 
         >
           <input {...getInputProps()} />
 
-          {file && <Image alt="avatar" src={typeof file === 'string' ? file : file.preview} sx={{ zIndex: 8 }} />}
+          {file && (
+            <MyAvatar
+              src={typeof file === 'string' ? file : file.preview}
+              sx={{ width: 130, height: 130, zIndex: 8, fontSize:50 }}
+            />
+          )}
 
           <PlaceholderStyle
             className="placeholder"
