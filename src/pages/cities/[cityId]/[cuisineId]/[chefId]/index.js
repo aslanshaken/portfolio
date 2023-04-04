@@ -7,8 +7,8 @@ import FoodSection from 'src/sections/search-chef/chef-detail/FoodSection';
 import ChefHeader from 'src/sections/search-chef/chef-detail/ChefHeader';
 import { useEffect, useState } from 'react';
 import useAuth from 'src/hooks/useAuth';
-import { useDispatch } from 'src/redux/store';
-import { getChefs } from 'src/redux/slices/city';
+import { useDispatch, useSelector } from 'src/redux/store';
+import { CITYCUISINE_SELECTOR, getChefs } from 'src/redux/slices/city';
 import { useRouter } from 'next/router';
 
 // ----------------------------------------------------------------------
@@ -23,6 +23,8 @@ ChefPage.getLayout = function getLayout(page) {
 export default function ChefPage() {
   const [selectedCategory, setSelectedCategory] = useState();
 
+  const { cuisines } = useSelector(CITYCUISINE_SELECTOR);
+
   const { isAuthenticated } = useAuth();
 
   const router = useRouter();
@@ -35,7 +37,7 @@ export default function ChefPage() {
     if (!isAuthenticated) return;
 
     dispatch(getChefs(cuisineId, chefId));
-  }, [isAuthenticated, cuisineId, chefId]);
+  }, [dispatch, router, isAuthenticated, cuisineId, chefId, cuisines]);
 
   return (
     <Page title="Search Chef">

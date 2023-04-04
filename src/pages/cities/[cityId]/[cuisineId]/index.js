@@ -36,13 +36,13 @@ export default function ChefListPage() {
     if (!isAuthenticated) return;
 
     dispatch(getChefs(cuisineId));
-  }, [isAuthenticated, cuisineId]);
+  }, [dispatch, router, isAuthenticated, cuisineId]);
 
   useEffect(() => {
     if (error?.status == 404) {
       router.push('/404');
     }
-  }, [error?.status]);
+  }, [error?.status, router]);
 
   return (
     <Page title="Search Chef">
