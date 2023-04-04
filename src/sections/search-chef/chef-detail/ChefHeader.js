@@ -52,7 +52,8 @@ export default function ChefHeader({ selectedCategory = '1', setSelectedCategory
   const router = useRouter();
   const { chefId } = router.query;
 
-  const { chef, cuisine } = useSelector(CITYCUISINE_SELECTOR);
+  const { cuisine } = useSelector(CITYCUISINE_SELECTOR);
+  const chef = useSelector(CITYCUISINE_SELECTOR)?.chef?.chef;
 
   return (
     <Container>

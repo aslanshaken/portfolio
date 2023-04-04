@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 // @mui
 import { Autocomplete, Typography, Grid, TextField, Box, Backdrop, IconButton, Stack } from '@mui/material';
@@ -11,309 +11,312 @@ import MenuCategoryForm from './MenuCategoryForm';
 import MenuAllerogyForm from './MenuAllerogyForm';
 import DropHiddenButton from '../../../components/DropHiddenButton';
 import CartDialog from './CartDialog';
-import { useDispatch } from '../../../redux/store';
-import { addFoodCart } from '../../../redux/slices/food';
+import { useDispatch, useSelector } from '../../../redux/store';
+import { addFoodCart, setError } from '../../../redux/slices/food';
 import { getMockTypeData } from '../../../utils/functions';
 import FoodCartCard from 'src/components/FoodCartCard';
 import Iconify from 'src/components/Iconify';
 import MotionContainer from 'src/components/animate/MotionContainer';
 import { AnimatePresence } from 'framer-motion';
 import useResponsive from 'src/hooks/useResponsive';
+import { CITYCUISINE_SELECTOR } from 'src/redux/slices/city';
+import { FOOD_SELECTOR } from 'src/redux/slices/food';
+import NewCartDialog from './NewCartDialog';
 
 // --------------------------------------------
 
 const sort_type = [{ name: 'sort by Popularity' }, { name: 'sort by New' }, { name: 'sort by Oldest' }];
 
-const foodData = [
-  {
-    id: '1',
-    filename: 'chilli_pepper',
-    name: 'chillid pepper',
-    price: '9.99',
-    weight: '250',
-    kc: '430',
-    title: 'Chili pepper',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    indigents:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    allergies:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    note: `Is there anything else you'd like us to know about your order?`,
-  },
-  {
-    id: '2',
-    filename: 'chilli_pepper',
-    name: 'chillid pepper',
-    price: '9.99',
-    weight: '250',
-    kc: '430',
-    title: 'Chili pepper',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    indigents:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    allergies:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    note: `Is there anything else you'd like us to know about your order?`,
-  },
-  {
-    id: '3',
-    filename: 'chilli_pepper',
-    name: 'chillid pepper',
-    price: '9.99',
-    weight: '250',
-    kc: '430',
-    title: 'Chili pepper',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    indigents:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    allergies:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    note: `Is there anything else you'd like us to know about your order?`,
-  },
-  {
-    id: '4',
-    filename: 'chilli_pepper',
-    name: 'chillid pepper',
-    price: '9.99',
-    weight: '250',
-    kc: '430',
-    title: 'Chili pepper',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    indigents:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    allergies:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    note: `Is there anything else you'd like us to know about your order?`,
-  },
-  {
-    id: '5',
-    filename: 'chilli_pepper',
-    name: 'chillid pepper',
-    price: '9.99',
-    weight: '250',
-    kc: '430',
-    title: 'Chili pepper',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    indigents:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    allergies:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    note: `Is there anything else you'd like us to know about your order?`,
-  },
-  {
-    id: '6',
-    filename: 'chilli_pepper',
-    name: 'chillid pepper',
-    price: '9.99',
-    weight: '250',
-    kc: '430',
-    title: 'Chili pepper',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    indigents:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    allergies:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    note: `Is there anything else you'd like us to know about your order?`,
-  },
-  {
-    id: '7',
-    filename: 'chilli_pepper',
-    name: 'chillid pepper',
-    price: '9.99',
-    weight: '250',
-    kc: '430',
-    title: 'Chili pepper',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    indigents:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    allergies:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    note: `Is there anything else you'd like us to know about your order?`,
-  },
-  {
-    id: '8',
-    filename: 'chilli_pepper',
-    name: 'chillid pepper',
-    price: '9.99',
-    weight: '250',
-    kc: '430',
-    title: 'Chili pepper',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    indigents:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    allergies:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    note: `Is there anything else you'd like us to know about your order?`,
-  },
-  {
-    id: '9',
-    filename: 'chilli_pepper',
-    name: 'chillid pepper',
-    price: '9.99',
-    weight: '250',
-    kc: '430',
-    title: 'Chili pepper',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    indigents:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    allergies:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    note: `Is there anything else you'd like us to know about your order?`,
-  },
-  {
-    id: '10',
-    filename: 'chilli_pepper',
-    name: 'chillid pepper',
-    price: '9.99',
-    weight: '250',
-    kc: '430',
-    title: 'Chili pepper',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    indigents:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    allergies:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    note: `Is there anything else you'd like us to know about your order?`,
-  },
-  {
-    id: '11',
-    filename: 'chilli_pepper',
-    name: 'chillid pepper',
-    price: '9.99',
-    weight: '250',
-    kc: '430',
-    title: 'Chili pepper',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    indigents:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    allergies:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    note: `Is there anything else you'd like us to know about your order?`,
-  },
-  {
-    id: '12',
-    filename: 'chilli_pepper',
-    name: 'chillid pepper',
-    price: '9.99',
-    weight: '250',
-    kc: '430',
-    title: 'Chili pepper',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    indigents:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    allergies:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    note: `Is there anything else you'd like us to know about your order?`,
-  },
-  {
-    id: '13',
-    filename: 'chilli_pepper',
-    name: 'chillid pepper',
-    price: '9.99',
-    weight: '250',
-    kc: '430',
-    title: 'Chili pepper',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    indigents:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    allergies:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    note: `Is there anything else you'd like us to know about your order?`,
-  },
-  {
-    id: '14',
-    filename: 'chilli_pepper',
-    name: 'chillid pepper',
-    price: '9.99',
-    weight: '250',
-    kc: '430',
-    title: 'Chili pepper',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    indigents:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    allergies:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    note: `Is there anything else you'd like us to know about your order?`,
-  },
-  {
-    id: '15',
-    filename: 'chilli_pepper',
-    name: 'chillid pepper',
-    price: '9.99',
-    weight: '250',
-    kc: '430',
-    title: 'Chili pepper',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    indigents:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    allergies:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    note: `Is there anything else you'd like us to know about your order?`,
-  },
-  {
-    id: '16',
-    filename: 'chilli_pepper',
-    name: 'chillid pepper',
-    price: '9.99',
-    weight: '250',
-    kc: '430',
-    title: 'Chili pepper',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    indigents:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    allergies:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    note: `Is there anything else you'd like us to know about your order?`,
-  },
-  {
-    id: '17',
-    filename: 'chilli_pepper',
-    name: 'chillid pepper',
-    price: '9.99',
-    weight: '250',
-    kc: '430',
-    title: 'Chili pepper',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    indigents:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    allergies:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    note: `Is there anything else you'd like us to know about your order?`,
-  },
-  {
-    id: '18',
-    filename: 'chilli_pepper',
-    name: 'chillid pepper',
-    price: '9.99',
-    weight: '250',
-    kc: '430',
-    title: 'Chili pepper',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    indigents:
-      '5 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    allergies:
-      '6 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
-    note: `Is there anything else you'd like us to know about your order?`,
-  },
-];
+// const foodData = [
+//   {
+//     id: '1',
+//     filename: 'chilli_pepper',
+//     name: 'chillid pepper',
+//     price: '9.99',
+//     weight: '250',
+//     kc: '430',
+//     title: 'Chili pepper',
+//     description:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     indigents:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     allergies:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     note: `Is there anything else you'd like us to know about your order?`,
+//   },
+//   {
+//     id: '2',
+//     filename: 'chilli_pepper',
+//     name: 'chillid pepper',
+//     price: '9.99',
+//     weight: '250',
+//     kc: '430',
+//     title: 'Chili pepper',
+//     description:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     indigents:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     allergies:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     note: `Is there anything else you'd like us to know about your order?`,
+//   },
+//   {
+//     id: '3',
+//     filename: 'chilli_pepper',
+//     name: 'chillid pepper',
+//     price: '9.99',
+//     weight: '250',
+//     kc: '430',
+//     title: 'Chili pepper',
+//     description:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     indigents:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     allergies:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     note: `Is there anything else you'd like us to know about your order?`,
+//   },
+//   {
+//     id: '4',
+//     filename: 'chilli_pepper',
+//     name: 'chillid pepper',
+//     price: '9.99',
+//     weight: '250',
+//     kc: '430',
+//     title: 'Chili pepper',
+//     description:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     indigents:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     allergies:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     note: `Is there anything else you'd like us to know about your order?`,
+//   },
+//   {
+//     id: '5',
+//     filename: 'chilli_pepper',
+//     name: 'chillid pepper',
+//     price: '9.99',
+//     weight: '250',
+//     kc: '430',
+//     title: 'Chili pepper',
+//     description:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     indigents:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     allergies:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     note: `Is there anything else you'd like us to know about your order?`,
+//   },
+//   {
+//     id: '6',
+//     filename: 'chilli_pepper',
+//     name: 'chillid pepper',
+//     price: '9.99',
+//     weight: '250',
+//     kc: '430',
+//     title: 'Chili pepper',
+//     description:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     indigents:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     allergies:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     note: `Is there anything else you'd like us to know about your order?`,
+//   },
+//   {
+//     id: '7',
+//     filename: 'chilli_pepper',
+//     name: 'chillid pepper',
+//     price: '9.99',
+//     weight: '250',
+//     kc: '430',
+//     title: 'Chili pepper',
+//     description:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     indigents:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     allergies:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     note: `Is there anything else you'd like us to know about your order?`,
+//   },
+//   {
+//     id: '8',
+//     filename: 'chilli_pepper',
+//     name: 'chillid pepper',
+//     price: '9.99',
+//     weight: '250',
+//     kc: '430',
+//     title: 'Chili pepper',
+//     description:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     indigents:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     allergies:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     note: `Is there anything else you'd like us to know about your order?`,
+//   },
+//   {
+//     id: '9',
+//     filename: 'chilli_pepper',
+//     name: 'chillid pepper',
+//     price: '9.99',
+//     weight: '250',
+//     kc: '430',
+//     title: 'Chili pepper',
+//     description:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     indigents:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     allergies:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     note: `Is there anything else you'd like us to know about your order?`,
+//   },
+//   {
+//     id: '10',
+//     filename: 'chilli_pepper',
+//     name: 'chillid pepper',
+//     price: '9.99',
+//     weight: '250',
+//     kc: '430',
+//     title: 'Chili pepper',
+//     description:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     indigents:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     allergies:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     note: `Is there anything else you'd like us to know about your order?`,
+//   },
+//   {
+//     id: '11',
+//     filename: 'chilli_pepper',
+//     name: 'chillid pepper',
+//     price: '9.99',
+//     weight: '250',
+//     kc: '430',
+//     title: 'Chili pepper',
+//     description:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     indigents:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     allergies:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     note: `Is there anything else you'd like us to know about your order?`,
+//   },
+//   {
+//     id: '12',
+//     filename: 'chilli_pepper',
+//     name: 'chillid pepper',
+//     price: '9.99',
+//     weight: '250',
+//     kc: '430',
+//     title: 'Chili pepper',
+//     description:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     indigents:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     allergies:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     note: `Is there anything else you'd like us to know about your order?`,
+//   },
+//   {
+//     id: '13',
+//     filename: 'chilli_pepper',
+//     name: 'chillid pepper',
+//     price: '9.99',
+//     weight: '250',
+//     kc: '430',
+//     title: 'Chili pepper',
+//     description:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     indigents:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     allergies:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     note: `Is there anything else you'd like us to know about your order?`,
+//   },
+//   {
+//     id: '14',
+//     filename: 'chilli_pepper',
+//     name: 'chillid pepper',
+//     price: '9.99',
+//     weight: '250',
+//     kc: '430',
+//     title: 'Chili pepper',
+//     description:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     indigents:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     allergies:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     note: `Is there anything else you'd like us to know about your order?`,
+//   },
+//   {
+//     id: '15',
+//     filename: 'chilli_pepper',
+//     name: 'chillid pepper',
+//     price: '9.99',
+//     weight: '250',
+//     kc: '430',
+//     title: 'Chili pepper',
+//     description:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     indigents:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     allergies:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     note: `Is there anything else you'd like us to know about your order?`,
+//   },
+//   {
+//     id: '16',
+//     filename: 'chilli_pepper',
+//     name: 'chillid pepper',
+//     price: '9.99',
+//     weight: '250',
+//     kc: '430',
+//     title: 'Chili pepper',
+//     description:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     indigents:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     allergies:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     note: `Is there anything else you'd like us to know about your order?`,
+//   },
+//   {
+//     id: '17',
+//     filename: 'chilli_pepper',
+//     name: 'chillid pepper',
+//     price: '9.99',
+//     weight: '250',
+//     kc: '430',
+//     title: 'Chili pepper',
+//     description:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     indigents:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     allergies:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     note: `Is there anything else you'd like us to know about your order?`,
+//   },
+//   {
+//     id: '18',
+//     filename: 'chilli_pepper',
+//     name: 'chillid pepper',
+//     price: '9.99',
+//     weight: '250',
+//     kc: '430',
+//     title: 'Chili pepper',
+//     description:
+//       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     indigents:
+//       '5 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     allergies:
+//       '6 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.',
+//     note: `Is there anything else you'd like us to know about your order?`,
+//   },
+// ];
 
 // --------------------------------------------
 
@@ -367,11 +370,17 @@ const SideBarStyle = styled(Box)(() => ({
 // --------------------------------------------
 
 export default function FoodSection({ selectedCategory }) {
+  const { foods, chef } = useSelector(CITYCUISINE_SELECTOR).chef ?? [];
+
+  const { error } = useSelector(FOOD_SELECTOR);
+
   const [isHiddenCategory, setIsHiddenCategory] = useState(false);
 
   const isDesktop = useResponsive('up', 'md');
 
   const [isOpenCartDlg, setIsOpenCartDlg] = useState(false);
+
+  const [isOpenNewCartDlg, setIsOpenNewCartDlg] = useState(false);
 
   const [selectedItemData, setSelectedItemData] = useState({});
 
@@ -387,15 +396,45 @@ export default function FoodSection({ selectedCategory }) {
   };
 
   const handleClickAddCart = (data) => {
+    if (error) {
+      setIsOpenNewCartDlg(true);
+    }
+    setSelectedItemData({ ...data.food });
     dispatch(addFoodCart(data));
   };
 
   return (
     <RootStyle>
-      <CartDialog data={selectedItemData} open={isOpenCartDlg} onClose={() => setIsOpenCartDlg(false)} />
+      <CartDialog
+        data={selectedItemData}
+        setSelectedItemData={setSelectedItemData}
+        open={isOpenCartDlg}
+        onClose={() => setIsOpenCartDlg(false)}
+      />
+      <NewCartDialog
+        open={isOpenNewCartDlg}
+        onSubmit={() => {
+          if (error) {
+            setIsOpenNewCartDlg(true);
+          }
+          handleClickAddCart({ food: selectedItemData, startNewCart: true });
+          setIsOpenNewCartDlg(false);
+        }}
+        onClose={() => {
+          setIsOpenNewCartDlg(false);
+          dispatch(setError(false));
+        }}
+      />
 
-      <Container sx={{display:'flex', justifyContent:'center'}}>
-        <Stack direction={{ xs: 'column', md: 'row' }} spacing={10} mt={10} position="relative" overflow="hidden">
+      <Container sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Stack
+          direction={{ xs: 'column', md: 'row' }}
+          spacing={10}
+          mt={10}
+          position="relative"
+          overflow="hidden"
+          width={1}
+        >
           {/* {!selectedCategory && <Backdrop open={true} className="overlay" />} */}
           {/* <MotionContainer
             {...(isDesktop && {
@@ -441,6 +480,7 @@ export default function FoodSection({ selectedCategory }) {
               sx: {
                 marginLeft: isHiddenCategory ? '-350px !important' : 0,
                 transition: '300ms',
+                width: 1,
               },
             })}
           >
@@ -478,16 +518,16 @@ export default function FoodSection({ selectedCategory }) {
               </Grid>
             </Grid> */}
 
-            <Grid container spacing={3} maxWidth={'md'}>
-              {getMockTypeData(foodData).map((item) => (
-                <Grid key={item.id} item lg={4} md={6} sm={6} xs={12}>
+            <Grid container spacing={3} maxWidth={'md'} width={'100%'} mx={'auto'}>
+              {foods?.map((item) => (
+                <Grid key={item?.id} item lg={4} md={6} sm={6} xs={12} width={1}>
                   <FoodCartCard
-                    name={item.name}
-                    cover={`/assets/search-chef/foods/${item.filename}.png`}
-                    price={item.price}
-                    we_kc={`${item.weight} gr / ${item.kc} kc`}
+                    name={item?.title}
+                    cover={item?.image_url}
+                    price={item?.current_price}
+                    we_kc={`${item?.gram} gr / ${item?.kc} kc`}
                     onClick={() => handleClickItem(item)}
-                    onClickPlus={() => handleClickAddCart(item)}
+                    onClickPlus={() => handleClickAddCart({ food: item })}
                   />
                 </Grid>
               ))}

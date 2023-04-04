@@ -24,7 +24,7 @@ export default function CartDialog({ data, ...other }) {
 
   const handleClickAddCart = () => {
     const arrDatas = [...Array(orderCount).keys()].map(() => data);
-    dispatch(addFoodCart(arrDatas));
+    dispatch(addFoodCart({food:arrDatas}));
     other.onClose();
   };
 
@@ -65,7 +65,7 @@ export default function CartDialog({ data, ...other }) {
             <Typography variant="subtitle1" gutterBottom>
               {'Ingredients'}
             </Typography>
-            <Typography variant="caption">{data.indigents}</Typography>
+            <Typography variant="caption">{data.ingredients}</Typography>
           </Stack>
 
           <Box mt={2.5}>
@@ -76,7 +76,7 @@ export default function CartDialog({ data, ...other }) {
             <Typography variant="subtitle1" gutterBottom>
               {'Allergy warning'}
             </Typography>
-            <Typography variant="caption">{data.allergies}</Typography>
+            <Typography variant="caption">{data.allergy}</Typography>
           </Stack>
 
           <Box mt={2.5}>
@@ -92,7 +92,7 @@ export default function CartDialog({ data, ...other }) {
               sx={{ textarea: { fontSize: '0.75rem' } }}
               multiline
               rows={4}
-              defaultValue={data.note}
+              defaultValue={data.how_to_prepare}
             />
           </Stack>
 

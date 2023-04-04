@@ -10,7 +10,7 @@ import Image from './Image';
 FoodCard.propTypes = {
   name: PropTypes.string,
   cover: PropTypes.string,
-  price: PropTypes.string,
+  price: PropTypes.number,
   we_kc: PropTypes.string,
 };
 
@@ -18,7 +18,7 @@ export default function FoodCard(props) {
   const { name, cover, price } = props;
 
   return (
-    <Box>
+    <Stack spacing={1}>
       <Box
         sx={{
           display: 'flex',
@@ -28,20 +28,20 @@ export default function FoodCard(props) {
         <Image
           alt={name}
           src={cover}
-          sx={{ borderRadius: '50%', width: { lg: 130, xs: 100 }, height: { lg: 130, xs: 100 } }}
+          sx={{ borderRadius: '50%', minWidth: { lg: 130, xs: 100 }, height: { lg: 130, xs: 100 } }}
         />
       </Box>
 
       <Stack sx={{ textAlign: 'center', width: '100%' }}>
         <Box>
-          <Typography variant="subtitle2" color={'text.primary'}>
+          <Typography variant="body2" fontWeight={600} color={'text.primary'}>
             {name}
           </Typography>
-          <Typography color={colors.grey[600]} variant="subtitle2">
+          <Typography color={'secondary'} variant="body2">
             {price}$
           </Typography>
         </Box>
       </Stack>
-    </Box>
+    </Stack>
   );
 }

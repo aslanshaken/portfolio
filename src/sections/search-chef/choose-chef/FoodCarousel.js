@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import Slider from 'react-slick';
 import { useRef } from 'react';
 // @mui
-import { alpha, useTheme, styled } from '@mui/material/styles';
+import { alpha, styled } from '@mui/material/styles';
 import { Box, Paper, Link, CardContent } from '@mui/material';
 // components
 import Image from '../../../components/Image';
@@ -24,21 +24,25 @@ FoodCarousel.propTypes = {
 // ----------------------------------------------------------------------
 
 export default function FoodCarousel({ foods }) {
+  // console.log(foods);
   const carouselRef = useRef(null);
-  const theme = useTheme();
 
   const settings = {
-    slidesToShow: 4,
-    centerMode: true,
-    rtl: Boolean(theme.direction === 'rtl'),
+    slidesToShow: 3,
+    centerMode: false,
+    infinite: true,
     responsive: [
       {
+        breakpoint: 1200,
+        settings: { slidesToShow: 4 },
+      },
+      {
         breakpoint: 900,
-        settings: { slidesToShow: 3, centerMode: false },
+        settings: { slidesToShow: 3 },
       },
       {
         breakpoint: 650,
-        settings: { slidesToShow: 2, centerMode: false },
+        settings: { slidesToShow: 2 },
       },
     ],
   };
@@ -52,9 +56,8 @@ export default function FoodCarousel({ foods }) {
     carouselRef.current?.slickNext();
     e.stopPropagation();
   };
-
   return (
-    <RootStyle px={{ xs: 2, sm: 8, lg: 0 }}>
+    <RootStyle px={{ xs: 2, sm: 8, lg: 4 }}>
       <CarouselArrows
         onNext={(e) => handleNext(e)}
         onPrevious={(e) => handlePrevious(e)}
@@ -70,71 +73,20 @@ export default function FoodCarousel({ foods }) {
           },
         }}
       >
-        <Slider ref={carouselRef} {...settings}>
-          {foods.map((food, _i) => (
-            <Box key={_i} position={'relative'} zIndex={0}>
+        {foods.length > 0 && (
+          <Slider ref={carouselRef} {...settings} infinite={foods.length > 2}>
+            {foods?.map((food) => (
               <FoodCard
-                name={food.name}
-                cover={`/assets/search-chef/foods/${food.filename}.png`}
-                price={food.price}
-                we_kc={`${food.weight} gr / ${food.kc} kc`}
+                key={food?.id}
+                name={food?.title}
+                cover={food?.image_url}
+                price={food?.current_price}
+                we_kc={`${food?.gramm} gr / ${food?.kc} kc`}
               />
-            </Box>
-          ))}
-        </Slider>
+            ))}
+          </Slider>
+        )}
       </CarouselArrows>
     </RootStyle>
-  );
-}
-
-// ----------------------------------------------------------------------
-
-CarouselItem.propTypes = {
-  item: PropTypes.shape({
-    image: PropTypes.string,
-    title: PropTypes.string,
-  }),
-};
-
-function CarouselItem({ item }) {
-  const { image, title } = item;
-
-  return (
-    <Paper
-      sx={{
-        borderRadius: 2,
-        overflow: 'hidden',
-        position: 'relative',
-      }}
-    >
-      <Image alt={title} src={image} ratio="3/4" />
-      <CardContent
-        sx={{
-          bottom: 0,
-          zIndex: 9,
-          width: '100%',
-          textAlign: 'left',
-          position: 'absolute',
-          color: 'common.white',
-          backgroundImage: (theme) =>
-            `linear-gradient(to top, ${theme.palette.grey[900]} 0%,${alpha(theme.palette.grey[900], 0)} 100%)`,
-        }}
-      >
-        <Link
-          color="inherit"
-          variant="overline"
-          sx={{
-            opacity: 0.72,
-            alignItems: 'center',
-            display: 'inline-flex',
-            transition: (theme) => theme.transitions.create('opacity'),
-            '&:hover': { opacity: 1 },
-          }}
-        >
-          learn More
-          <Iconify icon={'eva:arrow-forward-fill'} sx={{ width: 16, height: 16, ml: 1 }} />
-        </Link>
-      </CardContent>
-    </Paper>
   );
 }

@@ -28,14 +28,14 @@ export default function ChefListPage() {
 
   const dispatch = useDispatch();
 
-  const { cuisineId } = router.query;
+  const { cityId, cuisineId } = router.query;
 
   const { isAuthenticated } = useAuth();
 
   useEffect(() => {
     if (!isAuthenticated) return;
 
-    dispatch(getChefs(cuisineId));
+    dispatch(getChefs(cityId, cuisineId));
   }, [dispatch, router, isAuthenticated, cuisineId]);
 
   useEffect(() => {

@@ -10,7 +10,7 @@ import Iconify from './Iconify';
 FoodCartCard.propTypes = {
   name: PropTypes.string,
   cover: PropTypes.string,
-  price: PropTypes.string,
+  price: PropTypes.number,
   we_kc: PropTypes.string,
   onClick: PropTypes.func,
   onClickPlus: PropTypes.func,
@@ -47,15 +47,15 @@ export default function FoodCartCard(props) {
       </Stack>}
       <Box
         sx={{
-          width: 1,
           pt: !chefname && '1rem',
-          maxWidth: 200,
+          width: 200,
+          height: 200,
           margin: 'auto',
           cursor: 'pointer',
         }}
         onClick={onClick}
       >
-        <Image alt={name} src={cover} sx={{ borderRadius: '50%' }} />
+        <Image alt={name} src={cover} sx={{ borderRadius: '50%' }} width={'200px'} height={'200px'} />
       </Box>
 
       <Stack

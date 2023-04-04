@@ -8,7 +8,7 @@ import Avatar from './Avatar';
 // ----------------------------------------------------------------------
 
 export default function MyAvatar({ ...other }) {
-  const { user } = useAuth();
+  const { user } = useAuth().user;
 
   return (
     <Avatar

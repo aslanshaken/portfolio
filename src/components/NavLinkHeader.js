@@ -22,7 +22,7 @@ export default function NavLinkHeader({ cuisine = '', chef = '' }) {
         </Link>
       )} */}
       {cuisine && (
-        <NextLink color="inherit" href={`/cities/austin/${cuisineId}/`} passHref>
+        <NextLink color="inherit" href={`/cities/4/${cuisineId}/`} passHref>
           <Link color="inherit">{cuisine}</Link>
         </NextLink>
       )}

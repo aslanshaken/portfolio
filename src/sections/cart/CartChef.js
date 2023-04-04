@@ -15,7 +15,7 @@ export default function CartChef() {
       <Box mt={5} />
 
       <Stack px={{ sm: 8 }}>
-        <NextLink href="/cities/austin/ukrainian-cuisine/adam-sandler/checkout/" passHref>
+        <NextLink href="/cities/4/ukrainian-cuisine/adam-sandler/checkout/" passHref>
           <LoadingButton size="large" variant="outlined" sx={{ color: 'black' }}>
             Checkout (10)
           </LoadingButton>
