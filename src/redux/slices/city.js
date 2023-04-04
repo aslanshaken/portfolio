@@ -25,6 +25,8 @@ const slice = createSlice({
     startLoading(state) {
       state.loading = true;
     },
+
+    //
     hasError(state, action) {
       state.loading = false;
       state.error = action.payload;
@@ -100,13 +102,13 @@ export function getCuisines() {
 }
 // ----------------------------------------------------------------------
 
-export function getChefs(cuisineId, chefId = null) {
+export function getChefs(cuisineId = null, chefId = null) {
   return async (dispatch) => {
     dispatch(startLoading());
     try {
       const response = await axios.get(`/api/${process.env.API_VERSION}/cities/${cuisineId}/chefs`);
       dispatch(slice.actions.getChefsSuccess(response.data));
-      dispatch(slice.actions.getCuisine(cuisineId));
+      if (cuisineId) dispatch(slice.actions.getCuisine(cuisineId));
       if (chefId) dispatch(slice.actions.getChef(chefId));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
