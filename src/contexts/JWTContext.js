@@ -72,9 +72,9 @@ function AuthProvider({ children }) {
 
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken);
-          
+
           const response = await axios.get(`/api/${process.env.API_VERSION}/users/profile`);
-          const { user } = response.data;
+          const user = response.data;
 
           dispatch({
             type: 'INITIALIZE',
@@ -105,7 +105,7 @@ function AuthProvider({ children }) {
     };
 
     initialize();
-  }, []);
+  }, [state.isAuthenticated]);
 
   const login = async (email, password) => {
     const response = await axios.post(`/api/${process.env.API_VERSION}/login`, {
