@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 // @mui
 import { alpha } from '@mui/material/styles';
-import { Box, Paper, Typography } from '@mui/material';
+import { Box, Paper } from '@mui/material';
 // utils
 import getFileData from '../../utils/getFileData';
 
@@ -24,7 +24,7 @@ export default function RejectionFiles({ fileRejections }) {
       }}
     >
       {fileRejections.map(({ file, errors }) => {
-        const { path, size } = getFileData(file);
+        const { path } = getFileData(file);
 
         return (
           <Box key={path} sx={{ my: 1 }}>

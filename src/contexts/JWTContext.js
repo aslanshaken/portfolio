@@ -71,12 +71,10 @@ function AuthProvider({ children }) {
         const accessToken = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : '';
 
         if (accessToken && isValidToken(accessToken)) {
-          let user = {};
-          if (localStorage.getItem('user')) {
-            user = JSON.parse(localStorage.getItem('user'));
-          }
-
-          setSession(accessToken, user);
+          setSession(accessToken);
+          
+          const response = await axios.get(`/api/${process.env.API_VERSION}/users/profile`);
+          const { user } = response.data;
 
           dispatch({
             type: 'INITIALIZE',
@@ -117,7 +115,7 @@ function AuthProvider({ children }) {
 
     const { auth_token, user } = response.data;
 
-    setSession(auth_token, user);
+    setSession(auth_token);
     dispatch({
       type: 'LOGIN',
       payload: {

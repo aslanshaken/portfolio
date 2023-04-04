@@ -7,6 +7,8 @@ import GradientText from '../../../components/GradientText';
 import ReadMore from '../../../components/ReadMore';
 import Image from 'src/components/Image';
 import HeroHeader from 'src/components/HeroHeader';
+import { useSelector } from 'src/redux/store';
+import { CITYCUISINE_SELECTOR } from 'src/redux/slices/city';
 
 const categories = [
   {
@@ -48,11 +50,13 @@ ChefHeader.propTypes = {
 
 export default function ChefHeader({ selectedCategory = '1', setSelectedCategory }) {
   const router = useRouter();
-  const { chef } = router.query;
+  const { chefId } = router.query;
+
+  const { chef, cuisine } = useSelector(CITYCUISINE_SELECTOR);
 
   return (
     <Container>
-      <HeroHeader city="Austin" cuisine="Central Asia cuisine" chef="Michael" />
+      <HeroHeader city="Austin" cuisine={cuisine?.name} chef={`${chef?.first_name} ${chef?.last_name}`} />
       <Box display={'flex'} mb={4}>
         <Box px={2} width={'100%'}>
           <Box display={'flex'} justifyContent={'space-between'} flexWrap={'wrap'} width={'100%'}>
@@ -60,7 +64,7 @@ export default function ChefHeader({ selectedCategory = '1', setSelectedCategory
               <Box position={'relative'}>
                 <Avatar
                   alt="Travis Howard"
-                  src={`/assets/search-chef/chefs/${chef}.png`}
+                  src={chef?.image_url}
                   sx={{
                     width: {
                       md: 150,
@@ -86,7 +90,7 @@ export default function ChefHeader({ selectedCategory = '1', setSelectedCategory
               </Box>
               <Box>
                 <Typography color={'black'} variant={'h3'} fontWeight={'600'} pt={1}>
-                  Chef Michael
+                  {chef?.first_name} {chef?.last_name}
                 </Typography>
                 <Box display={'flex'} gap={2} flexWrap={'wrap'} py={1}>
                   <Typography display={{ xs: 'block', md: 'none' }} color={'black'} variant={'subtitle1'}>
@@ -96,13 +100,13 @@ export default function ChefHeader({ selectedCategory = '1', setSelectedCategory
                     Zip code: 78717
                   </Typography>
                   <Typography color={'black'} variant={'subtitle1'}>
-                    Japan Cuisine
+                    {cuisine?.name}
                   </Typography>
                   <Typography color={'black'} variant={'subtitle1'}>
-                    Rating: 5
+                    Rating: {chef?.rating}
                   </Typography>
                   <Typography color={'black'} variant={'subtitle1'}>
-                    Deliveries: 28
+                    Deliveries: {chef?.orders}
                   </Typography>
                   <GradientText color={'primary'} variant={'subtitle1'}>
                     Certified chef
@@ -113,13 +117,7 @@ export default function ChefHeader({ selectedCategory = '1', setSelectedCategory
                 </Box>
                 <Hidden mdDown>
                   <Box maxWidth={'600px'}>
-                    <ReadMore>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia
-                      in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia
-                      Curae. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut
-                      lacinia in, elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere
-                      cubilia Curae.
-                    </ReadMore>
+                    <ReadMore>{chef?.about_me}</ReadMore>
                   </Box>
                 </Hidden>
               </Box>
@@ -137,12 +135,7 @@ export default function ChefHeader({ selectedCategory = '1', setSelectedCategory
           </Box>
           <Hidden mdUp>
             <Box maxWidth={'600px'}>
-              <ReadMore>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in,
-                elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in,
-                elementum id enim. Vestibulum ante ipsum primis ifaucibus orci luctus ultrices posuere cubilia Curae.
-              </ReadMore>
+              <ReadMore>{chef?.about_me}</ReadMore>
             </Box>
           </Hidden>
         </Box>

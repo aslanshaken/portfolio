@@ -38,10 +38,9 @@ const handleTokenExpired = (exp) => {
   }, timeLeft);
 };
 
-const setSession = (accessToken, user = {}) => {
+const setSession = (accessToken) => {
   if (accessToken) {
     localStorage.setItem('accessToken', accessToken);
-    localStorage.setItem('user', JSON.stringify(user));
     
     axios.defaults.headers.common['auth-token'] = accessToken;
 

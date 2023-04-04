@@ -1,17 +1,5 @@
 import styled from '@emotion/styled';
-import {
-  Autocomplete,
-  Box,
-  Link,
-  colors,
-  Grid,
-  InputAdornment,
-  Stack,
-  TextField,
-  Typography,
-  Button,
-} from '@mui/material';
-import FoodCard from '../../components/FoodCard';
+import { Box, Link, colors, Grid, InputAdornment, Stack, TextField, Typography } from '@mui/material';
 import Container from '../../components/Container';
 import Iconify from '../../components/Iconify';
 import Avatar from '../../components/Avatar';
@@ -20,7 +8,11 @@ import { PATH_PAGE } from '../../routes/paths';
 import { useRouter } from 'next/router';
 import FoodCarousel from './choose-chef/FoodCarousel';
 import Pagination from '../../components/Pagination';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useDispatch, useSelector } from 'src/redux/store';
+import { CITYCUISINE_SELECTOR, getChefs } from 'src/redux/slices/city';
+import useAuth from 'src/hooks/useAuth';
 // --------------------------------------------
 
 const sort_type = [{ name: 'sort by Popularity' }, { name: 'sort by New' }, { name: 'sort by Oldest' }];
@@ -53,173 +45,6 @@ const categories = [
   {
     id: '7',
     label: 'Delivery today',
-  },
-];
-
-const chefData = [
-  {
-    chef: 'adam-sandler',
-    rating: 5,
-    deliveries: 28,
-    name: 'Adam Sandler',
-    status: 'Certified chef',
-    foods: [
-      {
-        id: '18',
-        filename: 'chilli_pepper',
-        name: 'chillid pepper',
-        price: '9.99',
-        weight: '250',
-        kc: '430',
-      },
-      {
-        id: '18',
-        filename: 'chilli_pepper',
-        name: 'chillid pepper',
-        price: '9.99',
-        weight: '250',
-        kc: '430',
-      },
-      {
-        id: '18',
-        filename: 'chilli_pepper',
-        name: 'chillid pepper',
-        price: '9.99',
-        weight: '250',
-        kc: '430',
-      },
-      {
-        id: '18',
-        filename: 'chilli_pepper',
-        name: 'chillid pepper',
-        price: '9.99',
-        weight: '250',
-        kc: '430',
-      },
-    ],
-  },
-  {
-    chef: 'adam-sandler',
-    rating: 5,
-    deliveries: 28,
-    name: 'Adam Sandler',
-    status: 'Certified chef',
-    foods: [
-      {
-        id: '18',
-        filename: 'chilli_pepper',
-        name: 'chillid pepper',
-        price: '9.99',
-        weight: '250',
-        kc: '430',
-      },
-      {
-        id: '18',
-        filename: 'chilli_pepper',
-        name: 'chillid pepper',
-        price: '9.99',
-        weight: '250',
-        kc: '430',
-      },
-      {
-        id: '18',
-        filename: 'chilli_pepper',
-        name: 'chillid pepper',
-        price: '9.99',
-        weight: '250',
-        kc: '430',
-      },
-      {
-        id: '18',
-        filename: 'chilli_pepper',
-        name: 'chillid pepper',
-        price: '9.99',
-        weight: '250',
-        kc: '430',
-      },
-    ],
-  },
-  {
-    chef: 'adam-sandler',
-    rating: 5,
-    deliveries: 28,
-    name: 'Adam Sandler',
-    status: 'Certified chef',
-    foods: [
-      {
-        id: '18',
-        filename: 'chilli_pepper',
-        name: 'chillid pepper',
-        price: '9.99',
-        weight: '250',
-        kc: '430',
-      },
-      {
-        id: '18',
-        filename: 'chilli_pepper',
-        name: 'chillid pepper',
-        price: '9.99',
-        weight: '250',
-        kc: '430',
-      },
-      {
-        id: '18',
-        filename: 'chilli_pepper',
-        name: 'chillid pepper',
-        price: '9.99',
-        weight: '250',
-        kc: '430',
-      },
-      {
-        id: '18',
-        filename: 'chilli_pepper',
-        name: 'chillid pepper',
-        price: '9.99',
-        weight: '250',
-        kc: '430',
-      },
-    ],
-  },
-  {
-    chef: 'adam-sandler',
-    rating: 5,
-    deliveries: 28,
-    name: 'Adam Sandler',
-    status: 'Certified chef',
-    foods: [
-      {
-        id: '18',
-        filename: 'chilli_pepper',
-        name: 'chillid pepper',
-        price: '9.99',
-        weight: '250',
-        kc: '430',
-      },
-      {
-        id: '18',
-        filename: 'chilli_pepper',
-        name: 'chillid pepper',
-        price: '9.99',
-        weight: '250',
-        kc: '430',
-      },
-      {
-        id: '18',
-        filename: 'chilli_pepper',
-        name: 'chillid pepper',
-        price: '9.99',
-        weight: '250',
-        kc: '430',
-      },
-      {
-        id: '18',
-        filename: 'chilli_pepper',
-        name: 'chillid pepper',
-        price: '9.99',
-        weight: '250',
-        kc: '430',
-      },
-    ],
   },
 ];
 
@@ -264,10 +89,11 @@ const VisitChefLinkStyle = styled(Link)(() => ({
 // --------------------------------------------
 
 export default function ChooseChef() {
+  const { chefs } = useSelector(CITYCUISINE_SELECTOR);
+
   const router = useRouter();
-  const { city } = router.query;
-  const { cuisine } = router.query;
-  const [selectedCategory, setSelectedCategory] = useState();
+
+  const { cuisineId, cityId } = router.query;
 
   return (
     <RootStyle>
@@ -298,7 +124,7 @@ export default function ChooseChef() {
                 />
               </Grid>
             </Grid>
-            <Box
+            {/* <Box
               display={'flex'}
               position={'relative'}
               zIndex={10}
@@ -325,13 +151,13 @@ export default function ChooseChef() {
                   {item.label}
                 </Button>
               ))}
-            </Box>
+            </Box> */}
           </Stack>
 
-          {chefData.map((item, _i) => (
+          {chefs?.map((item, _i) => (
             <NextLink
               key={'chef-link' + _i}
-              href={PATH_PAGE.searchChef.cities({ city, cuisine, chef: item.chef })}
+              href={PATH_PAGE.searchChef.cities({ cityId, cuisineId, chefId: item?.id })}
               passHref
             >
               <Box
@@ -356,21 +182,21 @@ export default function ChooseChef() {
                 >
                   <Box>
                     <Typography display={'flex'} flexWrap={'nowrap'} gap={1} variant="subtitle1">
-                      Rating: {item.rating}
+                      Rating: {item?.rating}
                       <Iconify icon={'material-symbols:star'} sx={{ width: 21, height: 21, color: 'primary.main' }} />
                     </Typography>
                   </Box>
                   <Box>
                     <Typography variant="subtitle1" display={'flex'} flexWrap={'nowrap'}>
-                      Deliveries: {item.deliveries}
+                      Orders: {item?.orders}
                     </Typography>
                   </Box>
                 </Box>
-                <Grid container px={4}>
+                <Grid container px={4} py={2}>
                   <Grid display={'flex'} gap={4} alignItems={'center'} item xs={12} lg={4}>
                     <Avatar
                       alt="Travis Howard"
-                      src={`/assets/search-chef/chefs/${item.chef}.png`}
+                      src={item?.image_url}
                       sx={{ width: { lg: 150, xs: 100 }, height: { lg: 150, xs: 100 } }}
                     />
                     <Box
@@ -378,12 +204,12 @@ export default function ChooseChef() {
                       sx={{ display: 'flex', flexFlow: 'column', justifyContent: 'space-around', height: '100%' }}
                     >
                       <Typography variant="subtitle1" display={'flex'} whiteSpace={'nowrap'} gap={1}>
-                        {item.name}
+                        {item?.first_name} {item?.last_name}
                         <Iconify icon={'material-symbols:verified'} sx={{ width: 21, height: 21, color: '#0ED3CF' }} />
                       </Typography>
-                      <Typography variant='caption' >by ADS</Typography>
+                      <Typography variant="caption">by ADS</Typography>
                       <Typography color={'primary'} variant="subtitle1">
-                        {item.status}
+                        {item?.status}
                       </Typography>
                       {/* <Box display={{ xs: 'block', lg: 'none' }}>
                         <VisitChef />
@@ -394,15 +220,17 @@ export default function ChooseChef() {
                     item
                     xs={12}
                     lg={8}
-                    display={{md:'flex'}}
+                    display={{ md: 'flex' }}
                     py={2}
                     justifyContent={'space-between'}
                     alignItems={'center'}
                     gap={2}
                   >
-                    <Box flex={'1'}>
-                      <FoodCarousel foods={item.foods} />
-                    </Box>
+                    {item?.foods?.length > 0 && (
+                      <Box flex={'1'}>
+                        <FoodCarousel foods={item?.foods} />
+                      </Box>
+                    )}
                     <Box display={{ xs: 'none', lg: 'block' }}>
                       <VisitChef />
                     </Box>

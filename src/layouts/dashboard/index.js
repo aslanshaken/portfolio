@@ -9,6 +9,7 @@ import { HEADER, NAVBAR } from '../../config';
 import NavbarVertical from './navbar/NavbarVertical';
 import MainHeader from '../main/MainHeader';
 import MainFooter from '../main/MainFooter';
+import AuthGuard from 'src/guards/AuthGuard';
 
 // ----------------------------------------------------------------------
 
@@ -50,16 +51,18 @@ DashboardLayout.propTypes = {
 
 export default function DashboardLayout({ children }) {
   return (
-    <Stack sx={{ minHeight: 1 }}>
-      <MainHeader />
+    <AuthGuard>
+      <Stack sx={{ minHeight: 1 }}>
+        <MainHeader />
 
-      <BodyStyle direction={'row'} position={'relative'}>
-        <NavbarVertical />
+        <BodyStyle direction={'row'} position={'relative'}>
+          <NavbarVertical />
 
-        <MainStyle>{children}</MainStyle>
-      </BodyStyle>
+          <MainStyle>{children}</MainStyle>
+        </BodyStyle>
 
-      <MainFooter />
-    </Stack>
+        <MainFooter />
+      </Stack>
+    </AuthGuard>
   );
 }

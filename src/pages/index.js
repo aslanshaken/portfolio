@@ -8,7 +8,6 @@ import GeneralQuestions from 'src/sections/home/GeneralQuestions';
 import SearchHomeHero from 'src/sections/home/SearchHomeHero';
 import HowItWork from 'src/sections/home/HowItWork';
 import { Box } from '@mui/material';
-import BringFood from 'src/sections/home/BringFood';
 import WelcomeDialog from 'src/sections/home/WelcomeDialog';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';

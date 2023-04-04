@@ -5,25 +5,23 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FormProvider, RHFTextField } from 'src/components/hook-form';
 // @mui
-import { Box, Button, IconButton, InputAdornment, Stack, Typography } from '@mui/material';
+import { Box, Button, Stack, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // hooks
 import useNotify from 'src/hooks/useNotify';
-import Iconify from 'src/components/Iconify';
-import axios from 'src/utils/axios';
 
 export default function AccountPasswordForm() {
   const [isDisable, setIsdisable] = useState(true);
 
   const { successAlert, errorAlert } = useNotify();
 
-  const [showPassword, setShowPassword] = useState(false);
-
   const CustomVocabularyScahema = Yup.object().shape({
     custom_vocabulary: Yup.string(),
     old_password: Yup.string().required('Old Password is required'),
     new_password: Yup.string().required('New Password is required'),
-    confirm_password: Yup.string().required('Confirm Password is required').oneOf([Yup.ref("new_password")], "Passwords do not match"),
+    confirm_password: Yup.string()
+      .required('Confirm Password is required')
+      .oneOf([Yup.ref('new_password')], 'Passwords do not match'),
   });
 
   const defaultValues = {
@@ -36,20 +34,14 @@ export default function AccountPasswordForm() {
   });
 
   const {
-    setValue,
     handleSubmit,
-    reset,
-    formState: { isSubmitting, isDirty },
+    formState: { isSubmitting },
   } = methods;
 
-  const onSubmit = async (data) => {
+  const onSubmit = async () => {
     try {
-      const response = await axios.post(`/api/${process.env.API_VERSION}/users/update_password  `, {
-        password: data.new_password,
-      });
       successAlert();
     } catch (error) {
-      console.error(error.message);
       errorAlert(error.message);
     }
   };
@@ -70,24 +62,9 @@ export default function AccountPasswordForm() {
           </Button>
         </Stack>
 
-        <RHFTextField
-          disabled={isDisable}
-          name="old_password"
-          label="Old password"
-          type={showPassword ? 'text' : 'password'}
-        />
-        <RHFTextField
-          disabled={isDisable}
-          name="new_password"
-          label="New password"
-          type={showPassword ? 'text' : 'password'}
-        />
-        <RHFTextField
-          disabled={isDisable}
-          name="confirm_password"
-          label="Confirm password"
-          type={showPassword ? 'text' : 'password'}
-        />
+        <RHFTextField disabled={isDisable} name="old_password" label="Old password" type="password" />
+        <RHFTextField disabled={isDisable} name="new_password" label="New password" type="password" />
+        <RHFTextField disabled={isDisable} name="confirm_password" label="Confirm password" type="password" />
       </Stack>
 
       <Box mt={5} />

@@ -4,8 +4,6 @@ import { Box, Card, Typography, Stack, Avatar } from '@mui/material';
 // routes
 // components
 import Image from './Image';
-import Iconify from './Iconify';
-import { IconButtonAnimate } from './animate';
 
 // ----------------------------------------------------------------------
 
