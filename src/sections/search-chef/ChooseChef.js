@@ -95,8 +95,6 @@ export default function ChooseChef() {
 
   const { cuisineId, cityId } = router.query;
 
-  // console.log(chefs);
-
   return (
     <RootStyle>
       <Container>

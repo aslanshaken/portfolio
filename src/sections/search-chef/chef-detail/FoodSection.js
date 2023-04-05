@@ -12,7 +12,7 @@ import MenuAllerogyForm from './MenuAllerogyForm';
 import DropHiddenButton from '../../../components/DropHiddenButton';
 import CartDialog from './CartDialog';
 import { useDispatch, useSelector } from '../../../redux/store';
-import { addFoodCart, clearCart, setError } from '../../../redux/slices/food';
+import { addFoodCart, clearCart, getFoodsByChef, setError } from '../../../redux/slices/food';
 import { getMockTypeData } from '../../../utils/functions';
 import FoodCartCard from 'src/components/FoodCartCard';
 import Iconify from 'src/components/Iconify';
@@ -22,6 +22,7 @@ import useResponsive from 'src/hooks/useResponsive';
 import { CITYCUISINE_SELECTOR } from 'src/redux/slices/city';
 import { FOOD_SELECTOR } from 'src/redux/slices/food';
 import NewCartDialog from './NewCartDialog';
+import { useRouter } from 'next/router';
 
 // --------------------------------------------
 
@@ -370,7 +371,11 @@ const SideBarStyle = styled(Box)(() => ({
 // --------------------------------------------
 
 export default function FoodSection({ selectedCategory }) {
-  const { foods, chef } = useSelector(CITYCUISINE_SELECTOR).chef ?? [];
+  const router = useRouter();
+
+  const { cityId, cuisineId, chefId } = router.query;
+
+  const { chef } = useSelector(CITYCUISINE_SELECTOR).chef ?? [];
 
   const {
     checkout: { cart },
@@ -408,6 +413,12 @@ export default function FoodSection({ selectedCategory }) {
     },
     [cart]
   );
+
+  const { foods } = useSelector(FOOD_SELECTOR);
+
+  useEffect(() => {
+    dispatch(getFoodsByChef(cityId, cuisineId, chefId));
+  }, [router.isReady]);
 
   return (
     <RootStyle>
@@ -525,7 +536,7 @@ export default function FoodSection({ selectedCategory }) {
             </Grid> */}
 
             <Grid container spacing={3} maxWidth={'md'} width={'100%'} mx={'auto'}>
-              {foods?.map((item) => (
+              {foods?.[selectedCategory]?.map((item) => (
                 <Grid key={item?.id} item lg={4} md={6} sm={6} xs={12} width={1}>
                   <FoodCartCard
                     name={item?.title}

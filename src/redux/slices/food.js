@@ -70,7 +70,13 @@ const slice = createSlice({
     },
 
     setError(state, action) {
+      state.loading = false;
       state.error = action.payload;
+    },
+
+    getFoodsSuccess(state, action) {
+      state.loading = false;
+      state.foods = action.payload.data;
     },
   },
 });
@@ -84,7 +90,7 @@ export const { startLoading, addFoodCart, removeFoodCart, setError } = slice.act
 // Selector
 export const FOOD_SELECTOR = (state) => state.food;
 
-export function createOrders(data){
+export function createOrders(data) {
   return async (dispatch) => {
     const oreders = data.carts.map(({ id, count }) => ({
       food_id: id,
@@ -101,6 +107,20 @@ export function createOrders(data){
           items_attributes: oreders,
         },
       });
+    } catch (error) {
+      dispatch(slice.actions.setError(error));
+    }
+  };
+}
+
+export function getFoodsByChef(cityId, cuisineId, chefId) {
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try {
+      const response = await axios.get(
+        `/api/${process.env.API_VERSION}/cities/${cityId}/cuisines/${cuisineId}/chefs/${chefId}`
+      );
+      dispatch(slice.actions.getFoodsSuccess(response.data));
     } catch (error) {
       dispatch(slice.actions.setError(error));
     }
