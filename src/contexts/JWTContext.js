@@ -44,6 +44,35 @@ const handlers = {
       user,
     };
   },
+  UPDATEADDRESS: (state, action) => {
+    const { user } = state;
+    user.addresses = [
+      ...user.addresses.map((item) => {
+        if (item.id === action.payload.id) {
+          return {
+            id: action.payload.id,
+            line1: action.payload.address,
+            apartment: action.payload.apartment,
+            state: action.payload.state,
+            city: action.payload.city,
+            zip: action.payload.zip,
+            address_type: null,
+            addressable_type: 'User',
+            addressable_id: 15,
+            primary_address: false,
+            created_at: '2023-04-04T08:34:27.021Z',
+            updated_at: new Date(),
+          };
+        } else {
+          return item;
+        }
+      }),
+    ];
+    return {
+      ...state,
+      user,
+    };
+  },
 };
 
 const reducer = (state, action) => (handlers[action.type] ? handlers[action.type](state, action) : state);
@@ -54,6 +83,7 @@ const AuthContext = createContext({
   login: () => Promise.resolve(),
   logout: () => Promise.resolve(),
   register: () => Promise.resolve(),
+  updateAddress: () => Promise.resolve(),
 });
 
 // ----------------------------------------------------------------------
@@ -151,6 +181,24 @@ function AuthProvider({ children }) {
     dispatch({ type: 'LOGOUT' });
   };
 
+  const updateAddress = async (data) => {
+    await axios.post(`/api/${process.env.API_VERSION}/users/addresses/${data?.id}/update`, {
+      address: {
+        line1: data.address,
+        apartment: data.apartment,
+        state: data.state,
+        city: data.city,
+        zip: data.zip,
+        primary_address: 'true',
+      },
+    });
+
+    dispatch({
+      type: 'UPDATEADDRESS',
+      payload: data,
+    });
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -159,6 +207,7 @@ function AuthProvider({ children }) {
         login,
         logout,
         register,
+        updateAddress,
       }}
     >
       {children}

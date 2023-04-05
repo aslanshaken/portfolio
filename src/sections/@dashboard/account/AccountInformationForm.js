@@ -14,7 +14,9 @@ import useAuth from 'src/hooks/useAuth';
 
 export default function AccountInformationForm() {
   const [isDisablePersonalInfo, setIsDisablePersonalInfo] = useState(true);
+
   const [isDisableAddress, setIsDisableAddress] = useState(true);
+
   const { successAlert, errorAlert } = useNotify();
 
   const { user: userInfo } = useAuth();
@@ -61,6 +63,8 @@ export default function AccountInformationForm() {
     }
   };
 
+  const { updateAddress } = useAuth();
+
   const addressScahema = Yup.object().shape({
     custom_vocabulary: Yup.string(),
     address: Yup.string().required('address is required'),
@@ -91,17 +95,9 @@ export default function AccountInformationForm() {
   } = addressMethods;
 
   const addressOnSubmit = async (data) => {
+    data.id = userInfo?.addresses?.[userInfo?.addresses?.length - 1]?.id;
     try {
-      const response = await axios.post(`/api/${process.env.API_VERSION}/users/add_address`, {
-        address: {
-          line1: data.address,
-          apartment: data.apartment,
-          state: data.state,
-          city: data.city,
-          zip: data.zip,
-          primary_address: 'true',
-        },
-      });
+      await updateAddress(data);
       successAlert();
     } catch (error) {
       errorAlert(error.message);
