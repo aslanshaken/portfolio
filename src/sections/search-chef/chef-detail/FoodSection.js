@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 // @mui
 import { Autocomplete, Typography, Grid, TextField, Box, Backdrop, IconButton, Stack } from '@mui/material';
@@ -12,7 +12,7 @@ import MenuAllerogyForm from './MenuAllerogyForm';
 import DropHiddenButton from '../../../components/DropHiddenButton';
 import CartDialog from './CartDialog';
 import { useDispatch, useSelector } from '../../../redux/store';
-import { addFoodCart, setError } from '../../../redux/slices/food';
+import { addFoodCart, clearCart, setError } from '../../../redux/slices/food';
 import { getMockTypeData } from '../../../utils/functions';
 import FoodCartCard from 'src/components/FoodCartCard';
 import Iconify from 'src/components/Iconify';
@@ -372,7 +372,9 @@ const SideBarStyle = styled(Box)(() => ({
 export default function FoodSection({ selectedCategory }) {
   const { foods, chef } = useSelector(CITYCUISINE_SELECTOR).chef ?? [];
 
-  const { error } = useSelector(FOOD_SELECTOR);
+  const {
+    checkout: { cart },
+  } = useSelector(FOOD_SELECTOR);
 
   const [isHiddenCategory, setIsHiddenCategory] = useState(false);
 
@@ -382,7 +384,7 @@ export default function FoodSection({ selectedCategory }) {
 
   const [isOpenNewCartDlg, setIsOpenNewCartDlg] = useState(false);
 
-  const [selectedItemData, setSelectedItemData] = useState({});
+  const [selectedItemData, setSelectedItemData] = useState([]);
 
   const dispatch = useDispatch();
 
@@ -392,37 +394,41 @@ export default function FoodSection({ selectedCategory }) {
 
   const handleClickItem = (data) => {
     setIsOpenCartDlg(true);
-    setSelectedItemData({ ...data });
+    setSelectedItemData([data]);
   };
 
-  const handleClickAddCart = (data) => {
-    if (error) {
-      setIsOpenNewCartDlg(true);
-    }
-    setSelectedItemData({ ...data.food });
-    dispatch(addFoodCart(data));
-  };
+  const handleClickAddCart = useCallback(
+    (data) => {
+      setSelectedItemData(data.foods);
+      if (cart.some((item) => item?.user_id !== data?.foods?.[0]?.user_id)) {
+        setIsOpenNewCartDlg(true);
+      } else {
+        dispatch(addFoodCart({ foods: data.foods, newAddCart: false }));
+      }
+    },
+    [cart]
+  );
 
   return (
     <RootStyle>
       <CartDialog
-        data={selectedItemData}
+        data={selectedItemData[0]}
         setSelectedItemData={setSelectedItemData}
         open={isOpenCartDlg}
+        onSubmit={() => {
+          handleClickAddCart({ foods: selectedItemData, newAddCart: false });
+          setIsOpenCartDlg(false);
+        }}
         onClose={() => setIsOpenCartDlg(false)}
       />
       <NewCartDialog
         open={isOpenNewCartDlg}
         onSubmit={() => {
-          if (error) {
-            setIsOpenNewCartDlg(true);
-          }
-          handleClickAddCart({ food: selectedItemData, startNewCart: true });
+          dispatch(addFoodCart({ foods: selectedItemData, newAddCart: true }));
           setIsOpenNewCartDlg(false);
         }}
         onClose={() => {
           setIsOpenNewCartDlg(false);
-          dispatch(setError(false));
         }}
       />
 
@@ -527,7 +533,7 @@ export default function FoodSection({ selectedCategory }) {
                     price={item?.current_price}
                     we_kc={`${item?.gram} gr / ${item?.kc} kc`}
                     onClick={() => handleClickItem(item)}
-                    onClickPlus={() => handleClickAddCart({ food: item })}
+                    onClickPlus={() => handleClickAddCart({ foods: [item], newAddCart: false })}
                   />
                 </Grid>
               ))}

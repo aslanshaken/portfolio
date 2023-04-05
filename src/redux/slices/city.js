@@ -14,6 +14,8 @@ const initialState = {
   cuisines: [],
   chef: null,
   chefs: [],
+  food: null,
+  foods: [],
 };
 
 // ----------------------------------------------------------------------
@@ -47,7 +49,7 @@ const slice = createSlice({
     //
     getChefsSuccess(state, action) {
       state.loading = false;
-      state.chefs = action.payload;
+      state.chefs = action.payload.data;
     },
 
     //
@@ -57,8 +59,8 @@ const slice = createSlice({
 
     //
     getChef(state, action) {
-      state.chef = state.chefs.find(({ id }) => id == action.payload);
-    }
+      state.chef = state.chefs.find((item) => item.chef.id == action.payload);
+    },
   },
 });
 
@@ -100,13 +102,14 @@ export function getCuisines() {
     }
   };
 }
+
 // ----------------------------------------------------------------------
 
-export function getChefs(cuisineId = null, chefId = null) {
+export function getChefs(cityId = null, cuisineId = null, chefId = null) {
   return async (dispatch) => {
     dispatch(startLoading());
     try {
-      const response = await axios.get(`/api/${process.env.API_VERSION}/cities/${cuisineId}/chefs`);
+      const response = await axios.get(`/api/${process.env.API_VERSION}/cities/${cityId}/cuisines/${cuisineId}`);
       dispatch(slice.actions.getChefsSuccess(response.data));
       if (cuisineId) dispatch(slice.actions.getCuisine(cuisineId));
       if (chefId) dispatch(slice.actions.getChef(chefId));

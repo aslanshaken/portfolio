@@ -18,7 +18,6 @@ export default function AccountInformationForm() {
   const { successAlert, errorAlert } = useNotify();
 
   const { user: userInfo } = useAuth();
-  console.log(userInfo);
 
   const personalInfoScahema = Yup.object().shape({
     custom_vocabulary: Yup.string(),

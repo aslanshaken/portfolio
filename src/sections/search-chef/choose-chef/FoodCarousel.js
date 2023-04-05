@@ -24,7 +24,6 @@ FoodCarousel.propTypes = {
 // ----------------------------------------------------------------------
 
 export default function FoodCarousel({ foods }) {
-  // console.log(foods);
   const carouselRef = useRef(null);
 
   const settings = {

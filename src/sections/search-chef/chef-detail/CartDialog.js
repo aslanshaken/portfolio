@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { LoadingButton } from '@mui/lab';
 import { Box, Dialog, Divider, Grid, Stack, styled, TextField, Typography } from '@mui/material';
 import GradientText from '../../../components/GradientText';
@@ -17,16 +17,13 @@ CartDialog.defaultProps = {
   data: {},
 };
 
-export default function CartDialog({ data, ...other }) {
+export default function CartDialog({ data, setSelectedItemData, onSubmit, ...other }) {
   const [orderCount, setOrderCount] = useState(1);
 
-  const dispatch = useDispatch();
-
-  const handleClickAddCart = () => {
+  useEffect(() => {
     const arrDatas = [...Array(orderCount).keys()].map(() => data);
-    dispatch(addFoodCart({food:arrDatas}));
-    other.onClose();
-  };
+    setSelectedItemData(arrDatas);
+  }, [orderCount]);
 
   return (
     <Dialog maxWidth={'sm'} {...other}>
@@ -98,7 +95,7 @@ export default function CartDialog({ data, ...other }) {
 
           <Box mt={8} />
 
-          <LoadingButton variant="contained" color="secondary" onClick={handleClickAddCart}>
+          <LoadingButton variant="contained" color="secondary" onClick={onSubmit}>
             {'Add to cart'}
           </LoadingButton>
         </Stack>
@@ -135,7 +132,7 @@ function CartCountBox({ value = 0, onChange }) {
     if (type === '+') newValue++;
     else newValue--;
 
-    if (newValue < 0) newValue = 0;
+    if (newValue < 2) newValue = 1;
 
     onChange(newValue);
   };
