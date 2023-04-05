@@ -19,7 +19,7 @@ export default function AccountInformationForm() {
 
   const { successAlert, errorAlert } = useNotify();
 
-  const { user: userInfo } = useAuth();
+  const { user: userInfo, updateAddress } = useAuth();
 
   const personalInfoScahema = Yup.object().shape({
     custom_vocabulary: Yup.string(),
@@ -62,8 +62,6 @@ export default function AccountInformationForm() {
       errorAlert(error.message);
     }
   };
-
-  const { updateAddress } = useAuth();
 
   const addressScahema = Yup.object().shape({
     custom_vocabulary: Yup.string(),

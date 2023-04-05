@@ -56,16 +56,11 @@ export default function PickDeliverSwitchCard({ isPickup, setIsPickup }) {
     setAddress(initialState);
   }, [initialState]);
 
-  const handleChangeAddress = (data) => {
-    setAddress(data);
-  };
-
   return (
     <RootStyle>
       <AddressesDialog
         open={isOpenAddressesDialog}
         onClose={() => setIsOpenAddressesDialog(false)}
-        onChangeAddress={handleChangeAddress}
       />
       <Box display={'flex'} justifyContent={'space-between'} flexWrap={'wrap'} gap={2}>
         <Box>

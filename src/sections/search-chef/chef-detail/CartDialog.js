@@ -29,7 +29,7 @@ export default function CartDialog({ data, setSelectedItemData, onSubmit, ...oth
     <Dialog maxWidth={'sm'} {...other}>
       <Stack>
         <Image
-          src={'/assets/search-chef/chefs/splash-cuisine.png'}
+          src={data?.image_url}
           alt="Cuisine Splash"
           sx={{ width: 1, height: 400 }}
         />
@@ -38,13 +38,13 @@ export default function CartDialog({ data, setSelectedItemData, onSubmit, ...oth
             <Grid item>
               <Stack>
                 <Typography variant="subtitle1" gutterBottom>
-                  {data.title}
+                  {data?.title}
                 </Typography>
                 <GradientText variant="subtitle1" gutterBottom>
-                  {data.price}
+                  {data?.price}
                 </GradientText>
                 <Typography variant="body2" color={'secondary'}>
-                  {data.title}
+                  {data?.title}
                 </Typography>
               </Stack>
             </Grid>
@@ -56,13 +56,13 @@ export default function CartDialog({ data, setSelectedItemData, onSubmit, ...oth
             <Typography variant="subtitle1" gutterBottom>
               {'Description'}
             </Typography>
-            <Typography variant="caption">{data.description}</Typography>
+            <Typography variant="caption">{data?.description}</Typography>
           </Stack>
           <Stack mt={5}>
             <Typography variant="subtitle1" gutterBottom>
               {'Ingredients'}
             </Typography>
-            <Typography variant="caption">{data.ingredients}</Typography>
+            <Typography variant="caption">{data?.ingredients}</Typography>
           </Stack>
 
           <Box mt={2.5}>
@@ -73,7 +73,7 @@ export default function CartDialog({ data, setSelectedItemData, onSubmit, ...oth
             <Typography variant="subtitle1" gutterBottom>
               {'Allergy warning'}
             </Typography>
-            <Typography variant="caption">{data.allergy}</Typography>
+            <Typography variant="caption">{data?.allergy}</Typography>
           </Stack>
 
           <Box mt={2.5}>
@@ -89,7 +89,7 @@ export default function CartDialog({ data, setSelectedItemData, onSubmit, ...oth
               sx={{ textarea: { fontSize: '0.75rem' } }}
               multiline
               rows={4}
-              defaultValue={data.how_to_prepare}
+              defaultValue={data?.how_to_prepare}
             />
           </Stack>
 
