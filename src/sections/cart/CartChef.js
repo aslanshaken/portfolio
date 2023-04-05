@@ -26,7 +26,7 @@ export default function CartChef() {
           <Stack px={{ sm: 8 }}>
             <NextLink href="/cities/4/ukrainian-cuisine/adam-sandler/checkout/" passHref>
               <LoadingButton size="large" variant="outlined" sx={{ color: 'black' }}>
-                Checkout (10)
+                Checkout ({cart.length})
               </LoadingButton>
             </NextLink>
           </Stack>

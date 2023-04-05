@@ -5,11 +5,11 @@ import CuisineCard from './CuisineCard';
 
 //
 export default function CuisineList() {
-  const {
-    checkout: { cart },
-  } = useSelector(FOOD_SELECTOR);
+  const { checkout } = useSelector(FOOD_SELECTOR);
 
-  const outputArray = cart.reduce((acc, curr) => {
+  const { cart } = checkout;
+
+  const outputArray = cart?.reduce((acc, curr) => {
     // Find the object in acc array with same id and name
     const foundObj = acc.find((obj) => obj.id === curr.id);
 
