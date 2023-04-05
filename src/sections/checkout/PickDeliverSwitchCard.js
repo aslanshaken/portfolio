@@ -1,7 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { Box, Button, ButtonGroup, colors, Stack, styled, Typography } from '@mui/material';
 import Image from 'src/components/Image';
 import AddressesDialog from './AddressesDialog';
+import { useSelector } from 'src/redux/store';
+import { CITYCUISINE_SELECTOR } from 'src/redux/slices/city';
+import useAuth from 'src/hooks/useAuth';
 
 const RootStyle = styled(Stack)(({ theme }) => ({
   padding: theme.spacing(3),
@@ -10,17 +14,58 @@ const RootStyle = styled(Stack)(({ theme }) => ({
   borderColor: colors.grey[300],
 }));
 
-PickDeliverSwitchCard.propTypes = {};
+let initialState = {
+  address: '',
+  apartment: '',
+  state: '',
+  city: '',
+  zip: '',
+};
 
-export default function PickDeliverSwitchCard({ isPickup, setIsPickup, address, onChangeAddress }) {
+PickDeliverSwitchCard.propTypes = {
+  isPickup: PropTypes.bool,
+  setIsPickup: PropTypes.func,
+};
+
+export default function PickDeliverSwitchCard({ isPickup, setIsPickup }) {
+  const { chef } = useSelector(CITYCUISINE_SELECTOR);
+
+  const pickupAddress = chef?.chef?.address;
+
+  const { user } = useAuth();
+
+  const addresses = user?.addresses;
+
+  const deliveryAddress = addresses?.[addresses?.length - 1];
+
+  useEffect(() => {
+    initialState = {
+      address: deliveryAddress?.line1,
+      apartment: deliveryAddress?.apartment,
+      state: deliveryAddress?.state,
+      city: deliveryAddress?.city,
+      zip: deliveryAddress?.zip,
+    };
+  }, [deliveryAddress]);
+
   const [isOpenAddressesDialog, setIsOpenAddressesDialog] = useState(false);
+
+  const [address, setAddress] = useState();
+
+  useEffect(() => {
+    setAddress(initialState);
+  }, [initialState]);
+
+  const handleChangeAddress = (data) => {
+    setAddress(data);
+  };
 
   return (
     <RootStyle>
       <AddressesDialog
         open={isOpenAddressesDialog}
         onClose={() => setIsOpenAddressesDialog(false)}
-        onChangeAddress={onChangeAddress}
+        onChangeAddress={handleChangeAddress}
       />
       <Box display={'flex'} justifyContent={'space-between'} flexWrap={'wrap'} gap={2}>
         <Box>
@@ -48,14 +93,14 @@ export default function PickDeliverSwitchCard({ isPickup, setIsPickup, address, 
               <Typography variant={'caption'} maxWidth={200}>
                 {'3678 Summit Park Avenue Southfield, MI 69735, US'}
               </Typography>
-            ) : address.address != '' ? (
+            ) : address?.address != '' ? (
               <Box display={'flex'} gap={4}>
                 <Stack>
                   <Typography variant={'caption'} maxWidth={200}>
-                    {address.zip + ' ' + address.address}
+                    {address?.zip + ' ' + address?.address}
                   </Typography>
                   <Typography variant={'caption'} maxWidth={200}>
-                    {address.apartment + ', ' + address.state + ', ' + address.city}
+                    {address?.apartment + ', ' + address?.state + ', ' + address?.city}
                   </Typography>
                 </Stack>
                 <Typography

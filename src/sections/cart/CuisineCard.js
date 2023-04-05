@@ -45,7 +45,7 @@ export default function CuisineCard({ cuisine = {} }) {
       <IconButtonAnimate
         color="error"
         onClick={() => {
-          dispatch(removeFoodCart(cuisine));
+          dispatch(removeFoodCart({ food: cuisine, removeAll: true }));
         }}
       >
         <Iconify icon={'mdi:trash'} />

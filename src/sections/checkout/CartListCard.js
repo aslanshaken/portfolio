@@ -6,23 +6,30 @@ import { ShoppingCartSmallIcon } from 'src/assets';
 import CardHeader from 'src/components/card/CardHeader';
 import Iconify from 'src/components/Iconify';
 import Image from 'src/components/Image';
-
-//
-
-const datas = [
-  {
-    name: 'Chili pepper',
-  },
-  {
-    name: 'Chili pepper',
-  },
-  {
-    name: 'Chili pepper',
-  },
-];
+import { useDispatch, useSelector } from 'src/redux/store';
+import { addFoodCart, FOOD_SELECTOR, removeFoodCart } from 'src/redux/slices/food';
+import { useCallback, useEffect, useState } from 'react';
 
 //
 export default function CartListCard() {
+  const { checkout } = useSelector(FOOD_SELECTOR);
+
+  const { cart } = checkout;
+
+  const outputArray = cart?.reduce((acc, curr) => {
+    // Find the object in acc array with same id and name
+    const foundObj = acc.find((obj) => obj.id === curr.id);
+
+    // If object is present increment the count else add the current object into accumulator array
+    if (foundObj) {
+      foundObj.count++;
+    } else {
+      acc.push({ ...curr, count: 1 });
+    }
+
+    return acc;
+  }, []);
+
   return (
     <Card>
       <CardHeader
@@ -31,13 +38,17 @@ export default function CartListCard() {
       />
 
       <Box px={3} py={3}>
-        <List disablePadding sx={{ overflowX: 'auto' }}>
-          {datas.map((data, _i) => (
-            <ListItem key={'cart-cousine-' + _i} disableGutters>
-              <CuisineCard />
-            </ListItem>
-          ))}
-        </List>
+        {outputArray.length == 0 ? (
+          <Typography variant="body2">Cart is empty.</Typography>
+        ) : (
+          <List disablePadding sx={{ overflowX: 'auto' }}>
+            {outputArray.map((data, _i) => (
+              <ListItem key={'cart-cousine-' + _i} disableGutters>
+                <CuisineCard data={data} />
+              </ListItem>
+            ))}
+          </List>
+        )}
       </Box>
     </Card>
   );
@@ -49,17 +60,31 @@ CuisineCard.propTypes = {
 };
 
 function CuisineCard({ data = {} }) {
+  const dispatch = useDispatch();
+  let { count, ...food } = data;
+
+  const handleClickAddCart = useCallback(
+    (type) => {
+      if (type === '+') {
+        dispatch(addFoodCart({ foods: food, newAddCart: false }));
+      } else {
+        dispatch(removeFoodCart({ food: food, removeAll: false }));
+      }
+    },
+    [food]
+  );
+
+  const handleClickRemoveCart = useCallback(() => {
+    dispatch(removeFoodCart({ food: food, removeAll: true }));
+  }, [food]);
+
   return (
     <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'} spacing={2} width={1}>
-      <Image
-        alt={'Cuisine Image'}
-        src={'/assets/search-chef/foods/chilli_pepper.png'}
-        sx={{ borderRadius: '50%', minWidth: 80, height: 80 }}
-      />
+      <Image alt={data?.title} src={data?.image_url} sx={{ borderRadius: '50%', width: 80, height: 80 }} />
 
       <Stack>
         <Typography variant="h6" color="black" fontWeight={600} gutterBottom>
-          {'Chili pepper'}
+          {data?.title}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           {'440 cal'}
@@ -67,14 +92,16 @@ function CuisineCard({ data = {} }) {
       </Stack>
 
       <Box>
-        <CartCountBox />
+        <CartCountBox value={data?.count} onChange={handleClickAddCart} cartId={data?.id} />
       </Box>
 
-      <Typography variant={'subtitle1'} color={'success.main'}>{'$23.98'}</Typography>
+      <Typography variant={'subtitle1'} color={'success.main'}>
+        ${data?.current_price}
+      </Typography>
 
       <Box>
         <Button color="error" sx={{ borderRadius: 1, p: 1, minWidth: 0, background: colors.grey[100] }}>
-          <Iconify icon={'mdi:trash'} />
+          <Iconify icon={'mdi:trash'} onClick={handleClickRemoveCart} />
         </Button>
       </Box>
     </Stack>
@@ -108,7 +135,7 @@ function CartCountBox({ value = 0, onChange = () => {} }) {
 
     if (newValue < 0) newValue = 0;
 
-    onChange(newValue);
+    onChange(type);
   };
 
   return (

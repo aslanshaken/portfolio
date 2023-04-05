@@ -7,7 +7,7 @@ import NotesPanel from './NotesPanel';
 import SchedulePanel from './SchedulePanel';
 
 //
-export default function DeliverySteps({address, isPickup}) {
+export default function DeliverySteps({ address, isPickup }) {
   const [isOpenPaymentDialog, setIsOpenPaymentDialog] = useState(false);
   const [isOpenSchedulePanel, setIsOpenSchedulePanel] = useState(false);
   const [isOpenNotesPanel, setIsOpenNotesPanel] = useState(false);
@@ -18,7 +18,7 @@ export default function DeliverySteps({address, isPickup}) {
       title: `${isPickup ? 'Pick Up Schedule' : 'Delivery Schedule'}`,
       subtitle: 'Tuesday, March 14th',
       content: 'Please select time',
-      buttonText: 'Change',
+      buttonText: '',
       onClickButton: () => {
         setIsOpenSchedulePanel(true);
       },
@@ -63,7 +63,6 @@ export default function DeliverySteps({address, isPickup}) {
                 {step.title === 'Notes' && (
                   <NotesPanel
                     isPickup={isPickup}
-                    data={address}
                     onClose={() => {
                       setIsOpenNotesPanel(false);
                     }}
@@ -103,7 +102,7 @@ function DeliveryStepCard({
   title = '',
   subtitle = '',
   content = '',
-  buttonText = 'Change',
+  buttonText = '',
   onClickButton = () => {},
 }) {
   return (
@@ -118,9 +117,11 @@ function DeliveryStepCard({
             {content}
           </Typography>
         </Stack>
-        <Button variant={'outlined'} color="secondary" onClick={onClickButton}>
-          {buttonText}
-        </Button>
+        {buttonText != '' && (
+          <Button variant={'outlined'} color="secondary" onClick={onClickButton}>
+            {buttonText}
+          </Button>
+        )}
       </Stack>
     </Card>
   );

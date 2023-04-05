@@ -22,20 +22,8 @@ CheckoutPage.getLayout = function getLayout(page) {
 // ----------------------------------------------------------------------
 
 export default function CheckoutPage() {
-  const initialState = {
-    address: '',
-    apartment: '',
-    state: '',
-    city: '',
-    zip: '',
-  };
 
-  const [address, setAddress] = useState(initialState);
   const [isPickup, setIsPickup] = useState(true);
-
-  const handleChangeAddress = (data) => {
-    setAddress(data);
-  };
 
   return (
     <Page title="Search Chef">
@@ -46,12 +34,10 @@ export default function CheckoutPage() {
           <Grid item xs={12} md={8}>
             <Stack spacing={2}>
               <PickDeliverSwitchCard
-                address={address}
-                onChangeAddress={handleChangeAddress}
                 isPickup={isPickup}
                 setIsPickup={setIsPickup}
               />
-              <DeliverySteps address={address} isPickup={isPickup} />
+              <DeliverySteps isPickup={isPickup} />
               <CartListCard />
             </Stack>
           </Grid>

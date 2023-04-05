@@ -1,9 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
+// axios
+import axios from 'src/utils/axios';
 
 // ----------------------------------------------------------------------
 
 const initialState = {
-  isLoading: false,
+  loading: false,
   error: null,
   foods: [],
   food: null,
@@ -46,6 +48,10 @@ const slice = createSlice({
   name: 'food',
   initialState,
   reducers: {
+    startLoading(state) {
+      state.loading = true;
+    },
+
     addFoodCart(state, action) {
       if (action.payload.newAddCart) {
         state.checkout.cart = [];
@@ -53,9 +59,16 @@ const slice = createSlice({
       const newDatas = Array.isArray(action.payload.foods) ? action.payload.foods : [action.payload.foods];
       state.checkout.cart = [...state.checkout.cart, ...newDatas];
     },
+
     removeFoodCart(state, action) {
-      state.checkout.cart = [...state.checkout.cart.filter(({ _id }) => _id !== action.payload._id)];
+      if (action.payload.removeAll) {
+        state.checkout.cart = [...state.checkout.cart.filter(({ _id }) => _id !== action.payload.food._id)];
+      } else {
+        const indexToRemove = state.checkout.cart.findIndex((obj) => obj.id === action.payload.food._id);
+        state.checkout.cart.splice(indexToRemove, 1);
+      }
     },
+
     setError(state, action) {
       state.error = action.payload;
     },
@@ -66,7 +79,30 @@ const slice = createSlice({
 export default slice.reducer;
 
 // Actions
-export const { addFoodCart, removeFoodCart, setError } = slice.actions;
+export const { startLoading, addFoodCart, removeFoodCart, setError } = slice.actions;
 
 // Selector
 export const FOOD_SELECTOR = (state) => state.food;
+
+export function createOrders(data){
+  return async (dispatch) => {
+    const oreders = data.carts.map(({ id, count }) => ({
+      food_id: id,
+      count: count,
+      selected_day: new Date(),
+    }));
+
+    dispatch(startLoading());
+    try {
+      const response = await axios.post(`/api/${process.env.API_VERSION}/orders/create`, {
+        order: {
+          chef_id: data.chefId,
+          status: 'initiated',
+          items_attributes: oreders,
+        },
+      });
+    } catch (error) {
+      dispatch(slice.actions.setError(error));
+    }
+  };
+}
