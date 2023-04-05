@@ -28,7 +28,7 @@ export default function FoodCard(props) {
         <Image
           alt={name}
           src={cover}
-          sx={{ borderRadius: '50%', minWidth: { lg: 130, xs: 100 }, height: { lg: 130, xs: 100 } }}
+          sx={{ borderRadius: '50%', width: { lg: 130, xs: 100 }, height: { lg: 130, xs: 100 } }}
         />
       </Box>
 

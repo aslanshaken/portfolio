@@ -14,7 +14,7 @@ CheckoutPage.getLayout = function getLayout(page) {
 };
 
 CheckoutPage.propTypes = {
-  isPickup:PropTypes.string
+  isPickup:PropTypes.bool
 }
 
 export default function CheckoutPage({ isPickup = true }) {
