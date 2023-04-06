@@ -33,7 +33,7 @@ export default function HomePage() {
   useEffect(() => {
     if (!initialized) setWelcomeDialogIsOpen(true);
     if (!isAuthenticated) dispatch(clearCart());
-  }, [initialized, isAuthenticated]);
+  }, [dispatch, initialized, isAuthenticated]);
 
   useEffect(() => {
     dispatch(setInitialized(true));
