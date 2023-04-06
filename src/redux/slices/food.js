@@ -73,7 +73,6 @@ const slice = createSlice({
     },
 
     clearCart(state) {
-      console.log(1232);
       state.checkout.cart = [];
     },
 

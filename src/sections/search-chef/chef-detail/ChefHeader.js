@@ -151,11 +151,13 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
               </Box>
               <Stack direction={'row'} flexWrap={'nowrap'} mt={2} mb={4} spacing={1}>
                 <NextLink href={chef?.instagram ?? '#'} passHref>
-                  <Image
-                    src={'/assets/search-chef/follow.png'}
-                    sx={{ border: '2px solid', borderRadius: '13px', height: 40, width: 40, cursor: 'pointer' }}
-                    alt={'follow-image'}
-                  />
+                  <Box>
+                    <Image
+                      src={'/assets/search-chef/follow.png'}
+                      sx={{ border: '2px solid', borderRadius: '13px', height: 40, width: 40, cursor: 'pointer' }}
+                      alt={'follow-image'}
+                    />
+                  </Box>
                 </NextLink>
                 <IconButton
                   color={'secondary'}
