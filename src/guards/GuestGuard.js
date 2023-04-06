@@ -14,13 +14,14 @@ GuestGuard.propTypes = {
 };
 
 export default function GuestGuard({ children }) {
-  const { push } = useRouter();
+  const router = useRouter();
 
   const { isAuthenticated } = useAuth();
 
   useEffect(() => {
     if (isAuthenticated) {
-      push(PATH_DASHBOARD.account);
+      // push(PATH_DASHBOARD.account);
+      router.back();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);

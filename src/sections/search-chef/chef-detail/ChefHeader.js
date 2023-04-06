@@ -193,7 +193,7 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
             >
               {categories.map((item) => (
                 <Button
-                  disabled={!foods?.[item.date]?.length > 0}
+                  disabled={foods?.[item.date]?.length > 0 ? false : true}
                   key={item.id}
                   variant={'contained'}
                   sx={{
