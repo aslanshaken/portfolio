@@ -124,7 +124,7 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
                       by {chef?.company_name}
                     </Typography>
                     <Typography display={{ xs: 'block', md: 'none' }} color={'black'} variant={'subtitle1'}>
-                      Zip code: 78717
+                      Zip code: {chef?.primary_address?.zip}
                     </Typography>
                     <Typography color={'black'} variant={'subtitle1'}>
                       {cuisine?.name}
@@ -139,7 +139,7 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
                       Certified chef
                     </GradientText>
                     <Typography display={{ md: 'block', xs: 'none' }} color={'black'} variant={'subtitle1'}>
-                      Zip code: 78717
+                      Zip code: {chef?.primary_address?.zip}
                     </Typography>
                   </Box>
                   <Hidden mdDown>
