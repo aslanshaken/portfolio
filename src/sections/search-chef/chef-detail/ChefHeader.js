@@ -82,7 +82,7 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
         onClose={() => setChangeDeliveryDateDialogIsOpen(false)}
       />
 
-      <HeroHeader city="Austin" cuisine={cuisine?.name} chef={`${chef?.first_name} ${chef?.last_name}`} />
+      <HeroHeader cuisine={'Back'} />
       <Container>
         <Box display={'flex'} mb={4}>
           <Box px={2} width={'100%'}>
