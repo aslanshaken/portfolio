@@ -1,4 +1,4 @@
-import { AppBar, Box, Toolbar, styled, Link, Hidden, Stack } from '@mui/material';
+import { AppBar, Box, Toolbar, styled, Link, Hidden, Stack, Typography } from '@mui/material';
 import useResponsive from '../../hooks/useResponsive';
 import { HEADER } from '../../config';
 import MenuMobile from '../main/MenuMobile';
