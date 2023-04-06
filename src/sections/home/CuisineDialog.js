@@ -1,30 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Dialog, IconButton, Stack, Typography } from '@mui/material';
 import Iconify from 'src/components/Iconify';
-import Image from 'src/components/Image';
 import { useRouter } from 'next/router';
 import { closeDialog } from 'src/redux/slices/dialog';
 import axios from 'src/utils/axios';
 import { useDispatch, useSelector } from 'src/redux/store';
 import { CITYCUISINE_SELECTOR, getCuisines } from 'src/redux/slices/city';
 import useAuth from 'src/hooks/useAuth';
+import Image from 'src/components/Image';
 
 // ----------------------------------------------------------------------
 
 export default function CuisineDialog({ isOpen }) {
   const router = useRouter();
 
-  const { isAuthenticated } = useAuth();
-
   const dispatch = useDispatch();
   
   const { cuisines } = useSelector(CITYCUISINE_SELECTOR);
 
   useEffect(() => {
-    if (!isAuthenticated) return;
-
     dispatch(getCuisines());
-  }, [isAuthenticated])
+  }, [])
 
   return (
     <Dialog maxWidth={'sm'} fullWidth open={isOpen}>
@@ -59,11 +55,7 @@ export default function CuisineDialog({ isOpen }) {
               sx={{ width: '100%', justifyContent: 'left', px: 5 }}
             >
               {item?.image ? (
-                <Image
-                  src={`/assets/search-chef/cuisines/${item?.image}.png`}
-                  sx={{ width: 100, height: 70 }}
-                  alt={'cuisine'}
-                />
+                <Image src={item?.image} sx={{ width: 100, minHeight: 70, marginRight:3 }} alt={'cuisine'} />
               ) : (
                 <Iconify icon={'material-symbols:cookie'} color={'disabled'} sx={{ width: 70, height: 70 }} mr={3} />
               )}

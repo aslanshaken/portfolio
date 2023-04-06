@@ -23,7 +23,7 @@ export default function Login() {
       <Container maxWidth={'xs'} sx={{ pt: 3 }}>
         <NextLink href={'/'} passHref>
           <Link>
-            <Typography mt={2} sx={{position:'absolute', top:0, color:'black', ml:-2}} className="sign-up">
+            <Typography mt={2} sx={{ position: 'absolute', top: 0, color: 'black' }} className="sign-up">
               Back to home page
             </Typography>
           </Link>

@@ -35,8 +35,6 @@ export default function ChefPage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!isAuthenticated) return;
-
     dispatch(getChefs(cityId, cuisineId, chefId));
   }, [dispatch, router, isAuthenticated, cuisineId, chefId, cityId, cuisines]);
 

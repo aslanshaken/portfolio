@@ -117,109 +117,115 @@ export default function MainHeader() {
           }),
         }}
       >
-        <Container
-          maxWidth="lg"
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            height: 1,
-          }}
-        >
-          {isDesktop && <MenuDesktop isOffset={isOffset} isHome={isHome} navConfig={navConfig} />}
-
-          <Box sx={{ flexGrow: 1 }} />
-          <Logo />
-
-          <Box sx={{ flexGrow: 1 }} />
-
-          <Stack
-            mr={{
-              xs: 2,
-              md: 3,
+        <Container maxWidth="lg" sx={{height:'100%'}}>
+          <Box
+            sx={{
+              position: 'relative',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              height: 1,
             }}
           >
-            {cartCount > 0 ? (
-              <Badge component="div" badgeContent={cartCount} color="error" sx={{ width: 20, height: 10, top: 3 }} />
+            {isDesktop && <MenuDesktop isOffset={isOffset} isHome={isHome} navConfig={navConfig} />}
+
+            <Box sx={{ flexGrow: 1 }} />
+            <Box
+              sx={{ position: 'absolute', width: '100%', height: '100%', display: 'flex', justifyContent: 'center' }}
+            >
+              <Logo />
+            </Box>
+
+            <Box sx={{ flexGrow: 1 }} />
+
+            <Stack
+              mr={{
+                xs: 2,
+                md: 3,
+              }}
+            >
+              {cartCount > 0 ? (
+                <Badge component="div" badgeContent={cartCount} color="error" sx={{ width: 20, height: 10, top: 3 }} />
+              ) : (
+                ''
+              )}
+              <NextLink passHref href={PATH_PAGE.cart}>
+                <IconButtonAnimate>
+                  <ShoppingCartIcon sx={{ width: 28, height: 28 }} />
+                </IconButtonAnimate>
+              </NextLink>
+            </Stack>
+            {isAuthenticated ? (
+              <>
+                <IconButtonAnimate
+                  sx={{
+                    p: 0,
+                  }}
+                  onClick={handleOpen}
+                >
+                  <MyAvatar sx={{ width: 50, height: 50 }} />
+                </IconButtonAnimate>
+                <MenuPopover
+                  open={Boolean(open)}
+                  anchorEl={open}
+                  onClose={handleClose}
+                  sx={{
+                    p: 0,
+                    mt: 1.5,
+                    ml: 0.75,
+                    '& .MuiMenuItem-root': {
+                      typography: 'body2',
+                      borderRadius: 0.75,
+                    },
+                  }}
+                >
+                  <Box sx={{ my: 1.5, px: 2.5 }}>
+                    <Typography variant="subtitle2" noWrap>
+                      {`${user?.user?.first_name} ${user?.user?.last_name}`}
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
+                      {user?.user?.email}
+                    </Typography>
+                  </Box>
+
+                  <Divider sx={{ borderStyle: 'dashed' }} />
+
+                  <Stack sx={{ p: 1 }}>
+                    <NextLink href="/dashboard/account" passHref>
+                      <MenuItem>Profile</MenuItem>
+                    </NextLink>
+                  </Stack>
+
+                  <Divider sx={{ borderStyle: 'dashed' }} />
+
+                  <MenuItem onClick={handleLogout} sx={{ m: 1 }}>
+                    Logout
+                  </MenuItem>
+                </MenuPopover>
+              </>
             ) : (
-              ''
-            )}
-            <NextLink passHref href={PATH_PAGE.cart}>
-              <IconButtonAnimate>
-                <ShoppingCartIcon sx={{ width: 28, height: 28 }} />
-              </IconButtonAnimate>
-            </NextLink>
-          </Stack>
-          {isAuthenticated ? (
-            <>
-              <IconButtonAnimate
-                sx={{
-                  p: 0,
-                }}
-                onClick={handleOpen}
-              >
-                <MyAvatar sx={{ width: 50, height: 50 }} />
-              </IconButtonAnimate>
-              <MenuPopover
-                open={Boolean(open)}
-                anchorEl={open}
-                onClose={handleClose}
-                sx={{
-                  p: 0,
-                  mt: 1.5,
-                  ml: 0.75,
-                  '& .MuiMenuItem-root': {
-                    typography: 'body2',
-                    borderRadius: 0.75,
-                  },
-                }}
-              >
-                <Box sx={{ my: 1.5, px: 2.5 }}>
-                  <Typography variant="subtitle2" noWrap>
-                    {`${user?.user?.first_name} ${user?.user?.last_name}`}
-                  </Typography>
-                  <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-                    {user?.user?.email}
-                  </Typography>
-                </Box>
-
-                <Divider sx={{ borderStyle: 'dashed' }} />
-
-                <Stack sx={{ p: 1 }}>
-                  <NextLink href="/dashboard/account" passHref>
-                    <MenuItem>Profile</MenuItem>
-                  </NextLink>
-                </Stack>
-
-                <Divider sx={{ borderStyle: 'dashed' }} />
-
-                <MenuItem onClick={handleLogout} sx={{ m: 1 }}>
-                  Logout
-                </MenuItem>
-              </MenuPopover>
-            </>
-          ) : (
-            <Hidden mdDown>
-              <Box display={'flex'} gap={2}>
-                <Box display={{ xs: 'none', md: 'block' }}>
-                  <NextLink href={PATH_AUTH.register} passHref>
-                    <Button variant="outlined" size="medium">
-                      Sign up
+              <Hidden mdDown>
+                <Box display={'flex'} gap={2}>
+                  <Box display={{ xs: 'none', md: 'block' }}>
+                    <NextLink href={PATH_AUTH.register} passHref>
+                      <Button variant="outlined" size="medium">
+                        Sign up
+                      </Button>
+                    </NextLink>
+                  </Box>
+                  <NextLink href={PATH_AUTH.login} passHref>
+                    <Button variant="contained" size="medium" sx={{ px: { lg: 5, md: 0, xs: 5 } }}>
+                      Log in
                     </Button>
                   </NextLink>
                 </Box>
-                <NextLink href={PATH_AUTH.login} passHref>
-                  <Button variant="contained" size="medium" sx={{ px: { lg: 5, md: 0, xs: 5 } }}>
-                    Log in
-                  </Button>
-                </NextLink>
-              </Box>
-            </Hidden>
-          )}
+              </Hidden>
+            )}
 
-          {/* </Badge> */}
+            {/* </Badge> */}
 
-          {!isDesktop && <MenuMobile isOffset={isOffset} isHome={isHome} navConfig={navConfig} />}
+            {!isDesktop && <MenuMobile isOffset={isOffset} isHome={isHome} navConfig={navConfig} />}
+          </Box>
         </Container>
       </ToolbarStyle>
 

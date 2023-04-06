@@ -21,7 +21,7 @@ export default function WelcomeDialog({ isOpen, setIsOpen }) {
       </IconButton>
       <Stack textAlign={'center'} p={6} color={'black'}>
         <Typography variant="h3" mt={8}>
-          Welcome to Food App
+          Welcome to Cookk
         </Typography>
         <Typography variant="h4" fontWeight={'normal'} mt={4}>
           Free Delivery

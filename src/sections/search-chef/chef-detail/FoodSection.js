@@ -23,6 +23,8 @@ import { CITYCUISINE_SELECTOR } from 'src/redux/slices/city';
 import { FOOD_SELECTOR } from 'src/redux/slices/food';
 import NewCartDialog from './NewCartDialog';
 import { useRouter } from 'next/router';
+import useAuth from 'src/hooks/useAuth';
+import { PATH_AUTH } from 'src/routes/paths';
 
 // --------------------------------------------
 
@@ -375,11 +377,11 @@ export default function FoodSection({ selectedCategory }) {
 
   const { cityId, cuisineId, chefId } = router.query;
 
-  const { chef } = useSelector(CITYCUISINE_SELECTOR).chef ?? [];
+  const { isAuthenticated } = useAuth();
 
   const { checkout } = useSelector(FOOD_SELECTOR);
 
-  const {cart} = checkout
+  const { cart } = checkout;
 
   const [isHiddenCategory, setIsHiddenCategory] = useState(false);
 
@@ -418,7 +420,7 @@ export default function FoodSection({ selectedCategory }) {
 
   useEffect(() => {
     dispatch(getFoodsByChef(cityId, cuisineId, chefId));
-  }, [router.isReady]);
+  }, []);
 
   return (
     <RootStyle>
@@ -432,7 +434,7 @@ export default function FoodSection({ selectedCategory }) {
         }}
         onClose={() => setIsOpenCartDlg(false)}
       />
-      
+
       <NewCartDialog
         open={isOpenNewCartDlg}
         onSubmit={() => {
@@ -545,7 +547,13 @@ export default function FoodSection({ selectedCategory }) {
                     price={item?.current_price}
                     we_kc={`${item?.gram} gr / ${item?.kc} kc`}
                     onClick={() => handleClickItem(item)}
-                    onClickPlus={() => handleClickAddCart({ foods: [item], newAddCart: false })}
+                    onClickPlus={() => {
+                      if (isAuthenticated) {
+                        handleClickAddCart({ foods: [item], newAddCart: false });
+                      } else {
+                        router.push(PATH_AUTH.login);
+                      }
+                    }}
                   />
                 </Grid>
               ))}

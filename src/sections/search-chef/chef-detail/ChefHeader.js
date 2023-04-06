@@ -52,7 +52,7 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
     categories.push({
       id: i,
       label: `${month} ${day}`,
-      date: format(date.setDate(date.getDate() + i), 'MM/dd/yy'),
+      date: format(date.setDate(date.getDate()), 'MM/dd/yy'),
     });
   }
 
