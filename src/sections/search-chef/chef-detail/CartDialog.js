@@ -19,11 +19,16 @@ CartDialog.defaultProps = {
 
 export default function CartDialog({ data, setSelectedItemData, onSubmit, ...other }) {
   const [orderCount, setOrderCount] = useState(1);
+  const [note, setNote] = useState();
 
   useEffect(() => {
-    const arrDatas = [...Array(orderCount).keys()].map(() => data);
+    setNote(data?.how_to_prepare);
+  }, [other.open]);
+
+  useEffect(() => {
+    const arrDatas = [...Array(orderCount).keys()].map(() => ({ ...data, how_to_prepare: note }));
     setSelectedItemData(arrDatas);
-  }, [orderCount]);
+  }, [orderCount, note, other.open]);
 
   return (
     <Dialog maxWidth={'sm'} fullWidth {...other}>
@@ -81,6 +86,7 @@ export default function CartDialog({ data, setSelectedItemData, onSubmit, ...oth
               {'Notes'}
             </Typography>
             <TextField
+              onChange={(e) => setNote(e.target.value)}
               size="small"
               sx={{ textarea: { fontSize: '0.75rem' } }}
               multiline
@@ -91,7 +97,13 @@ export default function CartDialog({ data, setSelectedItemData, onSubmit, ...oth
 
           <Box mt={8} />
 
-          <LoadingButton variant="contained" color="secondary" onClick={onSubmit}>
+          <LoadingButton
+            variant="contained"
+            color="secondary"
+            onClick={() => {
+              onSubmit();
+            }}
+          >
             {'Add to cart'}
           </LoadingButton>
         </Stack>
