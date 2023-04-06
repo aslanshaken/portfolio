@@ -26,7 +26,7 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
 
   const chef = useSelector(CITYCUISINE_SELECTOR)?.chef?.chef;
 
-  const { checkout } = useSelector(FOOD_SELECTOR);
+  const { checkout, foods } = useSelector(FOOD_SELECTOR);
 
   const { cart } = checkout;
 
@@ -193,6 +193,7 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
             >
               {categories.map((item) => (
                 <Button
+                  disabled={!foods?.[item.date]?.length > 0}
                   key={item.id}
                   variant={'contained'}
                   sx={{
