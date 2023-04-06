@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'src/redux/store';
 import { CITYCUISINE_SELECTOR, getChefs } from 'src/redux/slices/city';
 import { useRouter } from 'next/router';
 import { format } from 'date-fns';
+import { FOOD_SELECTOR } from 'src/redux/slices/food';
 
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
@@ -22,8 +23,14 @@ ChefPage.getLayout = function getLayout(page) {
 // ----------------------------------------------------------------------
 
 export default function ChefPage() {
-  const [selectedCategory, setSelectedCategory] = useState(format(new Date(), 'MM/dd/yy'));
-  
+  const { checkout } = useSelector(FOOD_SELECTOR);
+
+  const { deliveryDate } = checkout;
+
+  const [selectedCategory, setSelectedCategory] = useState(
+    deliveryDate == null ? format(new Date(), 'MM/dd/yy') : deliveryDate
+  );
+
   const { cuisines } = useSelector(CITYCUISINE_SELECTOR);
 
   const { isAuthenticated } = useAuth();
