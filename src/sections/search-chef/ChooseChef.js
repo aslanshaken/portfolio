@@ -207,7 +207,7 @@ export default function ChooseChef() {
                         {item?.chef?.first_name} {item?.chef?.last_name}
                         <Iconify icon={'material-symbols:verified'} sx={{ width: 21, height: 21, color: '#0ED3CF' }} />
                       </Typography>
-                      <Typography variant="caption">by ADS</Typography>
+                      <Typography variant="caption">by {item?.chef?.company_name}</Typography>
                       <Typography color={'primary'} variant="subtitle1">
                         {item?.chef?.status}
                       </Typography>

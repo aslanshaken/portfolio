@@ -32,6 +32,8 @@ export default function AddressesDialog({ data, onChangeAddress, ...other }) {
 
   const { addresses } = user;
 
+  const address = addresses.find((item) => item?.primary_address==true);
+
   const schema = Yup.object().shape({
     address: Yup.string().required('Address is required'),
     apartment: Yup.string().required('Apartment is required'),
@@ -41,11 +43,11 @@ export default function AddressesDialog({ data, onChangeAddress, ...other }) {
   });
 
   const defaultValues = {
-    address: addresses?.[addresses?.length - 1]?.line1 ?? '',
-    apartment: addresses?.[addresses?.length - 1]?.apartment ?? '',
-    state: addresses?.[addresses?.length - 1]?.state ?? '',
-    city: addresses?.[addresses?.length - 1]?.city ?? '',
-    zip: addresses?.[addresses?.length - 1]?.zip ?? '',
+    address: address?.line1 ?? '',
+    apartment: address?.apartment ?? '',
+    state: address?.state ?? '',
+    city: address?.city ?? '',
+    zip: address?.zip ?? '',
   };
 
   const methods = useForm({
@@ -60,7 +62,7 @@ export default function AddressesDialog({ data, onChangeAddress, ...other }) {
   } = methods;
 
   const onSubmit = async (data) => {
-    data.id = addresses?.[addresses?.length - 1]?.id;
+    data.id = address?.id;
     try {
       await updateAddress(data);
       successAlert();

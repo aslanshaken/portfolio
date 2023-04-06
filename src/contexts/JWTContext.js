@@ -189,7 +189,7 @@ function AuthProvider({ children }) {
         state: data.state,
         city: data.city,
         zip: data.zip,
-        primary_address: 'true',
+        primary_address: 'false',
       },
     });
 

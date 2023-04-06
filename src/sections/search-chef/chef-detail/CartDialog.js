@@ -42,18 +42,15 @@ export default function CartDialog({ data, setSelectedItemData, onSubmit, ...oth
                   {data?.title}
                 </Typography>
                 <GradientText variant="subtitle1" gutterBottom>
-                  {data?.price}
+                  ${data?.current_price}
                 </GradientText>
-                <Typography variant="body2" color={'secondary'}>
-                  {data?.title}
-                </Typography>
               </Stack>
             </Grid>
             <Grid>
               <CartCountBox value={orderCount} onChange={(val) => setOrderCount(val)} />
             </Grid>
           </Grid>
-          <Stack mt={5}>
+          <Stack mt={2}>
             <Typography variant="subtitle1" gutterBottom>
               {'Description'}
             </Typography>

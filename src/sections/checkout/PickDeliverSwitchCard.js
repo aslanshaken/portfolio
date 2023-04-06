@@ -30,13 +30,13 @@ PickDeliverSwitchCard.propTypes = {
 export default function PickDeliverSwitchCard({ isPickup, setIsPickup }) {
   const { chef } = useSelector(CITYCUISINE_SELECTOR);
 
-  const pickupAddress = chef?.chef?.address;
+  const pickupAddress = chef?.chef?.primary_address;
 
   const { user } = useAuth();
 
   const addresses = user?.addresses;
 
-  const deliveryAddress = addresses?.[addresses?.length - 1];
+  const deliveryAddress = addresses.find((item) => item?.primary_address == true);
 
   useEffect(() => {
     initialState = {
@@ -58,10 +58,7 @@ export default function PickDeliverSwitchCard({ isPickup, setIsPickup }) {
 
   return (
     <RootStyle>
-      <AddressesDialog
-        open={isOpenAddressesDialog}
-        onClose={() => setIsOpenAddressesDialog(false)}
-      />
+      <AddressesDialog open={isOpenAddressesDialog} onClose={() => setIsOpenAddressesDialog(false)} />
       <Box display={'flex'} justifyContent={'space-between'} flexWrap={'wrap'} gap={2}>
         <Box>
           <ButtonGroup color="secondary">
@@ -85,9 +82,14 @@ export default function PickDeliverSwitchCard({ isPickup, setIsPickup }) {
               {isPickup ? 'Pick up:' : 'Deliver to:'}
             </Typography>
             {isPickup ? (
-              <Typography variant={'caption'} maxWidth={200}>
-                {'3678 Summit Park Avenue Southfield, MI 69735, US'}
-              </Typography>
+              <Stack>
+                <Typography variant={'caption'} maxWidth={200}>
+                  {pickupAddress?.zip + ' ' + pickupAddress?.line1}
+                </Typography>
+                <Typography variant={'caption'} maxWidth={200}>
+                  {pickupAddress?.apartment + ', ' + pickupAddress?.state + ', ' + pickupAddress?.city}
+                </Typography>
+              </Stack>
             ) : address?.address != '' ? (
               <Box display={'flex'} gap={4}>
                 <Stack>
