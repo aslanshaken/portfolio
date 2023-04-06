@@ -8,7 +8,7 @@ import ChefHeader from 'src/sections/search-chef/chef-detail/ChefHeader';
 import { useEffect, useState } from 'react';
 import useAuth from 'src/hooks/useAuth';
 import { useDispatch, useSelector } from 'src/redux/store';
-import { CITYCUISINE_SELECTOR, getChef, getChefs } from 'src/redux/slices/city';
+import { CITYCUISINE_SELECTOR, getChefs } from 'src/redux/slices/city';
 import { useRouter } from 'next/router';
 import { format } from 'date-fns';
 
@@ -38,7 +38,7 @@ export default function ChefPage() {
     if (!isAuthenticated) return;
 
     dispatch(getChefs(cityId, cuisineId, chefId));
-  }, [dispatch, router, isAuthenticated, cuisineId, chefId, cuisines]);
+  }, [dispatch, router, isAuthenticated, cuisineId, chefId, cityId, cuisines]);
 
   return (
     <Page title="Search Chef">

@@ -36,7 +36,7 @@ export default function ChefListPage() {
     if (!isAuthenticated) return;
 
     dispatch(getChefs(cityId, cuisineId));
-  }, [dispatch, router, isAuthenticated, cuisineId]);
+  }, [dispatch, router, isAuthenticated, cityId, cuisineId]);
 
   useEffect(() => {
     if (error?.status == 404) {
