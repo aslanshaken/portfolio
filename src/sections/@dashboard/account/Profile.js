@@ -37,7 +37,7 @@ export default function Profile() {
 
   const [avatarUrl, setAvatarUrl] = useState('/');
 
-  const { user } = useAuth();
+  const { user } = useAuth().user;
 
   const handleDropAvatar = useCallback(async (acceptedFiles) => {
     const file = acceptedFiles[0];

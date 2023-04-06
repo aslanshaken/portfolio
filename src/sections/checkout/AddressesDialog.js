@@ -5,6 +5,9 @@ import Iconify from '../../components/Iconify';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { FormProvider, RHFTextField } from 'src/components/hook-form';
+import useAuth from 'src/hooks/useAuth';
+import useNotify from 'src/hooks/useNotify';
+import { useEffect } from 'react';
 
 //
 AddressesDialog.propTypes = {
@@ -23,6 +26,12 @@ const inputs = [
 ];
 
 export default function AddressesDialog({ data, onChangeAddress, ...other }) {
+  const { user, updateAddress } = useAuth();
+
+  const { successAlert, errorAlert } = useNotify();
+
+  const { addresses } = user;
+
   const schema = Yup.object().shape({
     address: Yup.string().required('Address is required'),
     apartment: Yup.string().required('Apartment is required'),
@@ -31,26 +40,39 @@ export default function AddressesDialog({ data, onChangeAddress, ...other }) {
     zip: Yup.string().required('Zip is required'),
   });
 
+  const defaultValues = {
+    address: addresses?.[addresses?.length - 1]?.line1 ?? '',
+    apartment: addresses?.[addresses?.length - 1]?.apartment ?? '',
+    state: addresses?.[addresses?.length - 1]?.state ?? '',
+    city: addresses?.[addresses?.length - 1]?.city ?? '',
+    zip: addresses?.[addresses?.length - 1]?.zip ?? '',
+  };
+
   const methods = useForm({
     resolver: yupResolver(schema),
-    defaultValues: {
-      address: '',
-      apartment: '',
-      state: '',
-      city: '',
-      zip: '',
-    },
+    defaultValues,
   });
 
   const {
     handleSubmit,
+    reset,
     formState: { errors },
   } = methods;
 
   const onSubmit = async (data) => {
-    onChangeAddress(data);
+    data.id = addresses?.[addresses?.length - 1]?.id;
+    try {
+      await updateAddress(data);
+      successAlert();
+    } catch (error) {
+      errorAlert(error.message);
+    }
     other.onClose();
   };
+
+  useEffect(() => {
+    reset({ ...defaultValues });
+  }, [addresses]);
 
   return (
     <Dialog maxWidth={'sm'} fullWidth {...other}>

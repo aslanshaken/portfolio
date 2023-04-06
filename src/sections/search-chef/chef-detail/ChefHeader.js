@@ -7,39 +7,11 @@ import GradientText from '../../../components/GradientText';
 import ReadMore from '../../../components/ReadMore';
 import Image from 'src/components/Image';
 import HeroHeader from 'src/components/HeroHeader';
-import { useSelector } from 'src/redux/store';
+import { useDispatch, useSelector } from 'src/redux/store';
 import { CITYCUISINE_SELECTOR } from 'src/redux/slices/city';
-
-const categories = [
-  {
-    id: '1',
-    label: 'Today',
-  },
-  {
-    id: '2',
-    label: 'Tomorrow',
-  },
-  {
-    id: '3',
-    label: 'March 17',
-  },
-  {
-    id: '4',
-    label: 'March 17',
-  },
-  {
-    id: '5',
-    label: 'March 17',
-  },
-  {
-    id: '6',
-    label: 'March 17',
-  },
-  {
-    id: '7',
-    label: 'March 17',
-  },
-];
+import { add, format } from 'date-fns';
+import { useEffect } from 'react';
+import { FOOD_SELECTOR, getFoodsByChef } from 'src/redux/slices/food';
 
 ChefHeader.propTypes = {
   selectedCategory: PropTypes.string,
@@ -48,11 +20,30 @@ ChefHeader.propTypes = {
 
 // ----------------------------------------------------------------------
 
-export default function ChefHeader({ selectedCategory = '1', setSelectedCategory }) {
-  const router = useRouter();
-  const { chefId } = router.query;
+export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
+  const { cuisine } = useSelector(CITYCUISINE_SELECTOR);
 
-  const { chef, cuisine } = useSelector(CITYCUISINE_SELECTOR);
+  const chef = useSelector(CITYCUISINE_SELECTOR)?.chef?.chef;
+
+  const today = new Date();
+  const categories = [
+    { id: 0, label: 'Today', date: format(today, 'MM/dd/yy') },
+    { id: 1, label: 'Tomorrow', date: format(add(today, { days: 1 }), 'MM/dd/yy') },
+  ];
+
+  for (let i = 2; i < 7; i++) {
+    const date = new Date();
+    date.setDate(date.getDate() + i);
+
+    const month = date.toLocaleString('default', { month: 'short' });
+    const day = date.getDate();
+
+    categories.push({
+      id: i,
+      label: `${month} ${day}`,
+      date: format(date.setDate(date.getDate() + i), 'MM/dd/yy'),
+    });
+  }
 
   return (
     <Container>
@@ -166,11 +157,11 @@ export default function ChefHeader({ selectedCategory = '1', setSelectedCategory
                   px: 4,
                   whiteSpace: 'nowrap',
                   minWidth: 'fit-content',
-                  border: item.id === selectedCategory && 'none',
-                  background: item.id === selectedCategory ? '#B3B3B3' : '#DAEFE5',
+                  border: item.date === selectedCategory && 'none',
+                  background: item.date === selectedCategory ? '#B3B3B3' : '#DAEFE5',
                   color: '#31342B',
                 }}
-                onClick={() => setSelectedCategory(item.id)}
+                onClick={() => setSelectedCategory(item.date)}
               >
                 {item.label}
               </Button>

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { LoadingButton } from '@mui/lab';
 import { Box, Dialog, Divider, Grid, Stack, styled, TextField, Typography } from '@mui/material';
 import GradientText from '../../../components/GradientText';
@@ -17,22 +17,19 @@ CartDialog.defaultProps = {
   data: {},
 };
 
-export default function CartDialog({ data, ...other }) {
+export default function CartDialog({ data, setSelectedItemData, onSubmit, ...other }) {
   const [orderCount, setOrderCount] = useState(1);
 
-  const dispatch = useDispatch();
-
-  const handleClickAddCart = () => {
+  useEffect(() => {
     const arrDatas = [...Array(orderCount).keys()].map(() => data);
-    dispatch(addFoodCart(arrDatas));
-    other.onClose();
-  };
+    setSelectedItemData(arrDatas);
+  }, [orderCount]);
 
   return (
     <Dialog maxWidth={'sm'} {...other}>
       <Stack>
         <Image
-          src={'/assets/search-chef/chefs/splash-cuisine.png'}
+          src={data?.image_url}
           alt="Cuisine Splash"
           sx={{ width: 1, height: 400 }}
         />
@@ -41,13 +38,13 @@ export default function CartDialog({ data, ...other }) {
             <Grid item>
               <Stack>
                 <Typography variant="subtitle1" gutterBottom>
-                  {data.title}
+                  {data?.title}
                 </Typography>
                 <GradientText variant="subtitle1" gutterBottom>
-                  {data.price}
+                  {data?.price}
                 </GradientText>
                 <Typography variant="body2" color={'secondary'}>
-                  {data.title}
+                  {data?.title}
                 </Typography>
               </Stack>
             </Grid>
@@ -59,13 +56,13 @@ export default function CartDialog({ data, ...other }) {
             <Typography variant="subtitle1" gutterBottom>
               {'Description'}
             </Typography>
-            <Typography variant="caption">{data.description}</Typography>
+            <Typography variant="caption">{data?.description}</Typography>
           </Stack>
           <Stack mt={5}>
             <Typography variant="subtitle1" gutterBottom>
               {'Ingredients'}
             </Typography>
-            <Typography variant="caption">{data.indigents}</Typography>
+            <Typography variant="caption">{data?.ingredients}</Typography>
           </Stack>
 
           <Box mt={2.5}>
@@ -76,7 +73,7 @@ export default function CartDialog({ data, ...other }) {
             <Typography variant="subtitle1" gutterBottom>
               {'Allergy warning'}
             </Typography>
-            <Typography variant="caption">{data.allergies}</Typography>
+            <Typography variant="caption">{data?.allergy}</Typography>
           </Stack>
 
           <Box mt={2.5}>
@@ -92,13 +89,13 @@ export default function CartDialog({ data, ...other }) {
               sx={{ textarea: { fontSize: '0.75rem' } }}
               multiline
               rows={4}
-              defaultValue={data.note}
+              defaultValue={data?.how_to_prepare}
             />
           </Stack>
 
           <Box mt={8} />
 
-          <LoadingButton variant="contained" color="secondary" onClick={handleClickAddCart}>
+          <LoadingButton variant="contained" color="secondary" onClick={onSubmit}>
             {'Add to cart'}
           </LoadingButton>
         </Stack>
@@ -135,7 +132,7 @@ function CartCountBox({ value = 0, onChange }) {
     if (type === '+') newValue++;
     else newValue--;
 
-    if (newValue < 0) newValue = 0;
+    if (newValue < 2) newValue = 1;
 
     onChange(newValue);
   };

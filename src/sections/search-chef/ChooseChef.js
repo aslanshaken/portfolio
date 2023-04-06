@@ -157,7 +157,7 @@ export default function ChooseChef() {
           {chefs?.map((item, _i) => (
             <NextLink
               key={'chef-link' + _i}
-              href={PATH_PAGE.searchChef.cities({ cityId, cuisineId, chefId: item?.id })}
+              href={PATH_PAGE.searchChef.cities({ cityId, cuisineId, chefId: item?.chef?.id })}
               passHref
             >
               <Box
@@ -182,13 +182,13 @@ export default function ChooseChef() {
                 >
                   <Box>
                     <Typography display={'flex'} flexWrap={'nowrap'} gap={1} variant="subtitle1">
-                      Rating: {item?.rating}
+                      Rating: {item?.chef?.rating}
                       <Iconify icon={'material-symbols:star'} sx={{ width: 21, height: 21, color: 'primary.main' }} />
                     </Typography>
                   </Box>
                   <Box>
                     <Typography variant="subtitle1" display={'flex'} flexWrap={'nowrap'}>
-                      Orders: {item?.orders}
+                      Orders: {item?.chef?.orders}
                     </Typography>
                   </Box>
                 </Box>
@@ -196,7 +196,7 @@ export default function ChooseChef() {
                   <Grid display={'flex'} gap={4} alignItems={'center'} item xs={12} lg={4}>
                     <Avatar
                       alt="Travis Howard"
-                      src={item?.image_url}
+                      src={item?.chef?.image_url}
                       sx={{ width: { lg: 150, xs: 100 }, height: { lg: 150, xs: 100 } }}
                     />
                     <Box
@@ -204,12 +204,12 @@ export default function ChooseChef() {
                       sx={{ display: 'flex', flexFlow: 'column', justifyContent: 'space-around', height: '100%' }}
                     >
                       <Typography variant="subtitle1" display={'flex'} whiteSpace={'nowrap'} gap={1}>
-                        {item?.first_name} {item?.last_name}
+                        {item?.chef?.first_name} {item?.chef?.last_name}
                         <Iconify icon={'material-symbols:verified'} sx={{ width: 21, height: 21, color: '#0ED3CF' }} />
                       </Typography>
                       <Typography variant="caption">by ADS</Typography>
                       <Typography color={'primary'} variant="subtitle1">
-                        {item?.status}
+                        {item?.chef?.status}
                       </Typography>
                       {/* <Box display={{ xs: 'block', lg: 'none' }}>
                         <VisitChef />
@@ -227,7 +227,7 @@ export default function ChooseChef() {
                     gap={2}
                   >
                     {item?.foods?.length > 0 && (
-                      <Box flex={'1'}>
+                      <Box sx={{ width: { lg: 'calc(100% - 100px)', xs: '100%' } }}>
                         <FoodCarousel foods={item?.foods} />
                       </Box>
                     )}

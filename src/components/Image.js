@@ -10,9 +10,11 @@ Image.propTypes = {
   effect: PropTypes.string,
   ratio: PropTypes.oneOf(['4/3', '3/4', '6/4', '4/6', '16/9', '9/16', '21/9', '9/21', '1/1']),
   sx: PropTypes.object,
+  width: PropTypes.string,
+  height: PropTypes.string,
 };
 
-export default function Image({ ratio, disabledEffect = false, effect = 'blur', sx, ...other }) {
+export default function Image({ width = '100%', height = '100%', ratio, disabledEffect = false, effect = 'blur', sx, ...other }) {
   if (ratio) {
     return (
       <Box
@@ -41,7 +43,7 @@ export default function Image({ ratio, disabledEffect = false, effect = 'blur', 
           wrapperClassName="wrapper"
           effect={disabledEffect ? undefined : effect}
           placeholderSrc="/assets/placeholder.svg"
-          sx={{ width: 1, height: 1, objectFit: 'cover' }}
+          sx={{ width: 1, height: other.height, objectFit: 'cover' }}
           {...other}
         />
       </Box>
@@ -64,7 +66,7 @@ export default function Image({ ratio, disabledEffect = false, effect = 'blur', 
         wrapperClassName="wrapper"
         effect={disabledEffect ? undefined : effect}
         placeholderSrc="/assets/placeholder.svg"
-        sx={{ width: 1, height: 1, objectFit: 'cover' }}
+        sx={{ width: { width }, height: { height }, objectFit: 'cover' }}
         {...other}
       />
     </Box>

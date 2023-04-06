@@ -17,7 +17,10 @@ const RootStyle = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  backgroundColor: theme.palette.background.default,
+  backgroundColor: theme.palette.secondary.light,
+  '& img': {
+    objectFit: 'contain',
+  },
 }));
 
 // ----------------------------------------------------------------------

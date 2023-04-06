@@ -58,7 +58,7 @@ export default function AccountPasswordForm() {
             {'Update password'}
           </Typography>
           <Button sx={{ color: 'black', fontWeight: 'normal' }} onClick={() => setIsdisable(!isDisable)}>
-            edit
+            {isDisable ? 'edit' : 'disable'}
           </Button>
         </Stack>
 
@@ -73,6 +73,7 @@ export default function AccountPasswordForm() {
         {...(!isDisable && {
           type: 'submit',
         })}
+        disabled={isDisable}
         variant="outlined"
         loading={isSubmitting}
         // disabled={!isDirty}

@@ -3,6 +3,8 @@ import { Box, Stack, styled, Typography } from '@mui/material';
 import Avatar from '../../components/Avatar';
 import Iconify from '../../components/Iconify';
 import GradientText from 'src/components/GradientText';
+import { useSelector } from 'src/redux/store';
+import { CITYCUISINE_SELECTOR } from 'src/redux/slices/city';
 
 const RootStyle = styled('div')(() => ({
   position: 'relative',
@@ -31,27 +33,34 @@ ProfileCover.propTypes = {
   avatar: PropTypes.string,
   name: PropTypes.string,
   cuisineType: PropTypes.string,
-  certified: PropTypes.bool
+  certified: PropTypes.bool,
 };
 
 export default function ProfileCover({
-  avatar = '/assets/search-chef/chefs/adam-sandler.png',
-  name = 'Sheff Michael',
-  cuisineType = 'Italian Cuisine',
   certified = true,
 }) {
+  const {
+    chef: { chef }, cuisine
+  } = useSelector(CITYCUISINE_SELECTOR);
+
   return (
     <RootStyle>
       <Stack textAlign={'center'} mb={6} color={'black'}>
-        <Typography variant="h2" mb={4} fontWeight={500}>Cart</Typography>
+        <Typography variant="h2" mb={4} fontWeight={500}>
+          Cart
+        </Typography>
         <Typography>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
           magna aliqua.
         </Typography>
       </Stack>
       <InfoStyle>
-        <Box position={'relative'} sx={{ width: 120, height: 120 }} ml={{md:6}}>
-          <Avatar alt={'Cheff profile avatar'} src={avatar} sx={{ width: {xs:100,md:120}, height: {xs:100,md:120} }} />
+        <Box position={'relative'} sx={{ width: 120, height: 120 }} ml={{ md: 6 }}>
+          <Avatar
+            alt={'Cheff profile avatar'}
+            src={chef?.image_url}
+            sx={{ width: { xs: 100, md: 120 }, height: { xs: 100, md: 120 } }}
+          />
           <Iconify
             icon={'material-symbols:verified'}
             sx={{ color: '#0ED3CF', position: 'absolute', top: 10, right: 0 }}
@@ -59,11 +68,11 @@ export default function ProfileCover({
         </Box>
         <Stack ml={4}>
           <Typography variant="h4" color="black" gutterBottom>
-            {name}
+            {chef?.first_name} {chef?.last_name}
           </Typography>
           <Stack direction={{ md: 'row', xs: 'column' }} spacing={{ md: 2 }}>
             <Typography variant="body1" color="black">
-              {cuisineType}
+              {cuisine?.name}
             </Typography>
             <GradientText variant="body1">{certified && 'Certified chef'}</GradientText>
           </Stack>

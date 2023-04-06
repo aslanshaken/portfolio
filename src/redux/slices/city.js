@@ -14,6 +14,8 @@ const initialState = {
   cuisines: [],
   chef: null,
   chefs: [],
+  food: null,
+  foods: [],
 };
 
 // ----------------------------------------------------------------------
@@ -25,6 +27,8 @@ const slice = createSlice({
     startLoading(state) {
       state.loading = true;
     },
+
+    //
     hasError(state, action) {
       state.loading = false;
       state.error = action.payload;
@@ -45,7 +49,7 @@ const slice = createSlice({
     //
     getChefsSuccess(state, action) {
       state.loading = false;
-      state.chefs = action.payload;
+      state.chefs = action.payload.data;
     },
 
     //
@@ -55,8 +59,8 @@ const slice = createSlice({
 
     //
     getChef(state, action) {
-      state.chef = state.chefs.find(({ id }) => id == action.payload);
-    }
+      state.chef = state.chefs.find((item) => item.chef.id == action.payload);
+    },
   },
 });
 
@@ -91,22 +95,23 @@ export function getCuisines() {
   return async (dispatch) => {
     dispatch(startLoading());
     try {
-      const response = await axios.get(`/api/${process.env.API_VERSION}/cuisines`);
+      const response = await axios.get(`/api/${process.env.API_VERSION}/find_local_chefs`);
       dispatch(slice.actions.getCuisinesSuccess(response.data.cuisines));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }
   };
 }
+
 // ----------------------------------------------------------------------
 
-export function getChefs(cuisineId, chefId = null) {
+export function getChefs(cityId = null, cuisineId = null, chefId = null) {
   return async (dispatch) => {
     dispatch(startLoading());
     try {
-      const response = await axios.get(`/api/${process.env.API_VERSION}/cities/${cuisineId}/chefs`);
+      const response = await axios.get(`/api/${process.env.API_VERSION}/cities/${cityId}/cuisines/${cuisineId}`);
       dispatch(slice.actions.getChefsSuccess(response.data));
-      dispatch(slice.actions.getCuisine(cuisineId));
+      if (cuisineId) dispatch(slice.actions.getCuisine(cuisineId));
       if (chefId) dispatch(slice.actions.getChef(chefId));
     } catch (error) {
       dispatch(slice.actions.hasError(error));

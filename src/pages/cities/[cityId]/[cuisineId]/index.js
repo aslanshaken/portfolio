@@ -28,21 +28,21 @@ export default function ChefListPage() {
 
   const dispatch = useDispatch();
 
-  const { cuisineId } = router.query;
+  const { cityId, cuisineId } = router.query;
 
   const { isAuthenticated } = useAuth();
 
   useEffect(() => {
     if (!isAuthenticated) return;
 
-    dispatch(getChefs(cuisineId));
-  }, [isAuthenticated, cuisineId]);
+    dispatch(getChefs(cityId, cuisineId));
+  }, [dispatch, router, isAuthenticated, cuisineId]);
 
   useEffect(() => {
     if (error?.status == 404) {
       router.push('/404');
     }
-  }, [error?.status]);
+  }, [error?.status, router]);
 
   return (
     <Page title="Search Chef">

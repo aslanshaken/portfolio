@@ -53,7 +53,7 @@ export default function CuisineDialog({ isOpen }) {
               key={_i}
               onClick={() => {
                 dispatch(closeDialog());
-                router.push(`/cities/austin/${item?.id}/`);
+                router.push(`/cities/4/${item?.id}/`);
               }}
               direction={'row'}
               sx={{ width: '100%', justifyContent: 'left', px: 5 }}

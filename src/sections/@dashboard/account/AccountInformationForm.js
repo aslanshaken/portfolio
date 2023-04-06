@@ -14,12 +14,12 @@ import useAuth from 'src/hooks/useAuth';
 
 export default function AccountInformationForm() {
   const [isDisablePersonalInfo, setIsDisablePersonalInfo] = useState(true);
+
   const [isDisableAddress, setIsDisableAddress] = useState(true);
+
   const { successAlert, errorAlert } = useNotify();
 
-  const { user } = useAuth();
-
-  const addresses = {};
+  const { user: userInfo, updateAddress } = useAuth();
 
   const personalInfoScahema = Yup.object().shape({
     custom_vocabulary: Yup.string(),
@@ -33,13 +33,13 @@ export default function AccountInformationForm() {
   });
 
   const personalInfoDefaultValues = {
-    first_name: user?.first_name,
-    last_name: user?.last_name,
-    username: user?.username,
-    phone_number: user?.mobile,
-    email_address: user?.email,
-    instagram: user?.instagram,
-    facebook: user?.facebook,
+    first_name: userInfo?.user?.first_name ?? '',
+    last_name: userInfo?.user?.last_name ?? '',
+    username: userInfo?.user?.username ?? '',
+    phone_number: userInfo?.user?.mobile ?? '',
+    email_address: userInfo?.user?.email ?? '',
+    instagram: userInfo?.user?.instagram ?? '',
+    facebook: userInfo?.user?.facebook ?? '',
   };
 
   const personalInfoMethods = useForm({
@@ -73,11 +73,11 @@ export default function AccountInformationForm() {
   });
 
   const addressDefaultValues = {
-    address: addresses?.address,
-    apartment: addresses?.apartment,
-    state: addresses?.state,
-    city: addresses?.city,
-    zip: addresses?.zip,
+    address: userInfo?.addresses?.[userInfo?.addresses?.length - 1]?.line1 ?? '',
+    apartment: userInfo?.addresses?.[userInfo?.addresses?.length - 1]?.apartment ?? '',
+    state: userInfo?.addresses?.[userInfo?.addresses?.length - 1]?.state ?? '',
+    city: userInfo?.addresses?.[userInfo?.addresses?.length - 1]?.city ?? '',
+    zip: userInfo?.addresses?.[userInfo?.addresses?.length - 1]?.zip ?? '',
   };
 
   const addressMethods = useForm({
@@ -93,26 +93,19 @@ export default function AccountInformationForm() {
   } = addressMethods;
 
   const addressOnSubmit = async (data) => {
+    data.id = userInfo?.addresses?.[userInfo?.addresses?.length - 1]?.id;
     try {
-      const response = await axios.post(`/api/${process.env.API_VERSION}/users/add_address`, {
-        address: {
-          line1: data.address,
-          apartment: data.apartment,
-          state: data.state,
-          city: data.city,
-          zip: data.zip,
-          primary_address: 'true',
-        },
-      });
+      await updateAddress(data);
       successAlert();
     } catch (error) {
       errorAlert(error.message);
     }
   };
 
-  // useEffect(() => {
-  //   reset({ ...defaultValues });
-  // }, [currentData]);
+  useEffect(() => {
+    resetPersonalInfo({ ...personalInfoDefaultValues });
+    resetAddress({ ...addressDefaultValues });
+  }, [userInfo]);
 
   return (
     <>
@@ -126,7 +119,7 @@ export default function AccountInformationForm() {
               sx={{ color: 'black', fontWeight: 'normal' }}
               onClick={() => setIsDisablePersonalInfo(!isDisablePersonalInfo)}
             >
-              edit
+              {isDisablePersonalInfo ? 'edit' : 'disable'}
             </Button>
           </Stack>
 
@@ -145,6 +138,7 @@ export default function AccountInformationForm() {
           {...(!isDisablePersonalInfo && {
             type: 'submit',
           })}
+          disabled={isDisablePersonalInfo}
           variant="outlined"
           loading={personalInfoIsSubmitting}
           // disabled={!personalInfoIsDirty}
@@ -165,7 +159,7 @@ export default function AccountInformationForm() {
               sx={{ color: 'black', fontWeight: 'normal' }}
               onClick={() => setIsDisableAddress(!isDisableAddress)}
             >
-              edit
+              {isDisableAddress ? 'edit' : 'disable'}
             </Button>
           </Stack>
 
@@ -182,6 +176,7 @@ export default function AccountInformationForm() {
           {...(!isDisableAddress && {
             type: 'submit',
           })}
+          disabled={isDisableAddress}
           variant="outlined"
           loading={addressIsSubmitting}
           // disabled={!addressIsDirty}
