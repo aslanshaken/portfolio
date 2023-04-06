@@ -36,7 +36,7 @@ export default function PickDeliverSwitchCard({ isPickup, setIsPickup }) {
 
   const addresses = user?.addresses;
 
-  const deliveryAddress = addresses.find((item) => item?.primary_address == true);
+  const deliveryAddress = addresses?.find((item) => item?.primary_address == true);
 
   useEffect(() => {
     initialState = {

@@ -56,8 +56,7 @@ const slice = createSlice({
     addFoodCart(state, action) {
       if (action.payload.newAddCart) {
         state.checkout.cart = [];
-      }
-      else if (action.payload?.deliveryDate) {
+      } else if (action.payload?.deliveryDate) {
         state.checkout.deliveryDate = action.payload.deliveryDate;
       }
       const newDatas = Array.isArray(action.payload.foods) ? action.payload.foods : [action.payload.foods];
@@ -71,6 +70,11 @@ const slice = createSlice({
         const indexToRemove = state.checkout.cart.findIndex((obj) => obj.id === action.payload.food._id);
         state.checkout.cart.splice(indexToRemove, 1);
       }
+    },
+
+    clearCart(state) {
+      console.log(1232);
+      state.checkout.cart = [];
     },
 
     setError(state, action) {
@@ -89,7 +93,7 @@ const slice = createSlice({
 export default slice.reducer;
 
 // Actions
-export const { startLoading, addFoodCart, removeFoodCart, setError } = slice.actions;
+export const { startLoading, addFoodCart, removeFoodCart, clearCart, setError } = slice.actions;
 
 // Selector
 export const FOOD_SELECTOR = (state) => state.food;
