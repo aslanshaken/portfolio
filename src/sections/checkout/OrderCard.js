@@ -103,7 +103,7 @@ export default function OrderCard() {
       <Stack direction={'row'} justifyContent={'space-between'} mb={2}>
         <Typography variant={'body2'}>{'Total:'}</Typography>
         <Typography fontWeight={'bold'} color={'secondary'}>
-          ${totalPrice + 9.99}
+          ${(totalPrice + 9.99).toFixed(3)}
         </Typography>
       </Stack>
 

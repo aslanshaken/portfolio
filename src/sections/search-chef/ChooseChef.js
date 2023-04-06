@@ -89,6 +89,8 @@ const VisitChefLinkStyle = styled(Link)(() => ({
 // --------------------------------------------
 
 export default function ChooseChef() {
+  const [currentPage, setCurrentPage] = useState(1);
+
   const { chefs } = useSelector(CITYCUISINE_SELECTOR);
 
   const router = useRouter();
@@ -154,7 +156,7 @@ export default function ChooseChef() {
             </Box> */}
           </Stack>
 
-          {chefs?.map((item, _i) => (
+          {chefs?.slice(currentPage === 1 ? 0 : (currentPage - 1) * 10 - 1, 10).map((item, _i) => (
             <NextLink
               key={'chef-link' + _i}
               href={PATH_PAGE.searchChef.cities({ cityId, cuisineId, chefId: item?.chef?.id })}
@@ -240,7 +242,7 @@ export default function ChooseChef() {
             </NextLink>
           ))}
         </Box>
-        <Pagination />
+        {chefs?.length > 10 && <Pagination count={Math.ceil(chefs?.length / 10)} setCurrentPage={setCurrentPage} />}
       </Container>
     </RootStyle>
   );

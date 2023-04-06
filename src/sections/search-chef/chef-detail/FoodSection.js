@@ -373,6 +373,8 @@ const SideBarStyle = styled(Box)(() => ({
 // --------------------------------------------
 
 export default function FoodSection({ selectedCategory }) {
+  const [currentPage, setCurrentPage] = useState(1);
+
   const router = useRouter();
 
   const { cityId, cuisineId, chefId } = router.query;
@@ -539,7 +541,7 @@ export default function FoodSection({ selectedCategory }) {
             </Grid> */}
 
             <Grid container spacing={3} maxWidth={'md'} width={'100%'} mx={'auto'}>
-              {foods?.[selectedCategory]?.map((item) => (
+              {foods?.[selectedCategory]?.slice(currentPage === 1 ? 0 : (currentPage - 1) * 10 - 1, 10).map((item) => (
                 <Grid key={item?.id} item lg={4} md={6} sm={6} xs={12} width={1}>
                   <FoodCartCard
                     name={item?.title}
@@ -558,7 +560,9 @@ export default function FoodSection({ selectedCategory }) {
                 </Grid>
               ))}
             </Grid>
-            <Pagination />
+            {foods?.[selectedCategory]?.length > 10 && (
+              <Pagination count={Math.ceil(foods?.[selectedCategory]?.length / 10)} setCurrentPage={setCurrentPage} />
+            )}
           </Stack>
         </Stack>
       </Container>

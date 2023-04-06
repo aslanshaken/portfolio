@@ -25,11 +25,11 @@ export default function AccountInformationForm() {
     custom_vocabulary: Yup.string(),
     first_name: Yup.string().required('first name is required'),
     last_name: Yup.string().required('last name is required'),
-    username: Yup.string().required('Username is required'),
-    phone_number: Yup.string().required('Phone number is required'),
-    email_address: Yup.string().required('Email address is required'),
-    instagram: Yup.string().required('Instagram is required'),
-    facebook: Yup.string().required('Facebook is required'),
+    username: Yup.string(),
+    phone_number: Yup.string(),
+    email_address: Yup.string(),
+    instagram: Yup.string(),
+    facebook: Yup.string(),
   });
 
   const personalInfoDefaultValues = {
@@ -72,12 +72,14 @@ export default function AccountInformationForm() {
     zip: Yup.number().required('ZIP is required'),
   });
 
+  const address = userInfo?.addresses?.find((item) => item.primary_address == true);
+
   const addressDefaultValues = {
-    address: userInfo?.addresses?.[userInfo?.addresses?.length - 1]?.line1 ?? '',
-    apartment: userInfo?.addresses?.[userInfo?.addresses?.length - 1]?.apartment ?? '',
-    state: userInfo?.addresses?.[userInfo?.addresses?.length - 1]?.state ?? '',
-    city: userInfo?.addresses?.[userInfo?.addresses?.length - 1]?.city ?? '',
-    zip: userInfo?.addresses?.[userInfo?.addresses?.length - 1]?.zip ?? '',
+    address: address?.line1 ?? '',
+    apartment: address?.apartment ?? '',
+    state: address?.state ?? '',
+    city: address?.city ?? '',
+    zip: address?.zip ?? '',
   };
 
   const addressMethods = useForm({
@@ -93,7 +95,7 @@ export default function AccountInformationForm() {
   } = addressMethods;
 
   const addressOnSubmit = async (data) => {
-    data.id = userInfo?.addresses?.[userInfo?.addresses?.length - 1]?.id;
+    data.id = address?.id;
     try {
       await updateAddress(data);
       successAlert();

@@ -1,6 +1,12 @@
 import { Pagination as MUIpagination, PaginationItem } from '@mui/material';
+import { PropTypes } from 'prop-types';
 
-export default function Pagination() {
+Pagination.propTypes = {
+  count: PropTypes.number,
+  setCurrentPage: PropTypes.func,
+};
+
+export default function Pagination({ count, setCurrentPage }) {
   return (
     <MUIpagination
       sx={{
@@ -22,9 +28,10 @@ export default function Pagination() {
         display: 'flex',
         justifyContent: 'end',
         marginBottom: 4,
-        marginTop: 4
+        marginTop: 4,
       }}
-      count={3}
+      onChange={(event, page) => setCurrentPage(page)}
+      count={count}
       variant="outlined"
       shape="rounded"
       color="primary"

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
-import { Avatar, Box, Button, Divider, IconButton, Typography, Hidden, Stack } from '@mui/material';
+import NextLink from 'next/link';
+import { Avatar, Box, Button, Divider, IconButton, Typography, Hidden, Stack, Link } from '@mui/material';
 import Container from '../../../components/Container';
 import Iconify from '../../../components/Iconify';
 import GradientText from '../../../components/GradientText';
@@ -149,11 +150,13 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
                 </Box>
               </Box>
               <Stack direction={'row'} flexWrap={'nowrap'} mt={2} mb={4} spacing={1}>
-                <Image
-                  src={'/assets/search-chef/follow.png'}
-                  sx={{ border: '2px solid', borderRadius: '13px', height: 40, width: 40, cursor: 'pointer' }}
-                  alt={'follow-image'}
-                />
+                <NextLink href={chef?.instagram ?? '#'} passHref>
+                  <Image
+                    src={'/assets/search-chef/follow.png'}
+                    sx={{ border: '2px solid', borderRadius: '13px', height: 40, width: 40, cursor: 'pointer' }}
+                    alt={'follow-image'}
+                  />
+                </NextLink>
                 <IconButton
                   color={'secondary'}
                   sx={{ border: '2px solid', height: 40, width: 40, borderRadius: '13px' }}

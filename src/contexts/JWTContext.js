@@ -59,7 +59,7 @@ const handlers = {
             address_type: null,
             addressable_type: 'User',
             addressable_id: 15,
-            primary_address: false,
+            primary_address: true,
             created_at: '2023-04-04T08:34:27.021Z',
             updated_at: new Date(),
           };
@@ -189,7 +189,7 @@ function AuthProvider({ children }) {
         state: data.state,
         city: data.city,
         zip: data.zip,
-        primary_address: 'false',
+        primary_address: 'true',
       },
     });
 
