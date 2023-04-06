@@ -17,7 +17,7 @@ const RootStyle = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  backgroundColor: theme.palette.secondary.light,
+  backgroundColor: theme.palette.background.default,
   '& img': {
     objectFit: 'contain',
   },
@@ -40,7 +40,7 @@ export default function LoadingScreen() {
           repeat: Infinity,
         }}
       >
-        <Logo disabledLink sx={{ width: 64, height: 64 }} />
+        <Logo type="loading" disabledLink sx={{ width: 128, height: 128 }} />
       </m.div>
 
       <Box
