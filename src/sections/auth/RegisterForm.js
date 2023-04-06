@@ -51,7 +51,7 @@ export default function RegisterForm() {
     try {
       await register(data.firstName, data.lastName, data.email, data.password, data.password_confirmation);
     } catch (error) {
-      setErrorMsg(error);
+      setErrorMsg(error.message);
       // reset();
     }
   };

@@ -51,7 +51,7 @@ export default function LoginForm() {
     try {
       await login(data.email, data.password);
     } catch (error) {
-      setErrorMsg(error);
+      setErrorMsg(error.message);
       reset();
     }
   };
