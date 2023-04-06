@@ -36,6 +36,7 @@ const initialState = {
       //     'http://13.238.200.214//rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBNQT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--a2bc2e3b21d93d8ba828ed20ccb823c0b0aa1519/nici.jpg',
       // },
     ],
+    deliveryDate: null,
     subtotal: 0,
     total: 0,
     discount: 0,
@@ -55,6 +56,9 @@ const slice = createSlice({
     addFoodCart(state, action) {
       if (action.payload.newAddCart) {
         state.checkout.cart = [];
+      }
+      else if (action.payload?.deliveryDate) {
+        state.checkout.deliveryDate = action.payload.deliveryDate;
       }
       const newDatas = Array.isArray(action.payload.foods) ? action.payload.foods : [action.payload.foods];
       state.checkout.cart = [...state.checkout.cart, ...newDatas];

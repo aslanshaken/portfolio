@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import { Avatar, Box, Button, Divider, IconButton, Typography, Hidden, Stack } from '@mui/material';
 import Container from '../../../components/Container';
-import { useRouter } from 'next/router';
 import Iconify from '../../../components/Iconify';
 import GradientText from '../../../components/GradientText';
 import ReadMore from '../../../components/ReadMore';
@@ -10,8 +9,9 @@ import HeroHeader from 'src/components/HeroHeader';
 import { useDispatch, useSelector } from 'src/redux/store';
 import { CITYCUISINE_SELECTOR } from 'src/redux/slices/city';
 import { add, format } from 'date-fns';
-import { useEffect } from 'react';
-import { FOOD_SELECTOR, getFoodsByChef } from 'src/redux/slices/food';
+import { addFoodCart, FOOD_SELECTOR } from 'src/redux/slices/food';
+import { useState } from 'react';
+import ChangeDeliveryDateDialgo from './ChangeDeliveryDateDialgo';
 
 ChefHeader.propTypes = {
   selectedCategory: PropTypes.string,
@@ -25,7 +25,18 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
 
   const chef = useSelector(CITYCUISINE_SELECTOR)?.chef?.chef;
 
+  const { checkout } = useSelector(FOOD_SELECTOR);
+
+  const { cart } = checkout;
+
+  const { availableDate } = checkout;
+
+  const [tempCategory, setTempCategory] = useState();
+
+  const [changeDeliveryDateDialogIsOpen, setChangeDeliveryDateDialogIsOpen] = useState(false);
+
   const today = new Date();
+
   const categories = [
     { id: 0, label: 'Today', date: format(today, 'MM/dd/yy') },
     { id: 1, label: 'Tomorrow', date: format(add(today, { days: 1 }), 'MM/dd/yy') },
@@ -45,8 +56,31 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
     });
   }
 
+  const dispatch = useDispatch();
+
+  const setCategory = () => {
+    setChangeDeliveryDateDialogIsOpen(false);
+    dispatch(addFoodCart({ foods: [], newAddCart: true, deliveryDate: selectedCategory }));
+    setSelectedCategory(tempCategory);
+  };
+
+  const handleClickCategory = (data) => {
+    if (selectedCategory !== availableDate && cart.length !== 0) {
+      setChangeDeliveryDateDialogIsOpen(true);
+      setTempCategory(data);
+    } else {
+      setSelectedCategory(data);
+    }
+  };
+
   return (
     <Container>
+      <ChangeDeliveryDateDialgo
+        open={changeDeliveryDateDialogIsOpen}
+        onSubmit={setCategory}
+        onClose={() => setChangeDeliveryDateDialogIsOpen(false)}
+      />
+
       <HeroHeader city="Austin" cuisine={cuisine?.name} chef={`${chef?.first_name} ${chef?.last_name}`} />
       <Box display={'flex'} mb={4}>
         <Box px={2} width={'100%'}>
@@ -161,7 +195,7 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
                   background: item.date === selectedCategory ? '#B3B3B3' : '#DAEFE5',
                   color: '#31342B',
                 }}
-                onClick={() => setSelectedCategory(item.date)}
+                onClick={() => handleClickCategory(item?.date)}
               >
                 {item.label}
               </Button>

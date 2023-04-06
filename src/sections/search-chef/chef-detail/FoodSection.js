@@ -377,9 +377,9 @@ export default function FoodSection({ selectedCategory }) {
 
   const { chef } = useSelector(CITYCUISINE_SELECTOR).chef ?? [];
 
-  const {
-    checkout: { cart },
-  } = useSelector(FOOD_SELECTOR);
+  const { checkout } = useSelector(FOOD_SELECTOR);
+
+  const {cart} = checkout
 
   const [isHiddenCategory, setIsHiddenCategory] = useState(false);
 
@@ -408,7 +408,7 @@ export default function FoodSection({ selectedCategory }) {
       if (cart.some((item) => item?.user_id !== data?.foods?.[0]?.user_id)) {
         setIsOpenNewCartDlg(true);
       } else {
-        dispatch(addFoodCart({ foods: data.foods, newAddCart: false }));
+        dispatch(addFoodCart({ foods: data.foods, newAddCart: false, deliveryDate: selectedCategory }));
       }
     },
     [cart]
@@ -432,10 +432,11 @@ export default function FoodSection({ selectedCategory }) {
         }}
         onClose={() => setIsOpenCartDlg(false)}
       />
+      
       <NewCartDialog
         open={isOpenNewCartDlg}
         onSubmit={() => {
-          dispatch(addFoodCart({ foods: selectedItemData, newAddCart: true }));
+          dispatch(addFoodCart({ foods: selectedItemData, newAddCart: true, deliveryDate: selectedCategory }));
           setIsOpenNewCartDlg(false);
         }}
         onClose={() => {

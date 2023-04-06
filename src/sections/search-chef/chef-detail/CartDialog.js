@@ -6,12 +6,12 @@ import GradientText from '../../../components/GradientText';
 import Image from '../../../components/Image';
 import { IconButtonAnimate } from '../../../components/animate';
 import Iconify from '../../../components/Iconify';
-import { useDispatch } from '../../../redux/store';
-import { addFoodCart } from '../../../redux/slices/food';
 
 //
 CartDialog.propTypes = {
   data: PropTypes.object,
+  setSelectedItemData: PropTypes.func,
+  onSubmit: PropTypes.func,
 };
 CartDialog.defaultProps = {
   data: {},
@@ -26,13 +26,9 @@ export default function CartDialog({ data, setSelectedItemData, onSubmit, ...oth
   }, [orderCount]);
 
   return (
-    <Dialog maxWidth={'sm'} {...other}>
+    <Dialog maxWidth={'sm'} fullWidth {...other}>
       <Stack>
-        <Image
-          src={data?.image_url}
-          alt="Cuisine Splash"
-          sx={{ width: 1, height: 400 }}
-        />
+        <Image src={data?.image_url} alt="Cuisine Splash" sx={{ width: 1, height: 400 }} />
         <Stack py={3} px={5}>
           <Grid container justifyContent={'space-between'}>
             <Grid item>
