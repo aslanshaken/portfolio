@@ -26,11 +26,13 @@ const inputs = [
 ];
 
 export default function AddressesDialog({ data, onChangeAddress, ...other }) {
-  const { user, updateAddress } = useAuth();
+  const { user, updateAddress, addAddress } = useAuth();
 
   const { successAlert, errorAlert } = useNotify();
 
   const { addresses } = user;
+
+  const address = addresses?.find((item) => item?.primary_address == true);
 
   const schema = Yup.object().shape({
     address: Yup.string().required('Address is required'),
@@ -41,11 +43,11 @@ export default function AddressesDialog({ data, onChangeAddress, ...other }) {
   });
 
   const defaultValues = {
-    address: addresses?.[addresses?.length - 1]?.line1 ?? '',
-    apartment: addresses?.[addresses?.length - 1]?.apartment ?? '',
-    state: addresses?.[addresses?.length - 1]?.state ?? '',
-    city: addresses?.[addresses?.length - 1]?.city ?? '',
-    zip: addresses?.[addresses?.length - 1]?.zip ?? '',
+    address: address?.line1 ?? '',
+    apartment: address?.apartment ?? '',
+    state: address?.state ?? '',
+    city: address?.city ?? '',
+    zip: address?.zip ?? '',
   };
 
   const methods = useForm({
@@ -60,9 +62,13 @@ export default function AddressesDialog({ data, onChangeAddress, ...other }) {
   } = methods;
 
   const onSubmit = async (data) => {
-    data.id = addresses?.[addresses?.length - 1]?.id;
     try {
-      await updateAddress(data);
+      if (address) {
+        data.id = address?.id;
+        await updateAddress(data);
+      } else {
+        await addAddress(data);
+      }
       successAlert();
     } catch (error) {
       errorAlert(error.message);
@@ -82,7 +88,7 @@ export default function AddressesDialog({ data, onChangeAddress, ...other }) {
       <DialogContent>
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
           <Stack spacing={3}>
-            <Typography variant="h3">Add address</Typography>
+            <Typography variant="h3">{address ? 'Edit' : 'Add'} address</Typography>
 
             {inputs.map((item, _i) => (
               <RHFTextField

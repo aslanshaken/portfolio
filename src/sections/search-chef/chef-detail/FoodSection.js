@@ -23,6 +23,8 @@ import { CITYCUISINE_SELECTOR } from 'src/redux/slices/city';
 import { FOOD_SELECTOR } from 'src/redux/slices/food';
 import NewCartDialog from './NewCartDialog';
 import { useRouter } from 'next/router';
+import useAuth from 'src/hooks/useAuth';
+import { PATH_AUTH } from 'src/routes/paths';
 
 // --------------------------------------------
 
@@ -371,15 +373,17 @@ const SideBarStyle = styled(Box)(() => ({
 // --------------------------------------------
 
 export default function FoodSection({ selectedCategory }) {
+  const [currentPage, setCurrentPage] = useState(1);
+
   const router = useRouter();
 
   const { cityId, cuisineId, chefId } = router.query;
 
-  const { chef } = useSelector(CITYCUISINE_SELECTOR).chef ?? [];
+  const { isAuthenticated } = useAuth();
 
-  const {
-    checkout: { cart },
-  } = useSelector(FOOD_SELECTOR);
+  const { checkout } = useSelector(FOOD_SELECTOR);
+
+  const { cart } = checkout;
 
   const [isHiddenCategory, setIsHiddenCategory] = useState(false);
 
@@ -408,7 +412,7 @@ export default function FoodSection({ selectedCategory }) {
       if (cart.some((item) => item?.user_id !== data?.foods?.[0]?.user_id)) {
         setIsOpenNewCartDlg(true);
       } else {
-        dispatch(addFoodCart({ foods: data.foods, newAddCart: false }));
+        dispatch(addFoodCart({ foods: data.foods, newAddCart: false, deliveryDate: selectedCategory }));
       }
     },
     [cart]
@@ -418,7 +422,7 @@ export default function FoodSection({ selectedCategory }) {
 
   useEffect(() => {
     dispatch(getFoodsByChef(cityId, cuisineId, chefId));
-  }, [router.isReady]);
+  }, []);
 
   return (
     <RootStyle>
@@ -432,10 +436,11 @@ export default function FoodSection({ selectedCategory }) {
         }}
         onClose={() => setIsOpenCartDlg(false)}
       />
+
       <NewCartDialog
         open={isOpenNewCartDlg}
         onSubmit={() => {
-          dispatch(addFoodCart({ foods: selectedItemData, newAddCart: true }));
+          dispatch(addFoodCart({ foods: selectedItemData, newAddCart: true, deliveryDate: selectedCategory }));
           setIsOpenNewCartDlg(false);
         }}
         onClose={() => {
@@ -536,7 +541,7 @@ export default function FoodSection({ selectedCategory }) {
             </Grid> */}
 
             <Grid container spacing={3} maxWidth={'md'} width={'100%'} mx={'auto'}>
-              {foods?.[selectedCategory]?.map((item) => (
+              {foods?.[selectedCategory]?.slice(currentPage === 1 ? 0 : (currentPage - 1) * 10 - 1, 10).map((item) => (
                 <Grid key={item?.id} item lg={4} md={6} sm={6} xs={12} width={1}>
                   <FoodCartCard
                     name={item?.title}
@@ -544,12 +549,20 @@ export default function FoodSection({ selectedCategory }) {
                     price={item?.current_price}
                     we_kc={`${item?.gram} gr / ${item?.kc} kc`}
                     onClick={() => handleClickItem(item)}
-                    onClickPlus={() => handleClickAddCart({ foods: [item], newAddCart: false })}
+                    onClickPlus={() => {
+                      if (isAuthenticated) {
+                        handleClickAddCart({ foods: [item], newAddCart: false });
+                      } else {
+                        router.push(PATH_AUTH.login);
+                      }
+                    }}
                   />
                 </Grid>
               ))}
             </Grid>
-            <Pagination />
+            {foods?.[selectedCategory]?.length > 10 && (
+              <Pagination count={Math.ceil(foods?.[selectedCategory]?.length / 10)} setCurrentPage={setCurrentPage} />
+            )}
           </Stack>
         </Stack>
       </Container>

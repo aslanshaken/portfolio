@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 // @mui
-import { Box, Typography, Stack, colors } from '@mui/material';
+import { Box, Typography, Stack } from '@mui/material';
 // routes
 // components
 import Image from './Image';

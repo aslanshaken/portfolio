@@ -6,12 +6,12 @@ import GradientText from '../../../components/GradientText';
 import Image from '../../../components/Image';
 import { IconButtonAnimate } from '../../../components/animate';
 import Iconify from '../../../components/Iconify';
-import { useDispatch } from '../../../redux/store';
-import { addFoodCart } from '../../../redux/slices/food';
 
 //
 CartDialog.propTypes = {
   data: PropTypes.object,
+  setSelectedItemData: PropTypes.func,
+  onSubmit: PropTypes.func,
 };
 CartDialog.defaultProps = {
   data: {},
@@ -19,20 +19,21 @@ CartDialog.defaultProps = {
 
 export default function CartDialog({ data, setSelectedItemData, onSubmit, ...other }) {
   const [orderCount, setOrderCount] = useState(1);
+  const [note, setNote] = useState();
 
   useEffect(() => {
-    const arrDatas = [...Array(orderCount).keys()].map(() => data);
+    setNote(data?.how_to_prepare);
+  }, [other.open]);
+
+  useEffect(() => {
+    const arrDatas = [...Array(orderCount).keys()].map(() => ({ ...data, how_to_prepare: note }));
     setSelectedItemData(arrDatas);
-  }, [orderCount]);
+  }, [orderCount, note, other.open]);
 
   return (
-    <Dialog maxWidth={'sm'} {...other}>
+    <Dialog maxWidth={'sm'} fullWidth {...other}>
       <Stack>
-        <Image
-          src={data?.image_url}
-          alt="Cuisine Splash"
-          sx={{ width: 1, height: 400 }}
-        />
+        <Image src={data?.image_url} alt="Cuisine Splash" sx={{ width: 1, height: 400 }} />
         <Stack py={3} px={5}>
           <Grid container justifyContent={'space-between'}>
             <Grid item>
@@ -41,18 +42,15 @@ export default function CartDialog({ data, setSelectedItemData, onSubmit, ...oth
                   {data?.title}
                 </Typography>
                 <GradientText variant="subtitle1" gutterBottom>
-                  {data?.price}
+                  ${data?.current_price}
                 </GradientText>
-                <Typography variant="body2" color={'secondary'}>
-                  {data?.title}
-                </Typography>
               </Stack>
             </Grid>
             <Grid>
               <CartCountBox value={orderCount} onChange={(val) => setOrderCount(val)} />
             </Grid>
           </Grid>
-          <Stack mt={5}>
+          <Stack mt={2}>
             <Typography variant="subtitle1" gutterBottom>
               {'Description'}
             </Typography>
@@ -85,6 +83,7 @@ export default function CartDialog({ data, setSelectedItemData, onSubmit, ...oth
               {'Notes'}
             </Typography>
             <TextField
+              onChange={(e) => setNote(e.target.value)}
               size="small"
               sx={{ textarea: { fontSize: '0.75rem' } }}
               multiline
@@ -95,7 +94,13 @@ export default function CartDialog({ data, setSelectedItemData, onSubmit, ...oth
 
           <Box mt={8} />
 
-          <LoadingButton variant="contained" color="secondary" onClick={onSubmit}>
+          <LoadingButton
+            variant="contained"
+            color="secondary"
+            onClick={() => {
+              onSubmit();
+            }}
+          >
             {'Add to cart'}
           </LoadingButton>
         </Stack>

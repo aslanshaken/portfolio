@@ -60,7 +60,7 @@ export default function SearchHomeHero() {
             <SearchInput
               icon="ic:outline-location-on"
               placeholder="Enter delivery address"
-              buttonLabel="fIND LOCAL CHEFS"
+              buttonLabel="Find Austin-based chefs"
             />
           </Stack>
         </Stack>

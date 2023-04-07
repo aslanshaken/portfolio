@@ -12,6 +12,8 @@ import WelcomeDialog from 'src/sections/home/WelcomeDialog';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DIALOG_SELECTOR, setInitialized } from 'src/redux/slices/dialog';
+import useAuth from 'src/hooks/useAuth';
+import { clearCart } from 'src/redux/slices/food';
 
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
@@ -24,12 +26,14 @@ HomePage.getLayout = function getLayout(page) {
 
 export default function HomePage() {
   const dispatch = useDispatch();
+  const { isAuthenticated } = useAuth();
   const { initialized } = useSelector(DIALOG_SELECTOR);
   const [welcomeDialogIsOpen, setWelcomeDialogIsOpen] = useState(false);
 
   useEffect(() => {
     if (!initialized) setWelcomeDialogIsOpen(true);
-  }, [initialized]);
+    if (!isAuthenticated) dispatch(clearCart());
+  }, [dispatch, initialized, isAuthenticated]);
 
   useEffect(() => {
     dispatch(setInitialized(true));

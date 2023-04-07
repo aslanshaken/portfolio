@@ -33,10 +33,8 @@ export default function ChefListPage() {
   const { isAuthenticated } = useAuth();
 
   useEffect(() => {
-    if (!isAuthenticated) return;
-
     dispatch(getChefs(cityId, cuisineId));
-  }, [dispatch, router, isAuthenticated, cuisineId]);
+  }, [dispatch, router, isAuthenticated, cityId, cuisineId]);
 
   useEffect(() => {
     if (error?.status == 404) {
@@ -46,7 +44,11 @@ export default function ChefListPage() {
 
   return (
     <Page title="Search Chef">
-      <HeroHeader backgroundImage="/assets/search-chef/chefs/hero-header.png" city="Austin" cuisine={cuisine?.name} />
+      <HeroHeader
+        backgroundImage={cuisine?.image ?? '/assets/search-chef/chefs/hero-header.png'}
+        city="Austin"
+        cuisine={cuisine?.name}
+      />
       <ChooseChef />
     </Page>
   );
