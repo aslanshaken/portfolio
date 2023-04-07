@@ -3,23 +3,24 @@ import { Button, IconButton, Stack, Typography } from '@mui/material';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { FormProvider, RHFTextField } from 'src/components/hook-form';
-import useAuth from 'src/hooks/useAuth';
 import useNotify from 'src/hooks/useNotify';
-import { useEffect } from 'react';
 import Iconify from 'src/components/Iconify';
+import { useDispatch } from 'src/redux/store';
+import { contactUs } from 'src/redux/slices/contact-us';
 
 export default function ContactUsForm() {
   const { successAlert, errorAlert } = useNotify();
+  const dispatch = useDispatch();
 
   const schema = Yup.object().shape({
     full_name: Yup.string().required('Full name is required'),
-    email_address: Yup.string().email().required('Email address is required'),
+    email: Yup.string().email().required('Email address is required'),
     message: Yup.string().required('Message is required'),
   });
 
   const defaultValues = {
     full_name: '',
-    email_address: '',
+    email: '',
     message: '',
   };
 
@@ -36,6 +37,7 @@ export default function ContactUsForm() {
 
   const onSubmit = async (data) => {
     try {
+      dispatch(contactUs(data));
       successAlert();
     } catch (error) {
       errorAlert(error.message);
@@ -69,7 +71,7 @@ export default function ContactUsForm() {
         <RHFTextField
           sx={{ background: 'white' }}
           type={'text'}
-          name={'email_address'}
+          name={'email'}
           label={'Email address'}
           variant="filled"
           size="small"
