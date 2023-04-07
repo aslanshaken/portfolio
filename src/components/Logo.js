@@ -18,7 +18,7 @@ const Logo = forwardRef(({ disabledLink = false, type, sx }, ref) => {
         disabledEffect
         alt="logo"
         src={type == 'loading' ? '/assets/logo-dark-green.png' : '/assets/logo-transperent.png'}
-        sx={{ height: 1, borderRadius: type == 'loading' && '30%' }}
+        sx={{ height: 1, borderRadius: type == 'loading' && '50%' }}
       />
     </Box>
   );

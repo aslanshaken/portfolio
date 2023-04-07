@@ -117,7 +117,7 @@ export default function MainHeader() {
           }),
         }}
       >
-        <Container maxWidth="lg" sx={{height:'100%'}}>
+        <Container maxWidth="lg" sx={{ height: '100%' }}>
           <Box
             sx={{
               position: 'relative',
@@ -127,12 +127,15 @@ export default function MainHeader() {
               height: 1,
             }}
           >
-            {isDesktop && <MenuDesktop isOffset={isOffset} isHome={isHome} navConfig={navConfig} />}
+            {isDesktop && (
+              <MenuDesktop
+                isOffset={isOffset}
+                isHome={isHome}
+                navConfig={navConfig}
+              />
+            )}
 
-            <Box sx={{ flexGrow: 1 }} />
-            <Box
-              sx={{ position: 'absolute', width: '100%', height: '50%', display: 'flex', justifyContent: 'center' }}
-            >
+            <Box sx={{ position: 'absolute', left:'50%' , translate:'-50%', height: '50%', display: 'flex', justifyContent: 'center' }}>
               <Logo />
             </Box>
 

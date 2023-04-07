@@ -1,0 +1,111 @@
+import * as Yup from 'yup';
+import { Button, IconButton, Stack, Typography } from '@mui/material';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
+import { FormProvider, RHFTextField } from 'src/components/hook-form';
+import useAuth from 'src/hooks/useAuth';
+import useNotify from 'src/hooks/useNotify';
+import { useEffect } from 'react';
+import Iconify from 'src/components/Iconify';
+
+export default function ContactUsForm() {
+  const { successAlert, errorAlert } = useNotify();
+
+  const schema = Yup.object().shape({
+    full_name: Yup.string().required('Full name is required'),
+    email_address: Yup.string().email().required('Email address is required'),
+    message: Yup.string().required('Message is required'),
+  });
+
+  const defaultValues = {
+    full_name: '',
+    email_address: '',
+    message: '',
+  };
+
+  const methods = useForm({
+    resolver: yupResolver(schema),
+    defaultValues,
+  });
+
+  const {
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = methods;
+
+  const onSubmit = async (data) => {
+    try {
+      successAlert();
+    } catch (error) {
+      errorAlert(error.message);
+    }
+  };
+
+  return (
+    <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+      <Stack
+        spacing={3}
+        p={6}
+        sx={{
+          borderRadius: 1,
+          background: 'url(/assets/textures/cuisine-cart.png)',
+          padding: 5,
+        }}
+      >
+        <Typography variant="h3" fontWeight={500}>
+          Ask a question
+        </Typography>
+
+        <RHFTextField
+          sx={{ background: 'white' }}
+          type={'text'}
+          name={'full_name'}
+          label={'Full name'}
+          variant="filled"
+          size="small"
+        />
+
+        <RHFTextField
+          sx={{ background: 'white' }}
+          type={'text'}
+          name={'email_address'}
+          label={'Email address'}
+          variant="filled"
+          size="small"
+        />
+
+        <RHFTextField
+          multiline
+          rows={8}
+          sx={{ background: 'white' }}
+          type={'text'}
+          name={'message'}
+          label={'Your message'}
+          variant="filled"
+          size="small"
+        />
+
+        <Stack direction={'row'} justifyContent={'space-between'}>
+          <Button
+            type="submit"
+            size="large"
+            variant="contained"
+            color="primary"
+            sx={{ padding: '20px 40px', width: 'fit-content', borderRadius: 50 }}
+          >
+            Ask a question
+          </Button>
+          <IconButton
+            sx={(theme) => ({ background: theme.palette.gradients.primary })}
+            type="submit"
+            size="large"
+            variant="contained"
+          >
+            <Iconify color={'white'} icon={'material-symbols:phone-enabled'} />
+          </IconButton>
+        </Stack>
+      </Stack>
+    </FormProvider>
+  );
+}

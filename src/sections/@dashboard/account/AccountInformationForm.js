@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as Yup from 'yup';
 // form
 import { useForm } from 'react-hook-form';
@@ -9,7 +9,6 @@ import { Box, Button, Stack, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // hooks
 import useNotify from 'src/hooks/useNotify';
-import axios from 'src/utils/axios';
 import useAuth from 'src/hooks/useAuth';
 
 export default function AccountInformationForm() {

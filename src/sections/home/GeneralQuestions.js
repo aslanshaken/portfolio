@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
-import Accordion from '@mui/material/Accordion';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import AccordionSummary from '@mui/material/AccordionSummary';
+import React from 'react';
 import Typography from '@mui/material/Typography';
-import Iconify from 'src/components/Iconify';
 import Container from 'src/components/Container';
 import styled from '@emotion/styled';
+import AccordionGroup from 'src/components/AccordionGroup';
 
 const accordions = [
   {
@@ -43,37 +40,13 @@ const RootStyle = styled('div')(() => ({
 }));
 
 export default function GeneralQuestions() {
-  const [expanded, setExpanded] = useState(0);
-  const handleChange = (index, status) => {
-    if (status) setExpanded(index);
-    else setExpanded(0);
-  };
-
   return (
     <RootStyle>
       <Container>
         <Typography textAlign={'center'} variant={'h3'} mb={4}>
           General questions
         </Typography>
-        {accordions.map((item, _i) => (
-          <Accordion
-            key={`panel${_i}`}
-            expanded={expanded === _i + 1}
-            onChange={(ev, status) => handleChange(_i + 1, status)}
-            sx={{ background: 'transparent' }}
-          >
-            <AccordionSummary
-              expandIcon={<Iconify icon={'material-symbols:keyboard-arrow-up'} width={20} height={20} />}
-              aria-controls="panel1a-content"
-              id="panel1a-header"
-            >
-              <Typography variant="subtitle1">{item.title}</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography variant="caption">{item.content}</Typography>
-            </AccordionDetails>
-          </Accordion>
-        ))}
+        <AccordionGroup data={accordions} />
       </Container>
     </RootStyle>
   );
