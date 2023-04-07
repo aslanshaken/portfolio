@@ -8,7 +8,7 @@ import Image from './Image';
 
 // ----------------------------------------------------------------------
 
-const Logo = forwardRef(({ disabledLink = false, type, sx }, ref) => {
+const Logo = forwardRef(({ disabledLink = false, type = '', sx }, ref) => {
   // OR
   // const logo = '/logo/logo_single.svg';
 
@@ -33,6 +33,7 @@ const Logo = forwardRef(({ disabledLink = false, type, sx }, ref) => {
 Logo.propTypes = {
   disabledLink: PropTypes.bool,
   sx: PropTypes.object,
+  type: PropTypes.string
 };
 
 export default Logo;

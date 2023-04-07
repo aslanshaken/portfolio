@@ -48,7 +48,8 @@ export default function ContactUsForm() {
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Stack
         spacing={3}
-        p={6}
+        py={6}
+        px={{ xs: 2, sm: 6, md: 2, lg: 6 }}
         sx={{
           borderRadius: 1,
           background: 'url(/assets/textures/cuisine-cart.png)',
