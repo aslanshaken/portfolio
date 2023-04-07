@@ -35,7 +35,7 @@ export default function AccordionGroup({ data = [] }) {
           sx={{ background: 'transparent' }}
         >
           <AccordionSummary
-            expandIcon={<Iconify icon={'material-symbols:keyboard-arrow-up'} width={20} height={20} />}
+            expandIcon={<Iconify icon={'material-symbols:keyboard-arrow-down'} width={20} height={20} />}
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
