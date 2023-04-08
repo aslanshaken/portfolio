@@ -2,6 +2,11 @@ import { Chip, Divider, Stack, styled, Typography } from '@mui/material';
 import Avatar from 'src/components/Avatar';
 import Image from 'src/components/Image';
 import { HEADER } from 'src/config';
+import useAuth from 'src/hooks/useAuth';
+import { FOOD_SELECTOR } from 'src/redux/slices/food';
+import { useSelector } from 'src/redux/store';
+import { parse, format } from 'date-fns';
+import { CITYCUISINE_SELECTOR } from 'src/redux/slices/city';
 
 const RootStyle = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -12,6 +17,14 @@ const RootStyle = styled('div')(({ theme }) => ({
 }));
 
 export default function ConfirmInfo({ isPickup }) {
+  const { user } = useAuth();
+  const { checkout } = useSelector(FOOD_SELECTOR);
+  const { deliveryDate } = checkout;
+  const date = parse(deliveryDate, 'MM/dd/yy', new Date());
+  const orderDate = format(new Date(date), 'MMMM d, yyyy');
+  const { chef } = useSelector(CITYCUISINE_SELECTOR);
+  const chefInfo = chef?.chef;
+
   return (
     <RootStyle>
       <Stack py={8} px={3} spacing={4}>
@@ -26,7 +39,9 @@ export default function ConfirmInfo({ isPickup }) {
 
         <Stack whiteSpace={'nowrap'} direction={'row'} flexWrap={'wrap'} justifyContent={'space-between'} gap={6}>
           <Stack spacing={1} display={{ xs: 'none', md: 'block' }}>
-            <Typography variant="subtitle1">Hello Michael,</Typography>
+            <Typography variant="subtitle1">
+              Hello {user?.user?.first_name} {user?.user?.last_name},
+            </Typography>
             <Typography variant="body2" color={'text.secondary'}>
               Your order has been confirmed
             </Typography>
@@ -35,7 +50,7 @@ export default function ConfirmInfo({ isPickup }) {
             <Typography variant="body2" color={'text.secondary'}>
               Order date
             </Typography>
-            <Typography variant="subtitle1">January 12, 2023</Typography>
+            <Typography variant="subtitle1">{orderDate}</Typography>
           </Stack>
           <Stack spacing={1}>
             <Typography variant="body2" color={'text.secondary'}>
@@ -60,26 +75,21 @@ export default function ConfirmInfo({ isPickup }) {
               <Typography variant="body2" color={'text.secondary'}>
                 Shopping Address
               </Typography>
-              <Typography variant="subtitle1">12 Rd Avenue, San Antonio, TX, 13294, US</Typography>
+              <Typography variant="subtitle1">
+                {chefInfo?.primary_address?.line1}, {chefInfo?.primary_address?.apartment},
+                {chefInfo?.primary_address?.state},{chefInfo?.primary_address?.city},{chefInfo?.primary_address?.zip}
+              </Typography>
             </Stack>
           </Stack>
         </Stack>
 
         <Divider />
 
-        <Stack whiteSpace={'nowrap'} direction={'row'} flexWrap={'wrap'} gap={10} display={{ xs: 'none', md: 'flex' }}>
-          <Stack spacing={1}>
-            <Typography variant="body2" color={'text.secondary'}>
-              {isPickup ? 'Pick Up' : 'Delivery'} Address
-            </Typography>
-            <Typography variant="subtitle1">12 Rd Avenue, San Antonio, TX, 13294, US</Typography>
-          </Stack>
-          <Stack spacing={1}>
-            <Typography variant="body2" color={'text.secondary'}>
-              {isPickup ? 'Pick Up' : 'Delivery'} Time
-            </Typography>
-            <Typography variant="subtitle1">9AM - 11 AM</Typography>
-          </Stack>
+        <Stack display={{ xs: 'none', md: 'flex' }} spacing={1}>
+          <Typography variant="body2" color={'text.secondary'}>
+            {isPickup ? 'Pick Up' : 'Delivery'} Address
+          </Typography>
+          <Typography variant="subtitle1">12 Rd Avenue, San Antonio, TX, 13294, US</Typography>
         </Stack>
 
         <Divider sx={{ display: { xs: 'none', md: 'block' } }} />
@@ -96,14 +106,14 @@ export default function ConfirmInfo({ isPickup }) {
             <Stack direction={'row'} alignItems={'center'} spacing={2}>
               <Avatar
                 alt="Travis Howard"
-                src={`/assets/search-chef/chefs/adam-sandler.png`}
+                src={chefInfo?.image_url}
                 sx={{
                   width: 60,
                   height: 60,
                 }}
               />
               <Typography variant="body2" color={'text.secondary'} fontWeight={'600'}>
-                Michael
+                {chefInfo?.first_name} {chefInfo?.last_name}
               </Typography>
             </Stack>
           </Stack>

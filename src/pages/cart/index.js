@@ -9,13 +9,13 @@ import Container from '../../components/Container';
 
 // ----------------------------------------------------------------------
 
-CitiesPage.getLayout = function getLayout(page) {
+CartPage.getLayout = function getLayout(page) {
   return <Layout variant="main">{page}</Layout>;
 };
 
 // ----------------------------------------------------------------------
 
-export default function CitiesPage() {
+export default function CartPage() {
   return (
     <Page title="Cart" gutterTop>
       <Container sx={{ py: 10 }}>

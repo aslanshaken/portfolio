@@ -8,13 +8,18 @@ import Image from './Image';
 
 // ----------------------------------------------------------------------
 
-const Logo = forwardRef(({ disabledLink = false, sx }, ref) => {
+const Logo = forwardRef(({ disabledLink = false, type = '', sx }, ref) => {
   // OR
   // const logo = '/logo/logo_single.svg';
 
   const logo = (
     <Box ref={ref} sx={{ height: 1, cursor: 'pointer', ...sx }}>
-      <Image disabledEffect alt="logo" src={'/assets/logo-white.png'} sx={{ height: 1 }} />
+      <Image
+        disabledEffect
+        alt="logo"
+        src={type == 'loading' ? '/assets/logo-dark-green.png' : '/assets/logo-transperent.png'}
+        sx={{ height: 1, borderRadius: type == 'loading' && '50%' }}
+      />
     </Box>
   );
 
@@ -28,6 +33,7 @@ const Logo = forwardRef(({ disabledLink = false, sx }, ref) => {
 Logo.propTypes = {
   disabledLink: PropTypes.bool,
   sx: PropTypes.object,
+  type: PropTypes.string
 };
 
 export default Logo;

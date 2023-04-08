@@ -71,7 +71,7 @@ export default function ForgotPass() {
   return (
     <Page title="Forgot Password" gutterTop>
       <RootStyle>
-        <Container maxWidth={'xl'} sx={{ pt: 3 }}>
+        <Container maxWidth={'md'} sx={{ pt: 3 }}>
           <GradientText variant="h2" color="secondary" mb={2} className="forgot-title">
             Forgot your password?
           </GradientText>
