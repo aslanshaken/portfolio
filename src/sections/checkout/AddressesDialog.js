@@ -8,6 +8,8 @@ import { FormProvider, RHFTextField } from 'src/components/hook-form';
 import useAuth from 'src/hooks/useAuth';
 import useNotify from 'src/hooks/useNotify';
 import { useEffect } from 'react';
+import { useSelector } from 'src/redux/store';
+import { FOOD_SELECTOR } from 'src/redux/slices/food';
 
 //
 AddressesDialog.propTypes = {
@@ -26,13 +28,13 @@ const inputs = [
 ];
 
 export default function AddressesDialog({ data, onChangeAddress, ...other }) {
-  const { user, updateAddress, addAddress } = useAuth();
+  const { updateAddress, addAddress } = useAuth();
 
   const { successAlert, errorAlert } = useNotify();
 
-  const { addresses } = user;
+  const { checkout } = useSelector(FOOD_SELECTOR);
 
-  const address = addresses?.find((item) => item?.primary_address == true);
+  const address = checkout?.orderDetail?.address;
 
   const schema = Yup.object().shape({
     address: Yup.string().required('Address is required'),
@@ -42,17 +44,8 @@ export default function AddressesDialog({ data, onChangeAddress, ...other }) {
     zip: Yup.string().required('Zip is required'),
   });
 
-  const defaultValues = {
-    address: address?.line1 ?? '',
-    apartment: address?.apartment ?? '',
-    state: address?.state ?? '',
-    city: address?.city ?? '',
-    zip: address?.zip ?? '',
-  };
-
   const methods = useForm({
     resolver: yupResolver(schema),
-    defaultValues,
   });
 
   const {
@@ -77,8 +70,14 @@ export default function AddressesDialog({ data, onChangeAddress, ...other }) {
   };
 
   useEffect(() => {
-    reset({ ...defaultValues });
-  }, [addresses]);
+    reset({
+      address: address?.line1 ?? '',
+      apartment: address?.apartment ?? '',
+      state: address?.state ?? '',
+      city: address?.city ?? '',
+      zip: address?.zip ?? '',
+    });
+  }, [address, reset]);
 
   return (
     <Dialog maxWidth={'sm'} fullWidth {...other}>

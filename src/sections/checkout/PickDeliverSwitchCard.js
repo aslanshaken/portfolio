@@ -6,6 +6,7 @@ import AddressesDialog from './AddressesDialog';
 import { useSelector } from 'src/redux/store';
 import { CITYCUISINE_SELECTOR } from 'src/redux/slices/city';
 import useAuth from 'src/hooks/useAuth';
+import { FOOD_SELECTOR } from 'src/redux/slices/food';
 
 const RootStyle = styled(Stack)(({ theme }) => ({
   padding: theme.spacing(3),
@@ -28,15 +29,13 @@ PickDeliverSwitchCard.propTypes = {
 };
 
 export default function PickDeliverSwitchCard({ isPickup, setIsPickup }) {
-  const { chef } = useSelector(CITYCUISINE_SELECTOR);
+  const { checkout } = useSelector(FOOD_SELECTOR);
 
-  const pickupAddress = chef?.chef?.primary_address;
+  const { orderDetail } = checkout;
 
-  const { user } = useAuth();
+  const pickupAddress = orderDetail?.pickup_address;
 
-  const addresses = user?.addresses;
-
-  const deliveryAddress = addresses?.find((item) => item?.primary_address == true);
+  const deliveryAddress = orderDetail?.address;
 
   useEffect(() => {
     initialState = {

@@ -3,18 +3,47 @@ import { Box, Stack, Typography } from '@mui/material';
 import CuisineList from './CuisineList';
 import ProfileCover from './ProfileCover';
 import NextLink from 'next/link';
-import { useSelector } from 'src/redux/store';
-import { FOOD_SELECTOR } from 'src/redux/slices/food';
+import { useDispatch, useSelector } from 'src/redux/store';
+import { createOrders, FOOD_SELECTOR } from 'src/redux/slices/food';
+import { CITYCUISINE_SELECTOR } from 'src/redux/slices/city';
+import { useRouter } from 'next/router';
 
 //
 export default function CartChef() {
-  const {
-    checkout: { cart },
-  } = useSelector(FOOD_SELECTOR);
+  const { chef } = useSelector(CITYCUISINE_SELECTOR);
+
+  const { checkout } = useSelector(FOOD_SELECTOR);
+
+  const { cart, deliveryDate } = checkout;
+
+  const router = useRouter();
+
+  const dispatch = useDispatch();
+
+  const cartArr = cart?.reduce((acc, curr) => {
+    // Find the object in acc array with same id and name
+    const foundObj = acc.find((obj) => obj.id === curr.id);
+
+    // If object is present increment the count else add the current object into accumulator array
+    if (foundObj) {
+      foundObj.count++;
+    } else {
+      acc.push({ ...curr, count: 1 });
+    }
+
+    return acc;
+  }, []);
+
+  const handleClickCreateOrders = async () => {
+    const response = await dispatch(
+      createOrders({ chefId: chef?.chef?.id, carts: cartArr, selectedDay: new Date(deliveryDate) })
+    );
+    router.push('/cities/4/4/2/checkout/');
+  };
 
   return (
     <Stack>
-      {cart.length == 0 ? (
+      {cart?.length == 0 ? (
         <Typography variant="h3">Cart is empty.</Typography>
       ) : (
         <>
@@ -24,11 +53,9 @@ export default function CartChef() {
           <Box mt={5} />
 
           <Stack px={{ sm: 8 }}>
-            <NextLink href="/cities/4/ukrainian-cuisine/adam-sandler/checkout/" passHref>
-              <LoadingButton size="large" variant="outlined" sx={{ color: 'black' }}>
-                Checkout ({cart.length})
-              </LoadingButton>
-            </NextLink>
+            <LoadingButton size="large" variant="outlined" sx={{ color: 'black' }} onClick={handleClickCreateOrders}>
+              Checkout ({cart.length})
+            </LoadingButton>
           </Stack>
         </>
       )}

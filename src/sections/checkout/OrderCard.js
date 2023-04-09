@@ -13,8 +13,8 @@ import {
 import Iconify from 'src/components/Iconify';
 import NextLink from 'next/link';
 import { useDispatch, useSelector } from 'src/redux/store';
-import { createOrders, FOOD_SELECTOR } from 'src/redux/slices/food';
-import { CITYCUISINE_SELECTOR } from 'src/redux/slices/city';
+import { addTips, FOOD_SELECTOR } from 'src/redux/slices/food';
+import { useState } from 'react';
 
 //
 
@@ -32,32 +32,16 @@ const TopBottomButtonStyle = styled(ButtonGroup)(({ theme }) => ({
 }));
 
 export default function OrderCard() {
-  const { chef } = useSelector(CITYCUISINE_SELECTOR);
-
   const { checkout } = useSelector(FOOD_SELECTOR);
 
-  const { cart } = checkout;
+  const { orderDetail, orderId } = checkout;
 
   const dispatch = useDispatch();
 
-  const cartArr = cart?.reduce((acc, curr) => {
-    // Find the object in acc array with same id and name
-    const foundObj = acc.find((obj) => obj.id === curr.id);
+  const [tips, setTips] = useState(orderDetail?.tips ?? 0);
 
-    // If object is present increment the count else add the current object into accumulator array
-    if (foundObj) {
-      foundObj.count++;
-    } else {
-      acc.push({ ...curr, count: 1 });
-    }
-
-    return acc;
-  }, []);
-
-  const totalPrice = cart?.reduce((accumulator, item) => accumulator + item.current_price, 0);
-
-  const handleClickCreateOrders = () => {
-    dispatch(createOrders({ chefId: chef?.chef?.id, carts: cartArr }));
+  const handleClickOrder = () => {
+    dispatch(addTips({ orderId: orderId, tips: tips }));
   };
 
   return (
@@ -74,12 +58,12 @@ export default function OrderCard() {
 
       <Box mt={5} />
 
-      {cartArr?.map((item) => (
-        <Stack key={item?.id} direction={'row'} justifyContent={'space-between'} mb={2}>
+      {orderDetail?.items?.map((item, _i) => (
+        <Stack key={_i} direction={'row'} justifyContent={'space-between'} mb={2}>
           <Typography variant={'body2'} color={'text.secondary'}>
             {item?.title}
           </Typography>
-          <Typography>${item?.current_price * item?.count}</Typography>
+          <Typography>${item?.cost}</Typography>
         </Stack>
       ))}
 
@@ -87,7 +71,7 @@ export default function OrderCard() {
       <Stack direction={'row'} justifyContent={'space-between'} mb={2}>
         <Typography variant={'body2'}>{'Subtotal:'}</Typography>
         <Typography fontWeight={'bold'} color={'secondary'}>
-          ${totalPrice}
+          ${orderDetail?.sub_total}
         </Typography>
       </Stack>
 
@@ -95,7 +79,7 @@ export default function OrderCard() {
       <Stack direction={'row'} justifyContent={'space-between'} mb={2}>
         <Typography variant={'body2'}>{'Service Fee:'}</Typography>
         <Typography fontWeight={'bold'} color={'secondary'}>
-          {'$9.99'}
+          ${orderDetail?.shipping_charge}
         </Typography>
       </Stack>
 
@@ -103,7 +87,7 @@ export default function OrderCard() {
       <Stack direction={'row'} justifyContent={'space-between'} mb={2}>
         <Typography variant={'body2'}>{'Total:'}</Typography>
         <Typography fontWeight={'bold'} color={'secondary'}>
-          ${(totalPrice + 9.99).toFixed(3)}
+          ${orderDetail?.order_total}
         </Typography>
       </Stack>
 
@@ -115,12 +99,24 @@ export default function OrderCard() {
         {'Tips'}
       </Typography>
       <Stack direction={'row'} spacing={1} alignItems={'center'}>
-        <TextField fullWidth label={'Fair enough'} variant={'filled'} size={'small'} />
+        <TextField
+          fullWidth
+          type={'number'}
+          value={tips}
+          label={'Fair enough'}
+          variant={'filled'}
+          size={'small'}
+          onChange={(e) => setTips(parseFloat(e.target.value))}
+        />
         <TopBottomButtonStyle orientation={'vertical'} color={'inherit'}>
-          <Button>
+          <Button onClick={() => setTips(tips + 1)}>
             <Iconify icon={'material-symbols:keyboard-arrow-up-rounded'} sx={{ height: 24 }} />
           </Button>
-          <Button>
+          <Button
+            onClick={() => {
+              if (tips > 0) setTips(tips - 1);
+            }}
+          >
             <Iconify icon={'material-symbols:keyboard-arrow-down-rounded'} sx={{ height: 24 }} />
           </Button>
         </TopBottomButtonStyle>
@@ -153,7 +149,7 @@ export default function OrderCard() {
       <Box mt={5} />
 
       <NextLink href="/cities/4/ukrainian-cuisine/adam-sandler/checkout/confirm" passHref>
-        <Button size="large" variant={'contained'} sx={{ borderRadius: '30px' }} onClick={handleClickCreateOrders}>
+        <Button size="large" variant={'contained'} sx={{ borderRadius: '30px' }} onClick={handleClickOrder}>
           ORDER
         </Button>
       </NextLink>

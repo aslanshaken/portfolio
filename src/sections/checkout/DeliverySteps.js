@@ -8,22 +8,26 @@ import SchedulePanel from './SchedulePanel';
 import { useSelector } from 'src/redux/store';
 import { FOOD_SELECTOR } from 'src/redux/slices/food';
 import { parse, format } from 'date-fns';
+import { useEffect } from 'react';
 
 //
 export default function DeliverySteps({ address, isPickup }) {
   const [isOpenPaymentDialog, setIsOpenPaymentDialog] = useState(false);
   const [isOpenSchedulePanel, setIsOpenSchedulePanel] = useState(false);
   const [isOpenNotesPanel, setIsOpenNotesPanel] = useState(false);
-  const {checkout} = useSelector(FOOD_SELECTOR);
-  const {deliveryDate} = checkout;
-  const date = parse(deliveryDate, 'MM/dd/yy', new Date());
-  const formattedDate = format(new Date(date), 'EEEE, MMM d');
+  const { checkout } = useSelector(FOOD_SELECTOR);
+  const selectedDay = checkout?.orderDetail?.items[0]?.selected_day;
+  const [selectedDate, setSelectedDate] = useState();
+
+  useEffect(() => {
+    if (selectedDay) setSelectedDate(format(new Date(selectedDay), 'EEEE, MMM d'));
+  }, [selectedDay]);
 
   const STEPS = [
     {
       icon: 'uil:schedule',
       title: `${isPickup ? 'Pick Up Schedule' : 'Delivery Schedule'}`,
-      subtitle: `${formattedDate}`,
+      subtitle: `${selectedDate}`,
       // content: 'Please select time',
       buttonText: '',
       onClickButton: () => {
@@ -46,7 +50,9 @@ export default function DeliverySteps({ address, isPickup }) {
       icon: 'jam:pen',
       title: 'Notes',
       subtitle: '',
-      content: `Is there anything else you'd like us to know about ?`,
+      content: ` ${
+        checkout?.orderDetail?.delivery_instructions ?? `Is there anything else you'd like us to know about ?`
+      }`,
       buttonText: 'Change',
       onClickButton: () => {
         setIsOpenNotesPanel(true);
