@@ -6,6 +6,9 @@ import GradientText from '../../../components/GradientText';
 import Image from '../../../components/Image';
 import { IconButtonAnimate } from '../../../components/animate';
 import Iconify from '../../../components/Iconify';
+import useAuth from 'src/hooks/useAuth';
+import { useRouter } from 'next/router';
+import { PATH_AUTH } from 'src/routes/paths';
 
 //
 CartDialog.propTypes = {
@@ -18,6 +21,10 @@ CartDialog.defaultProps = {
 };
 
 export default function CartDialog({ data, setSelectedItemData, onSubmit, ...other }) {
+  const { isAuthenticated } = useAuth();
+
+  const router = useRouter();
+
   const [orderCount, setOrderCount] = useState(1);
   const [note, setNote] = useState();
 
@@ -98,7 +105,11 @@ export default function CartDialog({ data, setSelectedItemData, onSubmit, ...oth
             variant="contained"
             color="secondary"
             onClick={() => {
-              onSubmit();
+              if (isAuthenticated) {
+                onSubmit();
+              } else {
+                router.push(PATH_AUTH.login);
+              }
             }}
           >
             {'Add to cart'}

@@ -6,7 +6,7 @@ import Page from '../../../../components/Page';
 import ChooseChef from '../../../../sections/search-chef/ChooseChef';
 import HeroHeader from '../../../../components/HeroHeader';
 import { useSelector } from 'src/redux/store';
-import { CITYCUISINE_SELECTOR, getChefs } from 'src/redux/slices/city';
+import { CITYCUISINE_SELECTOR, getChefs, getCity } from 'src/redux/slices/city';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
@@ -34,6 +34,7 @@ export default function ChefListPage() {
 
   useEffect(() => {
     dispatch(getChefs(cityId, cuisineId));
+    dispatch(getCity(router.query.cityId));
   }, [dispatch, router, isAuthenticated, cityId, cuisineId]);
 
   useEffect(() => {

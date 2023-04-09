@@ -9,6 +9,7 @@ const initialState = {
   loading: false,
   error: null,
   foods: [],
+  popularFoods: [],
   food: null,
   sortBy: null,
   filters: {
@@ -68,7 +69,12 @@ const slice = createSlice({
 
     getFoodsSuccess(state, action) {
       state.loading = false;
-      state.foods = action.payload.data;
+      state.foods = action.payload;
+    },
+
+    getPopularFoodsSuccess(state, action) {
+      state.loading = false;
+      state.popularFoods = action.payload;
     },
 
     setOrderId(state, action) {
@@ -141,7 +147,7 @@ export function getFoodsByChef(cityId, cuisineId, chefId) {
       const response = await axios.get(
         `/api/${process.env.API_VERSION}/cities/${cityId}/cuisines/${cuisineId}/chefs/${chefId}`
       );
-      dispatch(slice.actions.getFoodsSuccess(response.data));
+      dispatch(slice.actions.getFoodsSuccess(response.data.data));
     } catch (error) {
       dispatch(slice.actions.setError(error));
     }
@@ -187,6 +193,20 @@ export function updateDeliveryInstructions(data) {
       );
       dispatch(slice.actions.setDeliveryInstructions(data.note));
       return response.data;
+    } catch (error) {
+      dispatch(slice.actions.setError(error));
+    }
+  };
+}
+
+//
+// ----------------------------------------------------------------------
+export function getPopularFoods() {
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try {
+      const response = await axios.get(`/api/${process.env.API_VERSION}/foods`);
+      dispatch(slice.actions.getPopularFoodsSuccess(response.data.foods?.sort(() => Math.random() - 0.5)));
     } catch (error) {
       dispatch(slice.actions.setError(error));
     }

@@ -41,6 +41,12 @@ const slice = createSlice({
     },
 
     //
+    getCitySuccess(state, action) {
+      state.loading = false;
+      state.city = action.payload;
+    },
+
+    //
     getCuisinesSuccess(state, action) {
       state.loading = false;
       state.cuisines = action.payload;
@@ -82,7 +88,7 @@ export function getCities() {
     dispatch(startLoading());
     try {
       const response = await axios.get(`/api/${process.env.API_VERSION}/cities`);
-      dispatch(slice.actions.getCitiesSuccess(response.data));
+      dispatch(slice.actions.getCitiesSuccess(response.data.cities));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }
@@ -113,6 +119,20 @@ export function getChefs(cityId = null, cuisineId = null, chefId = null) {
       dispatch(slice.actions.getChefsSuccess(response.data));
       if (cuisineId) dispatch(slice.actions.getCuisine(cuisineId));
       if (chefId) dispatch(slice.actions.getChef(chefId));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+//
+// ----------------------------------------------------------------------
+export function getCity(cityId) {
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try {
+      const response = await axios.get(`/api/${process.env.API_VERSION}/cities`);
+      const city = response.data.cities.find(({ id }) => id == cityId);
+      dispatch(slice.actions.getCitySuccess(city));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }

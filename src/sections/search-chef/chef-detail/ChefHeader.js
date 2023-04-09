@@ -36,26 +36,13 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
 
   const [changeDeliveryDateDialogIsOpen, setChangeDeliveryDateDialogIsOpen] = useState(false);
 
-  const today = new Date();
-
-  const categories = [
-    { id: 0, label: 'Today', date: format(today, 'MM/dd/yy') },
-    { id: 1, label: 'Tomorrow', date: format(add(today, { days: 1 }), 'MM/dd/yy') },
-  ];
-
-  for (let i = 2; i < 7; i++) {
-    const date = new Date();
-    date.setDate(date.getDate() + i);
-
-    const month = date.toLocaleString('default', { month: 'short' });
-    const day = date.getDate();
-
-    categories.push({
-      id: i,
-      label: `${month} ${day}`,
-      date: format(date.setDate(date.getDate()), 'MM/dd/yy'),
-    });
-  }
+  const categories = Object.keys(foods)
+    .sort((a, b) => new Date(a) - new Date(b))
+    .map((key, _i) => ({
+      id: _i,
+      label: format(new Date(key), 'MM/dd/yy'),
+      date: format(new Date(key), 'MM/dd/yy'),
+    }));
 
   const dispatch = useDispatch();
 
@@ -182,13 +169,13 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
                 Available dates
               </Typography>
             </Box>
-            <Box
-              display={'flex'}
+            <Stack
+              direction="row"
+              spacing={2}
               position={'relative'}
               zIndex={10}
               justifyContent={'space-between'}
               overflow={'auto'}
-              gap={2}
               py={2}
             >
               {categories.map((item) => (
@@ -210,7 +197,7 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
                   {item.label}
                 </Button>
               ))}
-            </Box>
+            </Stack>
           </Box>
           <Divider />
         </Box>

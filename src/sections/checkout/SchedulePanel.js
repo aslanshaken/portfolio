@@ -5,6 +5,8 @@ import { useState } from 'react';
 import { Box } from '@mui/system';
 import { StaticDatePicker } from '@mui/lab';
 import styled from '@emotion/styled';
+import { useSelector } from 'src/redux/store';
+import { FOOD_SELECTOR } from 'src/redux/slices/food';
 
 //
 SchedulePanel.propTypes = {
@@ -91,9 +93,12 @@ const DatePicker = styled('div')(({ theme }) => ({
   },
 }));
 
-export default function SchedulePanel({isPickup, onClose}) {
+export default function SchedulePanel({ isPickup, onClose }) {
+  const { checkout } = useSelector(FOOD_SELECTOR);
+
+  const dateSchedule = new Date(checkout.orderDetail.items[0].selected_day);
+
   const [activedTime, setAcitvedTime] = useState(times[1].id);
-  const [date, setDate] = useState(new Date());
 
   return (
     <Card>
@@ -109,10 +114,10 @@ export default function SchedulePanel({isPickup, onClose}) {
               renderInput={(params) => <Box {...params} />}
               dayOfWeekFormatter={(day) => day.charAt(0).toUpperCase()}
               showDaysOutsideCurrentMonth
-              value={date}
-              onChange={(newValue) => {
-                setDate(newValue);
-              }}
+              value={dateSchedule}
+              // onChange={(newValue) => {
+              //   setDate(newValue);
+              // }}
             />
           </DatePicker>
         </Box>

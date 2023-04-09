@@ -86,40 +86,44 @@ export default function PickDeliverSwitchCard({ isPickup, setIsPickup }) {
                   {pickupAddress?.zip + ' ' + pickupAddress?.line1}
                 </Typography>
                 <Typography variant={'caption'} maxWidth={200}>
-                  {pickupAddress?.apartment + ', ' + pickupAddress?.state + ', ' + pickupAddress?.city}
+                  {pickupAddress?.apartment + ' ' + pickupAddress?.state + ' ' + pickupAddress?.city}
                 </Typography>
               </Stack>
-            ) : address?.address != '' ? (
-              <Box display={'flex'} gap={4}>
-                <Stack>
-                  <Typography variant={'caption'} maxWidth={200}>
-                    {address?.zip + ' ' + address?.address}
-                  </Typography>
-                  <Typography variant={'caption'} maxWidth={200}>
-                    {address?.apartment + ', ' + address?.state + ', ' + address?.city}
-                  </Typography>
-                </Stack>
-                <Typography
-                  variant={'caption'}
-                  sx={{ cursor: 'pointer' }}
-                  onClick={() => {
-                    setIsOpenAddressesDialog(true);
-                  }}
-                >
-                  {'edit'}
-                </Typography>
-              </Box>
             ) : (
-              <Typography
-                variant={'caption'}
-                fontWeight={'600'}
-                sx={{ cursor: 'pointer', mt: 2 }}
-                onClick={() => {
-                  setIsOpenAddressesDialog(true);
-                }}
-              >
-                {'Add address'}
-              </Typography>
+              <>
+                {address ? (
+                  <Box display={'flex'} gap={4}>
+                    <Stack>
+                      <Typography variant={'caption'} maxWidth={200}>
+                        {address?.zip + ' ' + address?.address}
+                      </Typography>
+                      <Typography variant={'caption'} maxWidth={200}>
+                        {address?.apartment + ' ' + address?.state + ' ' + address?.city}
+                      </Typography>
+                    </Stack>
+                    <Typography
+                      variant={'caption'}
+                      sx={{ cursor: 'pointer' }}
+                      onClick={() => {
+                        setIsOpenAddressesDialog(true);
+                      }}
+                    >
+                      {'edit'}
+                    </Typography>
+                  </Box>
+                ) : (
+                  <Typography
+                    variant={'caption'}
+                    fontWeight={'600'}
+                    sx={{ cursor: 'pointer', mt: 2 }}
+                    onClick={() => {
+                      setIsOpenAddressesDialog(true);
+                    }}
+                  >
+                    {'Add address'}
+                  </Typography>
+                )}
+              </>
             )}
           </Stack>
         </Box>

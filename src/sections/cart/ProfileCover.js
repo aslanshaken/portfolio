@@ -36,11 +36,10 @@ ProfileCover.propTypes = {
   certified: PropTypes.bool,
 };
 
-export default function ProfileCover({
-  certified = true,
-}) {
+export default function ProfileCover({ certified = true }) {
   const {
-    chef: { chef }, cuisine
+    chef: { chef },
+    cuisine,
   } = useSelector(CITYCUISINE_SELECTOR);
 
   return (
@@ -50,8 +49,8 @@ export default function ProfileCover({
           Cart
         </Typography>
         <Typography>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-          magna aliqua.
+          Your cart currently contains delicious food items that are just waiting to be enjoyed. Take a moment to review
+          your selections before proceeding to checkout.
         </Typography>
       </Stack>
       <InfoStyle>

@@ -6,6 +6,8 @@ import CarouselArrows from './CarouselArrows';
 import DisheCard from '../../components/DisheCard';
 import styled from '@emotion/styled';
 import Container from '../../components/Container';
+import { useSelector } from 'src/redux/store';
+import { FOOD_SELECTOR } from 'src/redux/slices/food';
 
 const RootStyle = styled(Box)(({ theme }) => ({
   '& .slick-cloned': {
@@ -51,6 +53,8 @@ export default function PopularDishes() {
   const carouselRef = useRef(null);
   const theme = useTheme();
 
+  const { popularFoods = [], loading } = useSelector(FOOD_SELECTOR);
+
   const settings = {
     infinite: true,
     speed: 500,
@@ -84,7 +88,7 @@ export default function PopularDishes() {
   return (
     <RootStyle sx={{ pt: '60px' }}>
       <Typography variant="h2" color={'secondary'} sx={{ textAlign: 'center', fontWeight: 500, pb: '30px' }}>
-        Most popular dishes
+        Most popular food
       </Typography>
       <Box sx={{ position: 'relative', width: '100%', overflowX: 'hidden' }}>
         <CarouselArrows
@@ -99,15 +103,10 @@ export default function PopularDishes() {
         >
           <Container>
             <Slider ref={carouselRef} {...settings}>
-              {carouselData.map((item) => (
-                <DisheCard
-                  key={item.title}
-                  name={item.title}
-                  cover={`/assets/home/slide/${item.filename}.png`}
-                  description={item.description}
-                  isActive={item.isActive}
-                />
-              ))}
+              {!loading &&
+                popularFoods?.map((item) => (
+                  <DisheCard key={item.title} name={item.title} cover={''} description={item.description} />
+                ))}
             </Slider>
           </Container>
         </CarouselArrows>

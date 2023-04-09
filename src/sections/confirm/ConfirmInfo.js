@@ -20,8 +20,8 @@ export default function ConfirmInfo({ isPickup }) {
   const { user } = useAuth();
   const { checkout } = useSelector(FOOD_SELECTOR);
   const { deliveryDate } = checkout;
-  const date = parse(deliveryDate, 'MM/dd/yy', new Date());
-  const orderDate = format(new Date(date), 'MMMM d, yyyy');
+  // const date = parse(deliveryDate, 'MM/dd/yy', new Date());
+  const orderDate = format(new Date(deliveryDate), 'MMMM d, yyyy');
   const { chef } = useSelector(CITYCUISINE_SELECTOR);
   const chefInfo = chef?.chef;
 

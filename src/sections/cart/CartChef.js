@@ -44,7 +44,9 @@ export default function CartChef() {
   return (
     <Stack>
       {cart?.length == 0 ? (
-        <Typography variant="h3">Cart is empty.</Typography>
+        <Typography variant="h3" align="center">
+          There are no items in your cart
+        </Typography>
       ) : (
         <>
           <ProfileCover />
