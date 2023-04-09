@@ -14,21 +14,7 @@ import { useCallback, useEffect, useState } from 'react';
 export default function CartListCard() {
   const { checkout } = useSelector(FOOD_SELECTOR);
 
-  const { cart } = checkout;
-
-  const outputArray = cart?.reduce((acc, curr) => {
-    // Find the object in acc array with same id and name
-    const foundObj = acc.find((obj) => obj.id === curr.id);
-
-    // If object is present increment the count else add the current object into accumulator array
-    if (foundObj) {
-      foundObj.count++;
-    } else {
-      acc.push({ ...curr, count: 1 });
-    }
-
-    return acc;
-  }, []);
+  const cart = checkout?.orderDetail?.items;
 
   return (
     <Card>
@@ -38,11 +24,11 @@ export default function CartListCard() {
       />
 
       <Box px={3} py={3}>
-        {outputArray.length == 0 ? (
+        {cart?.length == 0 ? (
           <Typography variant="body2">Cart is empty.</Typography>
         ) : (
           <List disablePadding sx={{ overflowX: 'auto' }}>
-            {outputArray.map((data, _i) => (
+            {cart?.map((data, _i) => (
               <ListItem key={'cart-cousine-' + _i} disableGutters>
                 <CuisineCard data={data} />
               </ListItem>
@@ -80,7 +66,7 @@ function CuisineCard({ data = {} }) {
 
   return (
     <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'} spacing={2} width={1}>
-      <Image alt={data?.title} src={data?.image_url} sx={{ borderRadius: '50%', width: 80, height: 80 }} />
+      <Image alt={data?.title} src={data?.image} sx={{ borderRadius: '50%', width: 80, height: 80 }} />
 
       <Stack>
         <Typography variant="h6" color="black" fontWeight={600} gutterBottom>

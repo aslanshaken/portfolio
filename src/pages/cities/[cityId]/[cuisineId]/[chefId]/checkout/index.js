@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Grid, Stack } from '@mui/material';
 // layouts
 import Layout from 'src/layouts';
@@ -11,6 +11,8 @@ import Container from 'src/components/Container';
 import DeliverySteps from 'src/sections/checkout/DeliverySteps';
 import CartListCard from 'src/sections/checkout/CartListCard';
 import OrderCard from 'src/sections/checkout/OrderCard';
+import { useDispatch, useSelector } from 'src/redux/store';
+import { FOOD_SELECTOR, getOrderDetail } from 'src/redux/slices/food';
 
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
@@ -22,8 +24,17 @@ CheckoutPage.getLayout = function getLayout(page) {
 // ----------------------------------------------------------------------
 
 export default function CheckoutPage() {
+  const dispatch = useDispatch();
 
-  const [isPickup, setIsPickup] = useState(true);
+  const { checkout } = useSelector(FOOD_SELECTOR);
+
+  const { orderId } = checkout;
+
+  useEffect(() => {
+    if (orderId) dispatch(getOrderDetail(orderId));
+  }, [dispatch, orderId]);
+
+  const [isPickup, setIsPickup] = useState(checkout?.orderDetail?.is_pickup);
 
   return (
     <Page title="Search Chef">
@@ -33,10 +44,7 @@ export default function CheckoutPage() {
         <Grid container spacing={2}>
           <Grid item xs={12} md={8}>
             <Stack spacing={2}>
-              <PickDeliverSwitchCard
-                isPickup={isPickup}
-                setIsPickup={setIsPickup}
-              />
+              <PickDeliverSwitchCard isPickup={isPickup} setIsPickup={setIsPickup} />
               <DeliverySteps isPickup={isPickup} />
               <CartListCard />
             </Stack>

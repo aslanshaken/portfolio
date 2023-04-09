@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 // axios
 import axios from 'src/utils/axios';
+import { dispatch } from '../store';
 
 // ----------------------------------------------------------------------
 
@@ -16,26 +17,10 @@ const initialState = {
     rating: '',
   },
   checkout: {
+    orderId: null,
+    orderDetail: null,
     activeStep: 0,
-    cart: [
-      // {
-      //   id: 3,
-      //   title: 'Pelmeni',
-      //   current_price: 8,
-      //   old_price: null,
-      //   sold_out: null,
-      //   description: 'Lorem ipsum dolor sit amet',
-      //   allergy: 'Lorem ipsum dolor sit amet',
-      //   gramm: null,
-      //   ingredients: 'Lorem ipsum dolor sit amet',
-      //   how_to_prepare: 'Lorem ipsum dolor sit amet',
-      //   size: 1,
-      //   user_id: 1,
-      //   cuisine_id: 4,
-      //   image_url:
-      //     'http://13.238.200.214//rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBNQT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--a2bc2e3b21d93d8ba828ed20ccb823c0b0aa1519/nici.jpg',
-      // },
-    ],
+    cart: [],
     deliveryDate: null,
     subtotal: 0,
     total: 0,
@@ -85,6 +70,25 @@ const slice = createSlice({
       state.loading = false;
       state.foods = action.payload.data;
     },
+
+    setOrderId(state, action) {
+      state.loading = false;
+      state.checkout.orderId = action.payload;
+    },
+
+    setOrderDetail(state, action) {
+      state.loading = false;
+      state.checkout.orderDetail = action.payload;
+    },
+
+    setDeliveryInstructions(state, action) {
+      console.log('action.payload: ', action.payload);
+      state.loading = false;
+      state.checkout.orderDetail = {
+        ...state.checkout.orderDetail,
+        delivery_instructions: action.payload,
+      };
+    },
   },
 });
 
@@ -92,7 +96,16 @@ const slice = createSlice({
 export default slice.reducer;
 
 // Actions
-export const { startLoading, addFoodCart, removeFoodCart, clearCart, setError } = slice.actions;
+export const {
+  startLoading,
+  addFoodCart,
+  removeFoodCart,
+  clearCart,
+  setError,
+  setOrderId,
+  setOrderDetail,
+  setDeliveryInstructions,
+} = slice.actions;
 
 // Selector
 export const FOOD_SELECTOR = (state) => state.food;
@@ -102,7 +115,7 @@ export function createOrders(data) {
     const oreders = data.carts.map(({ id, count }) => ({
       food_id: id,
       count: count,
-      selected_day: new Date(),
+      selected_day: data.selectedDay,
     }));
 
     dispatch(startLoading());
@@ -114,6 +127,7 @@ export function createOrders(data) {
           items_attributes: oreders,
         },
       });
+      dispatch(slice.actions.setOrderId(response.data.success.id));
     } catch (error) {
       dispatch(slice.actions.setError(error));
     }
@@ -128,6 +142,51 @@ export function getFoodsByChef(cityId, cuisineId, chefId) {
         `/api/${process.env.API_VERSION}/cities/${cityId}/cuisines/${cuisineId}/chefs/${chefId}`
       );
       dispatch(slice.actions.getFoodsSuccess(response.data));
+    } catch (error) {
+      dispatch(slice.actions.setError(error));
+    }
+  };
+}
+
+export function getOrderDetail(orderId) {
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try {
+      const response = await axios.get(`/api/${process.env.API_VERSION}/orders/${orderId}/details`);
+      dispatch(slice.actions.setOrderDetail(response.data));
+    } catch (error) {
+      dispatch(slice.actions.setError(error));
+    }
+  };
+}
+
+export function addTips(data) {
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try {
+      const response = await axios.post(`/api/${process.env.API_VERSION}/orders/${data.orderId}/add_tips`, {
+        tips: data.tips,
+      });
+    } catch (error) {
+      dispatch(slice.actions.setError(error));
+    }
+  };
+}
+
+export function updateDeliveryInstructions(data) {
+  console.log('data: ', data);
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try {
+      const response = await axios.post(
+        `/api/${process.env.API_VERSION}/orders/${data.orderId}/update_delivery_instructions`,
+        {
+          leave_at_door: data.status,
+          delivery_instructions: data.note,
+        }
+      );
+      dispatch(slice.actions.setDeliveryInstructions(data.note));
+      return response.data;
     } catch (error) {
       dispatch(slice.actions.setError(error));
     }
