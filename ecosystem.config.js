@@ -11,7 +11,7 @@ module.exports = {
   deploy: {
     production: {
       user: "ubuntu",
-      host: "ec2-34-238-53-251.compute-1.amazonaws.com",
+      host: "ec2-54-167-207-4.compute-1.amazonaws.com",
       key: "cookk-frontend-ssh.pem",
       ref: "origin/dev",
       repo: "git@github.com:UnitedFood/front-end.git",
