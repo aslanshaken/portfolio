@@ -17,7 +17,7 @@ module.exports = {
       repo: "git@github.com:UnitedFood/front-end.git",
       path: "/home/ubuntu/front-end-app",
       "post-deploy":
-        "npm install && npm run build && sudo cp -r build/* /var/www/cookk.co/"
+        "npm install && npm run build"
     }
   }
 };
