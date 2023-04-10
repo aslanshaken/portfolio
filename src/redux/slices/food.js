@@ -51,10 +51,14 @@ const slice = createSlice({
 
     removeFoodCart(state, action) {
       if (action.payload.removeAll) {
-        state.checkout.cart = [...state.checkout.cart.filter(({ _id }) => _id !== action.payload.food._id)];
+        state.checkout.cart = [...state.checkout.cart.filter(({ _id }) => _id !== action.payload.food.id)];
       } else {
-        const indexToRemove = state.checkout.cart.findIndex((obj) => obj.id === action.payload.food._id);
-        state.checkout.cart.splice(indexToRemove, 1);
+        if (action.payload.removeOneItem) {
+          const indexToRemove = state.checkout.cart.findIndex((obj) => obj.id === action.payload.food.id);
+          state.checkout.cart.splice(indexToRemove, 1);
+        } else {
+          state.checkout.cart = state.checkout.cart.filter((item) => item.id !== action.payload.food.id);
+        }
       }
     },
 
@@ -88,7 +92,6 @@ const slice = createSlice({
     },
 
     setDeliveryInstructions(state, action) {
-      console.log('action.payload: ', action.payload);
       state.loading = false;
       state.checkout.orderDetail = {
         ...state.checkout.orderDetail,
@@ -180,7 +183,6 @@ export function addTips(data) {
 }
 
 export function updateDeliveryInstructions(data) {
-  console.log('data: ', data);
   return async (dispatch) => {
     dispatch(startLoading());
     try {

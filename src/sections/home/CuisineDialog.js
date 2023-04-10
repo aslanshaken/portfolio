@@ -47,9 +47,9 @@ export default function CuisineDialog({ isOpen }) {
             {cuisines?.map((item, _i) => (
               <Button
                 key={_i}
-                onClick={() => {
+                onClick={async() => {
+                  await router.push(`/cities/4/${item?.id}/`);
                   dispatch(closeDialog());
-                  router.push(`/cities/4/${item?.id}/`);
                 }}
                 direction={'row'}
                 sx={{ width: '100%', justifyContent: 'left', px: 5 }}

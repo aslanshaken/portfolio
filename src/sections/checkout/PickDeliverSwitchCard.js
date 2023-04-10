@@ -91,7 +91,7 @@ export default function PickDeliverSwitchCard({ isPickup, setIsPickup }) {
               </Stack>
             ) : (
               <>
-                {address ? (
+                {address?.address ? (
                   <Box display={'flex'} gap={4}>
                     <Stack>
                       <Typography variant={'caption'} maxWidth={200}>

@@ -22,6 +22,7 @@ const handlers = {
       user,
     };
   },
+
   LOGIN: (state, action) => {
     const { user } = action.payload;
     return {
@@ -30,11 +31,13 @@ const handlers = {
       user,
     };
   },
+
   LOGOUT: (state) => ({
     ...state,
     isAuthenticated: false,
     user: null,
   }),
+
   REGISTER: (state, action) => {
     const { user } = action.payload;
 
@@ -44,6 +47,7 @@ const handlers = {
       user,
     };
   },
+
   UPDATEADDRESS: (state, action) => {
     const { user } = state;
     user.addresses = [
@@ -73,6 +77,7 @@ const handlers = {
       user,
     };
   },
+
   ADDADDRESS: (state, action) => {
     const { user } = state;
     user.addresses = [
@@ -96,6 +101,22 @@ const handlers = {
       user,
     };
   },
+
+  UPDATEPERSONALINFO: (state, action) => {
+    const {user} = state;
+    user.user = {
+      first_name: action.payload.first_name,
+      last_name: action.payload.last_name,
+      username: action.payload.username,
+      mobile: action.payload.phone_number,
+      instagram: action.payload.instagram,
+      facebook: action.payload.facebook,
+    };
+    return {
+      ...state,
+      user,
+    };
+  }
 };
 
 const reducer = (state, action) => (handlers[action.type] ? handlers[action.type](state, action) : state);
@@ -108,6 +129,7 @@ const AuthContext = createContext({
   register: () => Promise.resolve(),
   updateAddress: () => Promise.resolve(),
   addAddress: () => Promise.resolve(),
+  updatePersonalInfo: () => Promise.updatePersonalInfo(),
 });
 
 // ----------------------------------------------------------------------
@@ -206,25 +228,32 @@ function AuthProvider({ children }) {
   };
 
   const updateAddress = async (data) => {
-    await axios.post(`/api/${process.env.API_VERSION}/users/addresses/${data?.id}/update`, {
-      address: {
-        line1: data.address,
-        apartment: data.apartment,
-        state: data.state,
-        city: data.city,
-        zip: data.zip,
-        primary_address: 'true',
-      },
-    });
-
     dispatch({
       type: 'UPDATEADDRESS',
       payload: data,
     });
+
+    const response = await axios.post(`/api/${process.env.API_VERSION}/users/addresses/${data?.id}/update`, {
+      address: {
+        line1: data.address,
+        apartment: data.apartment,
+        state: data.state,
+        city: data.city,
+        zip: data.zip,
+        primary_address: 'true',
+      },
+    });
+    
+    return response;
   };
 
   const addAddress = async (data) => {
-    await axios.post(`/api/${process.env.API_VERSION}/users/add_address`, {
+    dispatch({
+      type: 'ADDADDRESS',
+      payload: data,
+    });
+
+    const response = await axios.post(`/api/${process.env.API_VERSION}/users/add_address`, {
       address: {
         line1: data.address,
         apartment: data.apartment,
@@ -235,10 +264,34 @@ function AuthProvider({ children }) {
       },
     });
 
+    return response;
+  };
+
+  const updatePersonalInfo = async (data) => {
     dispatch({
-      type: 'ADDADDRESS',
+      type: 'UPDATEPERSONALINFO',
       payload: data,
     });
+
+    const response = await axios.post(`/api/${process.env.API_VERSION}/users/update_personal_info`, {
+      user: {
+        first_name: data.first_name,
+        last_name: data.last_name,
+        username: data.username,
+        mobile: data.phone_number,
+        instagram: data.instagram,
+        facebook: data.facebook,
+      },
+    });
+    return response;
+  };
+
+  const updatePassword = async (data) => {
+    const response = await axios.post(`/api/${process.env.API_VERSION}/users/update_password`, {
+      new_password: data.new_password,
+      old_password: data.old_password,
+    });
+    return response;
   };
 
   return (
@@ -251,6 +304,8 @@ function AuthProvider({ children }) {
         register,
         updateAddress,
         addAddress,
+        updatePersonalInfo,
+        updatePassword,
       }}
     >
       {children}

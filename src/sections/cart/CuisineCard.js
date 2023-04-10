@@ -31,7 +31,7 @@ export default function CuisineCard({ cuisine = {} }) {
         sx={{ borderRadius: '50%', minWidth: 80, minHeight: 80 }}
       />
 
-      <Stack whiteSpace={'nowrap'}>
+      <Stack>
         <Typography variant="h6" color="black" fontWeight={600} gutterBottom>
           {cuisine?.title}
         </Typography>
@@ -45,7 +45,7 @@ export default function CuisineCard({ cuisine = {} }) {
       <IconButtonAnimate
         color="error"
         onClick={() => {
-          dispatch(removeFoodCart({ food: cuisine, removeAll: true }));
+          dispatch(removeFoodCart({ food: cuisine, removeAll: false, removeOneItem: false }));
         }}
       >
         <Iconify icon={'mdi:trash'} />

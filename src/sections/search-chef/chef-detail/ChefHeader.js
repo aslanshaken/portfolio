@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'src/redux/store';
 import { CITYCUISINE_SELECTOR } from 'src/redux/slices/city';
 import { add, format } from 'date-fns';
 import { addFoodCart, FOOD_SELECTOR } from 'src/redux/slices/food';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ChangeDeliveryDateDialgo from './ChangeDeliveryDateDialgo';
 
 ChefHeader.propTypes = {
@@ -28,9 +28,7 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
 
   const { checkout, foods } = useSelector(FOOD_SELECTOR);
 
-  const { cart } = checkout;
-
-  const { availableDate } = checkout;
+  const { cart, deliveryDate } = checkout;
 
   const [tempCategory, setTempCategory] = useState();
 
@@ -44,16 +42,26 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
       date: format(new Date(key), 'MM/dd/yy'),
     }));
 
+  useEffect(() => {
+    if (categories.length > 0) {
+      if (cart[0]?.user_id === chef?.id) {
+        setSelectedCategory(deliveryDate);
+      } else {
+        setSelectedCategory(categories[0].date);
+      }
+    }
+  }, [categories.length, deliveryDate, chef?.id]);
+
   const dispatch = useDispatch();
 
   const setCategory = () => {
-    setChangeDeliveryDateDialogIsOpen(false);
-    dispatch(addFoodCart({ foods: [], newAddCart: true, deliveryDate: selectedCategory }));
     setSelectedCategory(tempCategory);
+    dispatch(addFoodCart({ foods: [], newAddCart: true, deliveryDate: selectedCategory }));
+    setChangeDeliveryDateDialogIsOpen(false);
   };
 
   const handleClickCategory = (data) => {
-    if (selectedCategory !== availableDate && cart.length !== 0) {
+    if (selectedCategory !== data && cart.length > 0) {
       setChangeDeliveryDateDialogIsOpen(true);
       setTempCategory(data);
     } else {

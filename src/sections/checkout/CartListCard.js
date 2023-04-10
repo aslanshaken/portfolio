@@ -61,7 +61,7 @@ function CuisineCard({ data = {} }) {
   );
 
   const handleClickRemoveCart = useCallback(() => {
-    dispatch(removeFoodCart({ food: food, removeAll: true }));
+    dispatch(removeFoodCart({ food: food, removeAll: false, removeOneItem: true }));
   }, [food]);
 
   return (
