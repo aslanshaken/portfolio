@@ -117,6 +117,7 @@ const handlers = {
       last_name: action.payload.last_name,
       username: action.payload.username,
       mobile: action.payload.phone_number,
+      email: action.payload.email_address,
       instagram: action.payload.instagram,
       facebook: action.payload.facebook,
     };

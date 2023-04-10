@@ -91,30 +91,34 @@ function CuisineCard({ data = {}, orderId }) {
 
   return (
     <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'} spacing={2} width={1}>
-      <Image alt={data?.title} src={data?.image_url} sx={{ borderRadius: '50%', width: 80, height: 80 }} />
+      <Stack direction={'row'} alignItems={'center'} spacing={6}>
+        <Image alt={data?.title} src={data?.image_url} sx={{ borderRadius: '50%', width: 80, height: 80, minWidth:80 }} />
 
-      <Stack>
-        <Typography variant="h6" color="black" fontWeight={600} gutterBottom>
-          {data?.title}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {'440 cal'}
-        </Typography>
+        <Stack minWidth={200}>
+          <Typography variant="h6" color="black" fontWeight={600} gutterBottom>
+            {data?.title}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {'440 cal'}
+          </Typography>
+        </Stack>
       </Stack>
 
-      <Box>
-        <CartCountBox value={data?.count} onChange={handleClickAddCart} cartId={data?.id} />
-      </Box>
+      <Stack direction={'row'} alignItems={'center'} spacing={6}>
+        <Box>
+          <CartCountBox value={data?.count} onChange={handleClickAddCart} cartId={data?.id} />
+        </Box>
 
-      <Typography variant={'subtitle1'} color={'success.main'}>
-        ${data?.current_price}
-      </Typography>
+        <Typography variant={'subtitle1'} color={'success.main'}>
+          ${data?.current_price}
+        </Typography>
 
-      <Box>
-        <Button color="error" sx={{ borderRadius: 1, p: 1, minWidth: 0, background: colors.grey[100] }}>
-          <Iconify icon={'mdi:trash'} onClick={handleClickRemoveCart} />
-        </Button>
-      </Box>
+        <Box>
+          <Button color="error" sx={{ borderRadius: 1, p: 1, minWidth: 0, background: colors.grey[100] }}>
+            <Iconify icon={'mdi:trash'} onClick={handleClickRemoveCart} />
+          </Button>
+        </Box>
+      </Stack>
     </Stack>
   );
 }
