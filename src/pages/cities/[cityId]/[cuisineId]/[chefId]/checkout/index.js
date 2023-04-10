@@ -13,6 +13,8 @@ import CartListCard from 'src/sections/checkout/CartListCard';
 import OrderCard from 'src/sections/checkout/OrderCard';
 import { useDispatch, useSelector } from 'src/redux/store';
 import { FOOD_SELECTOR, getOrderDetail } from 'src/redux/slices/food';
+import { PATH_PAGE } from 'src/routes/paths';
+import { useRouter } from 'next/router';
 
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
@@ -28,11 +30,18 @@ export default function CheckoutPage() {
 
   const { checkout } = useSelector(FOOD_SELECTOR);
 
+  const {cart} = checkout;
+
   const { orderId } = checkout;
+
+  const router = useRouter();
 
   useEffect(() => {
     dispatch(getOrderDetail(orderId));
-  }, []);
+    if(cart.length==0){
+      router.push(PATH_PAGE.home)
+    }
+  }, [cart]);
 
   const [isPickup, setIsPickup] = useState(checkout?.orderDetail?.is_pickup);
 
