@@ -19,15 +19,15 @@ SchedulePanel.defaultProps = {
 const times = [
   {
     id: '1',
-    label: '09AM-11AM',
+    label: '09AM-12AM',
   },
   {
     id: '2',
-    label: '12AM-5PM',
+    label: '1AM-4PM',
   },
   {
     id: '3',
-    label: '6PM-9PM',
+    label: '5PM-8PM',
   },
 ];
 

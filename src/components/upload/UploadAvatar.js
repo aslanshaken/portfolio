@@ -90,7 +90,7 @@ export default function UploadAvatar({ error, file, helperText, sx, ...other }) 
           {file && (
             <MyAvatar
               src={typeof file === 'string' ? file : file.preview}
-              sx={{ width: 130, height: 130, zIndex: 8, fontSize:50 }}
+              sx={{ width: 130, height: 130, zIndex: 8, fontSize: 50 }}
             />
           )}
 

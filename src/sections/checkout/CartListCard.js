@@ -7,14 +7,29 @@ import CardHeader from 'src/components/card/CardHeader';
 import Iconify from 'src/components/Iconify';
 import Image from 'src/components/Image';
 import { useDispatch, useSelector } from 'src/redux/store';
-import { addFoodCart, FOOD_SELECTOR, removeFoodCart } from 'src/redux/slices/food';
+import { addFoodCart, FOOD_SELECTOR, removeFoodCart, updateCart } from 'src/redux/slices/food';
 import { useCallback, useEffect, useState } from 'react';
+import useNotify from 'src/hooks/useNotify';
 
 //
 export default function CartListCard() {
   const { checkout } = useSelector(FOOD_SELECTOR);
 
-  const cart = checkout?.orderDetail?.items;
+  const { cart, orderId } = checkout;
+
+  const cartArr = cart?.reduce((acc, curr) => {
+    // Find the object in acc array with same id and name
+    const foundObj = acc.find((obj) => obj.id === curr.id);
+
+    // If object is present increment the count else add the current object into accumulator array
+    if (foundObj) {
+      foundObj.count++;
+    } else {
+      acc.push({ ...curr, count: 1 });
+    }
+
+    return acc;
+  }, []);
 
   return (
     <Card>
@@ -28,9 +43,9 @@ export default function CartListCard() {
           <Typography variant="body2">Cart is empty.</Typography>
         ) : (
           <List disablePadding sx={{ overflowX: 'auto' }}>
-            {cart?.map((data, _i) => (
+            {cartArr?.map((data, _i) => (
               <ListItem key={'cart-cousine-' + _i} disableGutters>
-                <CuisineCard data={data} />
+                <CuisineCard data={data} orderId={orderId} />
               </ListItem>
             ))}
           </List>
@@ -43,30 +58,40 @@ export default function CartListCard() {
 //
 CuisineCard.propTypes = {
   data: PropTypes.object,
+  orderId: PropTypes.number,
 };
 
-function CuisineCard({ data = {} }) {
+function CuisineCard({ data = {}, orderId }) {
   const dispatch = useDispatch();
+  const { successAlert, errorAlert } = useNotify();
   let { count, ...food } = data;
 
   const handleClickAddCart = useCallback(
-    (type) => {
-      if (type === '+') {
-        dispatch(addFoodCart({ foods: food, newAddCart: false }));
-      } else {
-        dispatch(removeFoodCart({ food: food, removeAll: false }));
+    async (type) => {
+      try {
+        if (type === '+') {
+          dispatch(addFoodCart({ foods: food, newAddCart: false }));
+          const response = await dispatch(updateCart({ type: 'add', orderId: orderId, foodId: data.id }));
+          successAlert(response.data.success);
+        } else {
+          dispatch(removeFoodCart({ food: food, removeAll: false, removeOneItem: true }));
+          const response = await dispatch(updateCart({ type: 'remove', orderId: orderId, foodId: data.id }));
+          successAlert(response.data.success);
+        }
+      } catch (error) {
+        errorAlert(error.message);
       }
     },
     [food]
   );
 
   const handleClickRemoveCart = useCallback(() => {
-    dispatch(removeFoodCart({ food: food, removeAll: false, removeOneItem: true }));
+    dispatch(removeFoodCart({ food: food, removeAll: false, removeOneItem: false }));
   }, [food]);
 
   return (
     <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'} spacing={2} width={1}>
-      <Image alt={data?.title} src={data?.image} sx={{ borderRadius: '50%', width: 80, height: 80 }} />
+      <Image alt={data?.title} src={data?.image_url} sx={{ borderRadius: '50%', width: 80, height: 80 }} />
 
       <Stack>
         <Typography variant="h6" color="black" fontWeight={600} gutterBottom>

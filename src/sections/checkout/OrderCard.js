@@ -34,7 +34,23 @@ const TopBottomButtonStyle = styled(ButtonGroup)(({ theme }) => ({
 export default function OrderCard() {
   const { checkout } = useSelector(FOOD_SELECTOR);
 
-  const { orderDetail, orderId } = checkout;
+  const { orderDetail, orderId, cart } = checkout;
+
+  const cartArr = cart?.reduce((acc, curr) => {
+    // Find the object in acc array with same id and name
+    const foundObj = acc.find((obj) => obj.id === curr.id);
+
+    // If object is present increment the count else add the current object into accumulator array
+    if (foundObj) {
+      foundObj.count++;
+    } else {
+      acc.push({ ...curr, count: 1 });
+    }
+
+    return acc;
+  }, []);
+
+  const totalPrice = cart?.reduce((accumulator, item) => accumulator + item.current_price, 0);
 
   const dispatch = useDispatch();
 
@@ -58,12 +74,12 @@ export default function OrderCard() {
 
       <Box mt={5} />
 
-      {orderDetail?.items?.map((item, _i) => (
+      {cartArr?.map((item, _i) => (
         <Stack key={_i} direction={'row'} justifyContent={'space-between'} mb={2}>
           <Typography variant={'body2'} color={'text.secondary'}>
             {item?.title}
           </Typography>
-          <Typography>${item?.cost}</Typography>
+          <Typography>${item?.current_price}</Typography>
         </Stack>
       ))}
 
@@ -71,7 +87,7 @@ export default function OrderCard() {
       <Stack direction={'row'} justifyContent={'space-between'} mb={2}>
         <Typography variant={'body2'}>{'Subtotal:'}</Typography>
         <Typography fontWeight={'bold'} color={'secondary'}>
-          ${orderDetail?.sub_total}
+          ${totalPrice}
         </Typography>
       </Stack>
 
@@ -79,7 +95,7 @@ export default function OrderCard() {
       <Stack direction={'row'} justifyContent={'space-between'} mb={2}>
         <Typography variant={'body2'}>{'Service Fee:'}</Typography>
         <Typography fontWeight={'bold'} color={'secondary'}>
-          ${orderDetail?.shipping_charge}
+          ${totalPrice*0.05}
         </Typography>
       </Stack>
 
@@ -87,7 +103,7 @@ export default function OrderCard() {
       <Stack direction={'row'} justifyContent={'space-between'} mb={2}>
         <Typography variant={'body2'}>{'Total:'}</Typography>
         <Typography fontWeight={'bold'} color={'secondary'}>
-          ${orderDetail?.order_total}
+          ${totalPrice*1.05}
         </Typography>
       </Stack>
 

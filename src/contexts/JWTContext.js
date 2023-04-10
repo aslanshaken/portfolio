@@ -78,6 +78,14 @@ const handlers = {
     };
   },
 
+  UPDATE_AVATAR: (state, action) => {
+    state.user.image = action.payload;
+    return {
+      ...state,
+      user: state.user,
+    };
+  },
+
   ADDADDRESS: (state, action) => {
     const { user } = state;
     user.addresses = [
@@ -103,7 +111,7 @@ const handlers = {
   },
 
   UPDATEPERSONALINFO: (state, action) => {
-    const {user} = state;
+    const { user } = state;
     user.user = {
       first_name: action.payload.first_name,
       last_name: action.payload.last_name,
@@ -116,7 +124,7 @@ const handlers = {
       ...state,
       user,
     };
-  }
+  },
 };
 
 const reducer = (state, action) => (handlers[action.type] ? handlers[action.type](state, action) : state);
@@ -128,8 +136,9 @@ const AuthContext = createContext({
   logout: () => Promise.resolve(),
   register: () => Promise.resolve(),
   updateAddress: () => Promise.resolve(),
+  updateAvatar: () => Promise.resolve(),
   addAddress: () => Promise.resolve(),
-  updatePersonalInfo: () => Promise.updatePersonalInfo(),
+  updatePersonalInfo: () => Promise.resolve(),
 });
 
 // ----------------------------------------------------------------------
@@ -243,7 +252,7 @@ function AuthProvider({ children }) {
         primary_address: 'true',
       },
     });
-    
+
     return response;
   };
 
@@ -286,6 +295,15 @@ function AuthProvider({ children }) {
     return response;
   };
 
+  const updateAvatar = async (avatarUrl) => {
+    dispatch({
+      type: 'UPDATE_AVATAR',
+      payload: avatarUrl,
+    });
+
+    return await Promise.resolve(true);
+  };
+
   const updatePassword = async (data) => {
     const response = await axios.post(`/api/${process.env.API_VERSION}/users/update_password`, {
       new_password: data.new_password,
@@ -304,6 +322,7 @@ function AuthProvider({ children }) {
         register,
         updateAddress,
         addAddress,
+        updateAvatar,
         updatePersonalInfo,
         updatePassword,
       }}

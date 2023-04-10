@@ -51,7 +51,7 @@ const slice = createSlice({
 
     removeFoodCart(state, action) {
       if (action.payload.removeAll) {
-        state.checkout.cart = [...state.checkout.cart.filter(({ _id }) => _id !== action.payload.food.id)];
+        state.checkout.cart = [];
       } else {
         if (action.payload.removeOneItem) {
           const indexToRemove = state.checkout.cart.findIndex((obj) => obj.id === action.payload.food.id);
@@ -209,6 +209,25 @@ export function getPopularFoods() {
     try {
       const response = await axios.get(`/api/${process.env.API_VERSION}/foods`);
       dispatch(slice.actions.getPopularFoodsSuccess(response.data.foods?.sort(() => Math.random() - 0.5)));
+    } catch (error) {
+      dispatch(slice.actions.setError(error));
+    }
+  };
+}
+//
+// ----------------------------------------------------------------------
+export function updateCart(data) {
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try {
+      const response = await axios.post(
+        `/api/${process.env.API_VERSION}/orders/${data.orderId}/items/${data.foodId}/add_or_remove`,
+        {
+          operation_type: data.type,
+        }
+      );
+      dispatch(slice.actions.updateCart());
+      return response;
     } catch (error) {
       dispatch(slice.actions.setError(error));
     }

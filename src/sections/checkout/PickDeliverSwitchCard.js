@@ -57,7 +57,11 @@ export default function PickDeliverSwitchCard({ isPickup, setIsPickup }) {
 
   return (
     <RootStyle>
-      <AddressesDialog open={isOpenAddressesDialog} onClose={() => setIsOpenAddressesDialog(false)} />
+      <AddressesDialog
+        open={isOpenAddressesDialog}
+        setAddress={setAddress}
+        onClose={() => setIsOpenAddressesDialog(false)}
+      />
       <Box display={'flex'} justifyContent={'space-between'} flexWrap={'wrap'} gap={2}>
         <Box>
           <ButtonGroup color="secondary">

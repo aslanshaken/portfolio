@@ -27,7 +27,7 @@ const inputs = [
   { type: '', name: 'zip', label: 'ZIP' },
 ];
 
-export default function AddressesDialog({ data, onChangeAddress, ...other }) {
+export default function AddressesDialog({ setAddress, ...other }) {
   const { updateAddress, addAddress } = useAuth();
 
   const { successAlert, errorAlert } = useNotify();
@@ -56,6 +56,13 @@ export default function AddressesDialog({ data, onChangeAddress, ...other }) {
 
   const onSubmit = async (data) => {
     try {
+      setAddress({
+        address: data?.address,
+        apartment: data?.apartment,
+        state: data?.state,
+        city: data?.city,
+        zip: data?.zip,
+      });
       if (address) {
         data.id = address?.id;
         await updateAddress(data);
