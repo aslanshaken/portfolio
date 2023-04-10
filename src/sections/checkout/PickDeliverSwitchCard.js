@@ -53,7 +53,7 @@ export default function PickDeliverSwitchCard({ isPickup, setIsPickup }) {
 
   useEffect(() => {
     setAddress(initialState);
-  }, [initialState]);
+  }, [orderDetail]);
 
   return (
     <RootStyle>
@@ -95,7 +95,7 @@ export default function PickDeliverSwitchCard({ isPickup, setIsPickup }) {
               </Stack>
             ) : (
               <>
-                {address?.address ? (
+                {deliveryAddress ? (
                   <Box display={'flex'} gap={4}>
                     <Stack>
                       <Typography variant={'caption'} maxWidth={200}>

@@ -31,8 +31,8 @@ export default function CheckoutPage() {
   const { orderId } = checkout;
 
   useEffect(() => {
-    if (orderId) dispatch(getOrderDetail(orderId));
-  }, [dispatch, orderId]);
+    dispatch(getOrderDetail(orderId));
+  }, []);
 
   const [isPickup, setIsPickup] = useState(checkout?.orderDetail?.is_pickup);
 
