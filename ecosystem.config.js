@@ -16,6 +16,8 @@ module.exports = {
       ref: "origin/dev",
       repo: "git@github.com:UnitedFood/front-end.git",
       path: "/home/ubuntu/front-end-app",
+      "post-deploy":
+              "npm install && npm run build"
     }
   }
 };
