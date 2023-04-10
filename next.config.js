@@ -4,7 +4,7 @@ module.exports = withTM({
   swcMinify: false,
   trailingSlash: true,
   env: {
-    APP_NAME: 'Hickory - United Food',
+    APP_NAME: 'Cookk',
     // HOST
     HOST_API_KEY: 'http://api.cookk.co',
     API_VERSION: 'v1',

@@ -94,7 +94,7 @@ export default function OrderPage() {
 
   return (
     <Page title="Orders : Dashboard">
-      <Stack direction={'row'} spacing={2} maxWidth={500} sx={{ ml: 'auto', mb: 3 }}>
+      {/* <Stack direction={'row'} spacing={2} maxWidth={500} sx={{ ml: 'auto', mb: 3 }}>
         <Autocomplete
           fullWidth
           disablePortal
@@ -133,7 +133,7 @@ export default function OrderPage() {
             />
           )}
         />
-      </Stack>
+      </Stack> */}
       <Scrollbar>
         <TableContainer sx={{ minWidth: 800, position: 'relative' }}>
           <Table size={'small'}>

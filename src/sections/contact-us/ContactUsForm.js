@@ -44,6 +44,10 @@ export default function ContactUsForm() {
     }
   };
 
+  const handleCall = () => {
+    window.location.href = 'tel:+19299285292';
+  };
+
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Stack
@@ -101,7 +105,7 @@ export default function ContactUsForm() {
           </Button>
           <IconButton
             sx={(theme) => ({ background: theme.palette.gradients.primary })}
-            type="submit"
+            onClick={handleCall}
             size="large"
             variant="contained"
           >

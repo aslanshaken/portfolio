@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Dialog, IconButton, Stack, Typography } from '@mui/material';
+import { Button, Dialog, DialogContent, IconButton, Stack, Typography } from '@mui/material';
 import Iconify from 'src/components/Iconify';
 import { useRouter } from 'next/router';
 import { closeDialog } from 'src/redux/slices/dialog';
@@ -15,12 +15,12 @@ export default function CuisineDialog({ isOpen }) {
   const router = useRouter();
 
   const dispatch = useDispatch();
-  
+
   const { cuisines } = useSelector(CITYCUISINE_SELECTOR);
 
   useEffect(() => {
     dispatch(getCuisines());
-  }, [])
+  }, []);
 
   return (
     <Dialog maxWidth={'sm'} fullWidth open={isOpen}>
@@ -31,47 +31,48 @@ export default function CuisineDialog({ isOpen }) {
       >
         <Iconify icon={'iconoir:cancel'} />
       </IconButton>
-      <Stack p={6} color={'black'}>
-        <Typography variant="h3">Select cuisine</Typography>
-        <Typography mt={2} variant={'body2'}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-          magna aliqua.
-        </Typography>
-        <Stack sx={{ width: 'fit-content', mx: 'auto' }} py={4}>
-          {/* <IconButton
+      <DialogContent sx={{ p: 0 }}>
+        <Stack p={6} color={'black'}>
+          <Typography variant="h3">Select cuisine</Typography>
+          <Typography mt={2} variant={'body2'}>
+            With our diverse range of cuisines, there's something for everyone to enjoy
+          </Typography>
+          <Stack sx={{ width: 'fit-content', mx: 'auto' }} py={4}>
+            {/* <IconButton
             color={'secondary'}
             sx={{ border: '1px solid', width: 'fit-content', mx: 'auto', borderRadius: 'full' }}
           >
             <Iconify icon={'material-symbols:keyboard-arrow-up'} width={20} height={20} />
           </IconButton> */}
-          {cuisines?.map((item, _i) => (
-            <Button
-              key={_i}
-              onClick={() => {
-                dispatch(closeDialog());
-                router.push(`/cities/4/${item?.id}/`);
-              }}
-              direction={'row'}
-              sx={{ width: '100%', justifyContent: 'left', px: 5 }}
-            >
-              {item?.image ? (
-                <Image src={item?.image} sx={{ width: 100, minHeight: 70, marginRight:3 }} alt={'cuisine'} />
-              ) : (
-                <Iconify icon={'material-symbols:cookie'} color={'disabled'} sx={{ width: 70, height: 70 }} mr={3} />
-              )}
-              <Typography variant="subtitle1" color={'black'}>
-                {item?.name}
-              </Typography>
-            </Button>
-          ))}
-          {/* <IconButton
+            {cuisines?.map((item, _i) => (
+              <Button
+                key={_i}
+                onClick={async() => {
+                  await router.push(`/cities/4/${item?.id}/`);
+                  dispatch(closeDialog());
+                }}
+                direction={'row'}
+                sx={{ width: '100%', justifyContent: 'left', px: 5 }}
+              >
+                {item?.image ? (
+                  <Image src={item?.image} sx={{ width: 100, minHeight: 70, marginRight: 3 }} alt={'cuisine'} />
+                ) : (
+                  <Iconify icon={'material-symbols:cookie'} color={'disabled'} sx={{ width: 70, height: 70 }} mr={3} />
+                )}
+                <Typography variant="subtitle1" color={'black'}>
+                  {item?.name}
+                </Typography>
+              </Button>
+            ))}
+            {/* <IconButton
             color={'secondary'}
             sx={{ border: '1px solid', width: 'fit-content', mx: 'auto', borderRadius: 'full' }}
           >
             <Iconify icon={'material-symbols:keyboard-arrow-down'} width={20} height={20} />
           </IconButton> */}
+          </Stack>
         </Stack>
-      </Stack>
+      </DialogContent>
     </Dialog>
   );
 }

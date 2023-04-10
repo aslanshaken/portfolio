@@ -52,7 +52,7 @@ export default function SearchHomeHero() {
           }}
         >
           <Typography textAlign={'center'} variant="h3" fontWeight={'normal'} color={'#FFFFFF'}>
-            Enjoy fresh HOMEMADE meals made by certified chefs, <br />
+            Enjoy fresh HOMEMADE foods made by certified chefs, <br />
             with diverse cuisine options <br />
             delivered straight to your door - order now
           </Typography>

@@ -27,9 +27,7 @@ export default function ChefPage() {
 
   const { deliveryDate } = checkout;
 
-  const [selectedCategory, setSelectedCategory] = useState(
-    deliveryDate == null ? format(new Date(), 'MM/dd/yy') : deliveryDate
-  );
+  const [selectedCategory, setSelectedCategory] = useState();
 
   const { cuisines } = useSelector(CITYCUISINE_SELECTOR);
 

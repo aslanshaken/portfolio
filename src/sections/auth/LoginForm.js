@@ -62,7 +62,6 @@ export default function LoginForm() {
   };
 
   const handleGoogleLoginFailed = (error) => {
-    console.log('error', error);
     setIsLoading(false);
   };
 

@@ -91,7 +91,7 @@ const VisitChefLinkStyle = styled(Link)(() => ({
 export default function ChooseChef() {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const { chefs } = useSelector(CITYCUISINE_SELECTOR);
+  const { chefs, city } = useSelector(CITYCUISINE_SELECTOR);
 
   const router = useRouter();
 
@@ -105,7 +105,7 @@ export default function ChooseChef() {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={7}>
                 <Typography variant="h3" color={'black'}>
-                  Austin Chefs
+                  {`${city?.name} Chefs`}
                 </Typography>
               </Grid>
               <Grid item xs={12} sm={5}>
@@ -201,22 +201,19 @@ export default function ChooseChef() {
                       src={item?.chef?.image_url}
                       sx={{ width: { lg: 150, xs: 100 }, height: { lg: 150, xs: 100 } }}
                     />
-                    <Box
-                      py={6}
-                      sx={{ display: 'flex', flexFlow: 'column', justifyContent: 'space-around', height: '100%' }}
-                    >
+                    <Stack spacing={2}>
+                      <Typography variant="caption">by {item?.chef?.company_name}</Typography>
                       <Typography variant="subtitle1" display={'flex'} whiteSpace={'nowrap'} gap={1}>
                         {item?.chef?.first_name} {item?.chef?.last_name}
                         <Iconify icon={'material-symbols:verified'} sx={{ width: 21, height: 21, color: '#0ED3CF' }} />
                       </Typography>
-                      <Typography variant="caption">by {item?.chef?.company_name}</Typography>
                       <Typography color={'primary'} variant="subtitle1">
                         {item?.chef?.status}
                       </Typography>
                       {/* <Box display={{ xs: 'block', lg: 'none' }}>
                         <VisitChef />
                       </Box> */}
-                    </Box>
+                    </Stack>
                   </Grid>
                   <Grid
                     item

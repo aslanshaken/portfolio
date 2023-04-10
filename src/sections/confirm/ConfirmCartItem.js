@@ -8,21 +8,7 @@ import { useSelector } from 'src/redux/store';
 export default function ConfirmCartItem() {
   const { checkout } = useSelector(FOOD_SELECTOR);
 
-  const { cart } = checkout;
-
-  const outputArray = cart?.reduce((acc, curr) => {
-    // Find the object in acc array with same id and name
-    const foundObj = acc.find((obj) => obj.id === curr.id);
-
-    // If object is present increment the count else add the current object into accumulator array
-    if (foundObj) {
-      foundObj.count++;
-    } else {
-      acc.push({ ...curr, count: 1 });
-    }
-
-    return acc;
-  }, []);
+  const cart = checkout?.orderDetail?.items;
 
   return (
     <Card>
@@ -32,15 +18,15 @@ export default function ConfirmCartItem() {
           title={'Items in your cart'}
         />
       </Box>
-      {outputArray?.map((item) => (
+      {cart?.map((item) => (
         <Stack key={item?.id}>
           <Box px={3} py={3}>
             <List disablePadding sx={{ overflowX: 'auto' }}>
               <ListItem disableGutters>
-                <Stack direction={'row'} alignItems={'center'} spacing={2} width={1}>
+                <Stack direction={'row'} alignItems={'center'} spacing={{ xs: 2, md: 6 }} width={1} px={{ md: 4 }}>
                   <Image
                     alt={'Cuisine Image'}
-                    src={item?.image_url}
+                    src={item?.image}
                     sx={{ borderRadius: '50%', width: { md: 150, xs: 100 }, height: { md: 150, xs: 100 } }}
                   />
 
@@ -56,7 +42,7 @@ export default function ConfirmCartItem() {
                   <Box sx={{ flexGrow: 1 }} />
 
                   <Typography fontWeight={'bold'} color={'secondary'}>
-                    ${item?.current_price*item?.count}
+                    ${item?.total_cost}
                   </Typography>
                 </Stack>
               </ListItem>

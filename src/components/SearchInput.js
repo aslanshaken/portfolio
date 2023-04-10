@@ -11,8 +11,8 @@ SearchInput.propTypes = {
 };
 
 export default function SearchInput({ buttonLabel = 'Search' }) {
-  const dispatch = useDispatch()
-  
+  const dispatch = useDispatch();
+
   return (
     <Stack width={'100%'} display={'flex'} direction={'column'} justifyContent={'center'}>
       {/* <TextField
@@ -60,7 +60,15 @@ export default function SearchInput({ buttonLabel = 'Search' }) {
           px: 6,
           height: 56,
           minWidth: 230,
+          fontSize: { xs: 18, sm: 22 },
+          fontWeight: 400,
           // display: { xs: 'flex', md: 'none' },
+
+          '&:hover': {
+            background: 'transparent',
+            border: 'solid 1px',
+            borderColor: (theme) => theme.palette.primary.main,
+          },
         }}
       >
         {buttonLabel}

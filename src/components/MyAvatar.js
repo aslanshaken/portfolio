@@ -8,17 +8,17 @@ import Avatar from './Avatar';
 // ----------------------------------------------------------------------
 
 export default function MyAvatar({ ...other }) {
-  const { user } = useAuth().user;
+  const { user } = useAuth();
 
   return (
     <Avatar
-      src={user?.photoURL}
-      alt={user?.first_name}
-      color={user?.photoURL ? 'default' : createAvatar(user?.first_name).color}
+      src={user?.image}
+      alt={user?.user?.Avatarfirst_name}
+      color={user?.photoURL ? 'default' : createAvatar(user?.user?.first_name).color}
       {...other}
     >
-      {createAvatar(user?.first_name).name}
-      {createAvatar(user?.last_name).name}
+      {createAvatar(user?.user?.first_name).name}
+      {createAvatar(user?.user?.last_name).name}
     </Avatar>
   );
 }

@@ -6,6 +6,7 @@ import AddressesDialog from './AddressesDialog';
 import { useSelector } from 'src/redux/store';
 import { CITYCUISINE_SELECTOR } from 'src/redux/slices/city';
 import useAuth from 'src/hooks/useAuth';
+import { FOOD_SELECTOR } from 'src/redux/slices/food';
 
 const RootStyle = styled(Stack)(({ theme }) => ({
   padding: theme.spacing(3),
@@ -28,15 +29,13 @@ PickDeliverSwitchCard.propTypes = {
 };
 
 export default function PickDeliverSwitchCard({ isPickup, setIsPickup }) {
-  const { chef } = useSelector(CITYCUISINE_SELECTOR);
+  const { checkout } = useSelector(FOOD_SELECTOR);
 
-  const pickupAddress = chef?.chef?.primary_address;
+  const { orderDetail } = checkout;
 
-  const { user } = useAuth();
+  const pickupAddress = orderDetail?.pickup_address;
 
-  const addresses = user?.addresses;
-
-  const deliveryAddress = addresses?.find((item) => item?.primary_address == true);
+  const deliveryAddress = orderDetail?.address;
 
   useEffect(() => {
     initialState = {
@@ -54,11 +53,15 @@ export default function PickDeliverSwitchCard({ isPickup, setIsPickup }) {
 
   useEffect(() => {
     setAddress(initialState);
-  }, [initialState]);
+  }, [orderDetail]);
 
   return (
     <RootStyle>
-      <AddressesDialog open={isOpenAddressesDialog} onClose={() => setIsOpenAddressesDialog(false)} />
+      <AddressesDialog
+        open={isOpenAddressesDialog}
+        setAddress={setAddress}
+        onClose={() => setIsOpenAddressesDialog(false)}
+      />
       <Box display={'flex'} justifyContent={'space-between'} flexWrap={'wrap'} gap={2}>
         <Box>
           <ButtonGroup color="secondary">
@@ -87,40 +90,44 @@ export default function PickDeliverSwitchCard({ isPickup, setIsPickup }) {
                   {pickupAddress?.zip + ' ' + pickupAddress?.line1}
                 </Typography>
                 <Typography variant={'caption'} maxWidth={200}>
-                  {pickupAddress?.apartment + ', ' + pickupAddress?.state + ', ' + pickupAddress?.city}
+                  {pickupAddress?.apartment + ' ' + pickupAddress?.state + ' ' + pickupAddress?.city}
                 </Typography>
               </Stack>
-            ) : address?.address != '' ? (
-              <Box display={'flex'} gap={4}>
-                <Stack>
-                  <Typography variant={'caption'} maxWidth={200}>
-                    {address?.zip + ' ' + address?.address}
-                  </Typography>
-                  <Typography variant={'caption'} maxWidth={200}>
-                    {address?.apartment + ', ' + address?.state + ', ' + address?.city}
-                  </Typography>
-                </Stack>
-                <Typography
-                  variant={'caption'}
-                  sx={{ cursor: 'pointer' }}
-                  onClick={() => {
-                    setIsOpenAddressesDialog(true);
-                  }}
-                >
-                  {'edit'}
-                </Typography>
-              </Box>
             ) : (
-              <Typography
-                variant={'caption'}
-                fontWeight={'600'}
-                sx={{ cursor: 'pointer', mt: 2 }}
-                onClick={() => {
-                  setIsOpenAddressesDialog(true);
-                }}
-              >
-                {'Add address'}
-              </Typography>
+              <>
+                {deliveryAddress ? (
+                  <Box display={'flex'} gap={4}>
+                    <Stack>
+                      <Typography variant={'caption'} maxWidth={200}>
+                        {address?.zip + ' ' + address?.address}
+                      </Typography>
+                      <Typography variant={'caption'} maxWidth={200}>
+                        {address?.apartment + ' ' + address?.state + ' ' + address?.city}
+                      </Typography>
+                    </Stack>
+                    <Typography
+                      variant={'caption'}
+                      sx={{ cursor: 'pointer' }}
+                      onClick={() => {
+                        setIsOpenAddressesDialog(true);
+                      }}
+                    >
+                      {'edit'}
+                    </Typography>
+                  </Box>
+                ) : (
+                  <Typography
+                    variant={'caption'}
+                    fontWeight={'600'}
+                    sx={{ cursor: 'pointer', mt: 2 }}
+                    onClick={() => {
+                      setIsOpenAddressesDialog(true);
+                    }}
+                  >
+                    {'Add address'}
+                  </Typography>
+                )}
+              </>
             )}
           </Stack>
         </Box>

@@ -1,7 +1,20 @@
 import { Box, Card, Divider, Stack, Typography } from '@mui/material';
+import { useEffect } from 'react';
 import CardHeader from 'src/components/card/CardHeader';
+import { FOOD_SELECTOR, clearCart } from 'src/redux/slices/food';
+import { useDispatch, useSelector } from 'src/redux/store';
 
 export default function ConfirmNotes() {
+  const { checkout } = useSelector(FOOD_SELECTOR);
+  const notes =
+    checkout.orderDetail?.delivery_instructions || "Is there anything else you'd like us to know about your order?";
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(clearCart());
+  }, [dispatch]);
+
   return (
     <Stack spacing={8}>
       <Card sx={{ display: { xs: 'none', md: 'block' } }}>
@@ -9,7 +22,7 @@ export default function ConfirmNotes() {
 
         <Box px={3} py={3}>
           <Typography color={'text.secondary'} variant={'body2'}>
-            Is there anything else you'd like us to know about your order?
+            {notes}
           </Typography>
         </Box>
       </Card>

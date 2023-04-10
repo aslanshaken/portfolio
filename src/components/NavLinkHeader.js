@@ -20,7 +20,7 @@ export default function NavLinkHeader({ cuisine = '', chef = '' }) {
   const { chefId } = router.query;
 
   return (
-    <Breadcrumbs separator="->" sx={{ fontWeight: 600, py: 2 }}>
+    <Breadcrumbs separator="->" sx={{ fontWeight: 600, mt: 5, py: 3 }}>
       {/* {city && (
         <Link href='#' color="inherit" onClick={() => dispatch(openDialog('choose_city_dialog'))}>
           {city}
@@ -34,7 +34,7 @@ export default function NavLinkHeader({ cuisine = '', chef = '' }) {
             }}
             color="inherit"
           >
-            {cuisine}
+            <Typography variant='h5' >{cuisine}</Typography>
           </Link>
         </NextLink>
       )}

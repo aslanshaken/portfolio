@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import { Badge, CircularProgress, Stack, styled, Typography } from '@mui/material';
 import useAuth from 'src/hooks/useAuth';
 import { UploadAvatar } from 'src/components/upload';
@@ -35,9 +35,9 @@ export default function Profile() {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const [avatarUrl, setAvatarUrl] = useState('/');
+  const { user, updateAvatar } = useAuth();
 
-  const { user } = useAuth().user;
+  const [avatarUrl, setAvatarUrl] = useState(user.image);
 
   const handleDropAvatar = useCallback(async (acceptedFiles) => {
     const file = acceptedFiles[0];
@@ -46,8 +46,11 @@ export default function Profile() {
       const formData = new FormData();
       formData.append('image', file);
       const response = await axios.post(`/api/${process.env.API_VERSION}/users/upload_image`, formData);
+      const avatar = response.data?.image?.url || null;
+
+      updateAvatar(avatar);
       setIsLoading(false);
-      successAlert();
+      successAlert(response.data.success);
 
       setAvatarUrl(
         Object.assign(file, {
@@ -78,10 +81,10 @@ export default function Profile() {
 
       <Stack>
         <Typography variant="h3" gutterBottom>
-          Hello {user?.first_name}!
+          Hello {user?.user?.first_name}!
         </Typography>
         <Typography variant="body1" fontStyle={'italic'} color="text.secondary">
-          {user?.email}
+          {user?.user?.email}
         </Typography>
       </Stack>
     </Stack>

@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 // axios
 import axios from 'src/utils/axios';
+import { dispatch } from '../store';
 
 // ----------------------------------------------------------------------
 
@@ -8,6 +9,7 @@ const initialState = {
   loading: false,
   error: null,
   foods: [],
+  popularFoods: [],
   food: null,
   sortBy: null,
   filters: {
@@ -16,26 +18,10 @@ const initialState = {
     rating: '',
   },
   checkout: {
+    orderId: null,
+    orderDetail: null,
     activeStep: 0,
-    cart: [
-      // {
-      //   id: 3,
-      //   title: 'Pelmeni',
-      //   current_price: 8,
-      //   old_price: null,
-      //   sold_out: null,
-      //   description: 'Lorem ipsum dolor sit amet',
-      //   allergy: 'Lorem ipsum dolor sit amet',
-      //   gramm: null,
-      //   ingredients: 'Lorem ipsum dolor sit amet',
-      //   how_to_prepare: 'Lorem ipsum dolor sit amet',
-      //   size: 1,
-      //   user_id: 1,
-      //   cuisine_id: 4,
-      //   image_url:
-      //     'http://13.238.200.214//rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBNQT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--a2bc2e3b21d93d8ba828ed20ccb823c0b0aa1519/nici.jpg',
-      // },
-    ],
+    cart: [],
     deliveryDate: null,
     subtotal: 0,
     total: 0,
@@ -65,10 +51,14 @@ const slice = createSlice({
 
     removeFoodCart(state, action) {
       if (action.payload.removeAll) {
-        state.checkout.cart = [...state.checkout.cart.filter(({ _id }) => _id !== action.payload.food._id)];
+        state.checkout.cart = [];
       } else {
-        const indexToRemove = state.checkout.cart.findIndex((obj) => obj.id === action.payload.food._id);
-        state.checkout.cart.splice(indexToRemove, 1);
+        if (action.payload.removeOneItem) {
+          const indexToRemove = state.checkout.cart.findIndex((obj) => obj.id === action.payload.food.id);
+          state.checkout.cart.splice(indexToRemove, 1);
+        } else {
+          state.checkout.cart = state.checkout.cart.filter((item) => item.id !== action.payload.food.id);
+        }
       }
     },
 
@@ -83,7 +73,30 @@ const slice = createSlice({
 
     getFoodsSuccess(state, action) {
       state.loading = false;
-      state.foods = action.payload.data;
+      state.foods = action.payload;
+    },
+
+    getPopularFoodsSuccess(state, action) {
+      state.loading = false;
+      state.popularFoods = action.payload;
+    },
+
+    setOrderId(state, action) {
+      state.loading = false;
+      state.checkout.orderId = action.payload;
+    },
+
+    setOrderDetail(state, action) {
+      state.loading = false;
+      state.checkout.orderDetail = action.payload;
+    },
+
+    setDeliveryInstructions(state, action) {
+      state.loading = false;
+      state.checkout.orderDetail = {
+        ...state.checkout.orderDetail,
+        delivery_instructions: action.payload,
+      };
     },
   },
 });
@@ -92,7 +105,16 @@ const slice = createSlice({
 export default slice.reducer;
 
 // Actions
-export const { startLoading, addFoodCart, removeFoodCart, clearCart, setError } = slice.actions;
+export const {
+  startLoading,
+  addFoodCart,
+  removeFoodCart,
+  clearCart,
+  setError,
+  setOrderId,
+  setOrderDetail,
+  setDeliveryInstructions,
+} = slice.actions;
 
 // Selector
 export const FOOD_SELECTOR = (state) => state.food;
@@ -102,7 +124,7 @@ export function createOrders(data) {
     const oreders = data.carts.map(({ id, count }) => ({
       food_id: id,
       count: count,
-      selected_day: new Date(),
+      selected_day: data.selectedDay,
     }));
 
     dispatch(startLoading());
@@ -114,6 +136,7 @@ export function createOrders(data) {
           items_attributes: oreders,
         },
       });
+      dispatch(slice.actions.setOrderId(response.data.success.id));
     } catch (error) {
       dispatch(slice.actions.setError(error));
     }
@@ -127,7 +150,84 @@ export function getFoodsByChef(cityId, cuisineId, chefId) {
       const response = await axios.get(
         `/api/${process.env.API_VERSION}/cities/${cityId}/cuisines/${cuisineId}/chefs/${chefId}`
       );
-      dispatch(slice.actions.getFoodsSuccess(response.data));
+      dispatch(slice.actions.getFoodsSuccess(response.data.data));
+    } catch (error) {
+      dispatch(slice.actions.setError(error));
+    }
+  };
+}
+
+export function getOrderDetail(orderId) {
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try {
+      const response = await axios.get(`/api/${process.env.API_VERSION}/orders/${orderId}/details`);
+      dispatch(slice.actions.setOrderDetail(response.data));
+    } catch (error) {
+      dispatch(slice.actions.setError(error));
+    }
+  };
+}
+
+export function addTips(data) {
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try {
+      const response = await axios.post(`/api/${process.env.API_VERSION}/orders/${data.orderId}/add_tips`, {
+        tips: data.tips,
+      });
+    } catch (error) {
+      dispatch(slice.actions.setError(error));
+    }
+  };
+}
+
+export function updateDeliveryInstructions(data) {
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try {
+      const response = await axios.post(
+        `/api/${process.env.API_VERSION}/orders/${data.orderId}/update_delivery_instructions`,
+        {
+          leave_at_door: data.status,
+          delivery_instructions: data.note,
+        }
+      );
+      dispatch(slice.actions.setDeliveryInstructions(data.note));
+      return response.data;
+    } catch (error) {
+      dispatch(slice.actions.setError(error));
+    }
+  };
+}
+
+//
+// ----------------------------------------------------------------------
+export function getPopularFoods() {
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try {
+      const response = await axios.get(`/api/${process.env.API_VERSION}/foods`);
+      dispatch(slice.actions.getPopularFoodsSuccess(response.data.foods?.sort(() => Math.random() - 0.5)));
+    } catch (error) {
+      dispatch(slice.actions.setError(error));
+    }
+  };
+}
+//
+// ----------------------------------------------------------------------
+export function updateCart(data) {
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try {
+      const response = await axios.post(
+        `/api/${process.env.API_VERSION}/orders/${data.orderId}/items/${data.foodId}/add_or_remove`,
+        {
+          operation_type: data.type,
+        }
+      );
+      dispatch(slice.actions.updateCart());
+      return response;
     } catch (error) {
       dispatch(slice.actions.setError(error));
     }

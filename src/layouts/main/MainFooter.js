@@ -11,6 +11,7 @@ import GradientText from '../../components/GradientText';
 import SocialsButton from '../../components/SocialsButton';
 import { ArrowTopIcon } from '../../assets';
 import { Box } from '@mui/system';
+import getAppInfo from 'src/utils/getAppInfo';
 
 // ----------------------------------------------------------------------
 
@@ -83,7 +84,7 @@ export default function MainFooter() {
           </Stack>
           <Stack direction={'row'} justifyContent={{ xs: 'center', md: 'space-between' }}>
             <Stack direction={'row'} spacing={3} display={{ xs: 'none', md: 'flex' }}>
-              <Typography>© Food 2023</Typography>
+              <Typography>{`© ${getAppInfo('name')} 2023`}</Typography>
               <Typography>Privacy Policy</Typography>
               <Typography>Terms of Service</Typography>
             </Stack>

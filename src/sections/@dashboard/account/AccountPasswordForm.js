@@ -9,9 +9,12 @@ import { Box, Button, Stack, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // hooks
 import useNotify from 'src/hooks/useNotify';
+import useAuth from 'src/hooks/useAuth';
 
 export default function AccountPasswordForm() {
   const [isDisable, setIsdisable] = useState(true);
+
+  const { updatePassword } = useAuth();
 
   const { successAlert, errorAlert } = useNotify();
 
@@ -38,9 +41,10 @@ export default function AccountPasswordForm() {
     formState: { isSubmitting },
   } = methods;
 
-  const onSubmit = async () => {
+  const onSubmit = async (data) => {
     try {
-      successAlert();
+      const response = await updatePassword(data);
+      successAlert(response.data.success);
     } catch (error) {
       errorAlert(error.message);
     }

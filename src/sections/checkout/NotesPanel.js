@@ -3,14 +3,17 @@ import { Button, Card, Divider, Grid, IconButton, Stack, TextField, Typography }
 import CardHeader from '../../components/card/CardHeader';
 import { useState } from 'react';
 import Iconify from '../../components/Iconify';
+import { dispatch, useSelector } from 'src/redux/store';
+import { FOOD_SELECTOR, updateDeliveryInstructions } from 'src/redux/slices/food';
+import useNotify from 'src/hooks/useNotify';
 
 const selects = [
   {
-    id: 'yes',
+    value: true,
     label: 'Yes',
   },
   {
-    id: 'no',
+    value: false,
     label: 'No',
   },
 ];
@@ -18,17 +21,33 @@ const selects = [
 //
 NotesPanel.propTypes = {
   data: PropTypes.object,
-  isPickup: PropTypes.bool
+  isPickup: PropTypes.bool,
 };
 NotesPanel.defaultProps = {
   data: {},
 };
 
 export default function NotesPanel({ data, isPickup, ...other }) {
-  const [selectedAddress, setSelectedAddress] = useState('1');
+  const { checkout } = useSelector(FOOD_SELECTOR);
+  const [note, setNote] = useState(checkout?.orderDetail?.delivery_instructions);
+  const [selectedAddress, setSelectedAddress] = useState(true);
 
-  const saveData = () => {
-    other.onClose();
+  const { successAlert, errorAlert } = useNotify();
+
+  const updateNote = async () => {
+    try {
+      const response = await dispatch(
+        updateDeliveryInstructions({
+          orderId: checkout?.orderId,
+          status: isPickup ? false : selectedAddress,
+          note: note,
+        })
+      );
+      successAlert(response?.success);
+      other.onClose();
+    } catch (error) {
+      errorAlert(error.message);
+    }
   };
 
   return (
@@ -41,13 +60,13 @@ export default function NotesPanel({ data, isPickup, ...other }) {
               <Typography variant="subtitle1">Leave order at door?</Typography>
               <Grid spacing={{ md: 12 }} container display={'flex'} alignItems={'flex-start'}>
                 {selects.map((item) => (
-                  <Grid item md={6} key={item.id}>
+                  <Grid item md={6} key={item.value}>
                     <Stack
                       direction={'row'}
                       justifyContent="space-between"
                       sx={{ width: '100%', cursor: 'pointer' }}
                       onClick={() => {
-                        setSelectedAddress(item.id);
+                        setSelectedAddress(item.value);
                       }}
                     >
                       <Typography pt={1} fontWeight={'bold'}>
@@ -56,7 +75,7 @@ export default function NotesPanel({ data, isPickup, ...other }) {
                       <IconButton color="secondary">
                         <Iconify
                           icon={`${
-                            selectedAddress == item.id
+                            selectedAddress == item.value
                               ? 'material-symbols:check-circle-rounded'
                               : 'material-symbols:circle-outline'
                           }`}
@@ -70,6 +89,10 @@ export default function NotesPanel({ data, isPickup, ...other }) {
             </>
           )}
           <TextField
+            defaultValue={note}
+            onChange={(e) => {
+              setNote(e.target.value);
+            }}
             fullWidth
             placeholder="Is there anything else you'd like us to know about?"
             multiline
@@ -81,7 +104,7 @@ export default function NotesPanel({ data, isPickup, ...other }) {
             variant="outlined"
             color="secondary"
             sx={{ padding: '20px 60px', width: 'fit-content' }}
-            onClick={saveData}
+            onClick={updateNote}
           >
             Save
           </Button>

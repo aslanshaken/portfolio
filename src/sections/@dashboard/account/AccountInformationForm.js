@@ -18,7 +18,7 @@ export default function AccountInformationForm() {
 
   const { successAlert, errorAlert } = useNotify();
 
-  const { user: userInfo, updateAddress } = useAuth();
+  const { user: userInfo, updateAddress, updatePersonalInfo } = useAuth();
 
   const personalInfoScahema = Yup.object().shape({
     custom_vocabulary: Yup.string(),
@@ -55,9 +55,9 @@ export default function AccountInformationForm() {
 
   const personalInfoOnSubmit = async (data) => {
     try {
-      console.log(data);
+      const response = await updatePersonalInfo(data);
+      successAlert(response.data.success);
     } catch (error) {
-      console.error(error.message);
       errorAlert(error.message);
     }
   };
@@ -96,8 +96,8 @@ export default function AccountInformationForm() {
   const addressOnSubmit = async (data) => {
     data.id = address?.id;
     try {
-      await updateAddress(data);
-      successAlert();
+      const response = await updateAddress(data);
+      successAlert(response.data.success);
     } catch (error) {
       errorAlert(error.message);
     }
@@ -128,7 +128,7 @@ export default function AccountInformationForm() {
           <RHFTextField disabled={isDisablePersonalInfo} name="last_name" label="Last name" />
           <RHFTextField disabled={isDisablePersonalInfo} name="username" label="Username" />
           <RHFTextField disabled={isDisablePersonalInfo} name="phone_number" label="Phone number" />
-          <RHFTextField disabled={isDisablePersonalInfo} name="email_address" label="Email address" type="email" />
+          <RHFTextField disabled={true} name="email_address" label="Email address" type="email" />
           <RHFTextField disabled={isDisablePersonalInfo} name="instagram" label="Instagram" />
           <RHFTextField disabled={isDisablePersonalInfo} name="facebook" label="Facebook" />
         </Stack>

@@ -5,7 +5,6 @@ import { useRouter } from 'next/router';
 // hooks
 import useAuth from '../hooks/useAuth';
 // routes
-import { PATH_DASHBOARD } from '../routes/paths';
 
 // ----------------------------------------------------------------------
 
