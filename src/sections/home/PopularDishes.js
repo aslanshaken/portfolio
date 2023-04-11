@@ -104,8 +104,8 @@ export default function PopularDishes() {
           <Container>
             <Slider ref={carouselRef} {...settings}>
               {!loading &&
-                popularFoods?.map((item) => (
-                  <DisheCard key={item.title} name={item.title} cover={''} description={item.description} />
+                popularFoods?.map((item, _i) => (
+                  <DisheCard key={_i} data={item} />
                 ))}
             </Slider>
           </Container>

@@ -5,16 +5,21 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FormProvider, RHFTextField } from 'src/components/hook-form';
 // @mui
-import { Box, Button, Stack, Typography } from '@mui/material';
+import { Box, Button, IconButton, InputAdornment, Stack, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // hooks
 import useNotify from 'src/hooks/useNotify';
 import useAuth from 'src/hooks/useAuth';
+import Iconify from 'src/components/Iconify';
 
 export default function AccountPasswordForm() {
   const [isDisable, setIsdisable] = useState(true);
 
   const { updatePassword } = useAuth();
+  
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const { successAlert, errorAlert } = useNotify();
 
@@ -66,9 +71,41 @@ export default function AccountPasswordForm() {
           </Button>
         </Stack>
 
-        <RHFTextField disabled={isDisable} name="old_password" label="Old password" type="password" />
-        <RHFTextField disabled={isDisable} name="new_password" label="New password" type="password" />
-        <RHFTextField disabled={isDisable} name="confirm_password" label="Confirm password" type="password" />
+        <RHFTextField disabled={isDisable} name="old_password" label="Current password" type="password" />
+        <RHFTextField
+          disabled={isDisable}
+          name="new_password"
+          label="New password"
+          type={showNewPassword ? 'text' : 'password'}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton disabled={isDisable} edge="end" onClick={() => setShowNewPassword(!showNewPassword)}>
+                  <Iconify icon={showNewPassword ? 'ph:eye-slash-light' : 'ic:outline-remove-red-eye'} />
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+        />
+        <RHFTextField
+          disabled={isDisable}
+          name="confirm_password"
+          label="Confirm password"
+          type={showConfirmPassword ? 'text' : 'password'}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  disabled={isDisable}
+                  edge="end"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                >
+                  <Iconify icon={showConfirmPassword ? 'ph:eye-slash-light' : 'ic:outline-remove-red-eye'} />
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+        />
       </Stack>
 
       <Box mt={5} />

@@ -40,14 +40,15 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
       id: _i,
       label: format(new Date(key), 'MM/dd/yy'),
       date: format(new Date(key), 'MM/dd/yy'),
-    }));
+    }))
+    .filter((item) => new Date(item?.date) >= new Date());
 
   useEffect(() => {
     if (categories.length > 0) {
       if (cart[0]?.user_id === chef?.id) {
         setSelectedCategory(deliveryDate);
       } else {
-        setSelectedCategory(categories[0].date);
+        setSelectedCategory(categories[0]?.date);
       }
     }
   }, [categories.length, deliveryDate, chef?.id]);
@@ -177,34 +178,30 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
                 Available dates
               </Typography>
             </Box>
-            <Stack
-              direction="row"
-              spacing={2}
-              position={'relative'}
-              zIndex={10}
-              justifyContent={'space-between'}
-              overflow={'auto'}
-              py={2}
-            >
-              {categories.map((item) => (
-                <Button
-                  disabled={foods?.[item.date]?.length > 0 ? false : true}
-                  key={item.id}
-                  variant={'contained'}
-                  sx={{
-                    fontWeight: 500,
-                    px: 4,
-                    whiteSpace: 'nowrap',
-                    minWidth: 'fit-content',
-                    border: item.date === selectedCategory && 'none',
-                    background: item.date === selectedCategory ? '#B3B3B3' : '#DAEFE5',
-                    color: '#31342B',
-                  }}
-                  onClick={() => handleClickCategory(item?.date)}
-                >
-                  {item.label}
-                </Button>
-              ))}
+            <Stack direction="row" spacing={4} position={'relative'} zIndex={10} overflow={'auto'} py={2}>
+              {categories.length == 0 ? (
+                <Typography>There is no available dates.</Typography>
+              ) : (
+                categories.map((item) => (
+                  <Button
+                    disabled={foods?.[item?.date]?.length > 0 ? false : true}
+                    key={item?.id}
+                    variant={'contained'}
+                    sx={{
+                      fontWeight: 500,
+                      px: 4,
+                      whiteSpace: 'nowrap',
+                      minWidth: 'fit-content',
+                      border: item?.date === selectedCategory && 'none',
+                      background: item?.date === selectedCategory ? '#B3B3B3' : '#DAEFE5',
+                      color: '#31342B',
+                    }}
+                    onClick={() => handleClickCategory(item?.date)}
+                  >
+                    {item?.label}
+                  </Button>
+                ))
+              )}
             </Stack>
           </Box>
           <Divider />

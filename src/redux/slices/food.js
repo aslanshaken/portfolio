@@ -98,6 +98,18 @@ const slice = createSlice({
         delivery_instructions: action.payload,
       };
     },
+
+    setDeliveryAddress(state, action) {
+      state.loading = false;
+      state.checkout.orderDetail.address = {
+        ...state.checkout.orderDetail.address,
+        line1: action.payload.address,
+        apartment: action.payload.apartment,
+        state: action.payload.state,
+        city: action.payload.city,
+        zip: action.payload.zip,
+      };
+    },
   },
 });
 
@@ -114,6 +126,7 @@ export const {
   setOrderId,
   setOrderDetail,
   setDeliveryInstructions,
+  setDeliveryAddress,
 } = slice.actions;
 
 // Selector
@@ -208,7 +221,7 @@ export function getPopularFoods() {
     dispatch(startLoading());
     try {
       const response = await axios.get(`/api/${process.env.API_VERSION}/foods`);
-      dispatch(slice.actions.getPopularFoodsSuccess(response.data.foods?.sort(() => Math.random() - 0.5)));
+      dispatch(slice.actions.getPopularFoodsSuccess(response.data?.sort(() => Math.random() - 0.5)));
     } catch (error) {
       dispatch(slice.actions.setError(error));
     }

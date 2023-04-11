@@ -6,6 +6,7 @@ import Page from '../../components/Page';
 import ForgotPassForm from '../../sections/auth/ForgotPassForm';
 import { Box, Container, Typography, styled } from '@mui/material';
 import GradientText from '../../components/GradientText';
+import { useState } from 'react';
 
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
@@ -15,7 +16,6 @@ ForgotPass.getLayout = function getLayout(page) {
 };
 
 const RootStyle = styled('div')(({ theme }) => ({
-  // maxWidth: '100%',
   display: 'flex',
   flexDirection: 'column',
   '& .content': {
@@ -68,19 +68,30 @@ const RootStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function ForgotPass() {
+  const [isSuccess, setIsSuccess] = useState(false);
+
   return (
     <Page title="Forgot Password" gutterTop>
       <RootStyle>
         <Container maxWidth={'md'} sx={{ pt: 3 }}>
-          <GradientText variant="h2" color="secondary" mb={2} className="forgot-title">
-            Forgot your password?
-          </GradientText>
-          <Typography color={'text.secondary'} mb={7.5} className="forgot-description">
-            Please enter your mobile number or email address associated with your account
-          </Typography>
-          <Box className="content">
-            <ForgotPassForm />
-          </Box>
+          {isSuccess ? (
+            <Typography textAlign={'center'} width={'100%'} variant={'h5'} maxWidth={600} m={'auto'}>
+              If your email address exists in our database, you will receive a password recovery link at your email
+              address in a few minutes.
+            </Typography>
+          ) : (
+            <>
+              <GradientText variant="h2" color="secondary" mb={2} className="forgot-title">
+                Forgot your password?
+              </GradientText>
+              <Typography color={'text.secondary'} mb={7.5} className="forgot-description">
+                Please enter your email address associated with your account
+              </Typography>
+              <Box className="content">
+                <ForgotPassForm setIsSuccess={setIsSuccess} />
+              </Box>
+            </>
+          )}
         </Container>
       </RootStyle>
     </Page>

@@ -79,7 +79,7 @@ export default function MenuMobile({ isHome, navConfig }) {
         PaperProps={{ sx: { pb: 5, width: 260, background: 'linear-gradient(106.35deg, #163E2B 0%, #0B2619 100%);' } }}
       >
         <Scrollbar>
-          <Logo sx={{ mx: 2.5, my: 3 }} />
+          <Logo sx={{ mx: 2.5, my: 3 , height:'40'}} />
           <List disablePadding>
             {navConfig.map((link) => (
               <MenuMobileItem key={link.title} item={link} isOpen={open} onOpen={handleOpen} />

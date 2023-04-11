@@ -94,8 +94,8 @@ export default function LoginForm() {
             ),
           }}
         />
-        <Stack direction={'row'} sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
-          <RHFCheckbox name="Accept" label="Remember me" />
+        <Stack direction={'row'} sx={{ alignItems: 'center', justifyContent: 'end' }}>
+          {/* <RHFCheckbox name="Accept" label="Remember me" /> */}
           <NextLink href={PATH_AUTH.forgot} passHref>
             <Link>
               <Typography color={'secondary'} className="terms" sx={{ textDecorationLine: 'underline' }}>

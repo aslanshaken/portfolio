@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Avatar, Box, Card, CardContent, colors, Stack, Typography } from '@mui/material';
+import { Avatar, Box, Card, CardContent, Stack, Typography } from '@mui/material';
 import { IconButtonAnimate } from './animate';
 import GradientText from './GradientText';
 import Image from './Image';
@@ -25,7 +25,6 @@ export default function FoodCartCard(props) {
     name,
     cover,
     price,
-    we_kc,
     onClick = () => {},
     onClickPlus = () => {},
     ...other
@@ -57,7 +56,7 @@ export default function FoodCartCard(props) {
           }}
           onClick={onClick}
         >
-          <Image alt={name} src={cover} sx={{ borderRadius: '50%', width:'100%', height:'100%' }} />
+          <Image alt={name} src={cover} sx={{ borderRadius: '50%', width: '100%', height: '100%' }} />
         </Box>
 
         <Stack
@@ -73,10 +72,6 @@ export default function FoodCartCard(props) {
             <GradientText color="primary" variant="subtitle1">
               ${price}
             </GradientText>
-            <Typography variant="h6" color={'text.primary'} />
-            <Typography variant="body1" color={colors.grey[400]} letterSpacing={1.5}>
-              {we_kc}
-            </Typography>
           </Box>
           <Box>
             <IconButtonAnimate sx={{ p: 0, width: 33, height: 33 }} onClick={onClickPlus}>

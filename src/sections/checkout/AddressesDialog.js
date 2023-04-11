@@ -8,8 +8,8 @@ import { FormProvider, RHFTextField } from 'src/components/hook-form';
 import useAuth from 'src/hooks/useAuth';
 import useNotify from 'src/hooks/useNotify';
 import { useEffect } from 'react';
-import { useSelector } from 'src/redux/store';
-import { FOOD_SELECTOR } from 'src/redux/slices/food';
+import { useDispatch, useSelector } from 'src/redux/store';
+import { FOOD_SELECTOR, setDeliveryAddress } from 'src/redux/slices/food';
 
 //
 AddressesDialog.propTypes = {
@@ -27,7 +27,7 @@ const inputs = [
   { type: '', name: 'zip', label: 'ZIP' },
 ];
 
-export default function AddressesDialog({ setAddress, ...other }) {
+export default function AddressesDialog({ ...other }) {
   const { updateAddress, addAddress } = useAuth();
 
   const { successAlert, errorAlert } = useNotify();
@@ -35,6 +35,8 @@ export default function AddressesDialog({ setAddress, ...other }) {
   const { checkout } = useSelector(FOOD_SELECTOR);
 
   const address = checkout?.orderDetail?.address;
+
+  const dispatch = useDispatch();
 
   const schema = Yup.object().shape({
     address: Yup.string().required('Address is required'),
@@ -56,20 +58,15 @@ export default function AddressesDialog({ setAddress, ...other }) {
 
   const onSubmit = async (data) => {
     try {
-      setAddress({
-        address: data?.address,
-        apartment: data?.apartment,
-        state: data?.state,
-        city: data?.city,
-        zip: data?.zip,
-      });
       if (address) {
         data.id = address?.id;
-        await updateAddress(data);
+        const response = await updateAddress(data);
+        successAlert(response.data.success);
       } else {
-        await addAddress(data);
+        const response = await addAddress(data);
+        successAlert(response.data.success);
       }
-      successAlert();
+      dispatch(setDeliveryAddress(data));
     } catch (error) {
       errorAlert(error.message);
     }

@@ -127,15 +127,17 @@ export default function MainHeader() {
               height: 1,
             }}
           >
-            {isDesktop && (
-              <MenuDesktop
-                isOffset={isOffset}
-                isHome={isHome}
-                navConfig={navConfig}
-              />
-            )}
+            {isDesktop && <MenuDesktop isOffset={isOffset} isHome={isHome} navConfig={navConfig} />}
 
-            <Box sx={{ position: 'absolute', left:'50%' , translate:'-50%', height: '50%', display: 'flex', justifyContent: 'center' }}>
+            <Box
+              sx={{
+                position: 'absolute',
+                left: { sm: '50%' },
+                translate: { sm: '-50%' },
+                height: '50%',
+                display: 'flex',
+              }}
+            >
               <Logo />
             </Box>
 

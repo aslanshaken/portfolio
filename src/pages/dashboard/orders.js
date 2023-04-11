@@ -1,7 +1,7 @@
 // layouts
 import Layout from '../../layouts';
 // components
-import { Autocomplete, Box, Stack, Table, TableBody, TableContainer, TextField } from '@mui/material';
+import { Box, Table, TableBody, TableContainer } from '@mui/material';
 import Page from '../../components/Page';
 import Scrollbar from 'src/components/Scrollbar';
 import { TableEmptyRows, TableHeadCustom, TableNoData } from 'src/components/table';
@@ -89,8 +89,8 @@ export default function OrderPage() {
 
   const isNotFound = !dataFiltered.length;
 
-  const sort_type = [{ name: 'sort by Popularity' }, { name: 'sort by New' }, { name: 'sort by Oldest' }];
-  const order_date = [{ name: 'Last week' }, { name: 'Last week' }, { name: 'Last week' }];
+  // const sort_type = [{ name: 'sort by Popularity' }, { name: 'sort by New' }, { name: 'sort by Oldest' }];
+  // const order_date = [{ name: 'Last week' }, { name: 'Last week' }, { name: 'Last week' }];
 
   return (
     <Page title="Orders : Dashboard">

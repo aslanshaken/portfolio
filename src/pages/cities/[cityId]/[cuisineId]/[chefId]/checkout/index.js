@@ -38,10 +38,10 @@ export default function CheckoutPage() {
 
   useEffect(() => {
     dispatch(getOrderDetail(orderId));
-    if(cart.length==0){
-      router.push(PATH_PAGE.home)
+    if (cart.length == 0) {
+      router.push(PATH_PAGE.home);
     }
-  }, [cart]);
+  }, [cart, dispatch, orderId, router]);
 
   const [isPickup, setIsPickup] = useState(checkout?.orderDetail?.is_pickup);
 

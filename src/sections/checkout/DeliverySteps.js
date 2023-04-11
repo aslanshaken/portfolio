@@ -13,7 +13,7 @@ import { useEffect } from 'react';
 //
 export default function DeliverySteps({ address, isPickup }) {
   const [isOpenPaymentDialog, setIsOpenPaymentDialog] = useState(false);
-  const [isOpenSchedulePanel, setIsOpenSchedulePanel] = useState(false);
+  const [isOpenSchedulePanel, setIsOpenSchedulePanel] = useState(true);
   const [isOpenNotesPanel, setIsOpenNotesPanel] = useState(false);
   const { checkout } = useSelector(FOOD_SELECTOR);
   const selectedDay = checkout?.orderDetail?.items[0]?.selected_day;
@@ -38,8 +38,8 @@ export default function DeliverySteps({ address, isPickup }) {
     {
       icon: 'ic:baseline-payment',
       title: 'Payment',
-      subtitle: 'You do not have saved credit cards',
-      content: '',
+      subtitle: '',
+      content: 'You do not have saved credit cards',
       buttonText: 'Add a new card',
       onClickButton: () => {
         setIsOpenPaymentDialog(true);
@@ -71,7 +71,11 @@ export default function DeliverySteps({ address, isPickup }) {
             {step.status ? (
               <>
                 {step.title === `${isPickup ? 'Pick Up Schedule' : 'Delivery Schedule'}` && (
-                  <SchedulePanel isPickup={isPickup} onClose={() => setIsOpenSchedulePanel(false)} />
+                  <SchedulePanel
+                    subtitle={step.subtitle}
+                    isPickup={isPickup}
+                    onClose={() => setIsOpenSchedulePanel(false)}
+                  />
                 )}
                 {step.title === 'Notes' && (
                   <NotesPanel
@@ -120,12 +124,9 @@ function DeliveryStepCard({
 }) {
   return (
     <Card>
-      <CardHeader icon={icon} title={title} />
+      <CardHeader icon={icon} title={title} subtitle={subtitle} />
       <Stack direction={'row'} px={3} py={2} spacing={2} justifyContent={'space-between'} alignItems={'flex-start'}>
         <Stack>
-          <Typography variant="subtitle2" color={'black'} gutterBottom>
-            {subtitle}
-          </Typography>
           <Typography variant="caption" color={'text.secondary'}>
             {content}
           </Typography>
