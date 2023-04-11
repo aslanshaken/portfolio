@@ -15,14 +15,6 @@ const RootStyle = styled(Stack)(({ theme }) => ({
   borderColor: colors.grey[300],
 }));
 
-let initialState = {
-  address: '',
-  apartment: '',
-  state: '',
-  city: '',
-  zip: '',
-};
-
 PickDeliverSwitchCard.propTypes = {
   isPickup: PropTypes.bool,
   setIsPickup: PropTypes.func,
@@ -37,31 +29,11 @@ export default function PickDeliverSwitchCard({ isPickup, setIsPickup }) {
 
   const deliveryAddress = orderDetail?.address;
 
-  useEffect(() => {
-    initialState = {
-      address: deliveryAddress?.line1,
-      apartment: deliveryAddress?.apartment,
-      state: deliveryAddress?.state,
-      city: deliveryAddress?.city,
-      zip: deliveryAddress?.zip,
-    };
-  }, [deliveryAddress]);
-
   const [isOpenAddressesDialog, setIsOpenAddressesDialog] = useState(false);
-
-  const [address, setAddress] = useState();
-
-  useEffect(() => {
-    setAddress(initialState);
-  }, [orderDetail]);
 
   return (
     <RootStyle>
-      <AddressesDialog
-        open={isOpenAddressesDialog}
-        setAddress={setAddress}
-        onClose={() => setIsOpenAddressesDialog(false)}
-      />
+      <AddressesDialog open={isOpenAddressesDialog} onClose={() => setIsOpenAddressesDialog(false)} />
       <Box display={'flex'} justifyContent={'space-between'} flexWrap={'wrap'} gap={2}>
         <Box>
           <ButtonGroup color="secondary">
@@ -99,10 +71,10 @@ export default function PickDeliverSwitchCard({ isPickup, setIsPickup }) {
                   <Box display={'flex'} gap={4}>
                     <Stack>
                       <Typography variant={'caption'} maxWidth={200}>
-                        {address?.zip + ' ' + address?.address}
+                        {deliveryAddress?.zip + ' ' + deliveryAddress?.line1}
                       </Typography>
                       <Typography variant={'caption'} maxWidth={200}>
-                        {address?.apartment + ' ' + address?.state + ' ' + address?.city}
+                        {deliveryAddress?.apartment + ' ' + deliveryAddress?.state + ' ' + deliveryAddress?.city}
                       </Typography>
                     </Stack>
                     <Typography

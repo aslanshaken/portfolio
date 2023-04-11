@@ -98,6 +98,18 @@ const slice = createSlice({
         delivery_instructions: action.payload,
       };
     },
+
+    setDeliveryAddress(state, action) {
+      state.loading = false;
+      state.checkout.orderDetail.address = {
+        ...state.checkout.orderDetail.address,
+        line1: action.payload.address,
+        apartment: action.payload.apartment,
+        state: action.payload.state,
+        city: action.payload.city,
+        zip: action.payload.zip,
+      };
+    },
   },
 });
 
@@ -114,6 +126,7 @@ export const {
   setOrderId,
   setOrderDetail,
   setDeliveryInstructions,
+  setDeliveryAddress,
 } = slice.actions;
 
 // Selector
