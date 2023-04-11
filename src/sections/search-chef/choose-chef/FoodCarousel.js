@@ -27,7 +27,7 @@ export default function FoodCarousel({ foods }) {
   const carouselRef = useRef(null);
 
   const settings = {
-    slidesToShow: 3,
+    slidesToShow: 4,
     centerMode: false,
     infinite: true,
     responsive: [
@@ -56,7 +56,7 @@ export default function FoodCarousel({ foods }) {
     e.stopPropagation();
   };
   return (
-    <RootStyle px={{ xs: 2, sm: 8, lg: 4 }}>
+    <RootStyle px={{ xs: 2, sm: 8, lg: 7 }}>
       <CarouselArrows
         onNext={(e) => handleNext(e)}
         onPrevious={(e) => handlePrevious(e)}
@@ -72,19 +72,17 @@ export default function FoodCarousel({ foods }) {
           },
         }}
       >
-        {foods.length > 0 && (
-          <Slider ref={carouselRef} {...settings} infinite={foods.length > 2}>
-            {foods?.map((food) => (
-              <FoodCard
-                key={food?.id}
-                name={food?.title}
-                cover={food?.image_url}
-                price={food?.current_price}
-                we_kc={`${food?.gramm} gr / ${food?.kc} kc`}
-              />
-            ))}
-          </Slider>
-        )}
+        <Slider ref={carouselRef} {...settings} infinite={foods.length > 3}>
+          {foods?.map((food) => (
+            <FoodCard
+              key={food?.id}
+              name={food?.title}
+              cover={food?.image_url}
+              price={food?.current_price}
+              we_kc={`${food?.gramm} gr / ${food?.kc} kc`}
+            />
+          ))}
+        </Slider>
       </CarouselArrows>
     </RootStyle>
   );

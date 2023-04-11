@@ -10,7 +10,7 @@ import { useRouter } from 'next/router';
 
 //
 export default function CartChef() {
-  const { chef } = useSelector(CITYCUISINE_SELECTOR);
+  const { chef, cuisines } = useSelector(CITYCUISINE_SELECTOR);
 
   const { checkout } = useSelector(FOOD_SELECTOR);
 
@@ -34,6 +34,8 @@ export default function CartChef() {
     return acc;
   }, []);
 
+  const cuisineNames = cartArr.map((item) => cuisines.find((cuisine) => cuisine.id == item.cuisine_id).name);
+
   const handleClickCreateOrders = async () => {
     const response = await dispatch(
       createOrders({ chefId: chef?.chef?.id, carts: cartArr, selectedDay: new Date(deliveryDate) })
@@ -49,7 +51,7 @@ export default function CartChef() {
         </Typography>
       ) : (
         <>
-          <ProfileCover />
+          <ProfileCover cuisineNames={cuisineNames} />
           <CuisineList />
 
           <Box mt={5} />

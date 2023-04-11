@@ -29,14 +29,11 @@ const InfoStyle = styled('div')(({ theme }) => ({
 //
 
 ProfileCover.propTypes = {
-  cover: PropTypes.string,
-  avatar: PropTypes.string,
-  name: PropTypes.string,
-  cuisineType: PropTypes.string,
   certified: PropTypes.bool,
+  cuisineNames: PropTypes.array,
 };
 
-export default function ProfileCover({ certified = true }) {
+export default function ProfileCover({ certified = true, cuisineNames = [] }) {
   const {
     chef: { chef },
     cuisine,
@@ -54,26 +51,28 @@ export default function ProfileCover({ certified = true }) {
         </Typography>
       </Stack>
       <InfoStyle>
-        <Box position={'relative'} sx={{ width: 120, height: 120 }} ml={{ md: 6 }}>
-          <Avatar
-            alt={'Cheff profile avatar'}
-            src={chef?.image_url}
-            sx={{ width: { xs: 100, md: 120 }, height: { xs: 100, md: 120 } }}
-          />
-          <Iconify
-            icon={'material-symbols:verified'}
-            sx={{ color: '#0ED3CF', position: 'absolute', top: 10, right: 0 }}
-          />
-        </Box>
-        <Stack ml={4}>
-          <Typography variant="h4" color="black" gutterBottom>
-            {chef?.first_name} {chef?.last_name}
-          </Typography>
-          <Stack direction={{ md: 'row', xs: 'column' }} spacing={{ md: 2 }}>
-            <Typography variant="body1" color="black">
-              {cuisine?.name}
+        <Stack direction={'row'} px={{ md: 6 }}>
+          <Box position={'relative'} sx={{ width: 120, height: 120 }}>
+            <Avatar
+              alt={'Cheff profile avatar'}
+              src={chef?.image_url}
+              sx={{ width: { xs: 100, md: 120 }, height: { xs: 100, md: 120 } }}
+            />
+            <Iconify
+              icon={'material-symbols:verified'}
+              sx={{ color: '#0ED3CF', position: 'absolute', top: 10, right: 0 }}
+            />
+          </Box>
+          <Stack ml={4}>
+            <Typography variant="h4" color="black" gutterBottom>
+              {chef?.first_name} {chef?.last_name}
             </Typography>
-            <GradientText variant="body1">{certified && 'Certified chef'}</GradientText>
+            <Stack direction={{ md: 'row', xs: 'column' }} spacing={{ md: 2 }}>
+              <Typography variant="body1" color="black" flex={1}>
+                {cuisineNames.join(' / ')}
+              </Typography>
+              <GradientText variant="body1">{certified && 'Certified chef'}</GradientText>
+            </Stack>
           </Stack>
         </Stack>
       </InfoStyle>

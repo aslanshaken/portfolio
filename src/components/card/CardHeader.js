@@ -9,24 +9,28 @@ CardHeader.propTypes = {
   title: PropTypes.string,
   hideDivider: PropTypes.bool,
   variant: PropTypes.string,
+  subtitle: PropTypes.string,
 };
 
-export default function CardHeader({ icon = '', title = '', hideDivider = false, variant }) {
+export default function CardHeader({ icon = '', title = '', subtitle = '', hideDivider = false, variant }) {
   return (
     <>
       <Stack
         direction={'row'}
         px={3}
         py={2}
-        spacing={2}
         sx={(theme) => ({
           background: variant === 'contained' && theme.palette.gradients.secondary,
         })}
+        justifyContent={'space-between'}
       >
-        <BackgroundIcon variant={variant} icon={icon} />
-        <Typography variant="subtitle1" color={`${variant === 'contained' ? 'white' : 'black'}`}>
-          {title}
-        </Typography>
+        <Stack direction={'row'} spacing={2}>
+          <BackgroundIcon variant={variant} icon={icon} />
+          <Typography variant="subtitle1" color={`${variant === 'contained' ? 'white' : 'black'}`}>
+            {title}
+          </Typography>
+        </Stack>
+        <Typography variant="subtitle2">{subtitle}</Typography>
       </Stack>
       {!hideDivider && <Divider />}
     </>

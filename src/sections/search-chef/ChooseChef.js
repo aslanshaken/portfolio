@@ -202,10 +202,12 @@ export default function ChooseChef() {
                       sx={{ width: { lg: 150, xs: 100 }, height: { lg: 150, xs: 100 } }}
                     />
                     <Stack spacing={2}>
-                      <Typography variant="caption">by {item?.chef?.company_name}</Typography>
                       <Typography variant="subtitle1" display={'flex'} whiteSpace={'nowrap'} gap={1}>
-                        {item?.chef?.first_name} {item?.chef?.last_name}
+                        by {item?.chef?.company_name}
                         <Iconify icon={'material-symbols:verified'} sx={{ width: 21, height: 21, color: '#0ED3CF' }} />
+                      </Typography>
+                      <Typography variant="caption">
+                        {item?.chef?.first_name} {item?.chef?.last_name}
                       </Typography>
                       <Typography color={'primary'} variant="subtitle1">
                         {item?.chef?.status}
@@ -215,24 +217,8 @@ export default function ChooseChef() {
                       </Box> */}
                     </Stack>
                   </Grid>
-                  <Grid
-                    item
-                    xs={12}
-                    lg={8}
-                    display={{ md: 'flex' }}
-                    py={2}
-                    justifyContent={'space-between'}
-                    alignItems={'center'}
-                    gap={2}
-                  >
-                    {item?.foods?.length > 0 && (
-                      <Box sx={{ width: { lg: 'calc(100% - 100px)', xs: '100%' } }}>
-                        <FoodCarousel foods={item?.foods} />
-                      </Box>
-                    )}
-                    <Box display={{ xs: 'none', lg: 'block' }}>
-                      <VisitChef />
-                    </Box>
+                  <Grid item xs={12} lg={8} py={2} alignItems={'center'}>
+                    {item?.foods?.length > 0 && <FoodCarousel foods={item?.foods} />}
                   </Grid>
                 </Grid>
               </Box>

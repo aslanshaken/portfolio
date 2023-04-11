@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Button, Card } from '@mui/material';
+import { Button, Card, Stack, Typography } from '@mui/material';
 import CardHeader from '../../components/card/CardHeader';
 import { useState } from 'react';
 import { Box } from '@mui/system';
@@ -7,6 +7,7 @@ import { StaticDatePicker } from '@mui/lab';
 import styled from '@emotion/styled';
 import { useSelector } from 'src/redux/store';
 import { FOOD_SELECTOR } from 'src/redux/slices/food';
+import { isToday } from 'date-fns';
 
 //
 SchedulePanel.propTypes = {
@@ -16,7 +17,7 @@ SchedulePanel.defaultProps = {
   data: {},
 };
 
-const times = [
+const initialTimes = [
   {
     id: '1',
     label: '09AM-12AM',
@@ -93,21 +94,59 @@ const DatePicker = styled('div')(({ theme }) => ({
   },
 }));
 
-export default function SchedulePanel({ isPickup, onClose }) {
+export default function SchedulePanel({ isPickup, onClose, subtitle }) {
   const { checkout } = useSelector(FOOD_SELECTOR);
 
-  const dateSchedule = new Date(checkout.orderDetail.items[0].selected_day);
+  const { deliveryDate } = checkout;
+  const isDateToday = isToday(new Date(deliveryDate));
 
-  const [activedTime, setAcitvedTime] = useState(times[1].id);
+  const now = new Date();
+
+  const currentHour = now.getHours(); // get the current hour
+
+  // filter the array by checking if the label contains a time that is after the current hour
+  const times = isDateToday
+    ? initialTimes.filter((time) => {
+        const [start, end] = time.label.split('-'); // split the label into start and end times
+        return Number.parseInt(start) > currentHour; // compare the start time with the current hour
+      })
+    : initialTimes;
+
+  const dateSchedule = new Date(checkout?.orderDetail?.items[0].selected_day);
+
+  const [activedTime, setAcitvedTime] = useState(times[0]);
 
   return (
     <Card>
       <CardHeader
-        variant="contained"
+        subtitle={subtitle}
         icon="jam:pen-f"
         title={`${isPickup ? 'Pick Up Schedule' : 'Delivery Schedule'}`}
       />
-      <Box sx={{ display: 'flex', p: 2, gap: { xs: 4, sm: 0 }, justifyContent: 'space-around', flexWrap: 'wrap' }}>
+      <Stack direction={'row'} px={3} flexWrap={'wrap'} py={2} gap={2} justifyContent={'space-around'}>
+        {times.length == 0 ? (
+          <Typography variant='caption' color={'gray'} textAlign={'left'} width={'100%'}>There is no available times.</Typography>
+        ) : (
+          times.map((item) => (
+            <Box
+              key={item.id}
+              display={'flex'}
+              alignItems={'center'}
+              justifyContent={'center'}
+              width={150}
+              height={40}
+              color={item.id === activedTime.id ? '#506C60' : 'rgba(80, 108, 96, 0.5)'}
+              bgcolor={item.id === activedTime.id ? '#C1DED1' : 'rgba(193, 222, 209, 0.28)'}
+              borderRadius={2}
+              sx={{ cursor: 'pointer' }}
+              onClick={() => setAcitvedTime(item)}
+            >
+              {item.label}
+            </Box>
+          ))
+        )}
+      </Stack>
+      {/* <Box sx={{ display: 'flex', p: 2, gap: { xs: 4, sm: 0 }, justifyContent: 'space-around', flexWrap: 'wrap' }}>
         <Box>
           <DatePicker>
             <StaticDatePicker
@@ -150,7 +189,7 @@ export default function SchedulePanel({ isPickup, onClose }) {
             Save
           </Button>
         </Box>
-      </Box>
+      </Box> */}
     </Card>
   );
 }
