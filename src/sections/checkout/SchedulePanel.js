@@ -98,6 +98,7 @@ export default function SchedulePanel({ isPickup, onClose, subtitle }) {
   const { checkout } = useSelector(FOOD_SELECTOR);
 
   const { deliveryDate } = checkout;
+  
   const isDateToday = isToday(new Date(deliveryDate));
 
   const now = new Date();

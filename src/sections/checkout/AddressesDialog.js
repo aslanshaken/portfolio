@@ -65,11 +65,12 @@ export default function AddressesDialog({ setAddress, ...other }) {
       });
       if (address) {
         data.id = address?.id;
-        await updateAddress(data);
+        const response = await updateAddress(data);
+        successAlert(response.data.success);
       } else {
-        await addAddress(data);
+        const response = await addAddress(data);
+        successAlert(response.data.success);
       }
-      successAlert();
     } catch (error) {
       errorAlert(error.message);
     }
