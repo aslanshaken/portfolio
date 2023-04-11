@@ -94,7 +94,7 @@ export default function LoginForm() {
             ),
           }}
         />
-        <Stack direction={'row'} sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
+        <Stack direction={'row'} sx={{ alignItems: 'center', justifyContent: 'end' }}>
           {/* <RHFCheckbox name="Accept" label="Remember me" /> */}
           <NextLink href={PATH_AUTH.forgot} passHref>
             <Link>
