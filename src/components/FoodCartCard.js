@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Avatar, Box, Card, CardContent, colors, Stack, Typography } from '@mui/material';
+import { Avatar, Box, Card, CardContent, Stack, Typography } from '@mui/material';
 import { IconButtonAnimate } from './animate';
 import GradientText from './GradientText';
 import Image from './Image';
@@ -25,7 +25,6 @@ export default function FoodCartCard(props) {
     name,
     cover,
     price,
-    we_kc,
     onClick = () => {},
     onClickPlus = () => {},
     ...other

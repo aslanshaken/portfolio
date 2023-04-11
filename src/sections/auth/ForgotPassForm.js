@@ -49,7 +49,7 @@ export default function ForgotPassForm() {
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={3}>
-        <RHFTextField name="email_phone" label="Phone number / Email address" />
+        <RHFTextField name="email_phone" label="Email address" />
 
         <LoadingButton fullWidth size="medium" type="submit" variant="contained" loading={isSubmitting}>
           Send

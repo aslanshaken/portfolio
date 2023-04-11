@@ -221,7 +221,7 @@ export function getPopularFoods() {
     dispatch(startLoading());
     try {
       const response = await axios.get(`/api/${process.env.API_VERSION}/foods`);
-      dispatch(slice.actions.getPopularFoodsSuccess(response.data.foods?.sort(() => Math.random() - 0.5)));
+      dispatch(slice.actions.getPopularFoodsSuccess(response.data?.sort(() => Math.random() - 0.5)));
     } catch (error) {
       dispatch(slice.actions.setError(error));
     }

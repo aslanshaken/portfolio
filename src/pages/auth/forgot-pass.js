@@ -76,7 +76,7 @@ export default function ForgotPass() {
             Forgot your password?
           </GradientText>
           <Typography color={'text.secondary'} mb={7.5} className="forgot-description">
-            Please enter your mobile number or email address associated with your account
+            Please enter your email address associated with your account
           </Typography>
           <Box className="content">
             <ForgotPassForm />
