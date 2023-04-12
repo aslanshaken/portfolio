@@ -203,11 +203,11 @@ export default function ChooseChef() {
                     />
                     <Stack spacing={2}>
                       <Typography variant="subtitle1" display={'flex'} whiteSpace={'nowrap'} gap={1}>
-                        by {item?.chef?.company_name}
+                        {item?.chef?.company_name}
                         <Iconify icon={'material-symbols:verified'} sx={{ width: 21, height: 21, color: '#0ED3CF' }} />
                       </Typography>
                       <Typography variant="caption">
-                        {item?.chef?.first_name} {item?.chef?.last_name}
+                        by {item?.chef?.first_name} {item?.chef?.last_name}
                       </Typography>
                       <Typography color={'primary'} variant="subtitle1">
                         {item?.chef?.status}
