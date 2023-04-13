@@ -47,7 +47,7 @@ export default function CuisineDialog({ isOpen }) {
             {cuisines?.map((item, _i) => (
               <Button
                 key={_i}
-                onClick={async() => {
+                onClick={async () => {
                   await router.push(`/cities/4/${item?.id}/`);
                   dispatch(closeDialog());
                 }}
@@ -55,7 +55,16 @@ export default function CuisineDialog({ isOpen }) {
                 sx={{ width: '100%', justifyContent: 'left', px: 5 }}
               >
                 {item?.image ? (
-                  <Image src={item?.image} sx={{ width: 100, minHeight: 70, marginRight: 3 }} alt={'cuisine'} />
+                  <Image
+                    src={item?.image}
+                    sx={{
+                      borderRadius: (theme) => `${theme.shape.borderRadius}px`,
+                      width: 100,
+                      height: 70,
+                      marginRight: 3,
+                    }}
+                    alt={'cuisine'}
+                  />
                 ) : (
                   <Iconify icon={'material-symbols:cookie'} color={'disabled'} sx={{ width: 70, height: 70 }} mr={3} />
                 )}

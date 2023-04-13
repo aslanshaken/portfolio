@@ -33,13 +33,20 @@ const foodPersistConfig = {
   key: 'food',
   storage,
   keyPrefix: 'redux-',
-  whitelist: ['sortBy'],
+  whitelist: ['checkout'],
+};
+
+const cityPersistConfig = {
+  key: 'cityCuisine',
+  storage,
+  keyPrefix: 'redux-',
+  whitelist: ['chef', 'cuisines'],
 };
 
 const rootReducer = combineReducers({
   food: persistReducer(foodPersistConfig, foodReducer),
   dialog: dialogReducer,
-  cityCuisine: cityReducer,
+  cityCuisine: persistReducer(cityPersistConfig, cityReducer),
 });
 
 export { rootPersistConfig, rootReducer };

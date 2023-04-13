@@ -1,6 +1,13 @@
 import PropTypes from 'prop-types';
 import { Button, Dialog, FormControl, Grid, IconButton, Input, InputLabel, Stack, Typography } from '@mui/material';
 import Iconify from '../../components/Iconify';
+import { FormProvider, RHFTextField } from 'src/components/hook-form';
+import { useForm } from 'react-hook-form';
+import PaymentForm from './PaymentForm';
+import PaymentProvider from 'src/components/payment/PaymentProvider';
+import { createCardIntent } from 'src/redux/service/payment';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'src/redux/store';
 
 //
 PaymentDialog.propTypes = {
@@ -10,37 +17,66 @@ PaymentDialog.defaultProps = {
   data: {},
 };
 
-const inputs = [
-  { type: 'text', label: 'Card number', placeholder: '1234 1234 1234 1234' },
-  { type: 'text', label: 'Expiration', placeholder: 'MM / YY' },
-  { type: 'text', label: 'CVC', placeholder: '123' },
-  { type: 'text', label: 'ZIP', placeholder: '25897' },
-];
-
 export default function PaymentDialog({ data, ...other }) {
-  const addPayment = () => {
-    other.onClose();
-  };
+  // redux
+  const dispatch = useDispatch();
+
+  // state
+  const [isLoading, setIsLoading] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false);
+  const [clientSecretKey, setClientSecretKey] = useState('');
+  const [publicKey, setPublickey] = useState('');
+
+  // effect
+  useEffect(() => {
+    async function fetch() {
+      setIsLoading(true);
+      const response = await dispatch(createCardIntent());
+
+      if (createCardIntent.fulfilled.match(response)) {
+        const { client_secret, publishable_key } = response.payload;
+
+        setClientSecretKey(client_secret);
+        setPublickey(publishable_key);
+        setIsLoading(false);
+        setIsInitialized(true);
+      }
+    }
+
+    fetch();
+  }, []);
 
   return (
-    <Dialog maxWidth={'sm'} {...other}>
+    <Dialog maxWidth={'sm'} fullWidth {...other}>
       <IconButton onClick={() => other.onClose()} width={'fit-content'} sx={{ position: 'absolute', right: '0' }}>
         <Iconify icon={'iconoir:cancel'} />
       </IconButton>
-      <Stack p={8} gap={6}>
+      <Stack p={{ xs: 3, sm: 8 }} gap={6}>
         <Typography variant="h3">Add payment</Typography>
-        <Grid container spacing={6}>
-          {inputs.map((item, _i) => (
-            <Grid item md={6} key={_i} xs={12}>
-              <FormControl variant="standard" fullWidth>
-                <InputLabel shrink htmlFor="bootstrap-input" sx={{ color: 'black', fontWeight: 'bold' }}>
-                  {item.label}
-                </InputLabel>
-                <Input placeholder={item.placeholder} type={item.type} />
-              </FormControl>
-            </Grid>
-          ))}
+
+        {!isLoading && isInitialized ? (
+          <PaymentProvider publicKey={publicKey} clientSecret={clientSecretKey}>
+            <PaymentForm onClose={other.onClose} />
+          </PaymentProvider>
+        ) : (
+          ''
+        )}
+
+        {/* <Grid container spacing={3}>
+          <Grid item xs={12} md={6}>
+            <RHFTextField variant="standard" name="cardNumber" label="Card number" />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <RHFTextField variant="standard" name="expiration" label="Expiration" />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <RHFTextField variant="standard" name="cvc" label="CVC" />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <RHFTextField variant="standard" name="zip" label="ZIP" />
+          </Grid>
         </Grid>
+
         <Button
           size="large"
           variant="outlined"
@@ -49,7 +85,7 @@ export default function PaymentDialog({ data, ...other }) {
           onClick={() => addPayment()}
         >
           Save
-        </Button>
+        </Button> */}
       </Stack>
     </Dialog>
   );

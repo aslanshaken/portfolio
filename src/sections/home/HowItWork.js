@@ -11,7 +11,7 @@ const cards = [
 export default function HowItWork() {
   return (
     <Container>
-      <Typography variant="h2" fontWeight={'500'} color={'secondary'} textAlign={'center'} mt={10}>
+      <Typography variant="h3" fontWeight={'500'} color={'secondary'} textAlign={'center'} mt={10}>
         How it works
       </Typography>
       <Grid container mt={8}>

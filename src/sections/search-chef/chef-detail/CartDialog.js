@@ -78,7 +78,10 @@ export default function CartDialog({ data, setSelectedItemData, onSubmit, ...oth
             <Typography variant="subtitle1" gutterBottom>
               {'Allergy warning'}
             </Typography>
-            <Typography variant="caption">{data?.allergy}</Typography>
+            <Typography variant="caption">
+              Please be aware that the ingredients mentioned are the primary ones, and the food could contain allergens
+              such as milk, peanuts, tree nuts, wheat, dairy, eggs, fish, shellfish, soy, or sesame.
+            </Typography>
           </Stack>
 
           <Box mt={2.5}>

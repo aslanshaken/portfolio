@@ -11,7 +11,7 @@ export default function ReadMore({ children }) {
   const [isReadMore, setIsReadMore] = useState(true);
 
   return (
-    <Box position={'relative'} display={'flex'} sx={{ flexFlow: 'column', }}>
+    <Box position={'relative'} display={'flex'} sx={{ flexFlow: 'column' }}>
       {isReadMore && (
         <Backdrop
           sx={(theme) => ({
@@ -24,11 +24,12 @@ export default function ReadMore({ children }) {
       )}
       <Typography color={colors.grey[600]}>{isReadMore ? children?.slice(0, 135) : children}</Typography>
       <Stack
+        // mb={5}
         zIndex={10}
         direction="row"
         spacing={1}
         onClick={() => setIsReadMore(!isReadMore)}
-        sx={{ cursor: 'pointer', width: 'fit-content', mt: { md: -2.8 }, position:'absolute', right:0, bottom:0 }}
+        sx={{ cursor: 'pointer', width: 'fit-content', position: 'absolute', right: 0, bottom: isReadMore ? -10 : -25 }}
       >
         <Typography color={colors.grey[600]}>{isReadMore ? 'Read more' : 'show less'}</Typography>
         <Iconify

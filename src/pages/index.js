@@ -14,6 +14,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { DIALOG_SELECTOR, setInitialized } from 'src/redux/slices/dialog';
 import useAuth from 'src/hooks/useAuth';
 import { clearCart, getPopularFoods } from 'src/redux/slices/food';
+import PaymentDialog from 'src/sections/checkout/PaymentDialog';
+import LoadingScreen from 'src/components/LoadingScreen';
 
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
@@ -39,9 +41,11 @@ export default function HomePage() {
     dispatch(setInitialized(true));
     dispatch(getPopularFoods());
   }, [dispatch, welcomeDialogIsOpen]);
+
   return (
     <Page title="Home">
-      <WelcomeDialog isOpen={welcomeDialogIsOpen} setIsOpen={setWelcomeDialogIsOpen} />
+      {/* <WelcomeDialog isOpen={welcomeDialogIsOpen} setIsOpen={setWelcomeDialogIsOpen} /> */}
+      {/* <PaymentDialog open /> */}
 
       {/* <HomeHero /> */}
       <SearchHomeHero />

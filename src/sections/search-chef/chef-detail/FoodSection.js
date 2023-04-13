@@ -247,7 +247,7 @@ export default function FoodSection({ selectedCategory }) {
               </Grid>
             </Grid> */}
 
-            <Grid container spacing={3} maxWidth={'md'} width={'100%'} mx={'auto'}>
+            <Grid container spacing={3}>
               {foods?.[selectedCategory]?.slice(currentPage === 1 ? 0 : (currentPage - 1) * 10 - 1, 10).map((item) => (
                 <Grid key={item?.id} item lg={4} md={6} sm={6} xs={12} width={1}>
                   <FoodCartCard
