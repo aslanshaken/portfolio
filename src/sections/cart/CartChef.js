@@ -48,8 +48,8 @@ export default function CartChef() {
   return (
     <Stack>
       {cart?.length == 0 ? (
-        <Stack alignItems={'center'} justifyContent={'center'} sx={{ color: 'gray' }} spacing={2}>
-          <Iconify icon={'ic:outline-shopping-cart'} />
+        <Stack alignItems={'center'} justifyContent={'center'} sx={{ color: 'gray', opacity: .7 }} spacing={2}>
+          <Iconify icon={'ic:outline-shopping-cart'} sx={{ width: 100, height: 100 }} />
           <Typography>There are no items in your cart</Typography>
         </Stack>
       ) : (
