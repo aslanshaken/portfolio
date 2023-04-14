@@ -13,6 +13,7 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'src/redux/store';
 import { CITYCUISINE_SELECTOR, getChefs } from 'src/redux/slices/city';
 import useAuth from 'src/hooks/useAuth';
+import Image from 'src/components/Image';
 // --------------------------------------------
 
 const sort_type = [{ name: 'sort by Popularity' }, { name: 'sort by New' }, { name: 'sort by Oldest' }];
@@ -194,28 +195,35 @@ export default function ChooseChef() {
                     </Typography>
                   </Box>
                 </Box>
-                <Grid container px={4} py={2}>
-                  <Grid display={'flex'} gap={4} alignItems={'center'} item xs={12} lg={4}>
-                    <Avatar
-                      alt="Travis Howard"
-                      src={item?.chef?.image_url}
-                      sx={{ width: { lg: 150, xs: 100 }, height: { lg: 150, xs: 100 } }}
-                    />
-                    <Stack spacing={2}>
-                      <Typography variant="subtitle1" display={'flex'} whiteSpace={'nowrap'} gap={1}>
-                        by {item?.chef?.company_name}
-                        <Iconify icon={'material-symbols:verified'} sx={{ width: 21, height: 21, color: '#0ED3CF' }} />
-                      </Typography>
-                      <Typography variant="caption">
-                        {item?.chef?.first_name} {item?.chef?.last_name}
-                      </Typography>
-                      <Typography color={'primary'} variant="subtitle1">
-                        {item?.chef?.status}
-                      </Typography>
-                      {/* <Box display={{ xs: 'block', lg: 'none' }}>
+                <Grid container spacing={{ xs: 5, md: 2 }} py={2}>
+                  <Grid item xs={12} lg={4}>
+                    <Box display={'flex'} gap={4} alignItems={'center'} px={2}>
+                      <Image
+                        alt="Travis Howard"
+                        src={item?.chef?.image_url}
+                        sx={{ borderRadius: '50%', width: { lg: 130, xs: 80 }, height: { lg: 130, xs: 80 } }}
+                      />
+                      <Stack spacing={2}>
+                        <Box position="relative">
+                          <Typography variant="subtitle1" mr={3}>
+                            {item?.chef?.company_name}
+                          </Typography>
+                          <Iconify
+                            icon={'material-symbols:verified'}
+                            sx={{ width: 21, height: 21, color: '#0ED3CF', position: 'absolute', top: 0, right: 0 }}
+                          />
+                        </Box>
+                        <Typography variant="caption">
+                          by {item?.chef?.first_name} {item?.chef?.last_name}
+                        </Typography>
+                        <Typography color={'primary'} variant="subtitle1">
+                          {item?.chef?.status}
+                        </Typography>
+                        {/* <Box display={{ xs: 'block', lg: 'none' }}>
                         <VisitChef />
                       </Box> */}
-                    </Stack>
+                      </Stack>
+                    </Box>
                   </Grid>
                   <Grid item xs={12} lg={8} py={2} alignItems={'center'}>
                     {item?.foods?.length > 0 && <FoodCarousel foods={item?.foods} />}

@@ -80,7 +80,7 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
 
       <HeroHeader cuisine={'Back'} />
       <Container>
-        <Box display={'flex'} mb={4}>
+        <Box display={'flex'} mb={7}>
           <Box px={2} width={'100%'}>
             <Box display={'flex'} justifyContent={'space-between'} flexWrap={'wrap'} width={'100%'}>
               <Box display={'flex'} gap={2}>
@@ -155,12 +155,12 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
                     />
                   </Box>
                 </NextLink>
-                <IconButton
+                {/* <IconButton
                   color={'secondary'}
                   sx={{ border: '2px solid', height: 40, width: 40, borderRadius: '13px' }}
                 >
                   <Iconify icon={'mdi:cards-heart-outline'} />
-                </IconButton>
+                </IconButton> */}
               </Stack>
             </Box>
             <Hidden mdUp>

@@ -86,8 +86,8 @@ export default function PopularDishes() {
     carouselRef.current?.slickNext();
   };
   return (
-    <RootStyle sx={{ pt: '60px' }}>
-      <Typography variant="h2" color={'secondary'} sx={{ textAlign: 'center', fontWeight: 500, pb: '30px' }}>
+    <RootStyle sx={{ pt: 15 }}>
+      <Typography variant="h3" color={'secondary'} sx={{ textAlign: 'center', fontWeight: 500, pb: '30px' }}>
         Most popular food
       </Typography>
       <Box sx={{ position: 'relative', width: '100%', overflowX: 'hidden' }}>

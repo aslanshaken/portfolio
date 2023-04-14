@@ -12,21 +12,37 @@ DisheCard.propTypes = {
   item: PropTypes.object,
 };
 
-export default function DisheCard({data={}}) {
-  console.log('data: ', data);
+export default function DisheCard({ data = {} }) {
   return (
     <NextLink href={'/cities/4/1/17/'} passHref>
       <Card elevation={0} sx={{ m: 3, borderRadius: 1 }} square>
         <Box sx={{ position: 'relative' }}>
-          <Image alt={name} src={data?.image_url} ratio="1/1" minHeight='100%' />
+          <Image alt={name} src={data?.image_url} ratio="1/1" minHeight="100%" />
         </Box>
 
         <Stack direction="column" px={3} my={5} spacing={3}>
           <Typography variant={'subtitle1'}>{name}</Typography>
+
+          <Typography
+            variant="subtitle1"
+            display={{
+              xs: 'none',
+              md: 'block',
+            }}
+            sx={{
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              display: '-webkit-box',
+              WebkitLineClamp: 1,
+              WebkitBoxOrient: 'vertical',
+            }}
+          >
+            {data?.title}
+          </Typography>
           <Typography
             variant={'body1'}
             sx={{
-              minHeight:'50px',
+              minHeight: '50px',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
               display: '-webkit-box',
@@ -49,9 +65,6 @@ export default function DisheCard({data={}}) {
                 </Typography>
               </Stack>
             </Stack>
-            <Typography variant="caption" display={{ xs: 'none', md: 'block' }}>
-              {data?.title}
-            </Typography>
             {/* <IconButtonAnimate sx={{ p: 0, width: 33, height: 33 }}>
             <Iconify icon={'mdi:cards-heart-outline'} sx={{ width: 33, height: 33, color: 'error.main' }} />
           </IconButtonAnimate>

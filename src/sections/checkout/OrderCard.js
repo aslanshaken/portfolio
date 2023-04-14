@@ -15,6 +15,10 @@ import NextLink from 'next/link';
 import { useDispatch, useSelector } from 'src/redux/store';
 import { addTips, FOOD_SELECTOR } from 'src/redux/slices/food';
 import { useState } from 'react';
+import { LoadingButton } from '@mui/lab';
+import { placeOrder } from 'src/redux/service/payment';
+import useNotify from 'src/hooks/useNotify';
+import { useRouter } from 'next/router';
 
 //
 
@@ -32,10 +36,20 @@ const TopBottomButtonStyle = styled(ButtonGroup)(({ theme }) => ({
 }));
 
 export default function OrderCard() {
+  // redux
   const { checkout } = useSelector(FOOD_SELECTOR);
-
   const { orderDetail, orderId, cart } = checkout;
 
+  // router
+  const { push } = useRouter();
+
+  // state
+  const [isLoading, setIsLoading] = useState(false);
+
+  //
+  const { successAlert, errorAlert } = useNotify();
+
+  //
   const cartArr = cart?.reduce((acc, curr) => {
     // Find the object in acc array with same id and name
     const foundObj = acc.find((obj) => obj.id === curr.id);
@@ -56,8 +70,22 @@ export default function OrderCard() {
 
   const [tips, setTips] = useState(orderDetail?.tips ?? 0);
 
-  const handleClickOrder = () => {
-    dispatch(addTips({ orderId: orderId, tips: tips }));
+  const handleClickOrder = async () => {
+    setIsLoading(true);
+    await dispatch(addTips({ orderId: orderId, tips: tips }));
+    const response = await dispatch(placeOrder(orderId));
+
+    if (placeOrder.fulfilled.match(response)) {
+      successAlert('Your payment was successful.');
+      setIsLoading(false);
+      setTimeout(() => {
+        push('/cities/4/ukrainian-cuisine/adam-sandler/checkout/confirm');
+      }, 1000);
+    } else if (placeOrder.rejected.match(response)) {
+      const error = response.payload;
+      errorAlert(error.message);
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -95,7 +123,7 @@ export default function OrderCard() {
       <Stack direction={'row'} justifyContent={'space-between'} mb={2}>
         <Typography variant={'body2'}>{'Service Fee:'}</Typography>
         <Typography fontWeight={'bold'} color={'secondary'}>
-          ${totalPrice*0.05}
+          ${totalPrice * 0.05}
         </Typography>
       </Stack>
 
@@ -103,7 +131,7 @@ export default function OrderCard() {
       <Stack direction={'row'} justifyContent={'space-between'} mb={2}>
         <Typography variant={'body2'}>{'Total:'}</Typography>
         <Typography fontWeight={'bold'} color={'secondary'}>
-          ${totalPrice*1.05}
+          ${totalPrice * 1.05}
         </Typography>
       </Stack>
 
@@ -164,11 +192,15 @@ export default function OrderCard() {
 
       <Box mt={5} />
 
-      <NextLink href="/cities/4/ukrainian-cuisine/adam-sandler/checkout/confirm" passHref>
-        <Button size="large" variant={'contained'} sx={{ borderRadius: '30px' }} onClick={handleClickOrder}>
-          ORDER
-        </Button>
-      </NextLink>
+      <LoadingButton
+        loading={isLoading}
+        size="large"
+        variant={'contained'}
+        sx={{ borderRadius: '30px' }}
+        onClick={handleClickOrder}
+      >
+        ORDER
+      </LoadingButton>
     </Stack>
   );
 }

@@ -19,22 +19,14 @@ FoodCartCard.propTypes = {
 };
 
 export default function FoodCartCard(props) {
-  const {
-    chefname,
-    chefavatar,
-    name,
-    cover,
-    price,
-    onClick = () => {},
-    onClickPlus = () => {},
-    ...other
-  } = props;
+  const { chefname, chefavatar, name, cover, price, onClick = () => {}, onClickPlus = () => {}, ...other } = props;
 
   return (
     <Card
       elevation={0}
       sx={{
         borderRadius: 1,
+        height: 1,
       }}
       square
       {...other}
@@ -66,7 +58,17 @@ export default function FoodCartCard(props) {
           sx={{ paddingTop: '2rem', paddingBottom: '1rem', paddingRight: '1rem', paddingLeft: '1rem' }}
         >
           <Box>
-            <Typography variant="subtitle1" color={'text.primary'}>
+            <Typography
+              variant="subtitle1"
+              color={'text.primary'}
+              sx={{
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                display: '-webkit-box',
+                WebkitLineClamp: 1,
+                WebkitBoxOrient: 'vertical',
+              }}
+            >
               {name}
             </Typography>
             <GradientText color="primary" variant="subtitle1">

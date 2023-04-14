@@ -64,8 +64,8 @@ export default function FoodCarousel({ foods }) {
           '& .arrow': {
             border: { md: '1px solid #163E2B' },
             borderRadius: 10,
-            // '&.left': { left: { xs: 30, lg: 0 } },
-            // '&.right': { right: { xs: 30, lg: 0 } },
+            '&.left': { left: { xs: -5, lg: 15 } },
+            '&.right': { right: { xs: -5, lg: 10 } },
           },
           '& .MuiButtonBase-root': {
             color: '#163E2B',
