@@ -49,7 +49,7 @@ export default function CartDialog({ data, setSelectedItemData, onSubmit, ...oth
                   {data?.title}
                 </Typography>
                 <GradientText variant="subtitle1" gutterBottom>
-                  ${data?.current_price}
+                  {`$${data?.current_price} / ${data?.measurement || ''}`}
                 </GradientText>
               </Stack>
             </Grid>
