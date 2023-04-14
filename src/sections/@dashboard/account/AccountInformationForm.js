@@ -18,7 +18,7 @@ export default function AccountInformationForm() {
 
   const { successAlert, errorAlert } = useNotify();
 
-  const { user: userInfo, updateAddress, updatePersonalInfo } = useAuth();
+  const { user: userInfo, updateAddress, updatePersonalInfo, addAddress } = useAuth();
 
   const personalInfoScahema = Yup.object().shape({
     custom_vocabulary: Yup.string(),
@@ -50,7 +50,7 @@ export default function AccountInformationForm() {
     setValue: setPersonalInfoValue,
     handleSubmit: personalInfoHandleSubmit,
     reset: resetPersonalInfo,
-    formState: { isSubmitting: personalInfoIsSubmitting, isDirty: personalInfoIsDirty },
+    formState: { isSubmitting: personalInfoIsSubmitting },
   } = personalInfoMethods;
 
   const personalInfoOnSubmit = async (data) => {
@@ -96,8 +96,13 @@ export default function AccountInformationForm() {
   const addressOnSubmit = async (data) => {
     data.id = address?.id;
     try {
-      const response = await updateAddress(data);
-      successAlert(response.data.success);
+      if (address?.id) {
+        const response = await updateAddress(data);
+        successAlert(response.data.success);
+      } else {
+        const response = await addAddress(data);
+        successAlert(response.data.success);
+      }
     } catch (error) {
       errorAlert(error.message);
     }
@@ -160,7 +165,7 @@ export default function AccountInformationForm() {
               sx={{ color: 'black', fontWeight: 'normal' }}
               onClick={() => setIsDisableAddress(!isDisableAddress)}
             >
-              {isDisableAddress ? 'edit' : 'disable'}
+              {isDisableAddress ? (address?.id ? 'edit' : 'add') : 'disable'}
             </Button>
           </Stack>
 

@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'src/redux/store';
 import { createOrders, FOOD_SELECTOR } from 'src/redux/slices/food';
 import { CITYCUISINE_SELECTOR } from 'src/redux/slices/city';
 import { useRouter } from 'next/router';
+import { ShoppingCartIcon } from 'src/assets';
+import Iconify from 'src/components/Iconify';
 
 //
 export default function CartChef() {
@@ -46,9 +48,10 @@ export default function CartChef() {
   return (
     <Stack>
       {cart?.length == 0 ? (
-        <Typography variant="h3" align="center">
-          There are no items in your cart
-        </Typography>
+        <Stack alignItems={'center'} justifyContent={'center'} sx={{ color: 'gray' }} spacing={2}>
+          <Iconify icon={'ic:outline-shopping-cart'} />
+          <Typography>There are no items in your cart</Typography>
+        </Stack>
       ) : (
         <>
           <ProfileCover cuisineNames={[...cuisineNames]} />
