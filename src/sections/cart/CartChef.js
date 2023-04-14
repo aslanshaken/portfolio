@@ -34,7 +34,7 @@ export default function CartChef() {
     return acc;
   }, []);
 
-  const cuisineNames = cartArr.map((item) => cuisines.find((cuisine) => cuisine.id == item.cuisine_id)?.name);
+  const cuisineNames = new Set(cartArr.map((item) => cuisines.find((cuisine) => cuisine.id == item.cuisine_id)?.name));
 
   const handleClickCreateOrders = async () => {
     const response = await dispatch(
@@ -51,7 +51,7 @@ export default function CartChef() {
         </Typography>
       ) : (
         <>
-          <ProfileCover cuisineNames={cuisineNames} />
+          <ProfileCover cuisineNames={[...cuisineNames]} />
           <CuisineList />
 
           <Box mt={5} />
