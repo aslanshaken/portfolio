@@ -17,21 +17,6 @@ SchedulePanel.defaultProps = {
   data: {},
 };
 
-const initialTimes = [
-  {
-    id: '1',
-    label: '09AM-12AM',
-  },
-  {
-    id: '2',
-    label: '1AM-4PM',
-  },
-  {
-    id: '3',
-    label: '5PM-8PM',
-  },
-];
-
 const DatePicker = styled('div')(({ theme }) => ({
   width: '100%',
   display: 'flex',
@@ -97,8 +82,12 @@ const DatePicker = styled('div')(({ theme }) => ({
 export default function SchedulePanel({ isPickup, onClose, subtitle }) {
   const { checkout } = useSelector(FOOD_SELECTOR);
 
+  const slots = checkout?.orderDetail?.schedule_slots;
+
+  const initialTimes = slots?.map((item, _i) => ({ id: _i, label: item }));
+
   const { deliveryDate } = checkout;
-  
+
   const isDateToday = isToday(new Date(deliveryDate));
 
   const now = new Date();
@@ -115,7 +104,7 @@ export default function SchedulePanel({ isPickup, onClose, subtitle }) {
 
   const dateSchedule = new Date(checkout?.orderDetail?.items[0].selected_day);
 
-  const [activedTime, setAcitvedTime] = useState(times[0]);
+  const [activedTime, setAcitvedTime] = useState(times ? times[0] : '');
 
   return (
     <Card>
@@ -124,11 +113,13 @@ export default function SchedulePanel({ isPickup, onClose, subtitle }) {
         icon="jam:pen-f"
         title={`${isPickup ? 'Pick Up Schedule' : 'Delivery Schedule'}`}
       />
-      <Stack direction={'row'} px={3} flexWrap={'wrap'} py={2} gap={2} justifyContent={'space-around'}>
-        {times.length == 0 ? (
-          <Typography variant='caption' color={'gray'} textAlign={'left'} width={'100%'}>There is no available times.</Typography>
+      <Stack direction={'row'} px={3} flexWrap={'wrap'} py={2} gap={2}>
+        {times?.length == 0 ? (
+          <Typography variant="caption" color={'gray'} textAlign={'left'} width={'100%'}>
+            There is no available times.
+          </Typography>
         ) : (
-          times.map((item) => (
+          times?.map((item) => (
             <Box
               key={item.id}
               display={'flex'}

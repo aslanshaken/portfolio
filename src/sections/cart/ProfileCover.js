@@ -69,7 +69,7 @@ export default function ProfileCover({ certified = true, cuisineNames = [] }) {
             </Typography>
             <Stack direction={{ md: 'row', xs: 'column' }} spacing={{ md: 2 }}>
               <Typography variant="body1" color="black" flex={1}>
-                {cuisineNames.join(' / ')}
+                {cuisineNames?.join(' / ')}
               </Typography>
               <GradientText variant="body1">{certified && 'Certified chef'}</GradientText>
             </Stack>

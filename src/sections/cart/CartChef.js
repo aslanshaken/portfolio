@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'src/redux/store';
 import { createOrders, FOOD_SELECTOR } from 'src/redux/slices/food';
 import { CITYCUISINE_SELECTOR } from 'src/redux/slices/city';
 import { useRouter } from 'next/router';
+import { ShoppingCartIcon } from 'src/assets';
+import Iconify from 'src/components/Iconify';
 
 //
 export default function CartChef() {
@@ -34,7 +36,7 @@ export default function CartChef() {
     return acc;
   }, []);
 
-  const cuisineNames = cartArr.map((item) => cuisines.find((cuisine) => cuisine.id == item.cuisine_id)?.name);
+  const cuisineNames = new Set(cartArr.map((item) => cuisines.find((cuisine) => cuisine.id == item.cuisine_id)?.name));
 
   const handleClickCreateOrders = async () => {
     const response = await dispatch(
@@ -46,12 +48,13 @@ export default function CartChef() {
   return (
     <Stack>
       {cart?.length == 0 ? (
-        <Typography variant="h3" align="center">
-          There are no items in your cart
-        </Typography>
+        <Stack alignItems={'center'} justifyContent={'center'} sx={{ color: 'gray', opacity: .7 }} spacing={2}>
+          <Iconify icon={'ic:outline-shopping-cart'} sx={{ width: 100, height: 100 }} />
+          <Typography>There are no items in your cart</Typography>
+        </Stack>
       ) : (
         <>
-          <ProfileCover cuisineNames={cuisineNames} />
+          <ProfileCover cuisineNames={[...cuisineNames]} />
           <CuisineList />
 
           <Box mt={5} />
