@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRef } from 'react';
 import Slider from 'react-slick';
-import { Box, Typography, useTheme } from '@mui/material';
+import { Box, CircularProgress, Typography, useTheme } from '@mui/material';
 import CarouselArrows from './CarouselArrows';
 import DisheCard from '../../components/DisheCard';
 import styled from '@emotion/styled';
@@ -102,12 +102,17 @@ export default function PopularDishes() {
           }}
         >
           <Container>
-            <Slider ref={carouselRef} {...settings}>
-              {!loading &&
-                popularFoods?.map((item, _i) => (
+            {!loading ? (
+              <Slider ref={carouselRef} {...settings}>
+                {popularFoods?.map((item, _i) => (
                   <DisheCard key={_i} data={item} />
                 ))}
-            </Slider>
+              </Slider>
+            ) : (
+              <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                <CircularProgress />
+              </Box>
+            )}
           </Container>
         </CarouselArrows>
       </Box>
