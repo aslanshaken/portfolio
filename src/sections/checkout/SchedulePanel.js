@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Button, Card, Stack, Typography } from '@mui/material';
 import CardHeader from '../../components/card/CardHeader';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Box } from '@mui/system';
 import { StaticDatePicker } from '@mui/lab';
 import styled from '@emotion/styled';
@@ -84,6 +84,12 @@ export default function SchedulePanel({ isPickup, onClose, subtitle }) {
 
   const slots = checkout?.orderDetail?.schedule_slots;
 
+  const scheduledTime = checkout?.orderDetail?.schedule_time;
+
+  useEffect(() => {
+    dispatch(setScheduleTime(scheduledTime));
+  }, [scheduledTime]);
+
   const { deliveryDate, scheduleTime } = checkout;
 
   const isDateToday = isToday(new Date(deliveryDate));
@@ -103,7 +109,7 @@ export default function SchedulePanel({ isPickup, onClose, subtitle }) {
     : slots;
 
   const dateSchedule = new Date(checkout?.orderDetail?.items[0].selected_day);
-  
+
   return (
     <Card>
       <CardHeader
