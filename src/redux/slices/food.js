@@ -28,6 +28,7 @@ const initialState = {
     discount: 0,
     delivering: 0,
     billing: null,
+    scheduleTime: {},
   },
 };
 
@@ -110,6 +111,11 @@ const slice = createSlice({
         zip: action.payload.zip,
       };
     },
+
+    setScheduleTime(state, action) {
+      state.loading = false;
+      state.checkout.scheduleTime = action.payload;
+    },
   },
 });
 
@@ -127,6 +133,7 @@ export const {
   setOrderDetail,
   setDeliveryInstructions,
   setDeliveryAddress,
+  setScheduleTime,
 } = slice.actions;
 
 // Selector
@@ -188,6 +195,19 @@ export function addTips(data) {
     try {
       const response = await axios.post(`/api/${process.env.API_VERSION}/orders/${data.orderId}/add_tips`, {
         tips: data.tips,
+      });
+    } catch (error) {
+      dispatch(slice.actions.setError(error));
+    }
+  };
+}
+
+export function updateScheduleTime(orderId, scheduleTime) {
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try {
+      const response = await axios.post(`/api/${process.env.API_VERSION}/orders/${orderId}/update_schedule_time`, {
+        schedule_time: scheduleTime,
       });
     } catch (error) {
       dispatch(slice.actions.setError(error));

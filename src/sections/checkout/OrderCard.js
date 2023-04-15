@@ -13,7 +13,7 @@ import {
 import Iconify from 'src/components/Iconify';
 import NextLink from 'next/link';
 import { useDispatch, useSelector } from 'src/redux/store';
-import { addTips, FOOD_SELECTOR } from 'src/redux/slices/food';
+import { addTips, FOOD_SELECTOR, updateScheduleTime } from 'src/redux/slices/food';
 import { useState } from 'react';
 import { LoadingButton } from '@mui/lab';
 import { placeOrder } from 'src/redux/service/payment';
@@ -38,7 +38,7 @@ const TopBottomButtonStyle = styled(ButtonGroup)(({ theme }) => ({
 export default function OrderCard() {
   // redux
   const { checkout } = useSelector(FOOD_SELECTOR);
-  const { orderDetail, orderId, cart } = checkout;
+  const { orderDetail, orderId, cart, scheduleTime } = checkout;
 
   // router
   const { push } = useRouter();
@@ -72,8 +72,9 @@ export default function OrderCard() {
 
   const handleClickOrder = async () => {
     setIsLoading(true);
-    await dispatch(addTips({ orderId: orderId, tips: tips }));
-    const response = await dispatch(placeOrder(orderId));
+    dispatch(addTips({ orderId: orderId, tips: tips }));
+    dispatch(updateScheduleTime(orderId, scheduleTime))
+    const response = dispatch(placeOrder(orderId));
 
     if (placeOrder.fulfilled.match(response)) {
       successAlert('Your payment was successful.');
@@ -83,7 +84,7 @@ export default function OrderCard() {
       }, 1000);
     } else if (placeOrder.rejected.match(response)) {
       const error = response.payload;
-      errorAlert(error.message);
+      errorAlert(error);
       setIsLoading(false);
     }
   };
