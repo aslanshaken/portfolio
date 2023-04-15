@@ -34,10 +34,13 @@ export default function ChefListPage() {
 
   const { isAuthenticated } = useAuth();
 
-  useEffect(async () => {
-    await dispatch(getChefs(cityId, cuisineId));
-    SetIsLoading(false);
-    dispatch(getCity(router.query.cityId));
+  useEffect(() => {
+    async function fetch() {
+      await dispatch(getChefs(cityId, cuisineId));
+      SetIsLoading(false);
+      dispatch(getCity(router.query.cityId));
+    }
+    fetch();
   }, [dispatch, router, isAuthenticated, cityId, cuisineId]);
 
   useEffect(() => {

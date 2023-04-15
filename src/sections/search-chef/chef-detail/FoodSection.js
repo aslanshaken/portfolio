@@ -1,7 +1,17 @@
 import { useCallback, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 // @mui
-import { Autocomplete, Typography, Grid, TextField, Box, Backdrop, IconButton, Stack } from '@mui/material';
+import {
+  Autocomplete,
+  Typography,
+  Grid,
+  TextField,
+  Box,
+  Backdrop,
+  IconButton,
+  Stack,
+  CircularProgress,
+} from '@mui/material';
 // components
 import Container from '../../../components/Container';
 import Pagination from '../../../components/Pagination';
@@ -127,9 +137,16 @@ export default function FoodSection({ selectedCategory }) {
 
   const { foods } = useSelector(FOOD_SELECTOR);
 
+  const [loading, setIsLoading] = useState(true);
+
   useEffect(() => {
-    dispatch(getFoodsByChef(cityId, cuisineId, chefId));
-  }, []);
+    async function fetch() {
+      await dispatch(getFoodsByChef(cityId, cuisineId, chefId));
+      setIsLoading(false);
+    }
+
+    fetch();
+  }, [chefId, cityId, cuisineId, dispatch]);
 
   return (
     <RootStyle>
@@ -246,28 +263,35 @@ export default function FoodSection({ selectedCategory }) {
                 />
               </Grid>
             </Grid> */}
-
-            <Grid container spacing={3}>
-              {foods?.[selectedCategory]?.slice(currentPage === 1 ? 0 : (currentPage - 1) * 10 - 1, 10).map((item) => (
-                <Grid key={item?.id} item lg={4} md={6} sm={6} xs={12} width={1}>
-                  <FoodCartCard
-                    name={item?.title}
-                    cover={item?.image_url}
-                    price={item?.current_price}
-                    we_kc={`${item?.gram} gr / ${item?.kc} kc`}
-                    measurement={item?.measurement}
-                    onClick={() => handleClickItem(item)}
-                    onClickPlus={() => {
-                      if (isAuthenticated) {
-                        handleClickAddCart({ foods: [item], newAddCart: false });
-                      } else {
-                        router.push(PATH_AUTH.login);
-                      }
-                    }}
-                  />
-                </Grid>
-              ))}
-            </Grid>
+            {loading ? (
+              <Box sx={{ width: 'fit-content', margin: 'auto' }} pb={8}>
+                <CircularProgress />
+              </Box>
+            ) : (
+              <Grid container spacing={3}>
+                {foods?.[selectedCategory]
+                  ?.slice(currentPage === 1 ? 0 : (currentPage - 1) * 10 - 1, 10)
+                  .map((item) => (
+                    <Grid key={item?.id} item lg={4} md={6} sm={6} xs={12} width={1}>
+                      <FoodCartCard
+                        name={item?.title}
+                        cover={item?.image_url}
+                        price={item?.current_price}
+                        we_kc={`${item?.gram} gr / ${item?.kc} kc`}
+                        measurement={item?.measurement}
+                        onClick={() => handleClickItem(item)}
+                        onClickPlus={() => {
+                          if (isAuthenticated) {
+                            handleClickAddCart({ foods: [item], newAddCart: false });
+                          } else {
+                            router.push(PATH_AUTH.login);
+                          }
+                        }}
+                      />
+                    </Grid>
+                  ))}
+              </Grid>
+            )}
             {foods?.[selectedCategory]?.length > 10 && (
               <Pagination count={Math.ceil(foods?.[selectedCategory]?.length / 10)} setCurrentPage={setCurrentPage} />
             )}
