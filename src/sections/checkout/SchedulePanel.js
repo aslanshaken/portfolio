@@ -103,7 +103,7 @@ export default function SchedulePanel({ isPickup, onClose, subtitle }) {
     : slots;
 
   const dateSchedule = new Date(checkout?.orderDetail?.items[0].selected_day);
-
+  
   return (
     <Card>
       <CardHeader
@@ -112,12 +112,12 @@ export default function SchedulePanel({ isPickup, onClose, subtitle }) {
         title={`${isPickup ? 'Pick Up Schedule' : 'Delivery Schedule'}`}
       />
       <Stack direction={'row'} px={3} flexWrap={'wrap'} py={2} gap={2}>
-        {times.length == 0 ? (
+        {times?.length == 0 ? (
           <Typography variant="caption" color={'gray'} textAlign={'left'} width={'100%'}>
             There is no available times.
           </Typography>
         ) : (
-          times.map((item, _i) => (
+          times?.map((item, _i) => (
             <Box
               key={item + _i}
               display={'flex'}
