@@ -7,7 +7,7 @@ import ChooseChef from '../../../../sections/search-chef/ChooseChef';
 import HeroHeader from '../../../../components/HeroHeader';
 import { useSelector } from 'src/redux/store';
 import { CITYCUISINE_SELECTOR, getChefs, getCity } from 'src/redux/slices/city';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import useAuth from 'src/hooks/useAuth';
@@ -24,6 +24,8 @@ ChefListPage.getLayout = function getLayout(page) {
 export default function ChefListPage() {
   const { cuisine, error } = useSelector(CITYCUISINE_SELECTOR);
 
+  const [loading, SetIsLoading] = useState(true);
+
   const router = useRouter();
 
   const dispatch = useDispatch();
@@ -32,8 +34,9 @@ export default function ChefListPage() {
 
   const { isAuthenticated } = useAuth();
 
-  useEffect(() => {
-    dispatch(getChefs(cityId, cuisineId));
+  useEffect(async () => {
+    await dispatch(getChefs(cityId, cuisineId));
+    SetIsLoading(false);
     dispatch(getCity(router.query.cityId));
   }, [dispatch, router, isAuthenticated, cityId, cuisineId]);
 
@@ -50,7 +53,7 @@ export default function ChefListPage() {
         city="Austin"
         cuisine={cuisine?.name}
       />
-      <ChooseChef />
+      <ChooseChef loading={loading} />
     </Page>
   );
 }
