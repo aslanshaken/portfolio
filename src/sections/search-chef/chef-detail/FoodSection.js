@@ -141,6 +141,7 @@ export default function FoodSection({ selectedCategory }) {
 
   useEffect(() => {
     async function fetch() {
+      setIsLoading(true);
       await dispatch(getFoodsByChef(cityId, cuisineId, chefId));
       setIsLoading(false);
     }

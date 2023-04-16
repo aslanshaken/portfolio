@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Dialog, DialogContent, IconButton, Stack, Typography } from '@mui/material';
+import { Box, Button, Dialog, DialogContent, IconButton, Stack, Typography } from '@mui/material';
 import Iconify from 'src/components/Iconify';
 import { useRouter } from 'next/router';
 import { closeDialog } from 'src/redux/slices/dialog';
@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'src/redux/store';
 import { CITYCUISINE_SELECTOR, getCuisines } from 'src/redux/slices/city';
 import useAuth from 'src/hooks/useAuth';
 import Image from 'src/components/Image';
+import NextImage from 'next/image';
 
 // ----------------------------------------------------------------------
 
@@ -55,16 +56,20 @@ export default function CuisineDialog({ isOpen }) {
                 sx={{ width: '100%', justifyContent: 'left', px: 5 }}
               >
                 {item?.image ? (
-                  <Image
-                    src={item?.image}
-                    sx={{
-                      borderRadius: (theme) => `${theme.shape.borderRadius}px`,
-                      width: 100,
-                      height: 70,
-                      marginRight: 3,
-                    }}
-                    alt={'cuisine'}
-                  />
+                  <>
+                    <Box
+                      sx={{
+                        borderRadius: (theme) => `${theme.shape.borderRadius}px`,
+                        width: 100,
+                        height: 70,
+                        marginRight: 3,
+                        overflow: 'hidden',
+                        position: 'relative'
+                      }}
+                    >
+                      <NextImage alt={'cuisine'} src={item?.image} layout="fill" quality={5} priority />
+                    </Box>
+                  </>
                 ) : (
                   <Iconify icon={'material-symbols:cookie'} color={'disabled'} sx={{ width: 70, height: 70 }} mr={3} />
                 )}

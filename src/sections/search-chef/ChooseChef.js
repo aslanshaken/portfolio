@@ -105,9 +105,11 @@ export default function ChooseChef({ loading = true }) {
           <Stack my={4}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={7}>
-                <Typography variant="h3" color={'black'}>
-                  {`${city?.name} Chefs`}
-                </Typography>
+                {city && (
+                  <Typography variant="h3" color={'black'}>
+                    {`${city?.name} Chefs`}
+                  </Typography>
+                )}
               </Grid>
               <Grid item xs={12} sm={5}>
                 <TextField

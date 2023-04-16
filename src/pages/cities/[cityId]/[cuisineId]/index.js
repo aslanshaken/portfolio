@@ -36,6 +36,7 @@ export default function ChefListPage() {
 
   useEffect(() => {
     async function fetch() {
+      SetIsLoading(true);
       await dispatch(getChefs(cityId, cuisineId));
       SetIsLoading(false);
       dispatch(getCity(router.query.cityId));
@@ -52,6 +53,7 @@ export default function ChefListPage() {
   return (
     <Page title="Search Chef">
       <HeroHeader
+        loading={loading}
         backgroundImage={cuisine?.image ?? '/assets/search-chef/chefs/hero-header.png'}
         city="Austin"
         cuisine={cuisine?.name}

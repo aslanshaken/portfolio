@@ -1,5 +1,5 @@
 import React from 'react';
-import { Backdrop, Divider, styled, Typography } from '@mui/material';
+import { Backdrop, CircularProgress, Divider, styled, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import PropTypes from 'prop-types';
 import Container from './Container';
@@ -53,7 +53,7 @@ HeroHeader.defaultProps = {
 };
 
 export default function HeroHeader(props) {
-  const { backgroundImage, topBorder, bottomBorder, title, city, cuisine, chef } = props;
+  const { backgroundImage, topBorder, bottomBorder, title, city, cuisine, chef, loading } = props;
 
   return (
     <RootStyle>
@@ -86,7 +86,13 @@ export default function HeroHeader(props) {
         ) : (
           <>
             <NavLinkHeader city={city} cuisine={cuisine} chef={chef} />
-            {backgroundImage && <Image src={backgroundImage} alt={'hero-header'} sx={{ height: 200 }} />}
+            {loading ? (
+              <Box sx={{ width: 'fit-content', margin: 'auto' }}>
+                <CircularProgress />
+              </Box>
+            ) : (
+              <Image src={backgroundImage} alt={'hero-header'} sx={{ height: 200 }} />
+            )}
           </>
         )}
       </Container>
