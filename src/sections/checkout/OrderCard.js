@@ -77,12 +77,13 @@ export default function OrderCard({ isPickup }) {
   const [tips, setTips] = useState(orderDetail?.tips ?? 0);
 
   const handleClickOrder = async () => {
+    try {
+      
     setIsLoading(true);
     await changeAddress(isPickup, address?.id, orderId);
     await dispatch(addTips({ orderId: orderId, tips: tips }));
     await dispatch(updateScheduleTime(orderId, scheduleTime));
     const response = await dispatch(placeOrder(orderId));
-    push('/cities/4/ukrainian-cuisine/adam-sandler/checkout/confirm');
 
     if (placeOrder.fulfilled.match(response)) {
       successAlert('Your payment was successful.');
@@ -94,6 +95,10 @@ export default function OrderCard({ isPickup }) {
       const error = response.payload;
       errorAlert(error.message);
       setIsLoading(false);
+    }
+    } catch (error) {
+      console.log('error: ', error);
+      
     }
   };
 

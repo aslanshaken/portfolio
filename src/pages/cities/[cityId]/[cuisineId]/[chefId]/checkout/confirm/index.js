@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Stack } from '@mui/material';
 import Container from 'src/components/Container';
@@ -7,6 +7,10 @@ import Layout from 'src/layouts';
 import ConfirmCartItem from 'src/sections/confirm/ConfirmCartItem';
 import ConfirmInfo from 'src/sections/confirm/ConfirmInfo';
 import ConfirmNotes from 'src/sections/confirm/ConfirmNotes';
+import { useDispatch } from 'react-redux';
+import { FOOD_SELECTOR, getOrderConfirmInfo } from 'src/redux/slices/food';
+import { useSelector } from 'src/redux/store';
+import LoadingScreen from 'src/components/LoadingScreen';
 // ----------------------------------------------------------------------
 
 CheckoutPage.getLayout = function getLayout(page) {
@@ -14,11 +18,20 @@ CheckoutPage.getLayout = function getLayout(page) {
 };
 
 CheckoutPage.propTypes = {
-  isPickup:PropTypes.bool
-}
+  isPickup: PropTypes.bool,
+};
 
 export default function CheckoutPage({ isPickup = true }) {
-  return (
+  const { checkout, loading } = useSelector(FOOD_SELECTOR);
+  const { orderId } = checkout;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getOrderConfirmInfo(orderId));
+  }, []);
+
+  return loading ? (
+    <LoadingScreen />
+  ) : (
     <Page title="Search Chef">
       <Container>
         <Stack spacing={6}>

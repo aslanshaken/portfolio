@@ -32,6 +32,7 @@ const initialState = {
     billing: null,
     scheduleTime: {},
   },
+  orderConfirmInfo: null,
 };
 
 const slice = createSlice({
@@ -127,6 +128,11 @@ const slice = createSlice({
     setSavedCards(state, action) {
       state.loading = false;
       state.savedCards = action.payload;
+    },
+
+    setOrderConfirmInfo(state, action) {
+      state.loading = false;
+      state.orderConfirmInfo = action.payload;
     },
   },
 });
@@ -297,6 +303,19 @@ export function updateCart(data) {
       );
       dispatch(slice.actions.updateCart());
       return response;
+    } catch (error) {
+      dispatch(slice.actions.setError(error));
+    }
+  };
+}
+
+// ----------------------------------------------------------------------
+export function getOrderConfirmInfo(orderId) {
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try {
+      const response = await axios.get(`/api/${process.env.API_VERSION}/orders/${orderId}/confirm_order`);
+      dispatch(slice.actions.setOrderConfirmInfo(response.data));
     } catch (error) {
       dispatch(slice.actions.setError(error));
     }

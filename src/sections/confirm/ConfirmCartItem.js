@@ -6,9 +6,9 @@ import { FOOD_SELECTOR } from 'src/redux/slices/food';
 import { useSelector } from 'src/redux/store';
 
 export default function ConfirmCartItem() {
-  const { checkout } = useSelector(FOOD_SELECTOR);
+  const { orderConfirmInfo } = useSelector(FOOD_SELECTOR);
 
-  const cart = checkout?.orderDetail?.items;
+  const cart = orderConfirmInfo?.items;
 
   return (
     <Card>
@@ -26,23 +26,23 @@ export default function ConfirmCartItem() {
                 <Stack direction={'row'} alignItems={'center'} spacing={{ xs: 2, md: 6 }} width={1} px={{ md: 4 }}>
                   <Image
                     alt={'Cuisine Image'}
-                    src={item?.image}
+                    src={item?.image_url}
                     sx={{ borderRadius: '50%', width: { md: 150, xs: 100 }, height: { md: 150, xs: 100 } }}
                   />
 
                   <Stack>
                     <Typography variant="h6" fontWeight={600} gutterBottom>
-                      {item?.title}
+                      {item?.name}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                      Quantity: {item?.count}
+                      Quantity: {item?.quantity}
                     </Typography>
                   </Stack>
 
                   <Box sx={{ flexGrow: 1 }} />
 
                   <Typography fontWeight={'bold'} color={'secondary'}>
-                    ${item?.total_cost}
+                    ${item?.price}
                   </Typography>
                 </Stack>
               </ListItem>

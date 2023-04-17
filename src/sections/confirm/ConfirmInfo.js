@@ -7,6 +7,7 @@ import { FOOD_SELECTOR } from 'src/redux/slices/food';
 import { useSelector } from 'src/redux/store';
 import { parse, format } from 'date-fns';
 import { CITYCUISINE_SELECTOR } from 'src/redux/slices/city';
+import Label from 'src/components/Label';
 
 const RootStyle = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -17,13 +18,15 @@ const RootStyle = styled('div')(({ theme }) => ({
 }));
 
 export default function ConfirmInfo({ isPickup }) {
-  const { user } = useAuth();
-  const { checkout } = useSelector(FOOD_SELECTOR);
-  const { deliveryDate } = checkout;
-  // const date = parse(deliveryDate, 'MM/dd/yy', new Date());
-  const orderDate = format(new Date(deliveryDate), 'MMMM d, yyyy');
-  const { chef } = useSelector(CITYCUISINE_SELECTOR);
-  const chefInfo = chef?.chef;
+  const { orderConfirmInfo } = useSelector(FOOD_SELECTOR);
+  const { full_name, order_date, primary_address, chef_details, status } = orderConfirmInfo ?? {};
+  const orderDate = format(new Date(order_date ?? new Date()), 'MMMM d, yyyy');
+  // const { user } = useAuth();
+  // const { checkout } = useSelector(FOOD_SELECTOR);
+  // const { deliveryDate } = checkout;
+  // // const date = parse(deliveryDate, 'MM/dd/yy', new Date());
+  // const { chef } = useSelector(CITYCUISINE_SELECTOR);
+  // const chef_details = chef?.chef;
 
   return (
     <RootStyle>
@@ -39,9 +42,7 @@ export default function ConfirmInfo({ isPickup }) {
 
         <Stack whiteSpace={'nowrap'} direction={'row'} flexWrap={'wrap'} justifyContent={'space-between'} gap={6}>
           <Stack spacing={1} display={{ xs: 'none', md: 'block' }}>
-            <Typography variant="subtitle1">
-              Hello {user?.user?.first_name} {user?.user?.last_name},
-            </Typography>
+            <Typography variant="subtitle1">Hello {full_name},</Typography>
             <Typography variant="body2" color={'text.secondary'}>
               Your order has been confirmed
             </Typography>
@@ -76,8 +77,8 @@ export default function ConfirmInfo({ isPickup }) {
                 Shopping Address
               </Typography>
               <Typography variant="subtitle1">
-                {chefInfo?.primary_address?.line1}, {chefInfo?.primary_address?.apartment},
-                {chefInfo?.primary_address?.state},{chefInfo?.primary_address?.city},{chefInfo?.primary_address?.zip}
+                {primary_address?.line1}, {primary_address?.apartment},{primary_address?.state},{primary_address?.city},
+                {primary_address?.zip}
               </Typography>
             </Stack>
           </Stack>
@@ -106,20 +107,20 @@ export default function ConfirmInfo({ isPickup }) {
             <Stack direction={'row'} alignItems={'center'} spacing={2}>
               <Avatar
                 alt="Travis Howard"
-                src={chefInfo?.image_url}
+                src={chef_details?.image_url}
                 sx={{
                   width: 60,
                   height: 60,
                 }}
               />
               <Typography variant="body2" color={'text.secondary'} fontWeight={'600'}>
-                {chefInfo?.first_name} {chefInfo?.last_name}
+                {chef_details?.first_name} {chef_details?.last_name}
               </Typography>
             </Stack>
           </Stack>
           <Stack spacing={3} textAlign={'center'}>
             <Typography variant="subtitle1">Status</Typography>
-            <Chip label="Received" sx={{ color: '#1B6240', background: '#B6E2CC', fontWeight: '700' }} />
+            <Chip label={status} sx={{ color: '#1B6240', background: '#B6E2CC', fontWeight: '700' }} />
           </Stack>
         </Stack>
 
