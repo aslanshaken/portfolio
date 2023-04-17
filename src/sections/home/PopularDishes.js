@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRef } from 'react';
 import Slider from 'react-slick';
 import { Box, CircularProgress, Typography, useTheme } from '@mui/material';
@@ -53,7 +53,7 @@ export default function PopularDishes() {
   const carouselRef = useRef(null);
   const theme = useTheme();
 
-  const { popularFoods = [], loading } = useSelector(FOOD_SELECTOR);
+  const { popularFoods = [] } = useSelector(FOOD_SELECTOR);
 
   const settings = {
     infinite: true,
@@ -86,37 +86,33 @@ export default function PopularDishes() {
     carouselRef.current?.slickNext();
   };
   return (
-    <RootStyle sx={{ pt: 15 }}>
-      <Typography variant="h3" color={'secondary'} sx={{ textAlign: 'center', fontWeight: 500, pb: '30px' }}>
-        Most popular food
-      </Typography>
-      <Box sx={{ position: 'relative', width: '100%', overflowX: 'hidden' }}>
-        <CarouselArrows
-          onNext={handleNext}
-          onPrevious={handlePrevious}
-          sx={{
-            '& .arrow': {
-              '&.left': { left: { xs: 10, lg: '5%', xl: '13%' }, top: '300px' },
-              '&.right': { right: { xs: 10, lg: '5%', xl: '13%' }, top: '300px' },
-            },
-          }}
-        >
-          <Container>
-            {!loading ? (
+    popularFoods?.length > 0 && (
+      <RootStyle sx={{ pt: 15 }}>
+        <Typography variant="h3" color={'secondary'} sx={{ textAlign: 'center', fontWeight: 500, pb: '30px' }}>
+          Most popular food
+        </Typography>
+        <Box sx={{ position: 'relative', width: '100%', overflowX: 'hidden' }}>
+          <CarouselArrows
+            onNext={handleNext}
+            onPrevious={handlePrevious}
+            sx={{
+              '& .arrow': {
+                '&.left': { left: { xs: 10, lg: '5%', xl: '13%' }, top: '300px' },
+                '&.right': { right: { xs: 10, lg: '5%', xl: '13%' }, top: '300px' },
+              },
+            }}
+          >
+            <Container>
               <Slider ref={carouselRef} {...settings}>
                 {popularFoods?.map((item, _i) => (
                   <DisheCard key={_i} data={item} />
                 ))}
               </Slider>
-            ) : (
-              <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                <CircularProgress />
-              </Box>
-            )}
-          </Container>
-        </CarouselArrows>
-      </Box>
-      <Box mt={10} />
-    </RootStyle>
+            </Container>
+          </CarouselArrows>
+        </Box>
+        <Box mt={10} />
+      </RootStyle>
+    )
   );
 }
