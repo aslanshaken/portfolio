@@ -21,7 +21,7 @@ export default function CuisineDialog({ isOpen }) {
 
   useEffect(() => {
     dispatch(getCuisines());
-  }, []);
+  }, [dispatch]);
 
   return (
     <Dialog maxWidth={'sm'} fullWidth open={isOpen}>

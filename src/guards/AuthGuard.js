@@ -32,7 +32,7 @@ export default function AuthGuard({ children }) {
   }, [isAuthenticated, pathname, push, requestedLocation]);
 
   if (!isInitialized) {
-    return <LoadingScreen />;
+    return null;
   }
 
   if (!isAuthenticated) {

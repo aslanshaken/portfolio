@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FormProvider } from 'src/components/hook-form';
 import useNotify from 'src/hooks/useNotify';
+import { getSavedCards } from 'src/redux/slices/food';
+import { useDispatch } from 'src/redux/store';
 
 //
 // ----------------------------------------------------------------------
@@ -21,6 +23,7 @@ export default function PaymentForm({ data, onClose, ...other }) {
 
   const [cardError, setCardError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const { successAlert } = useNotify();
 
@@ -50,6 +53,7 @@ export default function PaymentForm({ data, onClose, ...other }) {
       } else {
         console.log(result.paymentMethod);
         successAlert('Your paynment method has been added successfully.');
+        dispatch(getSavedCards());
         onClose();
       }
     } catch (error) {
@@ -77,7 +81,14 @@ export default function PaymentForm({ data, onClose, ...other }) {
 
       <Box mt={6} />
 
-      <LoadingButton loading={isLoading} type="submit" size="large" variant="outlined" color="secondary" disabled={!stripe}>
+      <LoadingButton
+        loading={isLoading}
+        type="submit"
+        size="large"
+        variant="outlined"
+        color="secondary"
+        disabled={!stripe}
+      >
         Save
       </LoadingButton>
     </FormProvider>

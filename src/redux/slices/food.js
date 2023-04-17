@@ -17,6 +17,8 @@ const initialState = {
     priceRange: '',
     rating: '',
   },
+  orders: [],
+  savedCards: [],
   checkout: {
     orderId: null,
     orderDetail: null,
@@ -92,6 +94,11 @@ const slice = createSlice({
       state.checkout.orderDetail = action.payload;
     },
 
+    setOrders(state, action) {
+      state.loading = false;
+      state.orders = action.payload;
+    },
+
     setDeliveryInstructions(state, action) {
       state.loading = false;
       state.checkout.orderDetail = {
@@ -115,6 +122,11 @@ const slice = createSlice({
     setScheduleTime(state, action) {
       state.loading = false;
       state.checkout.scheduleTime = action.payload;
+    },
+
+    setSavedCards(state, action) {
+      state.loading = false;
+      state.savedCards = action.payload;
     },
   },
 });
@@ -189,6 +201,18 @@ export function getOrderDetail(orderId) {
   };
 }
 
+export function getOrders() {
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try {
+      const response = await axios.get(`/api/${process.env.API_VERSION}/orders`);
+      dispatch(slice.actions.setOrders(response.data.orders_data));
+    } catch (error) {
+      dispatch(slice.actions.setError(error));
+    }
+  };
+}
+
 export function addTips(data) {
   return async (dispatch) => {
     dispatch(startLoading());
@@ -234,7 +258,6 @@ export function updateDeliveryInstructions(data) {
   };
 }
 
-//
 // ----------------------------------------------------------------------
 export function getPopularFoods() {
   return async (dispatch) => {
@@ -247,7 +270,20 @@ export function getPopularFoods() {
     }
   };
 }
-//
+
+// ----------------------------------------------------------------------
+export function getSavedCards() {
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try {
+      const response = await axios.get(`/api/${process.env.API_VERSION}/users/saved_cards`);
+      dispatch(slice.actions.setSavedCards(response.data));
+    } catch (error) {
+      dispatch(slice.actions.setError(error));
+    }
+  };
+}
+
 // ----------------------------------------------------------------------
 export function updateCart(data) {
   return async (dispatch) => {

@@ -29,7 +29,7 @@ OrderTableRow.propTypes = {
 export default function OrderTableRow({ row, selected, headLabel, onEditRow, onSelectRow, onDeleteRow }) {
   const theme = useTheme();
 
-  const { order_number, items_iamge, chef, cuisine, price, status } = row;
+  const { order_number, items, chef, cuisine, sub_total, status } = row;
 
   const [openMenu, setOpenMenuActions] = useState(null);
 
@@ -47,17 +47,22 @@ export default function OrderTableRow({ row, selected, headLabel, onEditRow, onS
         {order_number}
       </TableCell>
 
-      <TableCell align="center">
-        <Box display={'flex'} justifyContent={'center'}  >
-          <Image alt="Order item image" src={items_iamge} sx={{ width: 50, height: 50 }} />
-        </Box>
+      <TableCell align="center" sx={{ fontWeight: 700 }}>
+        {items?.length}
+        {/* <Box display={'flex'} justifyContent={'center'}>
+          {items?.map((item) => (
+            <Image key={item?.id} alt="Order item image" src={item?.image} sx={{ width: 50, height: 50 }} />
+          ))}
+        </Box> */}
       </TableCell>
 
       <TableCell align="center">{chef}</TableCell>
 
       <TableCell align="center">{cuisine}</TableCell>
 
-      <TableCell align="center">{price}</TableCell>
+      <TableCell align="center" sx={{ color: '#8CCC67' }}>
+        ${sub_total}
+      </TableCell>
 
       <TableCell align="center">
         <Label variant={'ghost'} color={STATUS_COLOR[status]} sx={{ textTransform: 'capitalize' }}>

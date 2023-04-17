@@ -5,20 +5,24 @@ import PaymentDialog from './PaymentDialog';
 import { useState } from 'react';
 import NotesPanel from './NotesPanel';
 import SchedulePanel from './SchedulePanel';
-import { useSelector } from 'src/redux/store';
-import { FOOD_SELECTOR } from 'src/redux/slices/food';
+import { useDispatch, useSelector } from 'src/redux/store';
+import { FOOD_SELECTOR, getSavedCards } from 'src/redux/slices/food';
 import { parse, format } from 'date-fns';
 import { useEffect } from 'react';
-import PaymentPanel from './PaymentPanel';
 
 //
 export default function DeliverySteps({ address, isPickup }) {
   const [isOpenPaymentDialog, setIsOpenPaymentDialog] = useState(false);
   const [isOpenSchedulePanel, setIsOpenSchedulePanel] = useState(true);
   const [isOpenNotesPanel, setIsOpenNotesPanel] = useState(false);
-  const { checkout } = useSelector(FOOD_SELECTOR);
+  const { checkout, savedCards } = useSelector(FOOD_SELECTOR);
   const selectedDay = checkout?.orderDetail?.items[0]?.selected_day;
   const [selectedDate, setSelectedDate] = useState();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getSavedCards());
+  }, [dispatch]);
 
   useEffect(() => {
     if (selectedDay) setSelectedDate(format(new Date(selectedDay), 'EEEE, MMM d'));
@@ -42,7 +46,7 @@ export default function DeliverySteps({ address, isPickup }) {
       subtitle: '',
       content: (
         <Stack spacing={1}>
-          {checkout?.orderDetail?.saved_cards?.map((item) => (
+          {savedCards?.map((item) => (
             <Grid container width={'100%'} key={item?.id}>
               <Grid item xs={4}>
                 <Typography variant="body1">{item?.brand}</Typography>
@@ -52,7 +56,9 @@ export default function DeliverySteps({ address, isPickup }) {
               </Grid>
             </Grid>
           ))}
-          <Typography pt={2} variant='caption'>You do not have saved credit cards</Typography>
+          <Typography pt={2} variant="caption">
+            You do not have saved credit cards
+          </Typography>
         </Stack>
       ),
       buttonText: 'Add a new card',
