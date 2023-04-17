@@ -41,8 +41,8 @@ export default function Image({ width = '100%', height = '100%', ratio, disabled
         <Box
           component={LazyLoadImage}
           wrapperClassName="wrapper"
-          effect={disabledEffect ? undefined : effect}
-          placeholderSrc="/assets/placeholder.svg"
+          // effect={disabledEffect ? undefined : effect}
+          placeholderSrc="/assets/placeholder.jpg"
           sx={{ width: 1, height: other.height, objectFit: 'cover' }}
           {...other}
         />
@@ -64,8 +64,8 @@ export default function Image({ width = '100%', height = '100%', ratio, disabled
       <Box
         component={LazyLoadImage}
         wrapperClassName="wrapper"
-        effect={disabledEffect ? undefined : effect}
-        placeholderSrc="/assets/placeholder.svg"
+        // effect={disabledEffect ? undefined : effect}
+        placeholderSrc="/assets/placeholder.jpg"
         sx={{ width: { width }, height: { height }, objectFit: 'cover' }}
         {...other}
       />
