@@ -16,6 +16,7 @@ import useAuth from 'src/hooks/useAuth';
 import { clearCart, getPopularFoods } from 'src/redux/slices/food';
 import PaymentDialog from 'src/sections/checkout/PaymentDialog';
 import LoadingScreen from 'src/components/LoadingScreen';
+import Head from 'next/head';
 
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
@@ -44,6 +45,9 @@ export default function HomePage() {
 
   return (
     <Page title="Home">
+      <Head>
+        <link rel="shortcut icon" href="/assets/web-logo.png" />
+      </Head>
       {/* <WelcomeDialog isOpen={welcomeDialogIsOpen} setIsOpen={setWelcomeDialogIsOpen} /> */}
       {/* <PaymentDialog open /> */}
 
