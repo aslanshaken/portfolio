@@ -53,14 +53,14 @@ export default function CuisineDialog({ isOpen }) {
                   dispatch(closeDialog());
                 }}
                 direction={'row'}
-                sx={{ width: '100%', justifyContent: 'left', px: 5 }}
+                sx={{ width: '100%', justifyContent: 'left', px: {sm:5} }}
               >
                 {item?.image ? (
                   <>
                     <Box
                       sx={{
                         borderRadius: (theme) => `${theme.shape.borderRadius}px`,
-                        width: 100,
+                        minWidth: 100,
                         height: 70,
                         marginRight: 3,
                         overflow: 'hidden',

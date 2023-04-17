@@ -14,7 +14,7 @@ DisheCard.propTypes = {
 
 export default function DisheCard({ data = {} }) {
   return (
-    <NextLink href={'/cities/4/1/17/'} passHref>
+    <NextLink href={`/cities/${data?.chef?.city_id}/${data?.cuisine_id}/${data?.chef?.id}`} passHref>
       <Card elevation={0} sx={{ m: 3, borderRadius: 1 }} square>
         <Box sx={{ position: 'relative' }}>
           <Image alt={name} src={data?.image_url} ratio="1/1" minHeight="100%" />

@@ -313,6 +313,14 @@ function AuthProvider({ children }) {
     return response;
   };
 
+  const changeAddress = async (isPickup, addressId, orderId) => {
+    const response = await axios.post(`/api/${process.env.API_VERSION}/orders/${orderId}/change_address`, {
+      is_pickup: isPickup,
+      address_id: addressId,
+    });
+    return response;
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -326,6 +334,7 @@ function AuthProvider({ children }) {
         updateAvatar,
         updatePersonalInfo,
         updatePassword,
+        changeAddress,
       }}
     >
       {children}

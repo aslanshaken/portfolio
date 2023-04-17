@@ -19,6 +19,7 @@ import { LoadingButton } from '@mui/lab';
 import { placeOrder } from 'src/redux/service/payment';
 import useNotify from 'src/hooks/useNotify';
 import { useRouter } from 'next/router';
+import useAuth from 'src/hooks/useAuth';
 
 //
 
@@ -35,7 +36,12 @@ const TopBottomButtonStyle = styled(ButtonGroup)(({ theme }) => ({
   },
 }));
 
-export default function OrderCard() {
+export default function OrderCard({ isPickup }) {
+  const { changeAddress } = useAuth();
+
+  const { user } = useAuth();
+
+  const address = user?.addresses?.find((item) => item.primary_address == true);
   // redux
   const { checkout } = useSelector(FOOD_SELECTOR);
   const { orderDetail, orderId, cart, scheduleTime } = checkout;
@@ -72,9 +78,11 @@ export default function OrderCard() {
 
   const handleClickOrder = async () => {
     setIsLoading(true);
-    dispatch(addTips({ orderId: orderId, tips: tips }));
-    dispatch(updateScheduleTime(orderId, scheduleTime))
-    const response = dispatch(placeOrder(orderId));
+    await changeAddress(isPickup, address?.id, orderId);
+    await dispatch(addTips({ orderId: orderId, tips: tips }));
+    await dispatch(updateScheduleTime(orderId, scheduleTime));
+    const response = await dispatch(placeOrder(orderId));
+    push('/cities/4/ukrainian-cuisine/adam-sandler/checkout/confirm');
 
     if (placeOrder.fulfilled.match(response)) {
       successAlert('Your payment was successful.');
@@ -84,7 +92,7 @@ export default function OrderCard() {
       }, 1000);
     } else if (placeOrder.rejected.match(response)) {
       const error = response.payload;
-      errorAlert(error);
+      errorAlert(error.message);
       setIsLoading(false);
     }
   };
