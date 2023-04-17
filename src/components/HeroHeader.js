@@ -86,7 +86,7 @@ export default function HeroHeader(props) {
         ) : (
           <>
             <NavLinkHeader city={city} cuisine={cuisine} chef={chef} />
-            <Image src={backgroundImage} alt={'hero-header'} sx={{ height: 200 }} />
+            {backgroundImage && <Image src={backgroundImage} alt={'hero-header'} sx={{ height: 200 }} />}
           </>
         )}
       </Container>
