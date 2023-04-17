@@ -29,7 +29,9 @@ OrderTableRow.propTypes = {
 export default function OrderTableRow({ row, selected, headLabel, onEditRow, onSelectRow, onDeleteRow }) {
   const theme = useTheme();
 
-  const { order_number, items, chef, cuisine, sub_total, status } = row;
+  const { order_num, items, cuisine, sub_total, status, chef } = row;
+
+  const cuisineNames = [...new Set(items.map((item) => item?.cusine?.name))];
 
   const [openMenu, setOpenMenuActions] = useState(null);
 
@@ -44,7 +46,7 @@ export default function OrderTableRow({ row, selected, headLabel, onEditRow, onS
   return (
     <TableRow hover>
       <TableCell align="left" sx={{ fontStyle: 'italic', color: 'text.secondary' }}>
-        {order_number}
+        {order_num}
       </TableCell>
 
       <TableCell align="center" sx={{ fontWeight: 700 }}>
@@ -56,9 +58,11 @@ export default function OrderTableRow({ row, selected, headLabel, onEditRow, onS
         </Box> */}
       </TableCell>
 
-      <TableCell align="center">{chef}</TableCell>
+      <TableCell align="center">
+        {chef?.first_name} {chef?.last_name}
+      </TableCell>
 
-      <TableCell align="center">{cuisine}</TableCell>
+      <TableCell align="center">{cuisineNames?.join(' / ')}</TableCell>
 
       <TableCell align="center" sx={{ color: '#8CCC67' }}>
         ${sub_total}

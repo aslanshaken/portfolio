@@ -51,7 +51,6 @@ export default function PaymentForm({ data, onClose, ...other }) {
       if (result.error) {
         setCardError(result.error.message);
       } else {
-        console.log(result.paymentMethod);
         successAlert('Your paynment method has been added successfully.');
         dispatch(getSavedCards());
         onClose();

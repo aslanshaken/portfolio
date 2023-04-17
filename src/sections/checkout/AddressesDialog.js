@@ -32,9 +32,13 @@ export default function AddressesDialog({ ...other }) {
 
   const { successAlert, errorAlert } = useNotify();
 
-  const { checkout } = useSelector(FOOD_SELECTOR);
+  const { user } = useAuth();
 
-  const address = checkout?.orderDetail?.address;
+  const address = user?.addresses?.find((item) => item.primary_address == true);
+
+  // const { checkout } = useSelector(FOOD_SELECTOR);
+
+  // const address = checkout?.orderDetail?.address;
 
   const dispatch = useDispatch();
 

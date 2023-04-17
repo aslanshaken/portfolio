@@ -23,11 +23,15 @@ PickDeliverSwitchCard.propTypes = {
 export default function PickDeliverSwitchCard({ isPickup, setIsPickup }) {
   const { checkout } = useSelector(FOOD_SELECTOR);
 
+  const { user } = useAuth();
+
+  const deliveryAddress = user?.addresses?.find((item) => item.primary_address == true);
+
   const { orderDetail } = checkout;
 
   const pickupAddress = orderDetail?.pickup_address;
 
-  const deliveryAddress = orderDetail?.address;
+  // const deliveryAddress = orderDetail?.address;
 
   const [isOpenAddressesDialog, setIsOpenAddressesDialog] = useState(false);
 
