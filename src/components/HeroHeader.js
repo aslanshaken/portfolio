@@ -53,7 +53,7 @@ HeroHeader.defaultProps = {
 };
 
 export default function HeroHeader(props) {
-  const { backgroundImage, topBorder, bottomBorder, title, city, cuisine, chef, loading } = props;
+  const { backgroundImage, topBorder, bottomBorder, title, city, cuisine, chef } = props;
 
   return (
     <RootStyle>
@@ -86,13 +86,7 @@ export default function HeroHeader(props) {
         ) : (
           <>
             <NavLinkHeader city={city} cuisine={cuisine} chef={chef} />
-            {loading ? (
-              <Box sx={{ width: 'fit-content', margin: 'auto' }}>
-                <CircularProgress />
-              </Box>
-            ) : (
-              <Image src={backgroundImage} alt={'hero-header'} sx={{ height: 200 }} />
-            )}
+            <Image src={backgroundImage} alt={'hero-header'} sx={{ height: 200 }} />
           </>
         )}
       </Container>

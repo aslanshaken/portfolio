@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import useAuth from 'src/hooks/useAuth';
+import LoadingScreen from 'src/components/LoadingScreen';
 
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
@@ -50,7 +51,9 @@ export default function ChefListPage() {
     }
   }, [error?.status, router]);
 
-  return (
+  return loading ? (
+    <LoadingScreen />
+  ) : (
     <Page title="Search Chef">
       <HeroHeader
         loading={loading}
@@ -58,7 +61,7 @@ export default function ChefListPage() {
         city="Austin"
         cuisine={cuisine?.name}
       />
-      <ChooseChef loading={loading} />
+      <ChooseChef />
     </Page>
   );
 }
