@@ -8,6 +8,7 @@ import { useSelector } from 'src/redux/store';
 import { parse, format } from 'date-fns';
 import { CITYCUISINE_SELECTOR } from 'src/redux/slices/city';
 import Label from 'src/components/Label';
+import { STATUS_COLOR } from '../@dashboard/orders/OrderTableRow';
 
 const RootStyle = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -120,7 +121,9 @@ export default function ConfirmInfo({ isPickup }) {
           </Stack>
           <Stack spacing={3} textAlign={'center'}>
             <Typography variant="subtitle1">Status</Typography>
-            <Chip label={status} sx={{ color: '#1B6240', background: '#B6E2CC', fontWeight: '700' }} />
+            <Label variant={'ghost'} color={STATUS_COLOR[status]} sx={{ textTransform: 'capitalize' }}>
+              {status}
+            </Label>
           </Stack>
         </Stack>
 

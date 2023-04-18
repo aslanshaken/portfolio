@@ -11,10 +11,11 @@ import Image from 'src/components/Image';
 
 // ----------------------------------------------------------------------
 
-const STATUS_COLOR = {
-  'In Progress': 'primary',
-  Canceled: 'error',
-  Delivered: 'success',
+export const STATUS_COLOR = {
+  initiated: 'primary',
+  canceled: 'error',
+  delivered: 'success',
+  received: 'success',
 };
 
 OrderTableRow.propTypes = {
@@ -46,7 +47,7 @@ export default function OrderTableRow({ row, selected, headLabel, onEditRow, onS
   return (
     <TableRow hover>
       <TableCell align="left" sx={{ fontStyle: 'italic', color: 'text.secondary' }}>
-        {order_num}
+        #{order_num}
       </TableCell>
 
       <TableCell align="center" sx={{ fontWeight: 700 }}>

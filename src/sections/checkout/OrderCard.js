@@ -70,35 +70,34 @@ export default function OrderCard({ isPickup }) {
     return acc;
   }, []);
 
-  const totalPrice = cart?.reduce((accumulator, item) => accumulator + item.current_price, 0);
+  const { sub_total, service_fee, items, order_total } = orderDetail;
 
   const dispatch = useDispatch();
 
   const [tips, setTips] = useState(orderDetail?.tips ?? 0);
 
   const handleClickOrder = async () => {
-    try {
-      
     setIsLoading(true);
-    await changeAddress(isPickup, address?.id, orderId);
-    await dispatch(addTips({ orderId: orderId, tips: tips }));
-    await dispatch(updateScheduleTime(orderId, scheduleTime));
-    const response = await dispatch(placeOrder(orderId));
+    try {
+      await dispatch(updateScheduleTime(orderId, scheduleTime));
+      await changeAddress(isPickup, address?.id, orderId);
+      await dispatch(addTips({ orderId: orderId, tips: tips }));
+      const response = await dispatch(placeOrder(orderId));
 
-    if (placeOrder.fulfilled.match(response)) {
-      successAlert('Your payment was successful.');
-      setIsLoading(false);
-      setTimeout(() => {
-        push('/cities/4/ukrainian-cuisine/adam-sandler/checkout/confirm');
-      }, 1000);
-    } else if (placeOrder.rejected.match(response)) {
-      const error = response.payload;
-      errorAlert(error.message);
-      setIsLoading(false);
-    }
+      if (placeOrder.fulfilled.match(response)) {
+        successAlert('Your payment was successful.');
+        setIsLoading(false);
+        setTimeout(() => {
+          push('/cities/4/ukrainian-cuisine/adam-sandler/checkout/confirm');
+        }, 1000);
+      } else if (placeOrder.rejected.match(response)) {
+        const error = response.payload;
+        errorAlert(error.message);
+        setIsLoading(false);
+      }
     } catch (error) {
-      console.log('error: ', error);
-      
+      errorAlert(error?.message);
+      setIsLoading(false);
     }
   };
 
@@ -116,12 +115,12 @@ export default function OrderCard({ isPickup }) {
 
       <Box mt={5} />
 
-      {cartArr?.map((item, _i) => (
+      {items?.map((item, _i) => (
         <Stack key={_i} direction={'row'} justifyContent={'space-between'} mb={2}>
           <Typography variant={'body2'} color={'text.secondary'}>
             {item?.title}
           </Typography>
-          <Typography>${item?.current_price}</Typography>
+          <Typography>${item?.total_cost}</Typography>
         </Stack>
       ))}
 
@@ -129,7 +128,7 @@ export default function OrderCard({ isPickup }) {
       <Stack direction={'row'} justifyContent={'space-between'} mb={2}>
         <Typography variant={'body2'}>{'Subtotal:'}</Typography>
         <Typography fontWeight={'bold'} color={'secondary'}>
-          ${totalPrice}
+          ${sub_total}
         </Typography>
       </Stack>
 
@@ -137,7 +136,7 @@ export default function OrderCard({ isPickup }) {
       <Stack direction={'row'} justifyContent={'space-between'} mb={2}>
         <Typography variant={'body2'}>{'Service Fee:'}</Typography>
         <Typography fontWeight={'bold'} color={'secondary'}>
-          ${totalPrice * 0.05}
+          ${service_fee}
         </Typography>
       </Stack>
 
@@ -145,7 +144,7 @@ export default function OrderCard({ isPickup }) {
       <Stack direction={'row'} justifyContent={'space-between'} mb={2}>
         <Typography variant={'body2'}>{'Total:'}</Typography>
         <Typography fontWeight={'bold'} color={'secondary'}>
-          ${totalPrice * 1.05}
+          ${order_total}
         </Typography>
       </Stack>
 

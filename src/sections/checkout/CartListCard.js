@@ -7,7 +7,7 @@ import CardHeader from 'src/components/card/CardHeader';
 import Iconify from 'src/components/Iconify';
 import Image from 'src/components/Image';
 import { useDispatch, useSelector } from 'src/redux/store';
-import { addFoodCart, FOOD_SELECTOR, removeFoodCart, updateCart } from 'src/redux/slices/food';
+import { addFoodCart, FOOD_SELECTOR, getOrderDetail, removeFoodCart, updateCart } from 'src/redux/slices/food';
 import { useCallback, useEffect, useState } from 'react';
 import useNotify from 'src/hooks/useNotify';
 
@@ -15,7 +15,7 @@ import useNotify from 'src/hooks/useNotify';
 export default function CartListCard() {
   const { checkout } = useSelector(FOOD_SELECTOR);
 
-  const { cart, orderId } = checkout;
+  const { cart, orderId, orderDetail } = checkout;
 
   const cartArr = cart?.reduce((acc, curr) => {
     // Find the object in acc array with same id and name
@@ -43,7 +43,7 @@ export default function CartListCard() {
           <Typography variant="body2">Cart is empty.</Typography>
         ) : (
           <List disablePadding sx={{ overflowX: 'auto' }}>
-            {cartArr?.map((data, _i) => (
+            {orderDetail?.items?.map((data, _i) => (
               <ListItem key={'cart-cousine-' + _i} disableGutters>
                 <CuisineCard data={data} orderId={orderId} />
               </ListItem>
@@ -70,14 +70,15 @@ function CuisineCard({ data = {}, orderId }) {
     async (type) => {
       try {
         if (type === '+') {
-          dispatch(addFoodCart({ foods: food, newAddCart: false }));
-          const response = await dispatch(updateCart({ type: 'add', orderId: orderId, foodId: data.id }));
+          // dispatch(addFoodCart({ foods: food, newAddCart: false }));
+          const response = await dispatch(updateCart('add', orderId, data.id));
           successAlert(response.data.success);
         } else {
-          dispatch(removeFoodCart({ food: food, removeAll: false, removeOneItem: true }));
-          const response = await dispatch(updateCart({ type: 'remove', orderId: orderId, foodId: data.id }));
+          // dispatch(removeFoodCart({ food: food, removeAll: false, removeOneItem: true }));
+          const response = await dispatch(updateCart('remove', orderId, data.id));
           successAlert(response.data.success);
         }
+        dispatch(getOrderDetail(orderId));
       } catch (error) {
         errorAlert(error.message);
       }
@@ -92,7 +93,7 @@ function CuisineCard({ data = {}, orderId }) {
   return (
     <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'} spacing={2} width={1}>
       <Stack direction={'row'} alignItems={'center'} spacing={6}>
-        <Image alt={data?.title} src={data?.image_url} sx={{ borderRadius: '50%', width: 80, height: 80, minWidth:80 }} />
+        <Image alt={data?.title} src={data?.image} sx={{ borderRadius: '50%', width: 80, height: 80, minWidth: 80 }} />
 
         <Stack minWidth={200}>
           <Typography variant="h6" color="black" fontWeight={600} gutterBottom>
@@ -110,7 +111,7 @@ function CuisineCard({ data = {}, orderId }) {
         </Box>
 
         <Typography variant={'subtitle1'} color={'success.main'}>
-          ${data?.current_price}
+          ${data?.cost}
         </Typography>
 
         <Box>

@@ -30,7 +30,7 @@ const initialState = {
     discount: 0,
     delivering: 0,
     billing: null,
-    scheduleTime: {},
+    scheduleTime: null,
   },
   orderConfirmInfo: null,
 };
@@ -100,6 +100,11 @@ const slice = createSlice({
       state.orders = action.payload;
     },
 
+    setScheduleTime(state, action) {
+      state.loading = false;
+      state.checkout.orderDetail.scheduleTime = action.payload;
+    },
+
     setDeliveryInstructions(state, action) {
       state.loading = false;
       state.checkout.orderDetail = {
@@ -118,11 +123,6 @@ const slice = createSlice({
         city: action.payload.city,
         zip: action.payload.zip,
       };
-    },
-
-    setScheduleTime(state, action) {
-      state.loading = false;
-      state.checkout.scheduleTime = action.payload;
     },
 
     setSavedCards(state, action) {
@@ -235,13 +235,11 @@ export function addTips(data) {
 export function updateScheduleTime(orderId, scheduleTime) {
   return async (dispatch) => {
     dispatch(startLoading());
-    try {
-      const response = await axios.post(`/api/${process.env.API_VERSION}/orders/${orderId}/update_schedule_time`, {
-        schedule_time: scheduleTime,
-      });
-    } catch (error) {
-      dispatch(slice.actions.setError(error));
-    }
+    const response = await axios.post(`/api/${process.env.API_VERSION}/orders/${orderId}/update_schedule_time`, {
+      schedule_time: scheduleTime,
+    });
+    setScheduleTime(scheduleTime);
+    return response.data;
   };
 }
 
@@ -291,17 +289,16 @@ export function getSavedCards() {
 }
 
 // ----------------------------------------------------------------------
-export function updateCart(data) {
+export function updateCart(type, orderId, foodId) {
   return async (dispatch) => {
     dispatch(startLoading());
     try {
       const response = await axios.post(
-        `/api/${process.env.API_VERSION}/orders/${data.orderId}/items/${data.foodId}/add_or_remove`,
+        `/api/${process.env.API_VERSION}/orders/${orderId}/items/${foodId}/add_or_remove`,
         {
-          operation_type: data.type,
+          operation_type: type,
         }
       );
-      dispatch(slice.actions.updateCart());
       return response;
     } catch (error) {
       dispatch(slice.actions.setError(error));
