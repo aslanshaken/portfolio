@@ -41,7 +41,7 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
       label: format(new Date(key), 'MM/dd/yy'),
       date: format(new Date(key), 'MM/dd/yy'),
     }))
-    .filter((item) => new Date(item?.date) >= new Date());
+    .filter((item) => new Date(item?.date) >= new Date().setHours(0, 0, 0, 0));
 
   useEffect(() => {
     if (categories.length > 0) {
