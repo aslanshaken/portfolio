@@ -90,9 +90,7 @@ export default function SchedulePanel({ isPickup, onClose, subtitle }) {
     dispatch(setScheduleTime(scheduledTime));
   }, [scheduledTime]);
 
-  const { deliveryDate } = checkout;
-
-  const scheduleTime = checkout?.orderDetail?.scheduleTime;
+  const { deliveryDate, scheduleTime } = checkout;
 
   const isDateToday = isToday(new Date(deliveryDate));
 
@@ -137,7 +135,9 @@ export default function SchedulePanel({ isPickup, onClose, subtitle }) {
               bgcolor={item === scheduleTime ? '#C1DED1' : 'rgba(193, 222, 209, 0.28)'}
               borderRadius={2}
               sx={{ cursor: 'pointer' }}
-              onClick={() => dispatch(setScheduleTime(item))}
+              onClick={() => {
+                dispatch(setScheduleTime(item));
+              }}
             >
               {item}
             </Box>

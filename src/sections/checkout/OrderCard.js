@@ -44,8 +44,7 @@ export default function OrderCard({ isPickup }) {
   const address = user?.addresses?.find((item) => item.primary_address == true);
   // redux
   const { checkout } = useSelector(FOOD_SELECTOR);
-  const { orderDetail, orderId, cart } = checkout;
-  const { scheduleTime } = orderDetail;
+  const { orderDetail, orderId, cart, scheduleTime } = checkout;
 
   // router
   const { push } = useRouter();
