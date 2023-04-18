@@ -76,7 +76,7 @@ export default function ConfirmInfo() {
             </Stack>
             <Stack spacing={1} display={{ xs: 'block', md: 'none' }}>
               <Typography variant="body2" color={'text.secondary'}>
-                {is_pickup ? 'Pick Up' : 'Shopping'} Address
+                {is_pickup ? 'Pick Up' : 'Delivery'} Address
               </Typography>
               <Typography variant="subtitle1">
                 {is_pickup
@@ -92,7 +92,7 @@ export default function ConfirmInfo() {
 
         <Stack display={{ xs: 'none', md: 'flex' }} spacing={1}>
           <Typography variant="body2" color={'text.secondary'}>
-            {is_pickup ? 'Pick Up' : 'Shopping'} Address
+            {is_pickup ? 'Pick Up' : 'Delivery'} Address
           </Typography>
           <Typography variant="subtitle1">
             {is_pickup

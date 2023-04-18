@@ -30,7 +30,7 @@ export default function CheckoutPage() {
 
   const { checkout } = useSelector(FOOD_SELECTOR);
 
-  const {cart} = checkout;
+  const { cart } = checkout;
 
   const { orderId } = checkout;
 
@@ -43,7 +43,11 @@ export default function CheckoutPage() {
     }
   }, [cart, dispatch, orderId, router]);
 
-  const [isPickup, setIsPickup] = useState(checkout?.orderDetail?.is_pickup);
+  useEffect(() => {
+    setIsPickup(checkout?.orderDetail?.is_pickup);
+  }, [checkout]);
+
+  const [isPickup, setIsPickup] = useState();
 
   return (
     <Page title="Search Chef">
