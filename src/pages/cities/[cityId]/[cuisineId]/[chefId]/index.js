@@ -10,6 +10,8 @@ import useAuth from 'src/hooks/useAuth';
 import { useDispatch, useSelector } from 'src/redux/store';
 import { CITYCUISINE_SELECTOR, getChefs } from 'src/redux/slices/city';
 import { useRouter } from 'next/router';
+import LoadingScreen from 'src/components/LoadingScreen';
+import { getFoodsByChef } from 'src/redux/slices/food';
 
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
@@ -31,13 +33,24 @@ export default function ChefPage() {
 
   const { cityId, cuisineId, chefId } = router.query;
 
+  const [loading, setIsLoading] = useState(true);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getChefs(cityId, cuisineId, chefId));
+    async function fetch() {
+      setIsLoading(true);
+      dispatch(getChefs(cityId, cuisineId, chefId));
+      await dispatch(getFoodsByChef(cityId, cuisineId, chefId));
+      setIsLoading(false);
+    }
+
+    fetch();
   }, [dispatch, router, isAuthenticated, cuisineId, chefId, cityId, cuisines]);
 
-  return (
+  return loading ? (
+    <LoadingScreen inner />
+  ) : (
     <Page title="Search Chef">
       <ChefHeader selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
       <FoodSection selectedCategory={selectedCategory} />

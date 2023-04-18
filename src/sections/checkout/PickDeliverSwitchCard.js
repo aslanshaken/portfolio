@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { Box, Button, ButtonGroup, colors, Stack, styled, Typography } from '@mui/material';
 import Image from 'src/components/Image';
 import AddressesDialog from './AddressesDialog';
-import { useSelector } from 'src/redux/store';
+import { useDispatch, useSelector } from 'src/redux/store';
 import { CITYCUISINE_SELECTOR } from 'src/redux/slices/city';
 import useAuth from 'src/hooks/useAuth';
-import { FOOD_SELECTOR } from 'src/redux/slices/food';
+import { FOOD_SELECTOR, updateIsPickup } from 'src/redux/slices/food';
 
 const RootStyle = styled(Stack)(({ theme }) => ({
   padding: theme.spacing(3),
@@ -23,31 +23,47 @@ PickDeliverSwitchCard.propTypes = {
 export default function PickDeliverSwitchCard({ isPickup, setIsPickup }) {
   const { checkout } = useSelector(FOOD_SELECTOR);
 
-  const { orderDetail } = checkout;
+  const { user } = useAuth();
+
+  const deliveryAddress = user?.addresses?.find((item) => item.primary_address == true);
+
+  const { orderDetail, orderId } = checkout;
 
   const pickupAddress = orderDetail?.pickup_address;
 
-  const deliveryAddress = orderDetail?.address;
+  // const deliveryAddress = orderDetail?.address;
 
   const [isOpenAddressesDialog, setIsOpenAddressesDialog] = useState(false);
 
+  const dispatch = useDispatch();
+
   return (
     <RootStyle>
-      <AddressesDialog open={isOpenAddressesDialog} onClose={() => setIsOpenAddressesDialog(false)} />
+      <AddressesDialog
+        isPickup={isPickup}
+        open={isOpenAddressesDialog}
+        onClose={() => setIsOpenAddressesDialog(false)}
+      />
       <Box display={'flex'} justifyContent={'space-between'} flexWrap={'wrap'} gap={2}>
         <Box>
           <ButtonGroup color="secondary">
             <Button
               variant={isPickup ? 'contained' : 'outlined'}
               sx={{ px: 5, fontWeight: 500 }}
-              onClick={() => setIsPickup(true)}
+              onClick={() => {
+                dispatch(updateIsPickup(true, orderId));
+                setIsPickup(true);
+              }}
             >
               {'Pickup'}
             </Button>
             <Button
               variant={isPickup ? 'outlined' : 'contained'}
               sx={{ px: 5, fontWeight: 500 }}
-              onClick={() => setIsPickup(false)}
+              onClick={() => {
+                dispatch(updateIsPickup(false, orderId));
+                setIsPickup(false);
+              }}
             >
               {'Delivery'}
             </Button>
@@ -57,14 +73,18 @@ export default function PickDeliverSwitchCard({ isPickup, setIsPickup }) {
               {isPickup ? 'Pick up:' : 'Deliver to:'}
             </Typography>
             {isPickup ? (
-              <Stack>
-                <Typography variant={'caption'} maxWidth={200}>
-                  {pickupAddress?.zip + ' ' + pickupAddress?.line1}
-                </Typography>
-                <Typography variant={'caption'} maxWidth={200}>
-                  {pickupAddress?.apartment + ' ' + pickupAddress?.state + ' ' + pickupAddress?.city}
-                </Typography>
-              </Stack>
+              pickupAddress ? (
+                <Stack>
+                  <Typography variant={'caption'} maxWidth={200}>
+                    {pickupAddress?.zip + ' ' + pickupAddress?.line1}
+                  </Typography>
+                  <Typography variant={'caption'} maxWidth={200}>
+                    {pickupAddress?.apartment + ' ' + pickupAddress?.state + ' ' + pickupAddress?.city}
+                  </Typography>
+                </Stack>
+              ) : (
+                <Typography variant="caption">There is no address</Typography>
+              )
             ) : (
               <>
                 {deliveryAddress ? (

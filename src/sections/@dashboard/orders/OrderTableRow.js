@@ -11,10 +11,11 @@ import Image from 'src/components/Image';
 
 // ----------------------------------------------------------------------
 
-const STATUS_COLOR = {
-  'In Progress': 'primary',
-  Canceled: 'error',
-  Delivered: 'success',
+export const STATUS_COLOR = {
+  initiated: 'primary',
+  canceled: 'error',
+  delivered: 'success',
+  received: 'success',
 };
 
 OrderTableRow.propTypes = {
@@ -29,7 +30,9 @@ OrderTableRow.propTypes = {
 export default function OrderTableRow({ row, selected, headLabel, onEditRow, onSelectRow, onDeleteRow }) {
   const theme = useTheme();
 
-  const { order_number, items_iamge, chef, cuisine, price, status } = row;
+  const { order_num, items, cuisine, sub_total, status, chef } = row;
+
+  const cuisineNames = [...new Set(items.map((item) => item?.cusine?.name))];
 
   const [openMenu, setOpenMenuActions] = useState(null);
 
@@ -44,20 +47,27 @@ export default function OrderTableRow({ row, selected, headLabel, onEditRow, onS
   return (
     <TableRow hover>
       <TableCell align="left" sx={{ fontStyle: 'italic', color: 'text.secondary' }}>
-        {order_number}
+        #{order_num}
+      </TableCell>
+
+      <TableCell align="center" sx={{ fontWeight: 700 }}>
+        {items?.length}
+        {/* <Box display={'flex'} justifyContent={'center'}>
+          {items?.map((item) => (
+            <Image key={item?.id} alt="Order item image" src={item?.image} sx={{ width: 50, height: 50 }} />
+          ))}
+        </Box> */}
       </TableCell>
 
       <TableCell align="center">
-        <Box display={'flex'} justifyContent={'center'}  >
-          <Image alt="Order item image" src={items_iamge} sx={{ width: 50, height: 50 }} />
-        </Box>
+        {chef?.first_name} {chef?.last_name}
       </TableCell>
 
-      <TableCell align="center">{chef}</TableCell>
+      <TableCell align="center">{cuisineNames?.join(' / ')}</TableCell>
 
-      <TableCell align="center">{cuisine}</TableCell>
-
-      <TableCell align="center">{price}</TableCell>
+      <TableCell align="center" sx={{ color: '#8CCC67' }}>
+        ${sub_total}
+      </TableCell>
 
       <TableCell align="center">
         <Label variant={'ghost'} color={STATUS_COLOR[status]} sx={{ textTransform: 'capitalize' }}>

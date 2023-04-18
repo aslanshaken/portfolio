@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Box, Link, colors, Grid, InputAdornment, Stack, TextField, Typography } from '@mui/material';
+import { Box, Link, colors, Grid, InputAdornment, Stack, TextField, Typography, CircularProgress } from '@mui/material';
 import Container from '../../components/Container';
 import Iconify from '../../components/Iconify';
 import Avatar from '../../components/Avatar';
@@ -105,9 +105,11 @@ export default function ChooseChef() {
           <Stack my={4}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={7}>
-                <Typography variant="h3" color={'black'}>
-                  {`${city?.name} Chefs`}
-                </Typography>
+                {city && (
+                  <Typography variant="h3" color={'black'}>
+                    {`${city?.name} Chefs`}
+                  </Typography>
+                )}
               </Grid>
               <Grid item xs={12} sm={5}>
                 <TextField
@@ -156,7 +158,6 @@ export default function ChooseChef() {
               ))}
             </Box> */}
           </Stack>
-
           {chefs?.slice(currentPage === 1 ? 0 : (currentPage - 1) * 10 - 1, 10).map((item, _i) => (
             <NextLink
               key={'chef-link' + _i}

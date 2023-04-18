@@ -30,20 +30,27 @@ export default function CheckoutPage() {
 
   const { checkout } = useSelector(FOOD_SELECTOR);
 
-  const {cart} = checkout;
+  const { cart } = checkout;
 
-  const { orderId } = checkout;
+  const { orderId, orderDetail } = checkout;
 
   const router = useRouter();
 
+  const [isPickup, setIsPickup] = useState(true);
+
   useEffect(() => {
-    dispatch(getOrderDetail(orderId));
-    if (cart.length == 0) {
-      router.push(PATH_PAGE.home);
-    }
+    const fetch = async () => {
+      await dispatch(getOrderDetail(orderId));
+      if (cart.length == 0) {
+        router.push(PATH_PAGE.home);
+      }
+    };
+    fetch();
   }, [cart, dispatch, orderId, router]);
 
-  const [isPickup, setIsPickup] = useState(checkout?.orderDetail?.is_pickup);
+  useEffect(() => {
+    if (orderDetail) setIsPickup(orderDetail?.is_pickup);
+  }, [orderDetail]);
 
   return (
     <Page title="Search Chef">
@@ -59,7 +66,7 @@ export default function CheckoutPage() {
             </Stack>
           </Grid>
           <Grid item xs={12} md={4}>
-            <OrderCard />
+            <OrderCard isPickup={isPickup} />
           </Grid>
         </Grid>
       </Container>

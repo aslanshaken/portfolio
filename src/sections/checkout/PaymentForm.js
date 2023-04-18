@@ -1,10 +1,12 @@
 import { LoadingButton } from '@mui/lab';
-import { Box, Button, FormHelperText, styled } from '@mui/material';
+import { Box, Button, CircularProgress, FormHelperText, styled } from '@mui/material';
 import { CardElement, CardNumberElement, PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FormProvider } from 'src/components/hook-form';
 import useNotify from 'src/hooks/useNotify';
+import { getSavedCards } from 'src/redux/slices/food';
+import { useDispatch } from 'src/redux/store';
 
 //
 // ----------------------------------------------------------------------
@@ -21,6 +23,8 @@ export default function PaymentForm({ data, onClose, ...other }) {
 
   const [cardError, setCardError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false);
+  const dispatch = useDispatch();
 
   const { successAlert } = useNotify();
 
@@ -48,8 +52,10 @@ export default function PaymentForm({ data, onClose, ...other }) {
       if (result.error) {
         setCardError(result.error.message);
       } else {
-        console.log(result.paymentMethod);
         successAlert('Your paynment method has been added successfully.');
+        setTimeout(() => {
+          dispatch(getSavedCards());
+        }, 1000);
         onClose();
       }
     } catch (error) {
@@ -61,7 +67,15 @@ export default function PaymentForm({ data, onClose, ...other }) {
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+      {!isInitialized && (
+        <Box display={'flex'} justifyContent={'center'} width={'100%'}>
+          <CircularProgress />
+        </Box>
+      )}
       <PaymentElement
+        onLoaderStart={() => {
+          setIsInitialized(true);
+        }}
         options={{
           fields: {
             billingDetails: {
@@ -77,7 +91,14 @@ export default function PaymentForm({ data, onClose, ...other }) {
 
       <Box mt={6} />
 
-      <LoadingButton loading={isLoading} type="submit" size="large" variant="outlined" color="secondary" disabled={!stripe}>
+      <LoadingButton
+        loading={isLoading}
+        type="submit"
+        size="large"
+        variant="outlined"
+        color="secondary"
+        disabled={!stripe}
+      >
         Save
       </LoadingButton>
     </FormProvider>

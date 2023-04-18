@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
-import { Box, Button, Card, Stack, Typography } from '@mui/material';
+import { Box, Button, Card, Divider, Grid, Stack, Typography } from '@mui/material';
 import CardHeader from '../../components/card/CardHeader';
 import PaymentDialog from './PaymentDialog';
 import { useState } from 'react';
 import NotesPanel from './NotesPanel';
 import SchedulePanel from './SchedulePanel';
-import { useSelector } from 'src/redux/store';
-import { FOOD_SELECTOR } from 'src/redux/slices/food';
+import { useDispatch, useSelector } from 'src/redux/store';
+import { FOOD_SELECTOR, getSavedCards } from 'src/redux/slices/food';
 import { parse, format } from 'date-fns';
 import { useEffect } from 'react';
 
@@ -15,9 +15,14 @@ export default function DeliverySteps({ address, isPickup }) {
   const [isOpenPaymentDialog, setIsOpenPaymentDialog] = useState(false);
   const [isOpenSchedulePanel, setIsOpenSchedulePanel] = useState(true);
   const [isOpenNotesPanel, setIsOpenNotesPanel] = useState(false);
-  const { checkout } = useSelector(FOOD_SELECTOR);
+  const { checkout, savedCards } = useSelector(FOOD_SELECTOR);
   const selectedDay = checkout?.orderDetail?.items[0]?.selected_day;
   const [selectedDate, setSelectedDate] = useState();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getSavedCards());
+  }, [dispatch]);
 
   useEffect(() => {
     if (selectedDay) setSelectedDate(format(new Date(selectedDay), 'EEEE, MMM d'));
@@ -39,12 +44,33 @@ export default function DeliverySteps({ address, isPickup }) {
       icon: 'ic:baseline-payment',
       title: 'Payment',
       subtitle: '',
-      content: 'You do not have saved credit cards',
+      content: (
+        <Stack spacing={1}>
+          {savedCards ? (
+            savedCards?.map((item) => (
+              <Grid container width={'100%'} key={item?.id} whiteSpace={'nowrap'}>
+                <Grid item xs={4}>
+                  <Typography variant="body1" color={'secondary'}>
+                    {item?.brand}
+                  </Typography>
+                </Grid>
+                <Grid item xs={8}>
+                  <Typography variant="body1">**** **** **** {item?.last_four}</Typography>
+                </Grid>
+              </Grid>
+            ))
+          ) : (
+            <Typography pt={2} variant="caption">
+              You do not have saved credit cards
+            </Typography>
+          )}
+        </Stack>
+      ),
       buttonText: 'Add a new card',
       onClickButton: () => {
         setIsOpenPaymentDialog(true);
       },
-      status: isOpenPaymentDialog,
+      status: false,
     },
     {
       icon: 'jam:pen',
@@ -109,7 +135,7 @@ DeliveryStepCard.propTypes = {
   icon: PropTypes.string || PropTypes.node,
   title: PropTypes.string,
   subtitle: PropTypes.string,
-  content: PropTypes.string,
+  content: PropTypes.any,
   buttonText: PropTypes.string,
   onClickButton: PropTypes.func,
 };
@@ -125,12 +151,20 @@ function DeliveryStepCard({
   return (
     <Card>
       <CardHeader icon={icon} title={title} subtitle={subtitle} />
-      <Stack direction={'row'} px={3} py={2} spacing={2} justifyContent={'space-between'} alignItems={'flex-start'}>
-        <Stack>
+      <Stack
+        direction={'row'}
+        px={3}
+        py={2}
+        justifyContent={'space-between'}
+        alignItems={'flex-start'}
+        flexWrap={'wrap'}
+        gap={2}
+      >
+        <Box flex={1} pr={6}>
           <Typography variant="caption" color={'text.secondary'}>
             {content}
           </Typography>
-        </Stack>
+        </Box>
         {buttonText != '' && (
           <Button variant={'outlined'} color="secondary" onClick={onClickButton}>
             {buttonText}

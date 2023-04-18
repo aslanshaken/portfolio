@@ -20,7 +20,7 @@ export const createCardIntent = createAsyncThunk(
 // ----------------------------------------------------------------------
 export const placeOrder = createAsyncThunk(
   'payment/placeOrder',
-  async (orderId, thunkAPI) => {
+  async (orderId, scheduleTime, thunkAPI) => {
     try {
       const response = await axios.post(`/api/${process.env.API_VERSION}/orders/${orderId}/place_order`);
       return await Promise.resolve(response.data);

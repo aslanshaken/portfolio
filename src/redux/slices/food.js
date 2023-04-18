@@ -17,6 +17,8 @@ const initialState = {
     priceRange: '',
     rating: '',
   },
+  orders: [],
+  savedCards: [],
   checkout: {
     orderId: null,
     orderDetail: null,
@@ -28,7 +30,9 @@ const initialState = {
     discount: 0,
     delivering: 0,
     billing: null,
+    scheduleTime: null,
   },
+  orderConfirmInfo: null,
 };
 
 const slice = createSlice({
@@ -91,6 +95,16 @@ const slice = createSlice({
       state.checkout.orderDetail = action.payload;
     },
 
+    setOrders(state, action) {
+      state.loading = false;
+      state.orders = action.payload;
+    },
+
+    setScheduleTime(state, action) {
+      state.loading = false;
+      state.checkout.scheduleTime = action.payload;
+    },
+
     setDeliveryInstructions(state, action) {
       state.loading = false;
       state.checkout.orderDetail = {
@@ -110,6 +124,21 @@ const slice = createSlice({
         zip: action.payload.zip,
       };
     },
+
+    setSavedCards(state, action) {
+      state.loading = false;
+      state.savedCards = action.payload;
+    },
+
+    setOrderConfirmInfo(state, action) {
+      state.loading = false;
+      state.orderConfirmInfo = action.payload;
+    },
+
+    setIsPickup(state, action) {
+      state.loading = false;
+      state.checkout.orderDetail.is_pickup = action.payload;
+    },
   },
 });
 
@@ -127,6 +156,8 @@ export const {
   setOrderDetail,
   setDeliveryInstructions,
   setDeliveryAddress,
+  setScheduleTime,
+  setIsPickup,
 } = slice.actions;
 
 // Selector
@@ -182,6 +213,18 @@ export function getOrderDetail(orderId) {
   };
 }
 
+export function getOrders() {
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try {
+      const response = await axios.get(`/api/${process.env.API_VERSION}/orders`);
+      dispatch(slice.actions.setOrders(response.data.orders_data));
+    } catch (error) {
+      dispatch(slice.actions.setError(error));
+    }
+  };
+}
+
 export function addTips(data) {
   return async (dispatch) => {
     dispatch(startLoading());
@@ -192,6 +235,17 @@ export function addTips(data) {
     } catch (error) {
       dispatch(slice.actions.setError(error));
     }
+  };
+}
+
+export function updateScheduleTime(orderId, scheduleTime) {
+  return async (dispatch) => {
+    dispatch(startLoading());
+    const response = await axios.post(`/api/${process.env.API_VERSION}/orders/${orderId}/update_schedule_time`, {
+      schedule_time: scheduleTime,
+    });
+    setScheduleTime(scheduleTime);
+    return response.data;
   };
 }
 
@@ -214,7 +268,6 @@ export function updateDeliveryInstructions(data) {
   };
 }
 
-//
 // ----------------------------------------------------------------------
 export function getPopularFoods() {
   return async (dispatch) => {
@@ -227,20 +280,60 @@ export function getPopularFoods() {
     }
   };
 }
-//
+
 // ----------------------------------------------------------------------
-export function updateCart(data) {
+export function getSavedCards() {
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try {
+      const response = await axios.get(`/api/${process.env.API_VERSION}/users/saved_cards`);
+      dispatch(slice.actions.setSavedCards(response.data));
+    } catch (error) {
+      dispatch(slice.actions.setError(error));
+    }
+  };
+}
+
+// ----------------------------------------------------------------------
+export function updateCart(type, orderId, foodId) {
   return async (dispatch) => {
     dispatch(startLoading());
     try {
       const response = await axios.post(
-        `/api/${process.env.API_VERSION}/orders/${data.orderId}/items/${data.foodId}/add_or_remove`,
+        `/api/${process.env.API_VERSION}/orders/${orderId}/items/${foodId}/add_or_remove`,
         {
-          operation_type: data.type,
+          operation_type: type,
         }
       );
-      dispatch(slice.actions.updateCart());
       return response;
+    } catch (error) {
+      dispatch(slice.actions.setError(error));
+    }
+  };
+}
+
+// ----------------------------------------------------------------------
+export function getOrderConfirmInfo(orderId) {
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try {
+      const response = await axios.get(`/api/${process.env.API_VERSION}/orders/${orderId}/confirm_order`);
+      dispatch(slice.actions.setOrderConfirmInfo(response.data));
+    } catch (error) {
+      dispatch(slice.actions.setError(error));
+    }
+  };
+}
+
+// ----------------------------------------------------------------------
+export function updateIsPickup(isPickup, orderId) {
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try {
+      dispatch(slice.actions.setIsPickup(isPickup));
+      const response = await axios.post(`/api/${process.env.API_VERSION}/orders/${orderId}/update_is_pickup`, {
+        is_pickup: isPickup,
+      });
     } catch (error) {
       dispatch(slice.actions.setError(error));
     }

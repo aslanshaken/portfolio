@@ -58,9 +58,9 @@ export default function SearchInput({ buttonLabel = 'Search' }) {
           // mt: 6,
           borderRadius: 100,
           px: 6,
-          height: 56,
+          height: 45,
           minWidth: 230,
-          fontSize: { xs: 18, sm: 22 },
+          fontSize: { xs: 16, sm: 18 },
           fontWeight: 400,
           // display: { xs: 'flex', md: 'none' },
 

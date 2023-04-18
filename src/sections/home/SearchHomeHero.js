@@ -51,10 +51,9 @@ export default function SearchHomeHero() {
             maxWidth: 'md',
           }}
         >
-          <Typography textAlign={'center'} variant="h3" fontWeight={'normal'} color={'#FFFFFF'}>
-            Enjoy fresh HOMEMADE foods made by certified chefs, <br />
-            with diverse cuisine options <br />
-            delivered straight to your door - order now
+          <Typography textAlign={'center'} variant="h3" fontSize="2.5rem !important" color={'#FFFFFF'}>
+            Delicious homemade <br />
+            food delivered to your door
           </Typography>
           <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 2, sm: 0 }} position={'relative'}>
             <SearchInput

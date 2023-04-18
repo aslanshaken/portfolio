@@ -5,9 +5,9 @@ import { FOOD_SELECTOR, clearCart } from 'src/redux/slices/food';
 import { useDispatch, useSelector } from 'src/redux/store';
 
 export default function ConfirmNotes() {
-  const { checkout } = useSelector(FOOD_SELECTOR);
-  const notes =
-    checkout.orderDetail?.delivery_instructions || "Is there anything else you'd like us to know about your order?";
+  const { orderConfirmInfo } = useSelector(FOOD_SELECTOR);
+  const notes = orderConfirmInfo?.notes ?? "Is there anything else you'd like us to know about your order?";
+  const { sub_total, service_fee, order_total, discount } = orderConfirmInfo ?? {};
 
   const dispatch = useDispatch();
 
@@ -42,7 +42,7 @@ export default function ConfirmNotes() {
               {'Subtotal'}
             </Typography>
             <Typography fontWeight={'bold'} color={'secondary'}>
-              {'$66.96'}
+              ${sub_total}
             </Typography>
           </Stack>
           <Stack direction={'row'} justifyContent={'space-between'}>
@@ -50,24 +50,26 @@ export default function ConfirmNotes() {
               {'Fee'}
             </Typography>
             <Typography fontWeight={'bold'} color={'secondary'}>
-              {'$9.99'}
+              ${service_fee}
             </Typography>
           </Stack>
-          <Stack direction={'row'} justifyContent={'space-between'}>
-            <Typography variant={'body2'} color={'text.secondary'} fontWeight={'600'}>
-              {'Discount'}
-            </Typography>
-            <Typography fontWeight={'bold'} color={'#39BA7C'}>
-              {'-$15'}
-            </Typography>
-          </Stack>
+          {discount && (
+            <Stack direction={'row'} justifyContent={'space-between'}>
+              <Typography variant={'body2'} color={'text.secondary'} fontWeight={'600'}>
+                {'Discount'}
+              </Typography>
+              <Typography fontWeight={'bold'} color={'#39BA7C'}>
+                ${discount}
+              </Typography>
+            </Stack>
+          )}
           <Divider sx={{ mb: 2 }} />
           <Stack direction={'row'} justifyContent={'space-between'}>
             <Typography variant={'subtitle1'} color={'black'} fontWeight={'bold'}>
               {'Total'}
             </Typography>
             <Typography fontWeight={'bold'} color={'secondary'}>
-              {'$115'}
+              ${order_total}
             </Typography>
           </Stack>
           <Divider />

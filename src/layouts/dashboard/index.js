@@ -14,6 +14,7 @@ import AuthGuard from 'src/guards/AuthGuard';
 // ----------------------------------------------------------------------
 
 const BodyStyle = styled(Stack)(({ theme }) => ({
+  flex:1,
   marginTop: HEADER.MOBILE_HEIGHT + 24,
   [theme.breakpoints.up('md')]: {
     marginTop: HEADER.DASHBOARD_DESKTOP_HEIGHT + 80,

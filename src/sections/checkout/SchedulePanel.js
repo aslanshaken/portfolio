@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 import { Button, Card, Stack, Typography } from '@mui/material';
 import CardHeader from '../../components/card/CardHeader';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Box } from '@mui/system';
 import { StaticDatePicker } from '@mui/lab';
 import styled from '@emotion/styled';
-import { useSelector } from 'src/redux/store';
-import { FOOD_SELECTOR } from 'src/redux/slices/food';
-import { isToday } from 'date-fns';
+import { dispatch, useSelector } from 'src/redux/store';
+import { FOOD_SELECTOR, setScheduleTime } from 'src/redux/slices/food';
+import { format, isToday, parse } from 'date-fns';
 
 //
 SchedulePanel.propTypes = {
@@ -84,9 +84,13 @@ export default function SchedulePanel({ isPickup, onClose, subtitle }) {
 
   const slots = checkout?.orderDetail?.schedule_slots;
 
-  const initialTimes = slots?.map((item, _i) => ({ id: _i, label: item }));
+  const scheduledTime = checkout?.orderDetail?.schedule_time;
 
-  const { deliveryDate } = checkout;
+  useEffect(() => {
+    dispatch(setScheduleTime(scheduledTime));
+  }, [scheduledTime]);
+
+  const { deliveryDate, scheduleTime } = checkout;
 
   const isDateToday = isToday(new Date(deliveryDate));
 
@@ -96,15 +100,15 @@ export default function SchedulePanel({ isPickup, onClose, subtitle }) {
 
   // filter the array by checking if the label contains a time that is after the current hour
   const times = isDateToday
-    ? initialTimes.filter((time) => {
-        const [start, end] = time.label.split('-'); // split the label into start and end times
-        return Number.parseInt(start) > currentHour; // compare the start time with the current hour
+    ? slots.filter((time) => {
+        const [start, end] = time.split('-'); // split the label into start and end times
+        const parsedTime = parse(start, 'ha', new Date());
+        const formattedTime = format(parsedTime, 'HH');
+        return formattedTime > currentHour; // compare the start time with the current hour
       })
-    : initialTimes;
+    : slots;
 
   const dateSchedule = new Date(checkout?.orderDetail?.items[0].selected_day);
-
-  const [activedTime, setAcitvedTime] = useState(times ? times[0] : '');
 
   return (
     <Card>
@@ -113,27 +117,29 @@ export default function SchedulePanel({ isPickup, onClose, subtitle }) {
         icon="jam:pen-f"
         title={`${isPickup ? 'Pick Up Schedule' : 'Delivery Schedule'}`}
       />
-      <Stack direction={'row'} px={3} flexWrap={'wrap'} py={2} gap={2}>
+      <Stack direction={'row'} px={3} flexWrap={'wrap'} justifyContent={'space-around'} py={2} gap={2}>
         {times?.length == 0 ? (
           <Typography variant="caption" color={'gray'} textAlign={'left'} width={'100%'}>
             There is no available times.
           </Typography>
         ) : (
-          times?.map((item) => (
+          times?.map((item, _i) => (
             <Box
-              key={item.id}
+              key={item + _i}
               display={'flex'}
               alignItems={'center'}
               justifyContent={'center'}
               width={150}
               height={40}
-              color={item.id === activedTime.id ? '#506C60' : 'rgba(80, 108, 96, 0.5)'}
-              bgcolor={item.id === activedTime.id ? '#C1DED1' : 'rgba(193, 222, 209, 0.28)'}
+              color={item === scheduleTime ? '#506C60' : 'rgba(80, 108, 96, 0.5)'}
+              bgcolor={item === scheduleTime ? '#C1DED1' : 'rgba(193, 222, 209, 0.28)'}
               borderRadius={2}
               sx={{ cursor: 'pointer' }}
-              onClick={() => setAcitvedTime(item)}
+              onClick={() => {
+                dispatch(setScheduleTime(item));
+              }}
             >
-              {item.label}
+              {item}
             </Box>
           ))
         )}
