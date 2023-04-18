@@ -32,22 +32,25 @@ export default function CheckoutPage() {
 
   const { cart } = checkout;
 
-  const { orderId } = checkout;
+  const { orderId, orderDetail } = checkout;
 
   const router = useRouter();
 
+  const [isPickup, setIsPickup] = useState(true);
+
   useEffect(() => {
-    dispatch(getOrderDetail(orderId));
-    if (cart.length == 0) {
-      router.push(PATH_PAGE.home);
-    }
+    const fetch = async () => {
+      await dispatch(getOrderDetail(orderId));
+      if (cart.length == 0) {
+        router.push(PATH_PAGE.home);
+      }
+    };
+    fetch();
   }, [cart, dispatch, orderId, router]);
 
   useEffect(() => {
-    setIsPickup(checkout?.orderDetail?.is_pickup);
-  }, [checkout]);
-
-  const [isPickup, setIsPickup] = useState();
+    if (orderDetail) setIsPickup(orderDetail?.is_pickup);
+  }, [orderDetail]);
 
   return (
     <Page title="Search Chef">

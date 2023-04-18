@@ -330,8 +330,10 @@ export function updateIsPickup(isPickup, orderId) {
   return async (dispatch) => {
     dispatch(startLoading());
     try {
-      const response = await axios.post(`/api/${process.env.API_VERSION}/orders/${orderId}/update_is_pickup`);
       dispatch(slice.actions.setIsPickup(isPickup));
+      const response = await axios.post(`/api/${process.env.API_VERSION}/orders/${orderId}/update_is_pickup`, {
+        is_pickup: isPickup,
+      });
     } catch (error) {
       dispatch(slice.actions.setError(error));
     }
