@@ -68,12 +68,12 @@ export default function ConfirmInfo() {
             whiteSpace={'pre-wrap'}
             justifyContent={'space-between'}
           >
-            <Stack spacing={1} alignItems={'center'}>
+            {/* <Stack spacing={1} alignItems={'center'}>
               <Typography variant="body2" color={'text.secondary'}>
                 Payment
               </Typography>
               <Image alt={'master-card'} src={'/assets/search-chef/mastercard.png'} sx={{ width: 40 }} />
-            </Stack>
+            </Stack> */}
             <Stack spacing={1} display={{ xs: 'block', md: 'none' }}>
               <Typography variant="body2" color={'text.secondary'}>
                 {is_pickup ? 'Pick Up' : 'Delivery'} Address
