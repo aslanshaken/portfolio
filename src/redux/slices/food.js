@@ -30,7 +30,6 @@ const initialState = {
     discount: 0,
     delivering: 0,
     billing: null,
-    scheduleTime: null,
   },
   orderConfirmInfo: null,
 };
