@@ -1,5 +1,5 @@
 import React from 'react';
-import { Backdrop, CircularProgress, Divider, styled, Typography } from '@mui/material';
+import { Backdrop, Divider, styled, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import PropTypes from 'prop-types';
 import Container from './Container';

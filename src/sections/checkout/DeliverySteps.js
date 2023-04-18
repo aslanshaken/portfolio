@@ -130,7 +130,7 @@ DeliveryStepCard.propTypes = {
   icon: PropTypes.string || PropTypes.node,
   title: PropTypes.string,
   subtitle: PropTypes.string,
-  content: PropTypes.element,
+  content: PropTypes.any,
   buttonText: PropTypes.string,
   onClickButton: PropTypes.func,
 };

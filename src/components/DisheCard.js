@@ -9,7 +9,7 @@ import NextLink from 'next/link';
 // ----------------------------------------------------------------------
 
 DisheCard.propTypes = {
-  item: PropTypes.object,
+  data: PropTypes.object,
 };
 
 export default function DisheCard({ data = {} }) {

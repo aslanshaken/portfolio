@@ -8,13 +8,11 @@ import GeneralQuestions from 'src/sections/home/GeneralQuestions';
 import SearchHomeHero from 'src/sections/home/SearchHomeHero';
 import HowItWork from 'src/sections/home/HowItWork';
 import { Box } from '@mui/material';
-import WelcomeDialog from 'src/sections/home/WelcomeDialog';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DIALOG_SELECTOR, setInitialized } from 'src/redux/slices/dialog';
 import useAuth from 'src/hooks/useAuth';
 import { FOOD_SELECTOR, clearCart, getPopularFoods } from 'src/redux/slices/food';
-import PaymentDialog from 'src/sections/checkout/PaymentDialog';
 import LoadingScreen from 'src/components/LoadingScreen';
 import Head from 'next/head';
 

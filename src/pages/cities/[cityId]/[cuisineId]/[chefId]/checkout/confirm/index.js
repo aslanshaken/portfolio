@@ -27,7 +27,7 @@ export default function CheckoutPage({ isPickup = true }) {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getOrderConfirmInfo(orderId));
-  }, []);
+  }, [dispatch, orderId]);
 
   return loading ? (
     <LoadingScreen />

@@ -16,7 +16,7 @@ FoodCard.propTypes = {
 };
 
 export default function FoodCard(props) {
-  const { name, cover, price, measurement } = props;
+  const { name, cover, price } = props;
 
   return (
     <Stack spacing={1}>

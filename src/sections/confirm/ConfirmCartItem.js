@@ -18,8 +18,8 @@ export default function ConfirmCartItem() {
           title={'Items in your cart'}
         />
       </Box>
-      {cart?.map((item) => (
-        <Stack key={item?.id}>
+      {cart?.map((item, _i) => (
+        <Stack key={_i}>
           <Box px={3} py={3}>
             <List disablePadding sx={{ overflowX: 'auto' }}>
               <ListItem disableGutters>
