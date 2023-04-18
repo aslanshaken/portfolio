@@ -90,7 +90,9 @@ export default function SchedulePanel({ isPickup, onClose, subtitle }) {
     dispatch(setScheduleTime(scheduledTime));
   }, [scheduledTime]);
 
-  const { deliveryDate, scheduleTime } = checkout;
+  const { deliveryDate } = checkout;
+
+  const scheduleTime = checkout?.orderDetail?.scheduleTime;
 
   const isDateToday = isToday(new Date(deliveryDate));
 

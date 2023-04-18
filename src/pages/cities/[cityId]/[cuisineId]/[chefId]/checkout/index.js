@@ -53,7 +53,7 @@ export default function CheckoutPage() {
         <Grid container spacing={2}>
           <Grid item xs={12} md={8}>
             <Stack spacing={2}>
-              <PickDeliverSwitchCard setIsPickup={setIsPickup} />
+              <PickDeliverSwitchCard isPickup={isPickup} setIsPickup={setIsPickup} />
               <DeliverySteps isPickup={isPickup} />
               <CartListCard />
             </Stack>
