@@ -18,9 +18,10 @@ const RootStyle = styled('div')(({ theme }) => ({
   },
 }));
 
-export default function ConfirmInfo({ isPickup }) {
+export default function ConfirmInfo() {
   const { orderConfirmInfo } = useSelector(FOOD_SELECTOR);
-  const { full_name, order_date, primary_address, chef_details, status } = orderConfirmInfo ?? {};
+  const { full_name, order_date, chef_details, status, is_pickup, order_address, order_num } = orderConfirmInfo ?? {};
+  const { primary_address } = chef_details ?? {};
   const orderDate = format(new Date(order_date ?? new Date()), 'MMMM d, yyyy');
   // const { user } = useAuth();
   // const { checkout } = useSelector(FOOD_SELECTOR);
@@ -58,7 +59,7 @@ export default function ConfirmInfo({ isPickup }) {
             <Typography variant="body2" color={'text.secondary'}>
               Order No
             </Typography>
-            <Typography variant="subtitle1">#314531315314</Typography>
+            <Typography variant="subtitle1">#{order_num}</Typography>
           </Stack>
           <Stack
             width={{ xs: '100%', md: 'fit-content' }}
@@ -75,11 +76,13 @@ export default function ConfirmInfo({ isPickup }) {
             </Stack>
             <Stack spacing={1} display={{ xs: 'block', md: 'none' }}>
               <Typography variant="body2" color={'text.secondary'}>
-                Shopping Address
+                {is_pickup ? 'Pick Up' : 'Shopping'} Address
               </Typography>
               <Typography variant="subtitle1">
-                {primary_address?.line1}, {primary_address?.apartment},{primary_address?.state},{primary_address?.city},
-                {primary_address?.zip}
+                {is_pickup
+                  ? primary_address
+                  : `${order_address?.line1}, ${order_address?.apartment}, ${order_address?.state}, ${order_address?.city}, 
+                ${order_address?.zip}`}
               </Typography>
             </Stack>
           </Stack>
@@ -89,9 +92,14 @@ export default function ConfirmInfo({ isPickup }) {
 
         <Stack display={{ xs: 'none', md: 'flex' }} spacing={1}>
           <Typography variant="body2" color={'text.secondary'}>
-            {isPickup ? 'Pick Up' : 'Delivery'} Address
+            {is_pickup ? 'Pick Up' : 'Shopping'} Address
           </Typography>
-          <Typography variant="subtitle1">12 Rd Avenue, San Antonio, TX, 13294, US</Typography>
+          <Typography variant="subtitle1">
+            {is_pickup
+              ? primary_address
+              : `${order_address?.line1}, ${order_address?.apartment}, ${order_address?.state}, ${order_address?.city}, 
+                ${order_address?.zip}`}
+          </Typography>
         </Stack>
 
         <Divider sx={{ display: { xs: 'none', md: 'block' } }} />

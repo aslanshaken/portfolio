@@ -48,9 +48,11 @@ export default function DeliverySteps({ address, isPickup }) {
         <Stack spacing={1}>
           {savedCards ? (
             savedCards?.map((item) => (
-              <Grid container width={'100%'} key={item?.id}>
+              <Grid container width={'100%'} key={item?.id} whiteSpace={'nowrap'}>
                 <Grid item xs={4}>
-                  <Typography variant="body1">{item?.brand}</Typography>
+                  <Typography variant="body1" color={'secondary'}>
+                    {item?.brand}
+                  </Typography>
                 </Grid>
                 <Grid item xs={8}>
                   <Typography variant="body1">**** **** **** {item?.last_four}</Typography>
@@ -149,12 +151,20 @@ function DeliveryStepCard({
   return (
     <Card>
       <CardHeader icon={icon} title={title} subtitle={subtitle} />
-      <Stack direction={'row'} px={3} py={2} spacing={2} justifyContent={'space-between'} alignItems={'flex-start'}>
-        <Stack flex={1}>
+      <Stack
+        direction={'row'}
+        px={3}
+        py={2}
+        justifyContent={'space-between'}
+        alignItems={'flex-start'}
+        flexWrap={'wrap'}
+        gap={2}
+      >
+        <Box flex={1} pr={6}>
           <Typography variant="caption" color={'text.secondary'}>
             {content}
           </Typography>
-        </Stack>
+        </Box>
         {buttonText != '' && (
           <Button variant={'outlined'} color="secondary" onClick={onClickButton}>
             {buttonText}

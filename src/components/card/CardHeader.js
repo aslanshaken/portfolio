@@ -23,6 +23,8 @@ export default function CardHeader({ icon = '', title = '', subtitle = '', hideD
           background: variant === 'contained' && theme.palette.gradients.secondary,
         })}
         justifyContent={'space-between'}
+        flexWrap={'wrap'}
+        gap={1}
       >
         <Stack direction={'row'} spacing={2}>
           <BackgroundIcon variant={variant} icon={icon} />

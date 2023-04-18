@@ -27,7 +27,7 @@ export default function ConfirmCartItem() {
                   <Image
                     alt={'Cuisine Image'}
                     src={item?.image_url}
-                    sx={{ borderRadius: '50%', width: { md: 150, xs: 100 }, height: { md: 150, xs: 100 } }}
+                    sx={{ borderRadius: '50%', minWidth:100, minHeight:100, width: { md: 150, xs: 100 }, height: { md: 150, xs: 100 } }}
                   />
 
                   <Stack>

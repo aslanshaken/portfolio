@@ -134,6 +134,11 @@ const slice = createSlice({
       state.loading = false;
       state.orderConfirmInfo = action.payload;
     },
+
+    setIsPickup(state, action) {
+      state.loading = false;
+      state.checkout.orderDetail.is_pickup = action.payload;
+    },
   },
 });
 
@@ -152,6 +157,7 @@ export const {
   setDeliveryInstructions,
   setDeliveryAddress,
   setScheduleTime,
+  setIsPickup,
 } = slice.actions;
 
 // Selector
@@ -313,6 +319,19 @@ export function getOrderConfirmInfo(orderId) {
     try {
       const response = await axios.get(`/api/${process.env.API_VERSION}/orders/${orderId}/confirm_order`);
       dispatch(slice.actions.setOrderConfirmInfo(response.data));
+    } catch (error) {
+      dispatch(slice.actions.setError(error));
+    }
+  };
+}
+
+// ----------------------------------------------------------------------
+export function updateIsPickup(isPickup, orderId) {
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try {
+      const response = await axios.post(`/api/${process.env.API_VERSION}/orders/${orderId}/update_is_pickup`);
+      dispatch(slice.actions.setIsPickup(isPickup));
     } catch (error) {
       dispatch(slice.actions.setError(error));
     }

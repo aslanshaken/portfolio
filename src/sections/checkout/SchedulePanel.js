@@ -117,7 +117,7 @@ export default function SchedulePanel({ isPickup, onClose, subtitle }) {
         icon="jam:pen-f"
         title={`${isPickup ? 'Pick Up Schedule' : 'Delivery Schedule'}`}
       />
-      <Stack direction={'row'} px={3} flexWrap={'wrap'} py={2} gap={2}>
+      <Stack direction={'row'} px={3} flexWrap={'wrap'} justifyContent={'space-around'} py={2} gap={2}>
         {times?.length == 0 ? (
           <Typography variant="caption" color={'gray'} textAlign={'left'} width={'100%'}>
             There is no available times.
