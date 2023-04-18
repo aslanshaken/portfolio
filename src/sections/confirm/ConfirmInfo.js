@@ -80,7 +80,8 @@ export default function ConfirmInfo() {
               </Typography>
               <Typography variant="subtitle1">
                 {is_pickup
-                  ? primary_address
+                  ? `${primary_address?.line1}, ${primary_address?.apartment}, ${primary_address?.state}, ${primary_address?.city}, 
+                ${primary_address?.zip}`
                   : `${order_address?.line1}, ${order_address?.apartment}, ${order_address?.state}, ${order_address?.city}, 
                 ${order_address?.zip}`}
               </Typography>
@@ -96,7 +97,8 @@ export default function ConfirmInfo() {
           </Typography>
           <Typography variant="subtitle1">
             {is_pickup
-              ? primary_address
+              ? `${primary_address?.line1}, ${primary_address?.apartment}, ${primary_address?.state}, ${primary_address?.city}, 
+                ${primary_address?.zip}`
               : `${order_address?.line1}, ${order_address?.apartment}, ${order_address?.state}, ${order_address?.city}, 
                 ${order_address?.zip}`}
           </Typography>

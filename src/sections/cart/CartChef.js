@@ -9,12 +9,15 @@ import { CITYCUISINE_SELECTOR } from 'src/redux/slices/city';
 import { useRouter } from 'next/router';
 import { ShoppingCartIcon } from 'src/assets';
 import Iconify from 'src/components/Iconify';
+import { useState } from 'react';
 
 //
 export default function CartChef() {
   const { chef, cuisines } = useSelector(CITYCUISINE_SELECTOR);
 
-  const { checkout, loading } = useSelector(FOOD_SELECTOR);
+  const { checkout } = useSelector(FOOD_SELECTOR);
+
+  const [loading, setLoading] = useState(false);
 
   const { cart, deliveryDate } = checkout;
 
@@ -39,9 +42,11 @@ export default function CartChef() {
   const cuisineNames = new Set(cartArr.map((item) => cuisines.find((cuisine) => cuisine.id == item.cuisine_id)?.name));
 
   const handleClickCreateOrders = async () => {
+    setLoading(true);
     const response = await dispatch(
       createOrders({ chefId: chef?.chef?.id, carts: cartArr, selectedDay: new Date(deliveryDate) })
     );
+    setLoading(false);
     router.push('/cities/4/4/2/checkout/');
   };
 
