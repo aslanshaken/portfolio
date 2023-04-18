@@ -14,7 +14,7 @@ import Iconify from 'src/components/Iconify';
 export default function CartChef() {
   const { chef, cuisines } = useSelector(CITYCUISINE_SELECTOR);
 
-  const { checkout } = useSelector(FOOD_SELECTOR);
+  const { checkout, loading } = useSelector(FOOD_SELECTOR);
 
   const { cart, deliveryDate } = checkout;
 
@@ -60,7 +60,7 @@ export default function CartChef() {
           <Box mt={5} />
 
           <Stack px={{ sm: 8 }}>
-            <LoadingButton size="large" variant="outlined" sx={{ color: 'black' }} onClick={handleClickCreateOrders}>
+            <LoadingButton size="large" variant="outlined" sx={{ color: 'black' }} loading={loading} onClick={handleClickCreateOrders}>
               Checkout ({cart.length})
             </LoadingButton>
           </Stack>
