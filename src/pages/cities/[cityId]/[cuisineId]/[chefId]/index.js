@@ -49,7 +49,7 @@ export default function ChefPage() {
   }, [dispatch, router, isAuthenticated, cuisineId, chefId, cityId, cuisines]);
 
   return loading ? (
-    <LoadingScreen />
+    <LoadingScreen inner />
   ) : (
     <Page title="Search Chef">
       <ChefHeader selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />

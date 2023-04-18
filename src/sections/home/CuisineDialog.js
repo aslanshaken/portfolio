@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Box, Button, Dialog, DialogContent, IconButton, Stack, Typography } from '@mui/material';
 import Iconify from 'src/components/Iconify';
 import { useRouter } from 'next/router';
 import { closeDialog } from 'src/redux/slices/dialog';
-import axios from 'src/utils/axios';
 import { useDispatch, useSelector } from 'src/redux/store';
 import { CITYCUISINE_SELECTOR, getCuisines } from 'src/redux/slices/city';
-import useAuth from 'src/hooks/useAuth';
-import Image from 'src/components/Image';
 import NextImage from 'next/image';
 
 // ----------------------------------------------------------------------
@@ -53,7 +50,7 @@ export default function CuisineDialog({ isOpen }) {
                   dispatch(closeDialog());
                 }}
                 direction={'row'}
-                sx={{ width: '100%', justifyContent: 'left', px: {sm:5} }}
+                sx={{ width: '100%', justifyContent: 'left', px: { sm: 5 } }}
               >
                 {item?.image ? (
                   <>
@@ -64,7 +61,7 @@ export default function CuisineDialog({ isOpen }) {
                         height: 70,
                         marginRight: 3,
                         overflow: 'hidden',
-                        position: 'relative'
+                        position: 'relative',
                       }}
                     >
                       <NextImage alt={'cuisine'} src={item?.image} layout="fill" quality={5} priority />
@@ -78,12 +75,6 @@ export default function CuisineDialog({ isOpen }) {
                 </Typography>
               </Button>
             ))}
-            {/* <IconButton
-            color={'secondary'}
-            sx={{ border: '1px solid', width: 'fit-content', mx: 'auto', borderRadius: 'full' }}
-          >
-            <Iconify icon={'material-symbols:keyboard-arrow-down'} width={20} height={20} />
-          </IconButton> */}
           </Stack>
         </Stack>
       </DialogContent>

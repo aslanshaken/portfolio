@@ -52,7 +52,7 @@ export default function ChefListPage() {
   }, [error?.status, router]);
 
   return loading ? (
-    <LoadingScreen />
+    <LoadingScreen inner />
   ) : (
     <Page title="Search Chef">
       <HeroHeader

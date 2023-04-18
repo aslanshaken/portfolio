@@ -25,9 +25,9 @@ const RootStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function LoadingScreen() {
+export default function LoadingScreen({ inner = false }) {
   return (
-    <RootStyle>
+    <RootStyle sx={{ zIndex: inner ? 999 : 99999 }}>
       <m.div
         animate={{
           scale: [1, 0.9, 0.9, 1, 1],
