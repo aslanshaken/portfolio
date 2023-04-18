@@ -46,26 +46,29 @@ export default function DeliverySteps({ address, isPickup }) {
       subtitle: '',
       content: (
         <Stack spacing={1}>
-          {savedCards?.map((item) => (
-            <Grid container width={'100%'} key={item?.id}>
-              <Grid item xs={4}>
-                <Typography variant="body1">{item?.brand}</Typography>
+          {savedCards ? (
+            savedCards?.map((item) => (
+              <Grid container width={'100%'} key={item?.id}>
+                <Grid item xs={4}>
+                  <Typography variant="body1">{item?.brand}</Typography>
+                </Grid>
+                <Grid item xs={8}>
+                  <Typography variant="body1">**** **** **** {item?.last_four}</Typography>
+                </Grid>
               </Grid>
-              <Grid item xs={8}>
-                <Typography variant="body1">**** **** **** {item?.last_four}</Typography>
-              </Grid>
-            </Grid>
-          ))}
-          <Typography pt={2} variant="caption">
-            You do not have saved credit cards
-          </Typography>
+            ))
+          ) : (
+            <Typography pt={2} variant="caption">
+              You do not have saved credit cards
+            </Typography>
+          )}
         </Stack>
       ),
       buttonText: 'Add a new card',
       onClickButton: () => {
         setIsOpenPaymentDialog(true);
       },
-      status: isOpenPaymentDialog,
+      status: false,
     },
     {
       icon: 'jam:pen',

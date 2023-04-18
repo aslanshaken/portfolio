@@ -1,5 +1,17 @@
 import PropTypes from 'prop-types';
-import { Button, Dialog, FormControl, Grid, IconButton, Input, InputLabel, Stack, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Dialog,
+  FormControl,
+  Grid,
+  IconButton,
+  Input,
+  InputLabel,
+  Stack,
+  Typography,
+} from '@mui/material';
 import Iconify from '../../components/Iconify';
 import { FormProvider, RHFTextField } from 'src/components/hook-form';
 import { useForm } from 'react-hook-form';
@@ -38,13 +50,13 @@ export default function PaymentDialog({ data, ...other }) {
 
         setClientSecretKey(client_secret);
         setPublickey(publishable_key);
-        setIsLoading(false);
         setIsInitialized(true);
+        setIsLoading(false);
       }
     }
 
     fetch();
-  }, []);
+  }, [dispatch]);
 
   return (
     <Dialog maxWidth={'sm'} fullWidth {...other}>
@@ -59,7 +71,9 @@ export default function PaymentDialog({ data, ...other }) {
             <PaymentForm onClose={other.onClose} />
           </PaymentProvider>
         ) : (
-          ''
+          <Box display={'flex'} justifyContent={'center'} width={'100%'} pb={6}>
+            <CircularProgress />
+          </Box>
         )}
 
         {/* <Grid container spacing={3}>

@@ -1,5 +1,5 @@
 import { LoadingButton } from '@mui/lab';
-import { Box, Button, FormHelperText, styled } from '@mui/material';
+import { Box, Button, CircularProgress, FormHelperText, styled } from '@mui/material';
 import { CardElement, CardNumberElement, PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -23,6 +23,7 @@ export default function PaymentForm({ data, onClose, ...other }) {
 
   const [cardError, setCardError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false);
   const dispatch = useDispatch();
 
   const { successAlert } = useNotify();
@@ -52,7 +53,9 @@ export default function PaymentForm({ data, onClose, ...other }) {
         setCardError(result.error.message);
       } else {
         successAlert('Your paynment method has been added successfully.');
-        dispatch(getSavedCards());
+        setTimeout(() => {
+          dispatch(getSavedCards());
+        }, 1000);
         onClose();
       }
     } catch (error) {
@@ -64,7 +67,15 @@ export default function PaymentForm({ data, onClose, ...other }) {
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+      {!isInitialized && (
+        <Box display={'flex'} justifyContent={'center'} width={'100%'}>
+          <CircularProgress />
+        </Box>
+      )}
       <PaymentElement
+        onLoaderStart={() => {
+          setIsInitialized(true);
+        }}
         options={{
           fields: {
             billingDetails: {
