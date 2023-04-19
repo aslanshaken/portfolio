@@ -98,7 +98,7 @@ export default function OrderCard({ isPickup }) {
         }, 1000);
       } else if (placeOrder.rejected.match(response)) {
         const error = response.payload;
-        errorAlert(error.message);
+        errorAlert('An error has been occured while processing payment.');
         setIsLoading(false);
       }
     } catch (error) {
