@@ -55,7 +55,7 @@ export default function OrderTableRow({ row, selected, headLabel, onEditRow, onS
   return (
     <TableRow hover>
       <TableCell align="left" sx={{ fontStyle: 'italic', color: 'text.secondary' }}>
-        <NextLink href={PATH_PAGE.orderConfirm.orders({ orderId })} passHref>
+        <NextLink href={status == 'initiated' ? '#' : PATH_PAGE.orderConfirm.orders({ orderId })} passHref>
           <Link>#{order_num}</Link>
         </NextLink>
       </TableCell>
@@ -80,9 +80,11 @@ export default function OrderTableRow({ row, selected, headLabel, onEditRow, onS
       </TableCell>
 
       <TableCell align="center">
-        <Label variant={'ghost'} color={STATUS_COLOR[status]} sx={{ textTransform: 'capitalize' }}>
-          {status}
-        </Label>
+        {status && (
+          <Label variant={'ghost'} color={STATUS_COLOR[status]} sx={{ textTransform: 'capitalize' }}>
+            {status}
+          </Label>
+        )}
       </TableCell>
     </TableRow>
   );

@@ -108,7 +108,7 @@ export default function SchedulePanel({ isPickup, onClose, subtitle }) {
       })
     : slots;
 
-  const dateSchedule = new Date(checkout?.orderDetail?.items[0].selected_day);
+  const dateSchedule = new Date(checkout?.orderDetail?.items[0]?.selected_day);
 
   return (
     <Card>

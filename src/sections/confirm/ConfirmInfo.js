@@ -88,9 +88,13 @@ export default function ConfirmInfo() {
                       There is no address
                     </Typography>
                   )
-                ) : (
+                ) : primary_address != null ? (
                   `${order_address?.line1}, ${order_address?.apartment}, ${order_address?.state}, ${order_address?.city}, 
                 ${order_address?.zip}`
+                ) : (
+                  <Typography variant="body2" color={'gray'}>
+                    There is no address
+                  </Typography>
                 )}
               </Typography>
             </Stack>
@@ -113,9 +117,13 @@ export default function ConfirmInfo() {
                   There is no address
                 </Typography>
               )
-            ) : (
+            ) : primary_address != null ? (
               `${order_address?.line1}, ${order_address?.apartment}, ${order_address?.state}, ${order_address?.city}, 
                 ${order_address?.zip}`
+            ) : (
+              <Typography variant="body2" color={'gray'}>
+                There is no address
+              </Typography>
             )}
           </Typography>
         </Stack>
@@ -145,12 +153,14 @@ export default function ConfirmInfo() {
               </Typography>
             </Stack>
           </Stack>
-          <Stack spacing={3} textAlign={'center'}>
-            <Typography variant="subtitle1">Status</Typography>
-            <Label variant={'ghost'} color={STATUS_COLOR[status]} sx={{ textTransform: 'capitalize' }}>
-              {status}
-            </Label>
-          </Stack>
+          {status && (
+            <Stack spacing={3} textAlign={'center'}>
+              <Typography variant="subtitle1">Status</Typography>
+              <Label variant={'ghost'} color={STATUS_COLOR[status]} sx={{ textTransform: 'capitalize' }}>
+                {status}
+              </Label>
+            </Stack>
+          )}
         </Stack>
 
         <Stack

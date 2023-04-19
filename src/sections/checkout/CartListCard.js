@@ -7,7 +7,14 @@ import CardHeader from 'src/components/card/CardHeader';
 import Iconify from 'src/components/Iconify';
 import Image from 'src/components/Image';
 import { useDispatch, useSelector } from 'src/redux/store';
-import { addFoodCart, FOOD_SELECTOR, getOrderDetail, removeFoodCart, updateCart } from 'src/redux/slices/food';
+import {
+  addFoodCart,
+  deleteCart,
+  FOOD_SELECTOR,
+  getOrderDetail,
+  removeFoodCart,
+  updateCart,
+} from 'src/redux/slices/food';
 import { useCallback, useEffect, useState } from 'react';
 import useNotify from 'src/hooks/useNotify';
 import GradientText from 'src/components/GradientText';
@@ -91,6 +98,16 @@ function CuisineCard({ data = {}, orderId }) {
     dispatch(removeFoodCart({ food: food, removeAll: false, removeOneItem: false }));
   }, [food]);
 
+  const deleteItem = async (foodId) => {
+    try {
+      const response = await dispatch(deleteCart(orderId, foodId));
+      dispatch(getOrderDetail(orderId));
+      successAlert(response.data.success);
+    } catch (error) {
+      errorAlert(error.message);
+    }
+  };
+
   return (
     <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'} spacing={2} width={1}>
       <Stack direction={'row'} alignItems={'center'} spacing={6}>
@@ -113,7 +130,11 @@ function CuisineCard({ data = {}, orderId }) {
         </Typography>
 
         <Box>
-          <Button color="error" sx={{ borderRadius: 1, p: 1, minWidth: 0, background: colors.grey[100] }}>
+          <Button
+            color="error"
+            sx={{ borderRadius: 1, p: 1, minWidth: 0, background: colors.grey[100] }}
+            onClick={() => deleteItem(data?.id)}
+          >
             <Iconify icon={'mdi:trash'} onClick={handleClickRemoveCart} />
           </Button>
         </Box>

@@ -62,6 +62,7 @@ export default function NavbarVertical() {
   return (
     <RootStyle
       sx={{
+        zIndex: 1000,
         width: {
           md: isCollapse ? NAVBAR.DASHBOARD_COLLAPSE_WIDTH : NAVBAR.DASHBOARD_WIDTH,
         },
