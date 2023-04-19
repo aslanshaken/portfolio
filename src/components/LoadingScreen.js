@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { m } from 'framer-motion';
 // @mui
 import { alpha, styled } from '@mui/material/styles';
@@ -24,6 +25,10 @@ const RootStyle = styled('div')(({ theme }) => ({
 }));
 
 // ----------------------------------------------------------------------
+
+LoadingScreen.propTypes = {
+  inner: PropTypes.bool,
+};
 
 export default function LoadingScreen({ inner = false }) {
   return (

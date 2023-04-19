@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'src/redux/store';
 import { addFoodCart, FOOD_SELECTOR, getOrderDetail, removeFoodCart, updateCart } from 'src/redux/slices/food';
 import { useCallback, useEffect, useState } from 'react';
 import useNotify from 'src/hooks/useNotify';
+import GradientText from 'src/components/GradientText';
 
 //
 export default function CartListCard() {
@@ -98,9 +99,6 @@ function CuisineCard({ data = {}, orderId }) {
         <Stack minWidth={200}>
           <Typography variant="h6" color="black" fontWeight={600} gutterBottom>
             {data?.title}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {'440 cal'}
           </Typography>
         </Stack>
       </Stack>

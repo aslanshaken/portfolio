@@ -36,7 +36,6 @@ ProfileCover.propTypes = {
 export default function ProfileCover({ certified = true, cuisineNames = [] }) {
   const {
     chef: { chef },
-    cuisine,
   } = useSelector(CITYCUISINE_SELECTOR);
 
   return (
@@ -63,9 +62,12 @@ export default function ProfileCover({ certified = true, cuisineNames = [] }) {
               sx={{ color: '#0ED3CF', position: 'absolute', top: 10, right: 0 }}
             />
           </Box>
-          <Stack ml={4}>
+          <Stack ml={4} my={'auto'}>
             <Typography variant="h4" color="black" gutterBottom>
-              {chef?.first_name} {chef?.last_name}
+              {chef?.company_name}
+            </Typography>
+            <Typography color={'black'} variant={'subtitle1'}>
+              by {chef?.first_name} {chef?.last_name}
             </Typography>
             <Stack direction={{ md: 'row', xs: 'column' }} spacing={{ md: 2 }}>
               <Typography variant="body1" color="black" flex={1}>

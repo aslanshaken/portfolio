@@ -56,10 +56,10 @@ export default function CuisineDialog({ isOpen }) {
                   <>
                     <Box
                       sx={{
-                        borderRadius: (theme) => `${theme.shape.borderRadius}px`,
-                        minWidth: 100,
+                        minWidth: 70,
                         height: 70,
                         marginRight: 3,
+                        borderRadius: '100%',
                         overflow: 'hidden',
                         position: 'relative',
                       }}

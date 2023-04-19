@@ -3,12 +3,11 @@ import Layout from '../../layouts';
 // components
 import Page from '../../components/Page';
 import { useEffect, useState } from 'react';
-import useTable from 'src/hooks/useTable';
 import { useDispatch } from 'src/redux/store';
 import { FOOD_SELECTOR, getSavedCards } from 'src/redux/slices/food';
 import { useSelector } from 'react-redux';
 import LoadingScreen from 'src/components/LoadingScreen';
-import { Box, Button, IconButton, Paper, Stack, Typography } from '@mui/material';
+import { Box, Button, Paper, Stack, Typography } from '@mui/material';
 import Iconify from 'src/components/Iconify';
 import PaymentDialog from 'src/sections/checkout/PaymentDialog';
 // ----------------------------------------------------------------------
@@ -21,9 +20,6 @@ PaymentsPage.getLayout = function getLayout(page) {
 
 export default function PaymentsPage() {
   const [isOpenPaymentDialog, setIsOpenPaymentDialog] = useState(false);
-  const { page, order, orderBy, rowsPerPage } = useTable({
-    defaultOrderBy: 'order_number',
-  });
 
   const dispatch = useDispatch();
 

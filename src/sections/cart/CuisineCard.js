@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
-import { Box, Stack, Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import { IconButtonAnimate } from '../../components/animate';
 import Iconify from '../../components/Iconify';
 import Image from 'src/components/Image';
 import { useDispatch } from 'src/redux/store';
 import { removeFoodCart } from 'src/redux/slices/food';
+import GradientText from 'src/components/GradientText';
 
 //
 
@@ -36,9 +37,9 @@ export default function CuisineCard({ cuisine = {} }) {
           <Typography variant="h6" color="black" fontWeight={600} gutterBottom>
             {cuisine?.title}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {'440 cal'}
-          </Typography>
+          <GradientText color="primary" variant="subtitle1">
+            {`$${cuisine?.current_price} / ${cuisine?.measurement || ''}`}
+          </GradientText>
         </Stack>
       </Stack>
 
