@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { m } from 'framer-motion';
 // @mui
 import { alpha, styled } from '@mui/material/styles';
@@ -10,7 +11,6 @@ import Logo from './Logo';
 const RootStyle = styled('div')(({ theme }) => ({
   right: 0,
   bottom: 0,
-  zIndex: 99999,
   width: '100%',
   height: '100%',
   position: 'fixed',
@@ -24,6 +24,10 @@ const RootStyle = styled('div')(({ theme }) => ({
 }));
 
 // ----------------------------------------------------------------------
+
+LoadingScreen.propTypes = {
+  inner: PropTypes.bool,
+};
 
 export default function LoadingScreen({ inner = false }) {
   return (

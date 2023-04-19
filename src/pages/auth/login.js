@@ -18,7 +18,7 @@ Login.getLayout = function getLayout(page) {
 
 export default function Login() {
   return (
-    <Page title="Login" gutterTop>
+    <Page title="Login">
       <Container maxWidth={'xs'} sx={{ pt: 3 }}>
         <GradientText variant="h2" color="secondary" mb={2}>
           Log in

@@ -225,6 +225,18 @@ export function getOrders() {
   };
 }
 
+export function deleteCart(orderId, foodId) {
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try {
+      const response = await axios.delete(`/api/${process.env.API_VERSION}/orders/${orderId}/items/${foodId}/delete`);
+      return response;
+    } catch (error) {
+      dispatch(slice.actions.setError(error));
+    }
+  };
+}
+
 export function addTips(data) {
   return async (dispatch) => {
     dispatch(startLoading());
@@ -334,6 +346,18 @@ export function updateIsPickup(isPickup, orderId) {
       const response = await axios.post(`/api/${process.env.API_VERSION}/orders/${orderId}/update_is_pickup`, {
         is_pickup: isPickup,
       });
+    } catch (error) {
+      dispatch(slice.actions.setError(error));
+    }
+  };
+}
+
+export function deleteCard() {
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try {
+      const response = await axios.delete(`/api/${process.env.API_VERSION}/payments/delete_card`);
+      return response;
     } catch (error) {
       dispatch(slice.actions.setError(error));
     }

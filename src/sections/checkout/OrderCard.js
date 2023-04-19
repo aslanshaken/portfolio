@@ -20,6 +20,7 @@ import { placeOrder } from 'src/redux/service/payment';
 import useNotify from 'src/hooks/useNotify';
 import { useRouter } from 'next/router';
 import useAuth from 'src/hooks/useAuth';
+import { PATH_PAGE } from 'src/routes/paths';
 
 //
 
@@ -93,7 +94,7 @@ export default function OrderCard({ isPickup }) {
         successAlert('Your payment was successful.');
         setIsLoading(false);
         setTimeout(() => {
-          push('/cities/4/ukrainian-cuisine/adam-sandler/checkout/confirm');
+          push(PATH_PAGE.orderConfirm.orders({ orderId }));
         }, 1000);
       } else if (placeOrder.rejected.match(response)) {
         const error = response.payload;

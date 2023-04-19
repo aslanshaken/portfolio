@@ -79,22 +79,22 @@ export default function MenuMobile({ isHome, navConfig }) {
         PaperProps={{ sx: { pb: 5, width: 260, background: 'linear-gradient(106.35deg, #163E2B 0%, #0B2619 100%);' } }}
       >
         <Scrollbar>
-          <Logo sx={{ mx: 2.5, my: 3 , height:'40'}} />
+          <Logo sx={{ mx: 2.5, my: 3, height: '40' }} />
           <List disablePadding>
             {navConfig.map((link) => (
               <MenuMobileItem key={link.title} item={link} isOpen={open} onOpen={handleOpen} />
             ))}
           </List>
-          <Box mt={2} ml={4}>
+          <Box mt={2} mx={4}>
             <NextLink href={PATH_AUTH.register} passHref>
-              <Button variant="outlined" size="medium">
+              <Button variant="outlined" size="medium" sx={{ width: '100%' }}>
                 Sign up
               </Button>
             </NextLink>
           </Box>
-          <Box mt={2} ml={4}>
+          <Box mt={2} mx={4}>
             <NextLink href={PATH_AUTH.login} passHref>
-              <Button variant="contained" size="medium" sx={{ px: { lg: 5, md: 0, xs: 5 } }}>
+              <Button variant="contained" size="medium" sx={{ width: '100%' }}>
                 Log in
               </Button>
             </NextLink>
@@ -114,7 +114,7 @@ MenuMobileItem.propTypes = {
     icon: PropTypes.any,
     path: PropTypes.string,
     title: PropTypes.string,
-    target: PropTypes.string
+    target: PropTypes.string,
   }),
   onOpen: PropTypes.func,
 };

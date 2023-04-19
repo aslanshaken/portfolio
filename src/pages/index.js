@@ -14,7 +14,6 @@ import { DIALOG_SELECTOR, setInitialized } from 'src/redux/slices/dialog';
 import useAuth from 'src/hooks/useAuth';
 import { FOOD_SELECTOR, clearCart, getPopularFoods } from 'src/redux/slices/food';
 import LoadingScreen from 'src/components/LoadingScreen';
-import Head from 'next/head';
 
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
@@ -46,9 +45,6 @@ export default function HomePage() {
     <LoadingScreen />
   ) : (
     <Page title="Home">
-      <Head>
-        <link rel="shortcut icon" href="/assets/web-logo.png" />
-      </Head>
       {/* <WelcomeDialog isOpen={welcomeDialogIsOpen} setIsOpen={setWelcomeDialogIsOpen} /> */}
       {/* <PaymentDialog open /> */}
 

@@ -71,7 +71,7 @@ export default function ForgotPass() {
   const [isSuccess, setIsSuccess] = useState(false);
 
   return (
-    <Page title="Forgot Password" gutterTop>
+    <Page title="Forgot Password">
       <RootStyle>
         <Container maxWidth={'md'} sx={{ pt: 3 }}>
           {isSuccess ? (

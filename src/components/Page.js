@@ -9,10 +9,11 @@ import { HEADER } from '../config';
 
 // ----------------------------------------------------------------------
 
-const Page = forwardRef(({ children, title = '', meta, gutterTop = false, ...other }, ref) => (
+const Page = forwardRef(({ children, meta, gutterTop = false, ...other }, ref) => (
   <>
     <Head>
-      <title>{`${title} | ${getAppInfo('name')}`}</title>
+      <title>{getAppInfo('name')}</title>
+      <link rel="shortcut icon" href="/assets/web-logo.png" />
       {meta}
     </Head>
 
@@ -27,6 +28,7 @@ const Page = forwardRef(({ children, title = '', meta, gutterTop = false, ...oth
         }),
       })}
       {...other}
+      width={'100%'}
     >
       {children}
     </Box>
