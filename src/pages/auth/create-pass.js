@@ -68,7 +68,7 @@ const RootStyle = styled('div')(({ theme }) => ({
 
 export default function CreatePass() {
   return (
-    <Page title="Create Password" gutterTop>
+    <Page title="Create Password">
       <RootStyle>
         <Container maxWidth={'xl'} sx={{ pt: 3 }}>
           <GradientText variant="h2" color="secondary" mb={2} className="forgot-title">

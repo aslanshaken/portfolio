@@ -101,7 +101,7 @@ export default function OrderPage() {
   // const order_date = [{ name: 'Last week' }, { name: 'Last week' }, { name: 'Last week' }];
 
   return loading ? (
-    <LoadingScreen />
+    <LoadingScreen inner />
   ) : (
     <Page title="Orders : Dashboard">
       {/* <Stack direction={'row'} spacing={2} maxWidth={500} sx={{ ml: 'auto', mb: 3 }}>
