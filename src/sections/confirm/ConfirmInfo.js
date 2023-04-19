@@ -79,11 +79,19 @@ export default function ConfirmInfo() {
                 {is_pickup ? 'Pick Up' : 'Delivery'} Address
               </Typography>
               <Typography variant="subtitle1">
-                {is_pickup
-                  ? `${primary_address?.line1}, ${primary_address?.apartment}, ${primary_address?.state}, ${primary_address?.city}, 
+                {is_pickup ? (
+                  primary_address != null ? (
+                    `${primary_address?.line1}, ${primary_address?.apartment}, ${primary_address?.state}, ${primary_address?.city}, 
                 ${primary_address?.zip}`
-                  : `${order_address?.line1}, ${order_address?.apartment}, ${order_address?.state}, ${order_address?.city}, 
-                ${order_address?.zip}`}
+                  ) : (
+                    <Typography variant="body2" color={'gray'}>
+                      There is no address
+                    </Typography>
+                  )
+                ) : (
+                  `${order_address?.line1}, ${order_address?.apartment}, ${order_address?.state}, ${order_address?.city}, 
+                ${order_address?.zip}`
+                )}
               </Typography>
             </Stack>
           </Stack>
@@ -96,11 +104,19 @@ export default function ConfirmInfo() {
             {is_pickup ? 'Pick Up' : 'Delivery'} Address
           </Typography>
           <Typography variant="subtitle1">
-            {is_pickup
-              ? `${primary_address?.line1}, ${primary_address?.apartment}, ${primary_address?.state}, ${primary_address?.city}, 
+            {is_pickup ? (
+              primary_address != null ? (
+                `${primary_address?.line1}, ${primary_address?.apartment}, ${primary_address?.state}, ${primary_address?.city}, 
                 ${primary_address?.zip}`
-              : `${order_address?.line1}, ${order_address?.apartment}, ${order_address?.state}, ${order_address?.city}, 
-                ${order_address?.zip}`}
+              ) : (
+                <Typography variant="body2" color={'gray'}>
+                  There is no address
+                </Typography>
+              )
+            ) : (
+              `${order_address?.line1}, ${order_address?.apartment}, ${order_address?.state}, ${order_address?.city}, 
+                ${order_address?.zip}`
+            )}
           </Typography>
         </Stack>
 

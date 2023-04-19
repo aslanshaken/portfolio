@@ -11,19 +11,21 @@ import { useDispatch } from 'react-redux';
 import { FOOD_SELECTOR, getOrderConfirmInfo } from 'src/redux/slices/food';
 import { useSelector } from 'src/redux/store';
 import LoadingScreen from 'src/components/LoadingScreen';
+import { useRouter } from 'next/router';
 // ----------------------------------------------------------------------
 
-CheckoutPage.getLayout = function getLayout(page) {
+OrderConfirmPage.getLayout = function getLayout(page) {
   return <Layout variant="main">{page}</Layout>;
 };
 
-CheckoutPage.propTypes = {
+OrderConfirmPage.propTypes = {
   isPickup: PropTypes.bool,
 };
 
-export default function CheckoutPage({ isPickup = true }) {
-  const { checkout, loading } = useSelector(FOOD_SELECTOR);
-  const { orderId } = checkout;
+export default function OrderConfirmPage({ isPickup = true }) {
+  const { loading } = useSelector(FOOD_SELECTOR);
+  const router = useRouter();
+  const { orderId } = router.query;
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getOrderConfirmInfo(orderId));

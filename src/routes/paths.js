@@ -28,6 +28,10 @@ export const PATH_PAGE = {
   contactUs: '/contact-us',
   ingredients: '/ingredients',
   cart: '/cart',
+  orderConfirm: {
+    root: '/orders',
+    orders: ({ orderId } = '') => path('/orders', `${'/' + orderId}`),
+  },
 };
 
 export const PATH_DASHBOARD = {

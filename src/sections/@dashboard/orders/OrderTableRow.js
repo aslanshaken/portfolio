@@ -1,13 +1,15 @@
+import { useEffect, useState } from 'react';
+import NextLink from 'next/link';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
 // @mui
 import { useTheme } from '@mui/material/styles';
-import { Avatar, Checkbox, TableRow, TableCell, Typography, MenuItem, Box } from '@mui/material';
+import { Avatar, Checkbox, TableRow, TableCell, Typography, MenuItem, Box, Link } from '@mui/material';
 // components
 import Label from '../../../components/Label';
 import Iconify from '../../../components/Iconify';
 import { TableMoreMenu } from '../../../components/table';
 import Image from 'src/components/Image';
+import { PATH_PAGE } from 'src/routes/paths';
 
 // ----------------------------------------------------------------------
 
@@ -30,7 +32,13 @@ OrderTableRow.propTypes = {
 export default function OrderTableRow({ row, selected, headLabel, onEditRow, onSelectRow, onDeleteRow }) {
   const theme = useTheme();
 
-  const { order_num, items, cuisine, sub_total, status, chef } = row;
+  const { order_num, items, id, sub_total, status, chef } = row;
+
+  const [orderId, setOrderId] = useState();
+
+  useEffect(() => {
+    setOrderId(id);
+  }, [id]);
 
   const cuisineNames = [...new Set(items.map((item) => item?.cusine?.name))];
 
@@ -47,7 +55,9 @@ export default function OrderTableRow({ row, selected, headLabel, onEditRow, onS
   return (
     <TableRow hover>
       <TableCell align="left" sx={{ fontStyle: 'italic', color: 'text.secondary' }}>
-        #{order_num}
+        <NextLink href={PATH_PAGE.orderConfirm.orders({ orderId })} passHref>
+          <Link>#{order_num}</Link>
+        </NextLink>
       </TableCell>
 
       <TableCell align="center" sx={{ fontWeight: 700 }}>
