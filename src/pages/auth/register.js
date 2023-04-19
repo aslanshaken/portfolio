@@ -17,7 +17,7 @@ Register.getLayout = function getLayout(page) {
 
 export default function Register() {
   return (
-    <Page title="Register" gutterTop>
+    <Page title="Register">
       <Container maxWidth={'xs'} sx={{ pt: 3 }}>
         <GradientText variant="h2" color="secondary" mb={6}>
           Sign Up!

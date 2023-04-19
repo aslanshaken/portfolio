@@ -77,10 +77,17 @@ export default function MainFooter() {
             maxWidth={400}
             mx={'auto'}
           >
-            <Typography color={'text.secondary'}>
+            <GradientText
+              variant="body1"
+              fontWeight={'bold'}
+              textAlign={'center'}
+            >
+              +1 929-928-5292
+            </GradientText>
+            {/* <Typography color={'text.secondary'}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
             </Typography>
-            <Typography>3678 Summit Park Avenue Southfield, MI 697,US</Typography>
+            <Typography>3678 Summit Park Avenue Southfield, MI 697,US</Typography> */}
           </Stack>
           <Stack direction={'row'} justifyContent={{ xs: 'center', md: 'space-between' }}>
             <Stack direction={'row'} spacing={3} display={{ xs: 'none', md: 'flex' }}>

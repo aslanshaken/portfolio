@@ -16,6 +16,7 @@ const initialState = {
   chefs: [],
   food: null,
   foods: [],
+  faqs: [],
 };
 
 // ----------------------------------------------------------------------
@@ -66,6 +67,11 @@ const slice = createSlice({
     //
     getChef(state, action) {
       state.chef = state.chefs.find((item) => item.chef.id == action.payload);
+    },
+
+    //
+    setFaqs(state, action) {
+      state.faqs = action.payload;
     },
   },
 });
@@ -135,6 +141,19 @@ export function getCity(cityId) {
       dispatch(slice.actions.getCitySuccess(city));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+
+// ----------------------------------------------------------------------
+export function getFaqs() {
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try {
+      const response = await axios.get(`/api/${process.env.API_VERSION}/faqs`);
+      dispatch(slice.actions.setFaqs(response.data.faqs));
+    } catch (error) {
+      dispatch(slice.actions.setError(error));
     }
   };
 }

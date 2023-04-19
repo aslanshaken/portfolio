@@ -12,7 +12,7 @@ import { HEADER } from '../config';
 const Page = forwardRef(({ children, title = '', meta, gutterTop = false, ...other }, ref) => (
   <>
     <Head>
-      <title>{`${title} | ${getAppInfo('name')}`}</title>
+      <title>{getAppInfo('name')}</title>
       {meta}
     </Head>
 
@@ -27,6 +27,7 @@ const Page = forwardRef(({ children, title = '', meta, gutterTop = false, ...oth
         }),
       })}
       {...other}
+      width={'100%'}
     >
       {children}
     </Box>

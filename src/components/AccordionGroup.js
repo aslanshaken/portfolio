@@ -39,10 +39,10 @@ export default function AccordionGroup({ data = [] }) {
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
-            <Typography variant="subtitle1">{item.title}</Typography>
+            <Typography variant="subtitle1">{item?.question}</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography variant="caption">{item.content}</Typography>
+            <Typography variant="caption">{item?.answer}</Typography>
           </AccordionDetails>
         </Accordion>
       ))}
