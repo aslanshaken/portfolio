@@ -30,7 +30,7 @@ export default function CheckoutPage({ isPickup = true }) {
   }, [dispatch, orderId]);
 
   return loading ? (
-    <LoadingScreen />
+    <LoadingScreen inner />
   ) : (
     <Page title="Search Chef">
       <Container>

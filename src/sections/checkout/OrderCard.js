@@ -70,7 +70,12 @@ export default function OrderCard({ isPickup }) {
     return acc;
   }, []);
 
-  const { sub_total, service_fee, items, order_total } = orderDetail;
+  // const { sub_total, service_fee, items, order_total } = orderDetail;
+
+  const sub_total = orderDetail?.sub_total;
+  const service_fee = orderDetail?.service_fee;
+  const items = orderDetail?.items;
+  const order_total = orderDetail?.order_total;
 
   const dispatch = useDispatch();
 

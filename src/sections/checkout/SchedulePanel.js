@@ -82,7 +82,7 @@ const DatePicker = styled('div')(({ theme }) => ({
 export default function SchedulePanel({ isPickup, onClose, subtitle }) {
   const { checkout } = useSelector(FOOD_SELECTOR);
 
-  const slots = checkout?.orderDetail?.schedule_slots;
+  const slots = checkout?.orderDetail?.schedule_slots || [];
 
   const scheduledTime = checkout?.orderDetail?.schedule_time;
 
