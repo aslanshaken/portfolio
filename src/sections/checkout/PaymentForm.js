@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { LoadingButton } from '@mui/lab';
 import { Box, CircularProgress, FormHelperText } from '@mui/material';
 import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js';
@@ -17,7 +18,12 @@ import { useDispatch } from 'src/redux/store';
  * @param {*} Props
  * @returns React.JSX
  */
-export default function PaymentForm({ data, onClose, ...other }) {
+
+PaymentForm.propTypes = {
+  onClose: PropTypes.func,
+};
+
+export default function PaymentForm({ onClose }) {
   const stripe = useStripe();
   const elements = useElements();
 
