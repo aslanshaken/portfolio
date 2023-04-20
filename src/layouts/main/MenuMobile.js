@@ -17,6 +17,7 @@ import { NavSectionVertical } from '../../components/nav-section';
 import { PATH_AUTH } from '../../routes/paths';
 import { useDispatch } from 'react-redux';
 import { openDialog } from 'src/redux/slices/dialog';
+import useAuth from 'src/hooks/useAuth';
 
 // ----------------------------------------------------------------------
 
@@ -36,6 +37,8 @@ MenuMobile.propTypes = {
 
 export default function MenuMobile({ isHome, navConfig }) {
   const { pathname } = useRouter();
+
+  const { isAuthenticated } = useAuth();
 
   const [open, setOpen] = useState(false);
 
@@ -69,7 +72,7 @@ export default function MenuMobile({ isHome, navConfig }) {
           ...(isHome && { color: 'common.white' }),
         }}
       >
-        <Iconify icon={'eva:menu-2-fill'} />
+        <Iconify icon={'material-symbols:menu-rounded'} />
       </IconButtonAnimate>
 
       <Drawer
@@ -85,20 +88,24 @@ export default function MenuMobile({ isHome, navConfig }) {
               <MenuMobileItem key={link.title} item={link} isOpen={open} onOpen={handleOpen} />
             ))}
           </List>
-          <Box mt={2} mx={4}>
-            <NextLink href={PATH_AUTH.register} passHref>
-              <Button variant="outlined" size="medium" sx={{ width: '100%' }}>
-                Sign up
-              </Button>
-            </NextLink>
-          </Box>
-          <Box mt={2} mx={4}>
-            <NextLink href={PATH_AUTH.login} passHref>
-              <Button variant="contained" size="medium" sx={{ width: '100%' }}>
-                Log in
-              </Button>
-            </NextLink>
-          </Box>
+          {!isAuthenticated && (
+            <>
+              <Box mt={2} mx={4}>
+                <NextLink href={PATH_AUTH.register} passHref>
+                  <Button variant="outlined" size="medium" sx={{ width: '100%' }}>
+                    Sign up
+                  </Button>
+                </NextLink>
+              </Box>
+              <Box mt={2} mx={4}>
+                <NextLink href={PATH_AUTH.login} passHref>
+                  <Button variant="contained" size="medium" sx={{ width: '100%' }}>
+                    Log in
+                  </Button>
+                </NextLink>
+              </Box>
+            </>
+          )}
         </Scrollbar>
       </Drawer>
     </>

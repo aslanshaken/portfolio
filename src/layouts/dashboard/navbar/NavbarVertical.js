@@ -74,7 +74,7 @@ export default function NavbarVertical() {
       {!isDesktop && (
         <Box position={'absolute'} top={-15} left={10}>
           <IconButtonAnimate onClick={() => setIsOpen(true)} position={'absolute'}>
-            <Iconify icon={'eva:menu-2-fill'} />
+            <Iconify icon={'material-symbols:menu-rounded'} />
           </IconButtonAnimate>
           <Drawer open={isOpen} onClose={() => setIsOpen(false)} PaperProps={{ sx: { width: NAVBAR.DASHBOARD_WIDTH } }}>
             {renderContent}

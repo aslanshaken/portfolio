@@ -62,6 +62,7 @@ export default function FoodCarousel({ foods }) {
         onPrevious={(e) => handlePrevious(e)}
         sx={{
           '& .arrow': {
+            display: foods.length < 5 && 'none',
             border: { md: '1px solid #163E2B' },
             borderRadius: 10,
             '&.left': { left: { xs: -5, lg: 0 } },

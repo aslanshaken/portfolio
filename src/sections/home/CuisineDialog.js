@@ -64,7 +64,7 @@ export default function CuisineDialog({ isOpen }) {
                         position: 'relative',
                       }}
                     >
-                      <NextImage alt={'cuisine'} src={item?.image} layout="fill" quality={5} priority />
+                      <NextImage alt={'cuisine'} src={item?.image} layout="fill" quality={5} priority objectFit='cover' />
                     </Box>
                   </>
                 ) : (

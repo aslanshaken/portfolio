@@ -59,7 +59,7 @@ export default function DashboardLayout({ children }) {
         <BodyStyle direction={'row'} position={'relative'}>
           <NavbarVertical />
 
-          <MainStyle>{children}</MainStyle>
+          <MainStyle sx={{ width: '100%' }}>{children}</MainStyle>
         </BodyStyle>
 
         <MainFooter />

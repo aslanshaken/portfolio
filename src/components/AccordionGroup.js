@@ -42,7 +42,7 @@ export default function AccordionGroup({ data = [] }) {
             <Typography variant="subtitle1">{item?.question}</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography variant="caption">{item?.answer}</Typography>
+            <Typography variant="body2">{item?.answer}</Typography>
           </AccordionDetails>
         </Accordion>
       ))}

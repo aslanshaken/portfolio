@@ -10,66 +10,6 @@ const accordions = [
     title: 'General questions',
     content: [],
   },
-  {
-    title: 'Financial topics',
-    content: [
-      {
-        question: 'Vestibulum ac diam sit amet quam?',
-        answer: `Quisque velit nisi, pretium ut lacinia in, elementum id enim. Nulla quis lorem ut libero malesuada feugiat.
-            Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus Nulla porttitor accumsan tincidunt.`,
-      },
-      {
-        question: 'Curabitur aliquet quam id dui posuere blandit?',
-        answer: `Quisque velit nisi, pretium ut lacinia in, elementum id enim. Nulla quis lorem ut libero malesuada feugiat.
-            Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus Nulla porttitor accumsan tincidunt.`,
-      },
-      {
-        question: 'Nulla porttitor accumsan tincidunt ipsum?',
-        answer: `Quisque velit nisi, pretium ut lacinia in, elementum id enim. Nulla quis lorem ut libero malesuada feugiat.
-            Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus Nulla porttitor accumsan tincidunt.`,
-      },
-      {
-        question: 'Lorem ipsum dolor sit amet?',
-        answer: `Quisque velit nisi, pretium ut lacinia in, elementum id enim. Nulla quis lorem ut libero malesuada feugiat.
-            Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus Nulla porttitor accumsan tincidunt.`,
-      },
-      {
-        question: 'Cras ultricies ligula sed magna dictum porta?',
-        answer: `Quisque velit nisi, pretium ut lacinia in, elementum id enim. Nulla quis lorem ut libero malesuada feugiat.
-            Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus Nulla porttitor accumsan tincidunt.`,
-      },
-    ],
-  },
-  {
-    title: 'Other questions',
-    content: [
-      {
-        question: 'Vestibulum ac diam sit amet quam?',
-        answer: `Quisque velit nisi, pretium ut lacinia in, elementum id enim. Nulla quis lorem ut libero malesuada feugiat.
-            Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus Nulla porttitor accumsan tincidunt.`,
-      },
-      {
-        question: 'Curabitur aliquet quam id dui posuere blandit?',
-        answer: `Quisque velit nisi, pretium ut lacinia in, elementum id enim. Nulla quis lorem ut libero malesuada feugiat.
-            Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus Nulla porttitor accumsan tincidunt.`,
-      },
-      {
-        question: 'Nulla porttitor accumsan tincidunt ipsum?',
-        answer: `Quisque velit nisi, pretium ut lacinia in, elementum id enim. Nulla quis lorem ut libero malesuada feugiat.
-            Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus Nulla porttitor accumsan tincidunt.`,
-      },
-      {
-        question: 'Lorem ipsum dolor sit amet?',
-        answer: `Quisque velit nisi, pretium ut lacinia in, elementum id enim. Nulla quis lorem ut libero malesuada feugiat.
-            Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus Nulla porttitor accumsan tincidunt.`,
-      },
-      {
-        question: 'Cras ultricies ligula sed magna dictum porta?',
-        answer: `Quisque velit nisi, pretium ut lacinia in, elementum id enim. Nulla quis lorem ut libero malesuada feugiat.
-            Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus Nulla porttitor accumsan tincidunt.`,
-      },
-    ],
-  },
 ];
 
 export default function ContactUsDescription() {
