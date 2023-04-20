@@ -158,7 +158,7 @@ export default function ChooseChef() {
               ))}
             </Box> */}
           </Stack>
-          {chefs?.slice(currentPage === 1 ? 0 : (currentPage - 1) * 10 - 1, 10).map((item, _i) => (
+          {chefs?.slice((currentPage - 1) * 10, currentPage * 10).map((item, _i) => (
             <NextLink
               key={'chef-link' + _i}
               href={PATH_PAGE.searchChef.cities({ cityId, cuisineId, chefId: item?.chef?.id })}
