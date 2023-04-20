@@ -9,6 +9,7 @@ import Image from '../../../components/Image';
 import Iconify from '../../../components/Iconify';
 import { CarouselArrows } from '../../../components/carousel';
 import FoodCard from '../../../components/FoodCard';
+import useResponsive from 'src/hooks/useResponsive';
 
 // ----------------------------------------------------------------------
 
@@ -25,16 +26,14 @@ FoodCarousel.propTypes = {
 
 export default function FoodCarousel({ foods }) {
   const carouselRef = useRef(null);
+  const isDownLg = useResponsive('down', 900);
+  const isDownMd = useResponsive('down', 650);
 
   const settings = {
     slidesToShow: 4,
     centerMode: false,
-    infinite: true,
+    infinite: false,
     responsive: [
-      {
-        breakpoint: 1200,
-        settings: { slidesToShow: 4 },
-      },
       {
         breakpoint: 900,
         settings: { slidesToShow: 3 },
@@ -62,18 +61,18 @@ export default function FoodCarousel({ foods }) {
         onPrevious={(e) => handlePrevious(e)}
         sx={{
           '& .arrow': {
-            display: foods.length < 5 && 'none',
+            display: foods.length < (isDownLg ? (isDownMd ? 3 : 4) : 5) && 'none',
             border: { md: '1px solid #163E2B' },
             borderRadius: 10,
-            '&.left': { left: { xs: -5, lg: 0 } },
-            '&.right': { right: { xs: -5, lg: 0 } },
+            '&.left': { left: { xs: 15, lg: 0 } },
+            '&.right': { right: { xs: 15, lg: 0 } },
           },
           '& .MuiButtonBase-root': {
             color: '#163E2B',
           },
         }}
       >
-        <Slider ref={carouselRef} {...settings} infinite={foods.length > 3}>
+        <Slider ref={carouselRef} {...settings}>
           {foods?.map((food) => (
             <FoodCard
               key={food?.id}

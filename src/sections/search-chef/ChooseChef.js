@@ -198,11 +198,11 @@ export default function ChooseChef() {
                 </Box>
                 <Grid container spacing={{ xs: 5, md: 2 }} py={2}>
                   <Grid item xs={12} lg={4} ml={1}>
-                    <Box display={'flex'} gap={4} alignItems={'center'} px={2} height={'100%'}>
+                    <Box display={'flex'} gap={2} alignItems={'center'} px={2} height={'100%'}>
                       <Image
                         alt="Travis Howard"
                         src={item?.chef?.image_url}
-                        sx={{ borderRadius: '50%', width: { lg: 150, xs: 80 }, height: { lg: 150, xs: 80 } }}
+                        sx={{ borderRadius: '50%', width: { lg: 180, xs: 150 }, height: { lg: 180, xs: 150 } }}
                       />
                       <Stack spacing={2}>
                         <Box position="relative">
@@ -217,16 +217,18 @@ export default function ChooseChef() {
                         <Typography variant="caption">
                           by {item?.chef?.first_name} {item?.chef?.last_name}
                         </Typography>
-                        <Typography color={'primary'} variant="subtitle1">
-                          {item?.chef?.status}
-                        </Typography>
+                        {item?.chef?.status && (
+                          <Typography color={'primary'} variant="subtitle1">
+                            {item?.chef?.status}
+                          </Typography>
+                        )}
                         {/* <Box display={{ xs: 'block', lg: 'none' }}>
                         <VisitChef />
                       </Box> */}
                       </Stack>
                     </Box>
                   </Grid>
-                  <Grid item xs={12} lg={8} py={2} alignItems={'center'} height={'100%'} ml={-4}>
+                  <Grid item xs={12} lg={8} py={2} alignItems={'center'} height={'100%'} ml={{ lg: -4 }}>
                     {item?.foods?.length > 0 && <FoodCarousel foods={item?.foods} />}
                   </Grid>
                 </Grid>
