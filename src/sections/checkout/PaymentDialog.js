@@ -19,7 +19,7 @@ import PaymentForm from './PaymentForm';
 import PaymentProvider from 'src/components/payment/PaymentProvider';
 import { createCardIntent } from 'src/redux/service/payment';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'src/redux/store';
+import { useDispatch, useSelector } from 'src/redux/store';
 
 //
 PaymentDialog.propTypes = {

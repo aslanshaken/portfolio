@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 import { ShoppingCartIcon } from 'src/assets';
 import Iconify from 'src/components/Iconify';
 import { useState } from 'react';
+import { createCardIntent } from 'src/redux/service/payment';
 
 //
 export default function CartChef() {
@@ -53,7 +54,7 @@ export default function CartChef() {
   return (
     <Stack>
       {cart?.length == 0 ? (
-        <Stack alignItems={'center'} justifyContent={'center'} sx={{ color: 'gray', opacity: .7 }} spacing={2}>
+        <Stack alignItems={'center'} justifyContent={'center'} sx={{ color: 'gray', opacity: 0.7 }} spacing={2}>
           <Iconify icon={'ic:outline-shopping-cart'} sx={{ width: 100, height: 100 }} />
           <Typography>There are no items in your cart</Typography>
         </Stack>
@@ -65,7 +66,13 @@ export default function CartChef() {
           <Box mt={5} />
 
           <Stack px={{ sm: 8 }}>
-            <LoadingButton size="large" variant="outlined" sx={{ color: 'black' }} loading={loading} onClick={handleClickCreateOrders}>
+            <LoadingButton
+              size="large"
+              variant="outlined"
+              sx={{ color: 'black' }}
+              loading={loading}
+              onClick={handleClickCreateOrders}
+            >
               Checkout ({cart.length})
             </LoadingButton>
           </Stack>
