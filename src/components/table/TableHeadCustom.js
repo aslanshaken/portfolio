@@ -38,7 +38,7 @@ export default function TableHeadCustom({ order, orderBy, headLabel, onSort, sx 
             key={headCell.id}
             align={headCell.align || 'left'}
             sortDirection={orderBy === headCell.id ? order : false}
-            sx={{ width: headCell.width, minWidth: headCell.minWidth, flexGrow: 1 }}
+            sx={{ width: headCell.width, minWidth: headCell.minWidth, flexGrow: 1, whiteSpace:'nowrap' }}
           >
             {onSort ? (
               <TableSortLabel

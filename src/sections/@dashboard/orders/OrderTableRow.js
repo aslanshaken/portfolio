@@ -55,9 +55,13 @@ export default function OrderTableRow({ row, selected, headLabel, onEditRow, onS
   return (
     <TableRow hover>
       <TableCell align="left" sx={{ fontStyle: 'italic', color: 'text.secondary' }}>
-        <NextLink href={status == 'initiated' ? '#' : PATH_PAGE.orderConfirm.orders({ orderId })} passHref>
-          <Link>#{order_num}</Link>
-        </NextLink>
+        {status == 'initiated' ? (
+          <Typography variant="body2">#{order_num}</Typography>
+        ) : (
+          <NextLink href={PATH_PAGE.orderConfirm.orders({ orderId })} passHref>
+            <Link>#{order_num}</Link>
+          </NextLink>
+        )}
       </TableCell>
 
       <TableCell align="center" sx={{ fontWeight: 700 }}>

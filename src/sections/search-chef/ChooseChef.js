@@ -158,7 +158,7 @@ export default function ChooseChef() {
               ))}
             </Box> */}
           </Stack>
-          {chefs?.slice(currentPage === 1 ? 0 : (currentPage - 1) * 10 - 1, 10).map((item, _i) => (
+          {chefs?.slice((currentPage - 1) * 10, currentPage * 10).map((item, _i) => (
             <NextLink
               key={'chef-link' + _i}
               href={PATH_PAGE.searchChef.cities({ cityId, cuisineId, chefId: item?.chef?.id })}
@@ -197,12 +197,12 @@ export default function ChooseChef() {
                   </Box>
                 </Box>
                 <Grid container spacing={{ xs: 5, md: 2 }} py={2}>
-                  <Grid item xs={12} lg={4}>
-                    <Box display={'flex'} gap={4} alignItems={'center'} px={2}>
+                  <Grid item xs={12} lg={4} ml={1}>
+                    <Box display={'flex'} gap={4} alignItems={'center'} px={2} height={'100%'}>
                       <Image
                         alt="Travis Howard"
                         src={item?.chef?.image_url}
-                        sx={{ borderRadius: '50%', width: { lg: 130, xs: 80 }, height: { lg: 130, xs: 80 } }}
+                        sx={{ borderRadius: '50%', width: { lg: 150, xs: 80 }, height: { lg: 150, xs: 80 } }}
                       />
                       <Stack spacing={2}>
                         <Box position="relative">
@@ -226,7 +226,7 @@ export default function ChooseChef() {
                       </Stack>
                     </Box>
                   </Grid>
-                  <Grid item xs={12} lg={8} py={2} alignItems={'center'}>
+                  <Grid item xs={12} lg={8} py={2} alignItems={'center'} height={'100%'} ml={-4}>
                     {item?.foods?.length > 0 && <FoodCarousel foods={item?.foods} />}
                   </Grid>
                 </Grid>

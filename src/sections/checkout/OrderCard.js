@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from 'src/redux/store';
 import { addTips, FOOD_SELECTOR, updateScheduleTime } from 'src/redux/slices/food';
 import { useState } from 'react';
 import { LoadingButton } from '@mui/lab';
-import { placeOrder } from 'src/redux/service/payment';
+import { createCardIntent, placeOrder } from 'src/redux/service/payment';
 import useNotify from 'src/hooks/useNotify';
 import { useRouter } from 'next/router';
 import useAuth from 'src/hooks/useAuth';

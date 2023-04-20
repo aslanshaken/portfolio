@@ -88,30 +88,32 @@ export default function PopularDishes() {
   return (
     popularFoods?.length > 0 && (
       <RootStyle sx={{ pt: 15 }}>
-        <Typography variant="h3" color={'secondary'} sx={{ textAlign: 'center', fontWeight: 500, pb: '30px' }}>
-          Most popular food
-        </Typography>
-        <Box sx={{ position: 'relative', width: '100%', overflowX: 'hidden' }}>
-          <CarouselArrows
-            onNext={handleNext}
-            onPrevious={handlePrevious}
-            sx={{
-              '& .arrow': {
-                '&.left': { left: { xs: 10, lg: '5%', xl: '13%' }, top: '300px' },
-                '&.right': { right: { xs: 10, lg: '5%', xl: '13%' }, top: '300px' },
-              },
-            }}
-          >
-            <Container>
-              <Slider ref={carouselRef} {...settings}>
-                {popularFoods?.map((item, _i) => (
-                  <DisheCard key={_i} data={item} />
-                ))}
-              </Slider>
-            </Container>
-          </CarouselArrows>
-        </Box>
-        <Box mt={10} />
+        <Container>
+          <Typography variant="h3" color={'secondary'} sx={{ textAlign: 'center', fontWeight: 500, pb: '30px' }}>
+            Most popular food
+          </Typography>
+          <Box sx={{ position: 'relative', overflowX: 'hidden' }}>
+            <CarouselArrows
+              onNext={handleNext}
+              onPrevious={handlePrevious}
+              sx={{
+                '& .arrow': {
+                  '&.left': { left: { xs: 10 }, top: '300px' },
+                  '&.right': { right: { xs: 10 }, top: '300px' },
+                },
+              }}
+            >
+              <Container>
+                <Slider ref={carouselRef} {...settings}>
+                  {popularFoods?.map((item, _i) => (
+                    <DisheCard key={_i} data={item} />
+                  ))}
+                </Slider>
+              </Container>
+            </CarouselArrows>
+          </Box>
+          <Box mt={10} />
+        </Container>
       </RootStyle>
     )
   );

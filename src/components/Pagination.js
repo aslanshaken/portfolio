@@ -30,7 +30,9 @@ export default function Pagination({ count, setCurrentPage }) {
         marginBottom: 4,
         marginTop: 4,
       }}
-      onChange={(event, page) => setCurrentPage(page)}
+      onChange={(event, page) => {
+        setCurrentPage(page);
+      }}
       count={count}
       variant="outlined"
       shape="rounded"

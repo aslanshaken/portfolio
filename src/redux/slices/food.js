@@ -299,7 +299,7 @@ export function getSavedCards() {
     dispatch(startLoading());
     try {
       const response = await axios.get(`/api/${process.env.API_VERSION}/users/saved_cards`);
-      dispatch(slice.actions.setSavedCards(response.data));
+      dispatch(slice.actions.setSavedCards(response.data ? [response.data] : []));
     } catch (error) {
       dispatch(slice.actions.setError(error));
     }

@@ -75,7 +75,7 @@ export default function CreatePass() {
             Create new password
           </GradientText>
           <Typography color={'text.secondary'} mb={7.5} className="forgot-description">
-            Please enter your email address associated with your account
+            Please enter your new password
           </Typography>
           <Box className="content">
             <CreatePassForm />

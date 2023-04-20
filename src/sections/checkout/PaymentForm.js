@@ -6,8 +6,8 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FormProvider } from 'src/components/hook-form';
 import useNotify from 'src/hooks/useNotify';
-import { FOOD_SELECTOR, deleteCard, getSavedCards } from 'src/redux/slices/food';
-import { useDispatch, useSelector } from 'src/redux/store';
+import { getSavedCards } from 'src/redux/slices/food';
+import { useDispatch } from 'src/redux/store';
 
 //
 // ----------------------------------------------------------------------
@@ -30,7 +30,7 @@ export default function PaymentForm({ onClose }) {
   const [cardError, setCardError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isInitialized, setIsInitialized] = useState(false);
-  const { savedCards } = useSelector(FOOD_SELECTOR);
+  // const { savedCards } = useSelector(FOOD_SELECTOR);
   const dispatch = useDispatch();
 
   const { successAlert } = useNotify();
@@ -41,9 +41,9 @@ export default function PaymentForm({ onClose }) {
   const onSubmit = async () => {
     try {
       setIsLoading(true);
-      if (savedCards.length > 0) {
-        await dispatch(deleteCard());
-      }
+      // if (savedCards.length > 0) {
+      //   await dispatch(deleteCard());
+      // }
       const result = await stripe.confirmSetup({
         elements,
         redirect: 'if_required',
