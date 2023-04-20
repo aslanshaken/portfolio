@@ -32,7 +32,7 @@ export default function DeliverySteps({ address, isPickup }) {
     {
       icon: 'uil:schedule',
       title: `${isPickup ? 'Pick Up Schedule' : 'Delivery Schedule'}`,
-      subtitle: `${selectedDate}`,
+      subtitle: `${selectedDate ?? ''}`,
       // content: 'Please select time',
       buttonText: '',
       onClickButton: () => {
