@@ -10,6 +10,7 @@ import { useState } from 'react';
 import Iconify from '../../components/Iconify';
 import axios from 'src/utils/axios';
 import useNotify from 'src/hooks/useNotify';
+import { useRouter } from 'next/router';
 
 // --------------------------------------------------------
 
@@ -17,6 +18,7 @@ export default function CreatePassForm() {
   const { successAlert, errorAlert } = useNotify();
   const [showPassword, setShowPassword] = useState(false);
   const [showCPassword, setShowCPassword] = useState(false);
+  const router = useRouter();
 
   const RegisterSchema = Yup.object().shape({
     password: Yup.string().required('Password is required'),
@@ -42,7 +44,7 @@ export default function CreatePassForm() {
   const onSubmit = async (data) => {
     try {
       const response = await axios.post(`/api/${process.env.API_VERSION}/reset_password`, {
-        token: '6660cd9f1a39e88fe3a4',
+        token: router.query.token,
         password: data.password,
       });
       successAlert();
