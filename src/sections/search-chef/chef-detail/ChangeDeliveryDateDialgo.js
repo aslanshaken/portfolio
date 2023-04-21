@@ -1,18 +1,21 @@
 import PropTypes from 'prop-types';
-import { Button, Dialog, Stack, Typography } from '@mui/material';
+import { Button, Dialog, IconButton, Stack, Typography } from '@mui/material';
+import Iconify from 'src/components/Iconify';
 
 //
 ChangeDeliveryDateDialgo.propTypes = {
   onSubmit: PropTypes.func,
-  onClose: PropTypes.func,
 };
 ChangeDeliveryDateDialgo.defaultProps = {
   data: {},
 };
 
-export default function ChangeDeliveryDateDialgo({ onSubmit, onClose, ...other }) {
+export default function ChangeDeliveryDateDialgo({ onSubmit, ...other }) {
   return (
     <Dialog maxWidth={'sm'} {...other}>
+      <IconButton onClick={other.onClose} width={'fit-content'} sx={{ position: 'absolute', right: '0' }}>
+        <Iconify icon={'iconoir:cancel'} />
+      </IconButton>
       <Stack py={6} px={{ sm: 6, xs: 2 }} spacing={4}>
         <Typography variant="h3" fontWeight={500}>
           Change Delivery Date?
@@ -41,7 +44,7 @@ export default function ChangeDeliveryDateDialgo({ onSubmit, onClose, ...other }
             size="large"
             variant="contained"
             sx={{ px: 8, color: 'black', background: '#A5ABB3', maxWidth: '300px', width: { xs: '100%', sm: 'auto' } }}
-            onClick={onClose}
+            onClick={other.onClose}
           >
             No
           </Button>

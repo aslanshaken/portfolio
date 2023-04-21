@@ -60,7 +60,7 @@ export default function PaymentDialog({ data, ...other }) {
 
   return (
     <Dialog maxWidth={'sm'} fullWidth {...other}>
-      <IconButton onClick={() => other.onClose()} width={'fit-content'} sx={{ position: 'absolute', right: '0' }}>
+      <IconButton onClick={other.onClose} width={'fit-content'} sx={{ position: 'absolute', right: '0' }}>
         <Iconify icon={'iconoir:cancel'} />
       </IconButton>
       <Stack p={{ xs: 3, sm: 8 }} gap={6}>
