@@ -90,7 +90,6 @@ const SideBarStyle = styled(Box)(() => ({
 // --------------------------------------------
 
 export default function FoodSection({ selectedCategory }) {
-  console.log('selectedCategory: ', selectedCategory);
   const [currentPage, setCurrentPage] = useState(1);
 
   const router = useRouter();

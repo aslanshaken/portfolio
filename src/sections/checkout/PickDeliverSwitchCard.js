@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Button, ButtonGroup, colors, Stack, styled, Typography } from '@mui/material';
 import Image from 'src/components/Image';
 import AddressesDialog from './AddressesDialog';
 import { useDispatch, useSelector } from 'src/redux/store';
-import { CITYCUISINE_SELECTOR } from 'src/redux/slices/city';
 import useAuth from 'src/hooks/useAuth';
 import { FOOD_SELECTOR, updateIsPickup } from 'src/redux/slices/food';
 

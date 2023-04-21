@@ -21,12 +21,18 @@ export default function ChangeDeliveryDateDialgo({ onSubmit, onClose, ...other }
           Selecting a new date will clear your cart. We can’t guarantee that all of your selected items will be
           available on the newly selected date
         </Typography>
-        <Stack direction={{ sm: 'row', xs: 'column' }} spacing={2} justifyContent={'space-between'} pt={4}>
+        <Stack
+          direction={{ sm: 'row', xs: 'column' }}
+          spacing={2}
+          alignItems={'center'}
+          justifyContent={{ xs: 'center', sm: 'space-between' }}
+          pt={4}
+        >
           <Button
             size="large"
             variant="contained"
             color={'secondary'}
-            sx={{ px: 8, whiteSpace: 'nowrap' }}
+            sx={{ px: 8, whiteSpace: 'nowrap', maxWidth: '300px', width: { xs: '100%', sm: 'auto' } }}
             onClick={onSubmit}
           >
             Yes ( clear cart)
@@ -34,7 +40,7 @@ export default function ChangeDeliveryDateDialgo({ onSubmit, onClose, ...other }
           <Button
             size="large"
             variant="contained"
-            sx={{ px: 8, color: 'black', background: '#A5ABB3' }}
+            sx={{ px: 8, color: 'black', background: '#A5ABB3', maxWidth: '300px', width: { xs: '100%', sm: 'auto' } }}
             onClick={onClose}
           >
             No

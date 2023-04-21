@@ -62,7 +62,7 @@ export default function PaymentForm({ onClose }) {
       if (result.error) {
         setCardError(result.error.message);
       } else {
-        successAlert('Your paynment method has been added successfully.');
+        successAlert('Your payment method has been added successfully.');
         await setTimeout(() => {
           dispatch(getSavedCards());
         }, 1000);

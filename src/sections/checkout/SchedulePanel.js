@@ -6,7 +6,7 @@ import { Box } from '@mui/system';
 import { StaticDatePicker } from '@mui/lab';
 import styled from '@emotion/styled';
 import { dispatch, useSelector } from 'src/redux/store';
-import { FOOD_SELECTOR, setScheduleTime } from 'src/redux/slices/food';
+import { FOOD_SELECTOR, getOrderDetail, setScheduleTime, updateScheduleTime } from 'src/redux/slices/food';
 import { format, isToday, parse } from 'date-fns';
 
 //
@@ -84,13 +84,9 @@ export default function SchedulePanel({ isPickup, onClose, subtitle }) {
 
   const slots = checkout?.orderDetail?.schedule_slots || [];
 
-  const scheduledTime = checkout?.orderDetail?.schedule_time;
+  const { deliveryDate, orderId } = checkout;
 
-  useEffect(() => {
-    dispatch(setScheduleTime(scheduledTime));
-  }, [scheduledTime]);
-
-  const { deliveryDate, scheduleTime } = checkout;
+  const scheduleTime = checkout.orderDetail.schedule_time;
 
   const isDateToday = isToday(new Date(deliveryDate));
 
@@ -135,8 +131,9 @@ export default function SchedulePanel({ isPickup, onClose, subtitle }) {
               bgcolor={item === scheduleTime ? '#C1DED1' : 'rgba(193, 222, 209, 0.28)'}
               borderRadius={2}
               sx={{ cursor: 'pointer' }}
-              onClick={() => {
-                dispatch(setScheduleTime(item));
+              onClick={async () => {
+                await dispatch(updateScheduleTime(orderId, item));
+                dispatch(getOrderDetail(orderId));
               }}
             >
               {item}

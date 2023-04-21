@@ -253,16 +253,10 @@ function AuthProvider({ children }) {
         primary_address: 'true',
       },
     });
-
     return response;
   };
 
   const addAddress = async (data) => {
-    dispatch({
-      type: 'ADDADDRESS',
-      payload: data,
-    });
-
     const response = await axios.post(`/api/${process.env.API_VERSION}/users/add_address`, {
       address: {
         line1: data.address,
@@ -272,6 +266,13 @@ function AuthProvider({ children }) {
         zip: data.zip,
         primary_address: 'true',
       },
+    });
+
+    const userInfo = await axios.get(`/api/${process.env.API_VERSION}/users/profile`);
+    
+    dispatch({
+      type: 'ADDADDRESS',
+      payload: userInfo.data.addresses[0],
     });
 
     return response;
