@@ -52,7 +52,7 @@ export default function SearchHomeHero() {
           }}
         >
           <Typography textAlign={'center'} variant="h3" fontSize="2.5rem !important" color={'#FFFFFF'}>
-            Deliciouss homemade <br />
+            Delicious homemade <br />
             food delivered to your door
           </Typography>
           <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 2, sm: 0 }} position={'relative'}>
