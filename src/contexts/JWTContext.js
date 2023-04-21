@@ -221,9 +221,9 @@ function AuthProvider({ children }) {
         user_type: 'end_user',
       },
     });
-    const { accessToken, user } = response.data;
+    const { user, auth_token } = response.data;
 
-    localStorage.setItem('accessToken', accessToken);
+    localStorage.setItem('accessToken', auth_token);
     dispatch({
       type: 'REGISTER',
       payload: {
