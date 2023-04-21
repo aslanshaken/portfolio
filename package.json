@@ -10,7 +10,7 @@
     "lint:fix": "eslint --fix --ext .js,.jsx .",
     "dev": "next dev -p 3000",
     "start": "next start",
-    "build": "next build"
+    "build": "next build && next export"
   },
   "dependencies": {
     "@emotion/cache": "^11.7.1",
