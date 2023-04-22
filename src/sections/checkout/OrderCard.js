@@ -45,7 +45,9 @@ export default function OrderCard({ isPickup }) {
   const address = user?.addresses?.find((item) => item.primary_address == true);
   // redux
   const { checkout } = useSelector(FOOD_SELECTOR);
-  const { orderDetail, orderId, cart, scheduleTime } = checkout;
+  const { orderDetail, orderId, cart } = checkout;
+
+  const scheduleTime = checkout.orderDetail.schedule_time;
 
   // router
   const { push } = useRouter();
@@ -85,7 +87,9 @@ export default function OrderCard({ isPickup }) {
   const handleClickOrder = async () => {
     setIsLoading(true);
     try {
-      await dispatch(updateScheduleTime(orderId, scheduleTime));
+      if (!scheduleTime) {
+        await dispatch(updateScheduleTime(orderId, scheduleTime));
+      }
       await changeAddress(isPickup, address?.id, orderId);
       await dispatch(addTips({ orderId: orderId, tips: tips }));
       const response = await dispatch(placeOrder(orderId));
@@ -97,8 +101,8 @@ export default function OrderCard({ isPickup }) {
           push(PATH_PAGE.orderConfirm.orders({ orderId }));
         }, 1000);
       } else if (placeOrder.rejected.match(response)) {
-        const error = response.payload;
-        errorAlert('An error has been occured while processing payment.');
+        const error = response.payload.message;
+        errorAlert(error);
         setIsLoading(false);
       }
     } catch (error) {

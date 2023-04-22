@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 import PropTypes from 'prop-types';
-import { Button, Dialog, DialogContent, IconButton, Stack, TextField, Typography } from '@mui/material';
+import { Button, Dialog, DialogContent, IconButton, Stack, Typography } from '@mui/material';
 import Iconify from '../../components/Iconify';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
@@ -9,7 +9,7 @@ import useAuth from 'src/hooks/useAuth';
 import useNotify from 'src/hooks/useNotify';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'src/redux/store';
-import { FOOD_SELECTOR, setDeliveryAddress } from 'src/redux/slices/food';
+import { FOOD_SELECTOR, getOrderDetail } from 'src/redux/slices/food';
 
 //
 AddressesDialog.propTypes = {
@@ -31,6 +31,10 @@ export default function AddressesDialog({ ...other }) {
   const { updateAddress, addAddress } = useAuth();
 
   const { successAlert, errorAlert } = useNotify();
+
+  const { checkout } = useSelector(FOOD_SELECTOR);
+
+  const { orderId } = checkout;
 
   const { user } = useAuth();
 
@@ -70,7 +74,8 @@ export default function AddressesDialog({ ...other }) {
         const response = await addAddress(data);
         successAlert(response.data.success);
       }
-      dispatch(setDeliveryAddress(data));
+      dispatch(getOrderDetail(orderId));
+      // dispatch(setDeliveryAddress(data));
     } catch (error) {
       errorAlert(error.message);
     }
@@ -89,7 +94,7 @@ export default function AddressesDialog({ ...other }) {
 
   return (
     <Dialog maxWidth={'sm'} fullWidth {...other}>
-      <IconButton onClick={() => other.onClose()} width={'fit-content'} sx={{ position: 'absolute', right: '0' }}>
+      <IconButton onClick={other.onClose} width={'fit-content'} sx={{ position: 'absolute', right: '0' }}>
         <Iconify icon={'iconoir:cancel'} />
       </IconButton>
       <DialogContent>

@@ -1,9 +1,17 @@
-import { Button, Dialog, Stack, Typography } from '@mui/material';
+import { Button, Dialog, IconButton, Stack, Typography } from '@mui/material';
 import React from 'react';
+import Iconify from 'src/components/Iconify';
 
 export default function NewCartDialog({ ...other }) {
   return (
     <Dialog maxWidth={'sm'} {...other}>
+      <IconButton
+        onClick={other.onClose}
+        width={'fit-content'}
+        sx={{ position: 'absolute', right: '0' }}
+      >
+        <Iconify icon={'iconoir:cancel'} />
+      </IconButton>
       <Stack p={6} spacing={4}>
         <Typography variant="h3" fontWeight={500}>
           Would like to start a new cart?
@@ -13,13 +21,7 @@ export default function NewCartDialog({ ...other }) {
           start a new cart.
         </Typography>
         <Stack direction={'row'} justifyContent={'space-between'} pt={4}>
-          <Button
-            size="large"
-            variant="contained"
-            color={'secondary'}
-            sx={{ px: 8 }}
-            onClick={other.onSubmit}
-          >
+          <Button size="large" variant="contained" color={'secondary'} sx={{ px: 8 }} onClick={other.onSubmit}>
             Yes
           </Button>
           <Button

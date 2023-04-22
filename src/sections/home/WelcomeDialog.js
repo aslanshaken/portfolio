@@ -4,12 +4,19 @@ import Iconify from 'src/components/Iconify';
 
 WelcomeDialog.propTypes = {
   isOpen: PropTypes.bool,
-  setIsOpen: PropTypes.func,
+  setIsOpen: PropTypes.func, 
 };
 
 export default function WelcomeDialog({ isOpen, setIsOpen }) {
   return (
-    <Dialog maxWidth={'sm'} fullWidth open={isOpen}>
+    <Dialog
+      maxWidth={'sm'}
+      fullWidth
+      open={isOpen}
+      onClose={() => {
+        setIsOpen(false);
+      }}
+    >
       <IconButton
         onClick={() => {
           setIsOpen(false);

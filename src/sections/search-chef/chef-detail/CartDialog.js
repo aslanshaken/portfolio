@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { LoadingButton } from '@mui/lab';
-import { Box, Dialog, Divider, Grid, Stack, styled, TextField, Typography } from '@mui/material';
+import { Box, Dialog, Divider, Grid, IconButton, Stack, styled, TextField, Typography } from '@mui/material';
 import GradientText from '../../../components/GradientText';
 import Image from '../../../components/Image';
 import { IconButtonAnimate } from '../../../components/animate';
@@ -39,6 +39,9 @@ export default function CartDialog({ data, setSelectedItemData, onSubmit, ...oth
 
   return (
     <Dialog maxWidth={'sm'} fullWidth {...other}>
+      <IconButton onClick={other.onClose} width={'fit-content'} sx={{ position: 'absolute', right: '0', color: 'black' }}>
+        <Iconify icon={'iconoir:cancel'} />
+      </IconButton>
       <Stack>
         <Image src={data?.image_url} alt="Cuisine Splash" sx={{ width: 1, height: 400 }} />
         <Stack py={3} px={5}>

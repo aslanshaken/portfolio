@@ -21,7 +21,7 @@ export default function CuisineDialog({ isOpen }) {
   }, [dispatch]);
 
   return (
-    <Dialog maxWidth={'sm'} fullWidth open={isOpen}>
+    <Dialog maxWidth={'sm'} fullWidth open={isOpen} onClose={() => dispatch(closeDialog())}>
       <IconButton
         onClick={() => dispatch(closeDialog())}
         width={'fit-content'}
@@ -64,7 +64,14 @@ export default function CuisineDialog({ isOpen }) {
                         position: 'relative',
                       }}
                     >
-                      <NextImage alt={'cuisine'} src={item?.image} layout="fill" quality={5} priority objectFit='cover' />
+                      <NextImage
+                        alt={'cuisine'}
+                        src={item?.image}
+                        layout="fill"
+                        quality={5}
+                        priority
+                        objectFit="cover"
+                      />
                     </Box>
                   </>
                 ) : (
