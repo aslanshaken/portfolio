@@ -1,4 +1,5 @@
 const withTM = require('next-transpile-modules')([]);
+const { withSentryConfig } = require("@sentry/nextjs");
 
 module.exports = withTM({
   swcMinify: false,
@@ -15,3 +16,19 @@ module.exports = withTM({
     domains: ['api.cookk.co'],
   },
 });
+
+module.exports = withSentryConfig(
+  module.exports,
+  {
+    silent: true,
+    org: "cookk",
+    project: "cookk-front-end",
+  },
+  {
+    widenClientFileUpload: true,
+    transpileClientSDK: true,
+    tunnelRoute: "/monitoring",
+    hideSourceMaps: true,
+    disableLogger: true,
+  }
+);
