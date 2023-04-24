@@ -13,10 +13,11 @@ FoodCard.propTypes = {
   price: PropTypes.number,
   measurement: PropTypes.string,
   we_kc: PropTypes.string,
+  quantity: PropTypes.number,
 };
 
 export default function FoodCard(props) {
-  const { name, cover, price } = props;
+  const { name, cover, price, quantity, measurement } = props;
 
   return (
     <Stack spacing={1}>
@@ -39,7 +40,7 @@ export default function FoodCard(props) {
             {name}
           </Typography>
           <Typography color={'secondary'} variant="body2">
-            {`${price}$`}
+            {`$${price} /${quantity} ${measurement || ''}`}
           </Typography>
         </Box>
       </Stack>

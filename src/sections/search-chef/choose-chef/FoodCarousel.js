@@ -80,6 +80,7 @@ export default function FoodCarousel({ foods }) {
               cover={food?.image_url}
               price={food?.current_price}
               measurement={food?.measurement}
+              quantity={food?.quantity}
               we_kc={`${food?.gramm} gr / ${food?.kc} kc`}
             />
           ))}

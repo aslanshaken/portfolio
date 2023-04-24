@@ -260,6 +260,7 @@ export default function FoodSection({ selectedCategory }) {
                     cover={item?.image_url}
                     price={item?.current_price}
                     we_kc={`${item?.gram} gr / ${item?.kc} kc`}
+                    quantity={item?.quantity}
                     measurement={item?.measurement}
                     onClick={() => handleClickItem(item)}
                     onClickPlus={() => {

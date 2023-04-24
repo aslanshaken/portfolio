@@ -150,8 +150,8 @@ export default function OrderPage() {
             <TableHeadCustom order={order} orderBy={orderBy} headLabel={TABLE_HEAD} rowCount={orders?.length} />
 
             <TableBody>
-              {orders?.slice((currentPage - 1) * 10, currentPage * 10).map((row) => (
-                <OrderTableRow headLabel={TABLE_HEAD} key={row._id} row={row} />
+              {orders?.slice((currentPage - 1) * 10, currentPage * 10).map((row, _i) => (
+                <OrderTableRow headLabel={TABLE_HEAD} key={_i} row={row} />
               ))}
 
               <TableEmptyRows emptyRows={emptyRows(page, rowsPerPage, orders?.length)} />

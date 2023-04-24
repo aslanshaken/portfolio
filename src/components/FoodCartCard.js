@@ -17,10 +17,22 @@ FoodCartCard.propTypes = {
   chefname: PropTypes.string,
   chefavatar: PropTypes.string,
   measurement: PropTypes.string,
+  quantity: PropTypes.number,
 };
 
 export default function FoodCartCard(props) {
-  const { chefname, chefavatar, name, cover, price, measurement, onClick = () => {}, onClickPlus = () => {}, ...other } = props;
+  const {
+    chefname,
+    chefavatar,
+    name,
+    cover,
+    quantity,
+    price,
+    measurement,
+    onClick = () => {},
+    onClickPlus = () => {},
+    ...other
+  } = props;
 
   return (
     <Card
@@ -73,7 +85,7 @@ export default function FoodCartCard(props) {
               {name}
             </Typography>
             <GradientText color="primary" variant="subtitle1">
-              {`$${price} / ${measurement || ''}`}
+              {`$${price} / ${quantity} ${measurement || ''}`}
             </GradientText>
           </Box>
           <Box>

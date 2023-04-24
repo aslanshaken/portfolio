@@ -39,7 +39,6 @@ export default function PickDeliverSwitchCard({ isPickup, setIsPickup }) {
   return (
     <RootStyle>
       <AddressesDialog
-        isPickup={isPickup}
         open={isOpenAddressesDialog}
         onClose={() => setIsOpenAddressesDialog(false)}
       />
