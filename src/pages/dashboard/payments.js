@@ -21,19 +21,13 @@ PaymentsPage.getLayout = function getLayout(page) {
 
 export default function PaymentsPage() {
   const [isOpenPaymentDialog, setIsOpenPaymentDialog] = useState(false);
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const { successAlert, errorAlert } = useNotify();
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const fetch = async () => {
-      setLoading(true);
-      await dispatch(getSavedCards());
-      setLoading(false);
-    };
-
-    fetch();
+    dispatch(getSavedCards());
   }, [dispatch]);
 
   const deletePayment = async () => {
@@ -48,9 +42,7 @@ export default function PaymentsPage() {
 
   const { savedCards } = useSelector(FOOD_SELECTOR);
 
-  return loading ? (
-    <LoadingScreen inner />
-  ) : (
+  return (
     <Page title="Payments : Dashboard">
       <PaymentDialog open={isOpenPaymentDialog} onClose={() => setIsOpenPaymentDialog(false)} />
       <Paper sx={{ padding: 6 }}>

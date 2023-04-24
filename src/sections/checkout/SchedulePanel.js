@@ -82,27 +82,27 @@ const DatePicker = styled('div')(({ theme }) => ({
 export default function SchedulePanel({ isPickup, onClose, subtitle }) {
   const { checkout } = useSelector(FOOD_SELECTOR);
 
-  const slots = checkout?.orderDetail?.schedule_slots || [];
+  const times = checkout?.orderDetail?.schedule_slots || [];
 
   const { deliveryDate, orderId } = checkout;
 
   const scheduleTime = checkout.orderDetail.schedule_time;
 
-  const isDateToday = isToday(new Date(deliveryDate));
+  // const isDateToday = isToday(new Date(deliveryDate));
 
-  const now = new Date();
+  // const now = new Date();
 
-  const currentHour = now.getHours(); // get the current hour
+  // const currentHour = now.getHours(); // get the current hour
 
   // filter the array by checking if the label contains a time that is after the current hour
-  const times = isDateToday
-    ? slots.filter((time) => {
-        const [start, end] = time.split('-'); // split the label into start and end times
-        const parsedTime = parse(start, 'ha', new Date());
-        const formattedTime = format(parsedTime, 'HH');
-        return formattedTime > currentHour; // compare the start time with the current hour
-      })
-    : slots;
+  // const times = isDateToday
+  //   ? slots.filter((time) => {
+  //       const [start, end] = time.split('-'); // split the label into start and end times
+  //       const parsedTime = parse(start, 'ha', new Date());
+  //       const formattedTime = format(parsedTime, 'HH');
+  //       return formattedTime > currentHour; // compare the start time with the current hour
+  //     })
+  //   : slots;
 
   const dateSchedule = new Date(checkout?.orderDetail?.items[0]?.selected_day);
 

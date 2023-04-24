@@ -39,7 +39,11 @@ export default function CartDialog({ data, setSelectedItemData, onSubmit, ...oth
 
   return (
     <Dialog maxWidth={'sm'} fullWidth {...other}>
-      <IconButton onClick={other.onClose} width={'fit-content'} sx={{ position: 'absolute', right: '0', color: 'black' }}>
+      <IconButton
+        onClick={other.onClose}
+        width={'fit-content'}
+        sx={{ position: 'absolute', right: '0', color: 'black' }}
+      >
         <Iconify icon={'iconoir:cancel'} />
       </IconButton>
       <Stack>
@@ -48,12 +52,12 @@ export default function CartDialog({ data, setSelectedItemData, onSubmit, ...oth
           <Grid container justifyContent={'space-between'}>
             <Grid item>
               <Stack>
-                <Typography variant="subtitle1" gutterBottom>
+                <Typography variant="subtitle1" gutterBottom fontWeight={400} fontSize="1.4rem">
                   {data?.title}
                 </Typography>
-                <GradientText variant="subtitle1" gutterBottom>
-                  {`$${data?.current_price} / ${data?.measurement || ''}`}
-                </GradientText>
+                <Typography variant="subtitle1" gutterBottom fontWeight={600} fontSize="1.2rem">
+                  {`$${data?.current_price} /${data?.quantity} ${data?.measurement || ''}`}
+                </Typography>
               </Stack>
             </Grid>
             <Grid>

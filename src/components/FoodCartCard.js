@@ -17,10 +17,22 @@ FoodCartCard.propTypes = {
   chefname: PropTypes.string,
   chefavatar: PropTypes.string,
   measurement: PropTypes.string,
+  quantity: PropTypes.number,
 };
 
 export default function FoodCartCard(props) {
-  const { chefname, chefavatar, name, cover, price, measurement, onClick = () => {}, onClickPlus = () => {}, ...other } = props;
+  const {
+    chefname,
+    chefavatar,
+    name,
+    cover,
+    quantity,
+    price,
+    measurement,
+    onClick = () => {},
+    onClickPlus = () => {},
+    ...other
+  } = props;
 
   return (
     <Card
@@ -62,6 +74,7 @@ export default function FoodCartCard(props) {
             <Typography
               variant="subtitle1"
               color={'text.primary'}
+              fontWeight={400}
               sx={{
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
@@ -72,9 +85,9 @@ export default function FoodCartCard(props) {
             >
               {name}
             </Typography>
-            <GradientText color="primary" variant="subtitle1">
-              {`$${price} / ${measurement || ''}`}
-            </GradientText>
+            <Typography color="text.primary" variant="subtitle1" fontWeight={600}>
+              {`$${price} / ${quantity} ${measurement || ''}`}
+            </Typography>
           </Box>
           <Box>
             <IconButtonAnimate sx={{ p: 0, width: 33, height: 33 }} onClick={onClickPlus}>
