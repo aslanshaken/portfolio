@@ -37,3 +37,6 @@ yarn-error.log*
 .netlify
 
 _static
+
+# Sentry Auth Token
+.sentryclirc
