@@ -74,6 +74,7 @@ export default function FoodCartCard(props) {
             <Typography
               variant="subtitle1"
               color={'text.primary'}
+              fontWeight={400}
               sx={{
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
@@ -84,9 +85,9 @@ export default function FoodCartCard(props) {
             >
               {name}
             </Typography>
-            <GradientText color="primary" variant="subtitle1">
+            <Typography color="text.primary" variant="subtitle1" fontWeight={600}>
               {`$${price} / ${quantity} ${measurement || ''}`}
-            </GradientText>
+            </Typography>
           </Box>
           <Box>
             <IconButtonAnimate sx={{ p: 0, width: 33, height: 33 }} onClick={onClickPlus}>

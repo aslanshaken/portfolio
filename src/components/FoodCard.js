@@ -36,10 +36,10 @@ export default function FoodCard(props) {
 
       <Stack sx={{ textAlign: 'center', width: '100%' }}>
         <Box>
-          <Typography variant="body2" fontWeight={600} color={'text.primary'}>
+          <Typography variant="body2" fontWeight={400} color={'text.primary'}>
             {name}
           </Typography>
-          <Typography color={'secondary'} variant="body2">
+          <Typography color={'secondary'} variant="body2" fontWeight={600}>
             {`$${price} /${quantity} ${measurement || ''}`}
           </Typography>
         </Box>
