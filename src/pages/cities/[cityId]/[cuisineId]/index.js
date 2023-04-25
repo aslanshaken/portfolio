@@ -55,12 +55,7 @@ export default function ChefListPage() {
     <LoadingScreen inner />
   ) : (
     <Page title="Search Chef">
-      <HeroHeader
-        loading={loading}
-        backgroundImage={cuisine?.image ?? '/assets/search-chef/chefs/hero-header.png'}
-        city="Austin"
-        cuisine={cuisine?.name}
-      />
+      <HeroHeader loading={loading} backgroundImage={cuisine?.image} city="Austin" cuisine={cuisine?.name} />
       <ChooseChef />
     </Page>
   );

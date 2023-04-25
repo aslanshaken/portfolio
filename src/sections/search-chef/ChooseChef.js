@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'src/redux/store';
 import { CITYCUISINE_SELECTOR, getChefs } from 'src/redux/slices/city';
 import useAuth from 'src/hooks/useAuth';
 import Image from 'src/components/Image';
+import LoadingScreen from 'src/components/LoadingScreen';
 // --------------------------------------------
 
 const sort_type = [{ name: 'sort by Popularity' }, { name: 'sort by New' }, { name: 'sort by Oldest' }];
@@ -92,11 +93,13 @@ const VisitChefLinkStyle = styled(Link)(() => ({
 export default function ChooseChef() {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const { chefs, city } = useSelector(CITYCUISINE_SELECTOR);
+  const { chefs, city, error } = useSelector(CITYCUISINE_SELECTOR);
 
   const router = useRouter();
 
   const { cuisineId, cityId } = router.query;
+
+  if (error) return <LoadingScreen inner />;
 
   return (
     <RootStyle>
@@ -199,21 +202,21 @@ export default function ChooseChef() {
                 <Grid container spacing={{ xs: 5, md: 2 }} py={2}>
                   <Grid item xs={12} lg={4} ml={1}>
                     <Box display={'flex'} gap={2} alignItems={'center'} px={2} height={'100%'}>
-                      <Image
-                        alt="Travis Howard"
-                        src={item?.chef?.image_url}
-                        sx={{ borderRadius: '50%', width: { lg: 180, xs: 150 }, height: { lg: 180, xs: 150 } }}
-                      />
+                      <Box position="relative">
+                        <Image
+                          alt="Travis Howard"
+                          src={item?.chef?.image_url}
+                          sx={{ borderRadius: '50%', width: { lg: 180, xs: 150 }, height: { lg: 180, xs: 150 } }}
+                        />
+                        <Iconify
+                          icon={'material-symbols:verified'}
+                          sx={{ width: 25, height: 25, color: '#0ED3CF', position: 'absolute', top: 10, right: 10 }}
+                        />
+                      </Box>
                       <Stack spacing={2}>
-                        <Box position="relative">
-                          <Typography variant="subtitle1" mr={3}>
-                            {item?.chef?.company_name}
-                          </Typography>
-                          <Iconify
-                            icon={'material-symbols:verified'}
-                            sx={{ width: 21, height: 21, color: '#0ED3CF', position: 'absolute', top: 0, right: 0 }}
-                          />
-                        </Box>
+                        <Typography variant="subtitle1" mr={3}>
+                          {item?.chef?.company_name}
+                        </Typography>
                         <Typography variant="caption">
                           by {item?.chef?.first_name} {item?.chef?.last_name}
                         </Typography>
