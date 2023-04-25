@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'src/redux/store';
 import { CITYCUISINE_SELECTOR, getChefs } from 'src/redux/slices/city';
 import useAuth from 'src/hooks/useAuth';
 import Image from 'src/components/Image';
+import LoadingScreen from 'src/components/LoadingScreen';
 // --------------------------------------------
 
 const sort_type = [{ name: 'sort by Popularity' }, { name: 'sort by New' }, { name: 'sort by Oldest' }];
@@ -92,11 +93,13 @@ const VisitChefLinkStyle = styled(Link)(() => ({
 export default function ChooseChef() {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const { chefs, city } = useSelector(CITYCUISINE_SELECTOR);
+  const { chefs, city, error } = useSelector(CITYCUISINE_SELECTOR);
 
   const router = useRouter();
 
   const { cuisineId, cityId } = router.query;
+
+  if (error) return <LoadingScreen inner />;
 
   return (
     <RootStyle>
