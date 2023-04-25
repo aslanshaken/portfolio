@@ -139,6 +139,11 @@ const slice = createSlice({
       state.loading = false;
       state.checkout.orderDetail.is_pickup = action.payload;
     },
+
+    clearOrderDetail(state) {
+      state.loading = false;
+      state.checkout.orderDetail = null;
+    },
   },
 });
 
@@ -158,6 +163,7 @@ export const {
   setDeliveryAddress,
   setScheduleTime,
   setIsPickup,
+  clearOrderDetail,
 } = slice.actions;
 
 // Selector

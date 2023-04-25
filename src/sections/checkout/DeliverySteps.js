@@ -1,21 +1,22 @@
 import PropTypes from 'prop-types';
-import { Box, Button, Card, Divider, Grid, Stack, Typography } from '@mui/material';
+import { Box, Button, Card, Grid, Stack, Typography } from '@mui/material';
 import CardHeader from '../../components/card/CardHeader';
 import PaymentDialog from './PaymentDialog';
 import { useState } from 'react';
 import NotesPanel from './NotesPanel';
-import SchedulePanel from './SchedulePanel';
+import ScheduleDialog from './ScheduleDialog';
 import { useDispatch, useSelector } from 'src/redux/store';
 import { FOOD_SELECTOR, getSavedCards } from 'src/redux/slices/food';
-import { parse, format } from 'date-fns';
+import { format } from 'date-fns';
 import { useEffect } from 'react';
 
 //
 export default function DeliverySteps({ address, isPickup }) {
   const [isOpenPaymentDialog, setIsOpenPaymentDialog] = useState(false);
-  const [isOpenSchedulePanel, setIsOpenSchedulePanel] = useState(true);
+  const [isOpenScheduleDialog, setIsOpenScheduleDialog] = useState(false);
   const [isOpenNotesPanel, setIsOpenNotesPanel] = useState(false);
   const { checkout, savedCards } = useSelector(FOOD_SELECTOR);
+  const scheduleTime = checkout?.orderDetail?.schedule_time;
   const selectedDay = checkout?.orderDetail?.items[0]?.selected_day;
   const [selectedDate, setSelectedDate] = useState();
   const dispatch = useDispatch();
@@ -33,12 +34,12 @@ export default function DeliverySteps({ address, isPickup }) {
       icon: 'uil:schedule',
       title: `${isPickup ? 'Pick Up Schedule' : 'Delivery Schedule'}`,
       subtitle: `${selectedDate ?? ''}`,
-      // content: 'Please select time',
-      buttonText: '',
+      content: scheduleTime ?? 'Please select time',
+      buttonText: 'Choose a time',
       onClickButton: () => {
-        setIsOpenSchedulePanel(true);
+        setIsOpenScheduleDialog(true);
       },
-      status: isOpenSchedulePanel,
+      status: false,
     },
     {
       icon: 'ic:baseline-payment',
@@ -50,12 +51,12 @@ export default function DeliverySteps({ address, isPickup }) {
             savedCards?.map((item) => (
               <Grid container width={'100%'} key={item?.id} whiteSpace={'nowrap'}>
                 <Grid item xs={4}>
-                  <Typography variant="body1" color={'secondary'}>
+                  <Typography variant="caption" color={'secondary'}>
                     {item?.brand}
                   </Typography>
                 </Grid>
                 <Grid item xs={8}>
-                  <Typography variant="body1">**** **** **** {item?.last_four}</Typography>
+                  **** **** **** {item?.last_four}
                 </Grid>
               </Grid>
             ))
@@ -90,19 +91,13 @@ export default function DeliverySteps({ address, isPickup }) {
   return (
     <>
       <PaymentDialog open={isOpenPaymentDialog} onClose={() => setIsOpenPaymentDialog(false)} />
+      <ScheduleDialog open={isOpenScheduleDialog} onClose={() => setIsOpenScheduleDialog(false)} isPickup={isPickup} />
 
       <Stack spacing={2}>
         {STEPS.map((step, _i) => (
           <Box key={step.title + _i}>
             {step.status ? (
               <>
-                {step.title === `${isPickup ? 'Pick Up Schedule' : 'Delivery Schedule'}` && (
-                  <SchedulePanel
-                    subtitle={step.subtitle}
-                    isPickup={isPickup}
-                    onClose={() => setIsOpenSchedulePanel(false)}
-                  />
-                )}
                 {step.title === 'Notes' && (
                   <NotesPanel
                     isPickup={isPickup}

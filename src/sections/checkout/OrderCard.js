@@ -38,6 +38,7 @@ const TopBottomButtonStyle = styled(ButtonGroup)(({ theme }) => ({
 }));
 
 export default function OrderCard({ isPickup }) {
+  const [disabled, setDisabled] = useState(true);
   const { changeAddress } = useAuth();
 
   const { user } = useAuth();
@@ -47,7 +48,7 @@ export default function OrderCard({ isPickup }) {
   const { checkout } = useSelector(FOOD_SELECTOR);
   const { orderDetail, orderId, cart } = checkout;
 
-  const scheduleTime = checkout.orderDetail.schedule_time;
+  const scheduleTime = checkout?.orderDetail?.schedule_time;
 
   // router
   const { push } = useRouter();
@@ -208,7 +209,7 @@ export default function OrderCard({ isPickup }) {
       <Box mt={5} />
 
       <FormControlLabel
-        control={<Checkbox sx={{ mr: 1 }} />}
+        control={<Checkbox sx={{ mr: 1 }} onClick={(e) => setDisabled(!disabled)} />}
         label={'I’ve read and agree to the website terms and conditions'}
         sx={{ alignItems: 'flex-start' }}
       />
@@ -216,6 +217,7 @@ export default function OrderCard({ isPickup }) {
       <Box mt={5} />
 
       <LoadingButton
+        disabled={disabled}
         loading={isLoading}
         size="large"
         variant={'contained'}
