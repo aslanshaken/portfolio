@@ -48,7 +48,7 @@ export default function OrderCard({ isPickup }) {
   const { checkout } = useSelector(FOOD_SELECTOR);
   const { orderDetail, orderId, cart } = checkout;
 
-  const scheduleTime = checkout.orderDetail.schedule_time;
+  const scheduleTime = checkout?.orderDetail?.schedule_time;
 
   // router
   const { push } = useRouter();

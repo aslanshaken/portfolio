@@ -4,7 +4,7 @@ import CuisineList from './CuisineList';
 import ProfileCover from './ProfileCover';
 import NextLink from 'next/link';
 import { useDispatch, useSelector } from 'src/redux/store';
-import { createOrders, FOOD_SELECTOR } from 'src/redux/slices/food';
+import { clearOrderDetail, createOrders, FOOD_SELECTOR } from 'src/redux/slices/food';
 import { CITYCUISINE_SELECTOR } from 'src/redux/slices/city';
 import { useRouter } from 'next/router';
 import { ShoppingCartIcon } from 'src/assets';
@@ -44,6 +44,7 @@ export default function CartChef() {
 
   const handleClickCreateOrders = async () => {
     setLoading(true);
+    await dispatch(clearOrderDetail());
     const response = await dispatch(
       createOrders({ chefId: chef?.chef?.id, carts: cartArr, selectedDay: new Date(deliveryDate) })
     );

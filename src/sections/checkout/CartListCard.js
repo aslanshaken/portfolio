@@ -10,6 +10,7 @@ import Image from 'src/components/Image';
 import { useDispatch, useSelector } from 'src/redux/store';
 import {
   addFoodCart,
+  clearCart,
   deleteCart,
   FOOD_SELECTOR,
   getOrderDetail,
@@ -92,9 +93,9 @@ function CuisineCard({ data = {}, orderId }) {
           } else {
             const response = await dispatch(updateCart('remove', orderId, data.id));
             successAlert(response.data.success);
-            await dispatch(getOrderDetail(orderId));
           }
         }
+        await dispatch(getOrderDetail(orderId));
       } catch (error) {
         errorAlert(error.message);
       }
@@ -110,6 +111,7 @@ function CuisineCard({ data = {}, orderId }) {
       successAlert(response.data.success);
       setLoading(false);
       if (orderDetail?.items?.length == 1) {
+        dispatch(clearCart());
         setTimeout(() => {
           router.push('/');
         }, 500);
