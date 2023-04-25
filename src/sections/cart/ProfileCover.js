@@ -5,6 +5,7 @@ import Iconify from '../../components/Iconify';
 import GradientText from 'src/components/GradientText';
 import { useSelector } from 'src/redux/store';
 import { CITYCUISINE_SELECTOR } from 'src/redux/slices/city';
+import { FOOD_SELECTOR } from 'src/redux/slices/food';
 
 const RootStyle = styled('div')(() => ({
   position: 'relative',
@@ -34,9 +35,9 @@ ProfileCover.propTypes = {
 };
 
 export default function ProfileCover({ certified = true, cuisineNames = [] }) {
-  const {
-    chef: { chef },
-  } = useSelector(CITYCUISINE_SELECTOR);
+  const { checkout } = useSelector(FOOD_SELECTOR);
+
+  const { chef } = checkout?.cart[0] ?? {};
 
   return (
     <RootStyle>

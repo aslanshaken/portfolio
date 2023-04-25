@@ -1,3 +1,4 @@
+import { useCallback, useEffect, useState } from 'react';
 //
 import PropTypes from 'prop-types';
 // @mui
@@ -15,9 +16,10 @@ import {
   removeFoodCart,
   updateCart,
 } from 'src/redux/slices/food';
-import { useCallback, useEffect, useState } from 'react';
 import useNotify from 'src/hooks/useNotify';
 import GradientText from 'src/components/GradientText';
+import { useRouter } from 'next/router';
+import { LoadingButton } from '@mui/lab';
 
 //
 export default function CartListCard() {
@@ -47,7 +49,7 @@ export default function CartListCard() {
       />
 
       <Box px={3} py={3}>
-        {cart?.length == 0 ? (
+        {orderDetail?.items?.length == 0 ? (
           <Typography variant="body2">Cart is empty.</Typography>
         ) : (
           <List disablePadding sx={{ overflowX: 'auto' }}>
@@ -70,9 +72,12 @@ CuisineCard.propTypes = {
 };
 
 function CuisineCard({ data = {}, orderId }) {
+  const router = useRouter();
   const dispatch = useDispatch();
   const { successAlert, errorAlert } = useNotify();
   let { count, ...food } = data;
+  const { checkout } = useSelector(FOOD_SELECTOR);
+  const { orderDetail } = checkout;
 
   const handleClickAddCart = useCallback(
     async (type) => {
@@ -82,11 +87,14 @@ function CuisineCard({ data = {}, orderId }) {
           const response = await dispatch(updateCart('add', orderId, data.id));
           successAlert(response.data.success);
         } else {
-          // dispatch(removeFoodCart({ food: food, removeAll: false, removeOneItem: true }));
-          const response = await dispatch(updateCart('remove', orderId, data.id));
-          successAlert(response.data.success);
+          if (data.count == 1) {
+            deleteItem(data?.id);
+          } else {
+            const response = await dispatch(updateCart('remove', orderId, data.id));
+            successAlert(response.data.success);
+            await dispatch(getOrderDetail(orderId));
+          }
         }
-        dispatch(getOrderDetail(orderId));
       } catch (error) {
         errorAlert(error.message);
       }
@@ -94,19 +102,24 @@ function CuisineCard({ data = {}, orderId }) {
     [food]
   );
 
-  const handleClickRemoveCart = useCallback(() => {
-    dispatch(removeFoodCart({ food: food, removeAll: false, removeOneItem: false }));
-  }, [food]);
-
   const deleteItem = async (foodId) => {
     try {
+      setLoading(true);
       const response = await dispatch(deleteCart(orderId, foodId));
       dispatch(getOrderDetail(orderId));
       successAlert(response.data.success);
+      setLoading(false);
+      if (orderDetail?.items?.length == 1) {
+        setTimeout(() => {
+          router.push('/');
+        }, 500);
+      }
     } catch (error) {
       errorAlert(error.message);
     }
   };
+
+  const [loading, setLoading] = useState(false);
 
   return (
     <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'} spacing={2} width={1}>
@@ -130,13 +143,16 @@ function CuisineCard({ data = {}, orderId }) {
         </Typography>
 
         <Box>
-          <Button
+          <LoadingButton
+            loading={loading}
             color="error"
             sx={{ borderRadius: 1, p: 1, minWidth: 0, background: colors.grey[100] }}
-            onClick={() => deleteItem(data?.id)}
+            onClick={() => {
+              deleteItem(data?.id);
+            }}
           >
-            <Iconify icon={'mdi:trash'} onClick={handleClickRemoveCart} />
-          </Button>
+            <Iconify icon={'mdi:trash'} />
+          </LoadingButton>
         </Box>
       </Stack>
     </Stack>

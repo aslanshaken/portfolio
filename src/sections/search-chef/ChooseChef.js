@@ -199,21 +199,21 @@ export default function ChooseChef() {
                 <Grid container spacing={{ xs: 5, md: 2 }} py={2}>
                   <Grid item xs={12} lg={4} ml={1}>
                     <Box display={'flex'} gap={2} alignItems={'center'} px={2} height={'100%'}>
-                      <Image
-                        alt="Travis Howard"
-                        src={item?.chef?.image_url}
-                        sx={{ borderRadius: '50%', width: { lg: 180, xs: 150 }, height: { lg: 180, xs: 150 } }}
-                      />
+                      <Box position="relative">
+                        <Image
+                          alt="Travis Howard"
+                          src={item?.chef?.image_url}
+                          sx={{ borderRadius: '50%', width: { lg: 180, xs: 150 }, height: { lg: 180, xs: 150 } }}
+                        />
+                        <Iconify
+                          icon={'material-symbols:verified'}
+                          sx={{ width: 25, height: 25, color: '#0ED3CF', position: 'absolute', top: 10, right: 10 }}
+                        />
+                      </Box>
                       <Stack spacing={2}>
-                        <Box position="relative">
-                          <Typography variant="subtitle1" mr={3}>
-                            {item?.chef?.company_name}
-                          </Typography>
-                          <Iconify
-                            icon={'material-symbols:verified'}
-                            sx={{ width: 21, height: 21, color: '#0ED3CF', position: 'absolute', top: 0, right: 0 }}
-                          />
-                        </Box>
+                        <Typography variant="subtitle1" mr={3}>
+                          {item?.chef?.company_name}
+                        </Typography>
                         <Typography variant="caption">
                           by {item?.chef?.first_name} {item?.chef?.last_name}
                         </Typography>
