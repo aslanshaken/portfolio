@@ -98,7 +98,7 @@ const RootStyle = styled('div')(({ theme }) => ({
     height: '100%',
     zIndex: 10,
     background: '#FFFFFF',
-    opacity: `0.5 !important`,
+    opacity: `0.8 !important`,
   },
 }));
 
@@ -261,7 +261,9 @@ export default function ChooseChef() {
               </NextLink>
               {!item?.chef?.can_sell && (
                 <Backdrop position={'absolute'} open={true} className="overlay">
-                  <Typography variant="h3">Comming Soon</Typography>
+                  <Typography variant="h3" sx={{ color: '#333' }}>
+                    Comming Soon
+                  </Typography>
                 </Backdrop>
               )}
             </Box>
