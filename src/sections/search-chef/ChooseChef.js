@@ -1,5 +1,16 @@
 import styled from '@emotion/styled';
-import { Box, Link, colors, Grid, InputAdornment, Stack, TextField, Typography, CircularProgress } from '@mui/material';
+import {
+  Box,
+  Link,
+  colors,
+  Grid,
+  InputAdornment,
+  Stack,
+  TextField,
+  Typography,
+  CircularProgress,
+  Backdrop,
+} from '@mui/material';
 import Container from '../../components/Container';
 import Iconify from '../../components/Iconify';
 import Avatar from '../../components/Avatar';
@@ -82,6 +93,13 @@ const RootStyle = styled('div')(({ theme }) => ({
       border: 0,
     },
   },
+  '& .overlay': {
+    position: 'absolute',
+    height: '100%',
+    zIndex: 10,
+    background: '#FFFFFF',
+    opacity: `0.8 !important`,
+  },
 }));
 
 const VisitChefLinkStyle = styled(Link)(() => ({
@@ -162,81 +180,93 @@ export default function ChooseChef() {
             </Box> */}
           </Stack>
           {chefs?.slice((currentPage - 1) * 10, currentPage * 10).map((item, _i) => (
-            <NextLink
-              key={'chef-link' + _i}
-              href={PATH_PAGE.searchChef.cities({ cityId, cuisineId, chefId: item?.chef?.id })}
-              passHref
-            >
-              <Box
-                mb={4}
-                sx={{
-                  border: '1px solid',
-                  borderColor: colors.grey[300],
-                  borderRadius: 1,
-                  cursor: 'pointer',
-                }}
+            <Box key={'chef-link' + _i} position={'relative'}>
+              <NextLink
+                href={
+                  item?.chef?.can_sell
+                    ? PATH_PAGE.searchChef.cities({ cityId, cuisineId, chefId: item?.chef?.id })
+                    : '#'
+                }
+                passHref
               >
                 <Box
-                  container
-                  display={'flex'}
-                  gap={4}
-                  px={{ lg: 8, xs: 4 }}
-                  py={2}
+                  mb={4}
                   sx={{
-                    borderBottom: '1px solid',
+                    border: '1px solid',
                     borderColor: colors.grey[300],
+                    borderRadius: 1,
+                    cursor: 'pointer',
                   }}
                 >
-                  <Box>
-                    <Typography display={'flex'} flexWrap={'nowrap'} gap={1} variant="subtitle1">
-                      Rating: {item?.chef?.rating}
-                      <Iconify icon={'material-symbols:star'} sx={{ width: 21, height: 21, color: 'primary.main' }} />
-                    </Typography>
+                  <Box
+                    container
+                    display={'flex'}
+                    gap={4}
+                    px={{ lg: 8, xs: 4 }}
+                    py={2}
+                    sx={{
+                      borderBottom: '1px solid',
+                      borderColor: colors.grey[300],
+                    }}
+                  >
+                    <Box>
+                      <Typography display={'flex'} flexWrap={'nowrap'} gap={1} variant="subtitle1">
+                        Rating: {item?.chef?.rating}
+                        <Iconify icon={'material-symbols:star'} sx={{ width: 21, height: 21, color: 'primary.main' }} />
+                      </Typography>
+                    </Box>
+                    <Box>
+                      <Typography variant="subtitle1" display={'flex'} flexWrap={'nowrap'}>
+                        Orders: {item?.chef?.orders}
+                      </Typography>
+                    </Box>
                   </Box>
-                  <Box>
-                    <Typography variant="subtitle1" display={'flex'} flexWrap={'nowrap'}>
-                      Orders: {item?.chef?.orders}
-                    </Typography>
-                  </Box>
-                </Box>
-                <Grid container spacing={{ xs: 5, md: 2 }} py={2}>
-                  <Grid item xs={12} lg={4} ml={1}>
-                    <Box display={'flex'} gap={2} alignItems={'center'} px={2} height={'100%'}>
-                      <Box position="relative">
-                        <Image
-                          alt="Travis Howard"
-                          src={item?.chef?.image_url}
-                          sx={{ borderRadius: '50%', width: { lg: 180, xs: 150 }, height: { lg: 180, xs: 150 } }}
-                        />
-                        <Iconify
-                          icon={'material-symbols:verified'}
-                          sx={{ width: 25, height: 25, color: '#0ED3CF', position: 'absolute', top: 10, right: 10 }}
-                        />
-                      </Box>
-                      <Stack spacing={2}>
-                        <Typography variant="subtitle1" mr={3}>
-                          {item?.chef?.company_name}
-                        </Typography>
-                        <Typography variant="caption">
-                          by {item?.chef?.first_name} {item?.chef?.last_name}
-                        </Typography>
-                        {item?.chef?.status && (
-                          <Typography color={'primary'} variant="subtitle1">
-                            {item?.chef?.status}
+                  <Grid container spacing={{ xs: 5, md: 2 }} py={2}>
+                    <Grid item xs={12} lg={4} ml={1}>
+                      <Box display={'flex'} gap={2} alignItems={'center'} px={2} height={'100%'}>
+                        <Box position="relative">
+                          <Image
+                            alt="Travis Howard"
+                            src={item?.chef?.image_url}
+                            sx={{ borderRadius: '50%', width: { lg: 180, xs: 150 }, height: { lg: 180, xs: 150 } }}
+                          />
+                          <Iconify
+                            icon={'material-symbols:verified'}
+                            sx={{ width: 25, height: 25, color: '#0ED3CF', position: 'absolute', top: 10, right: 10 }}
+                          />
+                        </Box>
+                        <Stack spacing={2}>
+                          <Typography variant="subtitle1" mr={3}>
+                            {item?.chef?.company_name}
                           </Typography>
-                        )}
-                        {/* <Box display={{ xs: 'block', lg: 'none' }}>
+                          <Typography variant="caption">
+                            by {item?.chef?.first_name} {item?.chef?.last_name}
+                          </Typography>
+                          {item?.chef?.status && (
+                            <Typography color={'primary'} variant="subtitle1">
+                              {item?.chef?.status}
+                            </Typography>
+                          )}
+                          {/* <Box display={{ xs: 'block', lg: 'none' }}>
                         <VisitChef />
                       </Box> */}
-                      </Stack>
-                    </Box>
+                        </Stack>
+                      </Box>
+                    </Grid>
+                    <Grid item xs={12} lg={8} py={2} alignItems={'center'} height={'100%'} ml={{ lg: -4 }}>
+                      {item?.foods?.length > 0 && <FoodCarousel foods={item?.foods} />}
+                    </Grid>
                   </Grid>
-                  <Grid item xs={12} lg={8} py={2} alignItems={'center'} height={'100%'} ml={{ lg: -4 }}>
-                    {item?.foods?.length > 0 && <FoodCarousel foods={item?.foods} />}
-                  </Grid>
-                </Grid>
-              </Box>
-            </NextLink>
+                </Box>
+              </NextLink>
+              {!item?.chef?.can_sell && (
+                <Backdrop position={'absolute'} open={true} className="overlay">
+                  <Typography variant="h3" sx={{ color: '#333' }}>
+                    Comming Soon
+                  </Typography>
+                </Backdrop>
+              )}
+            </Box>
           ))}
         </Box>
         {chefs?.length > 10 && <Pagination count={Math.ceil(chefs?.length / 10)} setCurrentPage={setCurrentPage} />}
