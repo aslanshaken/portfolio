@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useRef } from 'react';
 import Slider from 'react-slick';
-import { Box, CircularProgress, Typography, useTheme } from '@mui/material';
+import { Box, Typography, useTheme } from '@mui/material';
 import CarouselArrows from './CarouselArrows';
 import DisheCard from '../../components/DisheCard';
 import styled from '@emotion/styled';
@@ -27,27 +27,6 @@ const RootStyle = styled(Box)(({ theme }) => ({
   },
 }));
 
-const carouselData = [
-  {
-    id: '1',
-    filename: 'slide1',
-    title: 'Vestibulum ante ipsum',
-    description: 'Ingredients placeholder is here, until we will have our own',
-  },
-  { id: '2', filename: 'slide2', title: 'Donec velit neque, auctor sit amet aliquam vel', isActive: true },
-  {
-    id: '3',
-    filename: 'slide3',
-    title: 'Mauris blandit aliquet elit',
-    description: 'Ingredients placeholder is here, until we will have our own',
-  },
-  {
-    id: '4',
-    filename: 'slide1',
-    title: 'Vestibulum ante ipsum',
-    description: 'Ingredients placeholder is here, until we will have our own',
-  },
-];
 
 export default function PopularDishes() {
   const carouselRef = useRef(null);
