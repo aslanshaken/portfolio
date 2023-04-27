@@ -5,6 +5,7 @@ import {
   Checkbox,
   Divider,
   FormControlLabel,
+  InputAdornment,
   Stack,
   styled,
   TextField,
@@ -169,6 +170,9 @@ export default function OrderCard({ isPickup }) {
       <Stack direction={'row'} spacing={1} alignItems={'center'}>
         <TextField
           fullWidth
+          InputProps={{
+            startAdornment: <InputAdornment position="start">$</InputAdornment>,
+          }}
           type={'number'}
           value={tips}
           label={'Fair enough'}
