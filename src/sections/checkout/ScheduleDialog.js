@@ -94,7 +94,7 @@ export default function ScheduleDialog({ isPickup, subtitle, ...other }) {
 
   const [selectedTime, setSelectedTime] = useState(scheduleTime);
 
-  const slots = checkout?.orderDetail?.schedule_slots;
+  const slots = ['9AM-12PM', '1PM-4PM', '5PM-8PM'];
 
   const isDateTomorrow = isTomorrow(new Date(deliveryDate));
 
@@ -134,7 +134,7 @@ export default function ScheduleDialog({ isPickup, subtitle, ...other }) {
         <Stack
           direction={'row'}
           flexWrap={'wrap'}
-          justifyContent={{ xs: 'center', sm: 'space-between' }}
+          justifyContent={{ xs: 'center', sm: 'flex-start' }}
           py={4}
           gap={4}
         >

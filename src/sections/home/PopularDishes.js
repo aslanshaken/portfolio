@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useRef } from 'react';
 import Slider from 'react-slick';
-import { Box, CircularProgress, Typography, useTheme } from '@mui/material';
+import { Box, Typography, useTheme } from '@mui/material';
 import CarouselArrows from './CarouselArrows';
 import DisheCard from '../../components/DisheCard';
 import styled from '@emotion/styled';
@@ -26,28 +26,6 @@ const RootStyle = styled(Box)(({ theme }) => ({
     },
   },
 }));
-
-const carouselData = [
-  {
-    id: '1',
-    filename: 'slide1',
-    title: 'Vestibulum ante ipsum',
-    description: 'Ingredients placeholder is here, until we will have our own',
-  },
-  { id: '2', filename: 'slide2', title: 'Donec velit neque, auctor sit amet aliquam vel', isActive: true },
-  {
-    id: '3',
-    filename: 'slide3',
-    title: 'Mauris blandit aliquet elit',
-    description: 'Ingredients placeholder is here, until we will have our own',
-  },
-  {
-    id: '4',
-    filename: 'slide1',
-    title: 'Vestibulum ante ipsum',
-    description: 'Ingredients placeholder is here, until we will have our own',
-  },
-];
 
 export default function PopularDishes() {
   const carouselRef = useRef(null);
@@ -86,35 +64,35 @@ export default function PopularDishes() {
     carouselRef.current?.slickNext();
   };
   return (
-    popularFoods?.length > 0 && (
-      <RootStyle sx={{ pt: 15 }}>
-        <Container>
-          <Typography variant="h3" color={'secondary'} sx={{ textAlign: 'center', fontWeight: 500, pb: '30px' }}>
-            Most popular food
-          </Typography>
-          <Box sx={{ position: 'relative', overflowX: 'hidden' }}>
-            <CarouselArrows
-              onNext={handleNext}
-              onPrevious={handlePrevious}
-              sx={{
-                '& .arrow': {
-                  '&.left': { left: { xs: 10 }, top: '300px' },
-                  '&.right': { right: { xs: 10 }, top: '300px' },
-                },
-              }}
-            >
-              <Container>
-                <Slider ref={carouselRef} {...settings}>
-                  {popularFoods?.map((item, _i) => (
+    <RootStyle sx={{ pt: 15 }}>
+      <Container>
+        <Typography variant="h3" color={'secondary'} sx={{ textAlign: 'center', fontWeight: 500, pb: '30px' }}>
+          Most popular food
+        </Typography>
+        <Box sx={{ position: 'relative', overflowX: 'hidden' }}>
+          <CarouselArrows
+            onNext={handleNext}
+            onPrevious={handlePrevious}
+            sx={{
+              '& .arrow': {
+                '&.left': { left: { xs: 10 }, top: '300px' },
+                '&.right': { right: { xs: 10 }, top: '300px' },
+              },
+            }}
+          >
+            <Container>
+              <Slider ref={carouselRef} {...settings}>
+                {popularFoods
+                  ?.filter((item) => item.chef?.can_sell)
+                  .map((item, _i) => (
                     <DisheCard key={_i} data={item} />
                   ))}
-                </Slider>
-              </Container>
-            </CarouselArrows>
-          </Box>
-          <Box mt={10} />
-        </Container>
-      </RootStyle>
-    )
+              </Slider>
+            </Container>
+          </CarouselArrows>
+        </Box>
+        <Box mt={10} />
+      </Container>
+    </RootStyle>
   );
 }

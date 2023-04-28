@@ -34,7 +34,7 @@ export default function DeliverySteps({ address, isPickup }) {
       icon: 'uil:schedule',
       title: `${isPickup ? 'Pick Up Schedule' : 'Delivery Schedule'}`,
       subtitle: `${selectedDate ?? ''}`,
-      content: scheduleTime ?? 'Please select time',
+      content: scheduleTime ?? '',
       buttonText: 'Choose a time',
       onClickButton: () => {
         setIsOpenScheduleDialog(true);
