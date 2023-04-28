@@ -27,7 +27,6 @@ const RootStyle = styled(Box)(({ theme }) => ({
   },
 }));
 
-
 export default function PopularDishes() {
   const carouselRef = useRef(null);
   const theme = useTheme();
@@ -65,35 +64,35 @@ export default function PopularDishes() {
     carouselRef.current?.slickNext();
   };
   return (
-    popularFoods?.length > 0 && (
-      <RootStyle sx={{ pt: 15 }}>
-        <Container>
-          <Typography variant="h3" color={'secondary'} sx={{ textAlign: 'center', fontWeight: 500, pb: '30px' }}>
-            Most popular food
-          </Typography>
-          <Box sx={{ position: 'relative', overflowX: 'hidden' }}>
-            <CarouselArrows
-              onNext={handleNext}
-              onPrevious={handlePrevious}
-              sx={{
-                '& .arrow': {
-                  '&.left': { left: { xs: 10 }, top: '300px' },
-                  '&.right': { right: { xs: 10 }, top: '300px' },
-                },
-              }}
-            >
-              <Container>
-                <Slider ref={carouselRef} {...settings}>
-                  {popularFoods?.map((item, _i) => (
+    <RootStyle sx={{ pt: 15 }}>
+      <Container>
+        <Typography variant="h3" color={'secondary'} sx={{ textAlign: 'center', fontWeight: 500, pb: '30px' }}>
+          Most popular food
+        </Typography>
+        <Box sx={{ position: 'relative', overflowX: 'hidden' }}>
+          <CarouselArrows
+            onNext={handleNext}
+            onPrevious={handlePrevious}
+            sx={{
+              '& .arrow': {
+                '&.left': { left: { xs: 10 }, top: '300px' },
+                '&.right': { right: { xs: 10 }, top: '300px' },
+              },
+            }}
+          >
+            <Container>
+              <Slider ref={carouselRef} {...settings}>
+                {popularFoods
+                  ?.filter((item) => item.chef?.can_sell)
+                  .map((item, _i) => (
                     <DisheCard key={_i} data={item} />
                   ))}
-                </Slider>
-              </Container>
-            </CarouselArrows>
-          </Box>
-          <Box mt={10} />
-        </Container>
-      </RootStyle>
-    )
+              </Slider>
+            </Container>
+          </CarouselArrows>
+        </Box>
+        <Box mt={10} />
+      </Container>
+    </RootStyle>
   );
 }
