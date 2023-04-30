@@ -43,7 +43,7 @@ export default function Image({ width = '100%', height = '100%', disabledEffect,
           wrapperClassName="wrapper"
           effect={disabledEffect ? undefined : effect}
           placeholderSrc="/assets/placeholder.png"
-          sx={{ width: 1, height: other.height, objectFit: 'cover', objectPosition: 'center' }}
+          sx={{ width: 1, height: other.height, objectFit: 'contain', objectPosition: 'center' }}
           {...other}
         />
       </Box>

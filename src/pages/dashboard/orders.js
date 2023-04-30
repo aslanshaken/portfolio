@@ -91,7 +91,9 @@ export default function OrderPage() {
     dispatch(getOrders());
   }, [dispatch]);
 
-  const { orders, loading } = useSelector(FOOD_SELECTOR);
+  const { orders: allOrders, loading } = useSelector(FOOD_SELECTOR);
+
+  const orders = allOrders?.filter((item) => item?.status !== 'initiated');
 
   const [currentPage, setCurrentPage] = useState(1);
 

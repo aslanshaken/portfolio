@@ -2,13 +2,13 @@ import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { LoadingButton } from '@mui/lab';
 import { Box, Dialog, Divider, Grid, IconButton, Stack, styled, TextField, Typography } from '@mui/material';
-import GradientText from '../../../components/GradientText';
 import Image from '../../../components/Image';
 import { IconButtonAnimate } from '../../../components/animate';
 import Iconify from '../../../components/Iconify';
 import useAuth from 'src/hooks/useAuth';
 import { useRouter } from 'next/router';
 import { PATH_AUTH } from 'src/routes/paths';
+import useNotify from 'src/hooks/useNotify';
 
 //
 CartDialog.propTypes = {
@@ -22,20 +22,16 @@ CartDialog.defaultProps = {
 
 export default function CartDialog({ data, setSelectedItemData, onSubmit, ...other }) {
   const { isAuthenticated } = useAuth();
-
   const router = useRouter();
-
-  const [orderCount, setOrderCount] = useState(1);
+  const [orderCount, setOrderCount] = useState(0);
+  const [minOrder, setMinOrder] = useState(1);
   const [note, setNote] = useState();
 
   useEffect(() => {
     setNote(data?.how_to_prepare);
+    setMinOrder(data?.min_order ?? 1);
+    setOrderCount(data?.min_order ?? 1);
   }, [other.open]);
-
-  useEffect(() => {
-    const arrDatas = [...Array(orderCount).keys()].map(() => ({ ...data, how_to_prepare: note }));
-    setSelectedItemData(arrDatas);
-  }, [orderCount, note, other.open]);
 
   return (
     <Dialog maxWidth={'sm'} fullWidth {...other}>
@@ -61,7 +57,7 @@ export default function CartDialog({ data, setSelectedItemData, onSubmit, ...oth
               </Stack>
             </Grid>
             <Grid>
-              <CartCountBox value={orderCount} onChange={(val) => setOrderCount(val)} />
+              <CartCountBox value={orderCount} minOrder={minOrder} onChange={(val) => setOrderCount(val)} />
             </Grid>
           </Grid>
           <Stack mt={2}>
@@ -105,7 +101,7 @@ export default function CartDialog({ data, setSelectedItemData, onSubmit, ...oth
               sx={{ textarea: { fontSize: '0.75rem' } }}
               multiline
               rows={4}
-              defaultValue={data?.how_to_prepare}
+              defaultValue={note}
             />
           </Stack>
 
@@ -116,6 +112,8 @@ export default function CartDialog({ data, setSelectedItemData, onSubmit, ...oth
             color="secondary"
             onClick={() => {
               if (isAuthenticated) {
+                const arrDatas = [...Array(orderCount).keys()].map(() => ({ ...data, how_to_prepare: note }));
+                setSelectedItemData(arrDatas);
                 onSubmit();
               } else {
                 router.push(PATH_AUTH.login);
@@ -149,16 +147,22 @@ const CartCountStyle = styled(Stack)(({ theme }) => ({
 
 CartCountBox.propTypes = {
   value: PropTypes.any,
+  minOrder: PropTypes.any,
   onChange: PropTypes.func,
 };
 
-function CartCountBox({ value = 0, onChange }) {
+function CartCountBox({ value = 0, minOrder = 1, onChange }) {
+  const { errorAlert } = useNotify();
+
   const handleChange = (type) => {
     let newValue = value;
     if (type === '+') newValue++;
     else newValue--;
 
-    if (newValue < 2) newValue = 1;
+    if (newValue < minOrder) {
+      newValue = minOrder;
+      errorAlert(`This dish can only be ordered in a minimum quantity of ${value}`);
+    }
 
     onChange(newValue);
   };
