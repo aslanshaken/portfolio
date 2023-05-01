@@ -6,7 +6,7 @@ import Page from '../../../../components/Page';
 import ChooseChef from '../../../../sections/search-chef/ChooseChef';
 import HeroHeader from '../../../../components/HeroHeader';
 import { useSelector } from 'src/redux/store';
-import { CITYCUISINE_SELECTOR, getChefs, getCity } from 'src/redux/slices/city';
+import { CITYCUISINE_SELECTOR, getAllChefs, getChefs, getCity } from 'src/redux/slices/city';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
@@ -38,7 +38,11 @@ export default function ChefListPage() {
   useEffect(() => {
     async function fetch() {
       SetIsLoading(true);
-      await dispatch(getChefs(cityId, cuisineId));
+      if (cuisineId == 'all') {
+        await dispatch(getAllChefs(cityId));
+      } else {
+        await dispatch(getChefs(cityId, cuisineId));
+      }
       SetIsLoading(false);
       dispatch(getCity(router.query.cityId));
     }
@@ -55,7 +59,9 @@ export default function ChefListPage() {
     <LoadingScreen inner />
   ) : (
     <Page title="Search Chef">
-      <HeroHeader loading={loading} backgroundImage={cuisine?.image} city="Austin" cuisine={cuisine?.name} />
+      {cuisineId !== 'all' && (
+        <HeroHeader loading={loading} backgroundImage={cuisine?.image} city="Austin" cuisine={cuisine?.name} />
+      )}
       <ChooseChef />
     </Page>
   );

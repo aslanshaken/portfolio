@@ -103,6 +103,25 @@ export function getCities() {
 
 // ----------------------------------------------------------------------
 
+export function getAllChefs() {
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try {
+      const response = await axios.get(`/api/${process.env.API_VERSION}/cities/4/chefs`);
+      let data = response.data;
+
+      data.sort((a, b) => (a.can_sell === b.can_sell ? 0 : a.can_sell ? -1 : 1));
+      const chefs = data.map((item) => ({ chef: item }));
+
+      dispatch(slice.actions.getChefsSuccess(chefs));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+
+// ----------------------------------------------------------------------
+
 export function getCuisines() {
   return async (dispatch) => {
     dispatch(startLoading());
@@ -124,10 +143,8 @@ export function getChefs(cityId = null, cuisineId = null, chefId = null) {
       const response = await axios.get(`/api/${process.env.API_VERSION}/cities/${cityId}/cuisines/${cuisineId}`);
       let data = response.data.data;
 
-      data.sort((a, b) => {
-        return a.chef.can_sell === b.chef.can_sell ? 0 : a.chef.can_sell ? -1 : 1;
-      });
-      
+      data.sort((a, b) => (a.chef.can_sell === b.chef.can_sell ? 0 : a.chef.can_sell ? -1 : 1));
+
       dispatch(slice.actions.getChefsSuccess(data));
       if (cuisineId) dispatch(slice.actions.getCuisine(cuisineId));
       if (chefId) dispatch(slice.actions.getChef(chefId));
