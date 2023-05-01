@@ -94,16 +94,16 @@ export default function ScheduleDialog({ isPickup, subtitle, ...other }) {
 
   const [selectedTime, setSelectedTime] = useState(scheduleTime);
 
-  const slots = ['9AM-12PM', '1PM-4PM', '5PM-8PM'];
+  const slots = checkout?.orderDetail?.schedule_slots;
 
   const isDateTomorrow = isTomorrow(new Date(deliveryDate));
 
   // filter the array by checking if the label contains a time that is after the current hour
   const times = isDateTomorrow
     ? slots?.filter((time) => {
-        const [start, end] = time.split('-'); // split the label into start and end times
-        const parsedTime = parse(start, 'ha', new Date());
-        const formattedTime = format(parsedTime, 'HH');
+        const timeString = time;
+        const date = new Date(`2000-01-01 ${timeString}`);
+        const formattedTime = format(date, 'HH');
         const currentDate = new Date();
         const futureDate = addHours(currentDate, 17);
         const hourAfter17Hours = getHours(futureDate);
@@ -131,13 +131,7 @@ export default function ScheduleDialog({ isPickup, subtitle, ...other }) {
       </IconButton>
       <Stack p={{ xs: 3, sm: 8 }}>
         <Typography variant="h3">Choose a time</Typography>
-        <Stack
-          direction={'row'}
-          flexWrap={'wrap'}
-          justifyContent={{ xs: 'center', sm: 'flex-start' }}
-          py={4}
-          gap={4}
-        >
+        <Stack direction={'row'} flexWrap={'wrap'} justifyContent={{ xs: 'center', sm: 'flex-start' }} py={4} gap={4}>
           {times?.length == 0 ? (
             <Typography variant="caption" color={'gray'} textAlign={'left'} width={'100%'}>
               There is no available times.
