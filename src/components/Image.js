@@ -33,7 +33,7 @@ export default function Image({ width = '100%', height = '100%', disabledEffect,
             bottom: 0,
             lineHeight: 0,
             position: 'absolute',
-            backgroundSize: 'cover !important',
+            backgroundSize: 'contain !important',
           },
           ...sx,
         }}
@@ -57,7 +57,7 @@ export default function Image({ width = '100%', height = '100%', disabledEffect,
         lineHeight: 0,
         display: 'block',
         overflow: 'hidden',
-        '& .wrapper': { width: 1, height: 1, backgroundSize: 'cover !important' },
+        '& .wrapper': { width: 1, height: 1, backgroundSize: 'contain !important' },
         ...sx,
       }}
     >
@@ -66,7 +66,7 @@ export default function Image({ width = '100%', height = '100%', disabledEffect,
         wrapperClassName="wrapper"
         effect={disabledEffect ? undefined : effect}
         placeholderSrc="/assets/placeholder.png"
-        sx={{ width: { width }, height: { height }, objectFit: 'cover' }}
+        sx={{ width: { width }, height: { height }, objectFit: 'contain' }}
         {...other}
       />
     </Box>
