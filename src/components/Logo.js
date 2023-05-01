@@ -19,6 +19,7 @@ const Logo = forwardRef(({ disabledLink = false, type = '', sx }, ref) => {
         alt="logo"
         src={type == 'loading' ? '/assets/logo-dark-green.png' : '/assets/logo-transperent.png'}
         sx={{ height: 1, borderRadius: type == 'loading' && '50%' }}
+        objectFit="contain"
       />
     </Box>
   );
@@ -33,7 +34,7 @@ const Logo = forwardRef(({ disabledLink = false, type = '', sx }, ref) => {
 Logo.propTypes = {
   disabledLink: PropTypes.bool,
   sx: PropTypes.object,
-  type: PropTypes.string
+  type: PropTypes.string,
 };
 
 export default Logo;
