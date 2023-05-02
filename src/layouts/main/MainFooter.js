@@ -104,7 +104,7 @@ export default function MainFooter() {
           py={2}
           sx={{ background: 'white', position: 'absolute', bottom: 0, left: 0, width: '100%' }}
         >
-          <Typography color={'text.secondary'}>© 2023 Aslan, All rights reserved</Typography>
+          <Typography color={'text.secondary'}>© 2023 Cookk, All rights reserved</Typography>
         </Box>
       </Container>
       {/* <Divider />
