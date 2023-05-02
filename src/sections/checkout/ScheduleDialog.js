@@ -1,5 +1,16 @@
 import PropTypes from 'prop-types';
-import { Button, Card, Dialog, IconButton, Stack, Typography } from '@mui/material';
+import {
+  Button,
+  Card,
+  Dialog,
+  FormControl,
+  IconButton,
+  InputLabel,
+  MenuItem,
+  Select,
+  Stack,
+  Typography,
+} from '@mui/material';
 import CardHeader from '../../components/card/CardHeader';
 import { useEffect, useState } from 'react';
 import { Box } from '@mui/system';
@@ -86,24 +97,28 @@ export default function ScheduleDialog({ isPickup, subtitle, ...other }) {
 
   const { checkout } = useSelector(FOOD_SELECTOR);
 
-  const { deliveryDate, orderId } = checkout;
+  const { orderId } = checkout;
 
   const [isLoading, setIsLoading] = useState(false);
 
   const scheduleTime = checkout?.orderDetail?.schedule_time;
 
-  const [selectedTime, setSelectedTime] = useState(scheduleTime);
+  const [selectedTime, setSelectedTime] = useState(scheduleTime ?? '');
 
-  const slots = ['9AM-12PM', '1PM-4PM', '5PM-8PM'];
+  const slots = checkout?.orderDetail?.schedule_slots;
 
-  const isDateTomorrow = isTomorrow(new Date(deliveryDate));
+  const isDateTomorrow = isTomorrow(new Date(checkout?.orderDetail?.item?.[0]?.selected_day));
+
+  const handleChange = (data) => {
+    setSelectedTime(data.target.value);
+  };
 
   // filter the array by checking if the label contains a time that is after the current hour
   const times = isDateTomorrow
     ? slots?.filter((time) => {
-        const [start, end] = time.split('-'); // split the label into start and end times
-        const parsedTime = parse(start, 'ha', new Date());
-        const formattedTime = format(parsedTime, 'HH');
+        const timeString = time;
+        const date = new Date(`2000-01-01 ${timeString}`);
+        const formattedTime = format(date, 'HH');
         const currentDate = new Date();
         const futureDate = addHours(currentDate, 17);
         const hourAfter17Hours = getHours(futureDate);
@@ -131,37 +146,31 @@ export default function ScheduleDialog({ isPickup, subtitle, ...other }) {
       </IconButton>
       <Stack p={{ xs: 3, sm: 8 }}>
         <Typography variant="h3">Choose a time</Typography>
-        <Stack
-          direction={'row'}
-          flexWrap={'wrap'}
-          justifyContent={{ xs: 'center', sm: 'flex-start' }}
-          py={4}
-          gap={4}
-        >
+        <Stack direction={'row'} flexWrap={'wrap'} justifyContent={{ xs: 'center', sm: 'flex-start' }} py={4} gap={4}>
           {times?.length == 0 ? (
             <Typography variant="caption" color={'gray'} textAlign={'left'} width={'100%'}>
               There is no available times.
             </Typography>
           ) : (
-            times?.map((item, _i) => (
-              <Box
-                key={item + _i}
-                display={'flex'}
-                alignItems={'center'}
-                justifyContent={'center'}
-                width={120}
-                height={40}
-                color={item === selectedTime ? '#506C60' : 'rgba(80, 108, 96, 0.5)'}
-                bgcolor={item === selectedTime ? '#C1DED1' : 'rgba(193, 222, 209, 0.28)'}
-                borderRadius={2}
-                sx={{ cursor: 'pointer' }}
-                onClick={() => {
-                  setSelectedTime(item);
+            <FormControl sx={{ width: 1 }}>
+              <Select
+                fullWidth
+                value={selectedTime}
+                defaultValue={selectedTime}
+                onChange={handleChange}
+                style={{ width: '100%' }}
+                MenuProps={{
+                  anchorOrigin: { horizontal: 'center', vertical: 'bottom' },
+                  sx: { maxHeight: 300, mt: 1 },
                 }}
               >
-                {item}
-              </Box>
-            ))
+                {times?.map((item, _i) => (
+                  <MenuItem key={item + _i} value={item}>
+                    {item}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           )}
         </Stack>
 

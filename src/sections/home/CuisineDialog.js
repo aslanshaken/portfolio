@@ -42,7 +42,10 @@ export default function CuisineDialog({ isOpen }) {
           >
             <Iconify icon={'material-symbols:keyboard-arrow-up'} width={20} height={20} />
           </IconButton> */}
-            {cuisines?.map((item, _i) => (
+            {[
+              cuisines?.find((item) => item?.name === 'Explore All'),
+              ...(cuisines?.filter((item) => item?.name !== 'Explore All') || []),
+            ]?.map((item, _i) => (
               <Button
                 key={_i}
                 onClick={async () => {

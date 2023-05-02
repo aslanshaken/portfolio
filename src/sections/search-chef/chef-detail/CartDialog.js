@@ -9,6 +9,8 @@ import useAuth from 'src/hooks/useAuth';
 import { useRouter } from 'next/router';
 import { PATH_AUTH } from 'src/routes/paths';
 import useNotify from 'src/hooks/useNotify';
+import { useSelector } from 'src/redux/store';
+import { FOOD_SELECTOR } from 'src/redux/slices/food';
 
 //
 CartDialog.propTypes = {
@@ -23,14 +25,16 @@ CartDialog.defaultProps = {
 export default function CartDialog({ data, setSelectedItemData, onSubmit, ...other }) {
   const { isAuthenticated } = useAuth();
   const router = useRouter();
-  const [orderCount, setOrderCount] = useState(0);
-  const [minOrder, setMinOrder] = useState(1);
+  const [orderCount, setOrderCount] = useState();
   const [note, setNote] = useState();
+  const { checkout } = useSelector(FOOD_SELECTOR);
+  const { cart } = checkout;
 
   useEffect(() => {
-    setNote(data?.how_to_prepare);
-    setMinOrder(data?.min_order ?? 1);
-    setOrderCount(data?.min_order ?? 1);
+    if (other.open) {
+      setNote(cart?.find((item) => item?.id === data?.id)?.notes ?? '');
+      setOrderCount(data?.quantity);
+    }
   }, [other.open]);
 
   return (
@@ -57,7 +61,7 @@ export default function CartDialog({ data, setSelectedItemData, onSubmit, ...oth
               </Stack>
             </Grid>
             <Grid>
-              <CartCountBox value={orderCount} minOrder={minOrder} onChange={(val) => setOrderCount(val)} />
+              <CartCountBox value={orderCount} minOrder={data?.quantity} onChange={(val) => setOrderCount(val)} />
             </Grid>
           </Grid>
           <Stack mt={2}>
@@ -112,8 +116,9 @@ export default function CartDialog({ data, setSelectedItemData, onSubmit, ...oth
             color="secondary"
             onClick={() => {
               if (isAuthenticated) {
-                const arrDatas = [...Array(orderCount).keys()].map(() => ({ ...data, how_to_prepare: note }));
-                setSelectedItemData(arrDatas);
+                data.notes = note;
+                data.count = orderCount;
+                setSelectedItemData(data);
                 onSubmit();
               } else {
                 router.push(PATH_AUTH.login);
@@ -156,8 +161,8 @@ function CartCountBox({ value = 0, minOrder = 1, onChange }) {
 
   const handleChange = (type) => {
     let newValue = value;
-    if (type === '+') newValue++;
-    else newValue--;
+    if (type === '+') newValue += minOrder;
+    else newValue -= minOrder;
 
     if (newValue < minOrder) {
       newValue = minOrder;

@@ -9,7 +9,7 @@ import { CITYCUISINE_SELECTOR } from 'src/redux/slices/city';
 import { useRouter } from 'next/router';
 import { ShoppingCartIcon } from 'src/assets';
 import Iconify from 'src/components/Iconify';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { createCardIntent } from 'src/redux/service/payment';
 
 //
@@ -22,31 +22,23 @@ export default function CartChef() {
 
   const { cart, deliveryDate } = checkout;
 
+  const [cartCount, setCartCount] = useState(0);
+
+  useEffect(() => {
+    setCartCount(cart?.reduce((total, currentValue) => total + currentValue.count, 0));
+  }, [cart]);
+
   const router = useRouter();
 
   const dispatch = useDispatch();
 
-  const cartArr = cart?.reduce((acc, curr) => {
-    // Find the object in acc array with same id and name
-    const foundObj = acc.find((obj) => obj.id === curr.id);
-
-    // If object is present increment the count else add the current object into accumulator array
-    if (foundObj) {
-      foundObj.count++;
-    } else {
-      acc.push({ ...curr, count: 1 });
-    }
-
-    return acc;
-  }, []);
-
-  const cuisineNames = new Set(cartArr.map((item) => cuisines.find((cuisine) => cuisine.id == item.cuisine_id)?.name));
+  const cuisineNames = new Set(cart?.map((item) => cuisines.find((cuisine) => cuisine.id == item.cuisine_id)?.name));
 
   const handleClickCreateOrders = async () => {
     setLoading(true);
     await dispatch(clearOrderDetail());
     const response = await dispatch(
-      createOrders({ chefId: chef?.chef?.id, carts: cartArr, selectedDay: new Date(deliveryDate) })
+      createOrders(cart)
     );
     setLoading(false);
     router.push('/cities/4/4/2/checkout/');
@@ -74,7 +66,7 @@ export default function CartChef() {
               loading={loading}
               onClick={handleClickCreateOrders}
             >
-              Checkout ({cart.length})
+              Checkout ({cartCount})
             </LoadingButton>
           </Stack>
         </>

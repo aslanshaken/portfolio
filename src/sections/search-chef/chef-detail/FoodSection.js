@@ -22,7 +22,7 @@ import MenuAllerogyForm from './MenuAllerogyForm';
 import DropHiddenButton from '../../../components/DropHiddenButton';
 import CartDialog from './CartDialog';
 import { useDispatch, useSelector } from '../../../redux/store';
-import { addFoodCart, clearCart, getFoodsByChef, setError } from '../../../redux/slices/food';
+import { addFoodCart, clearCart, getFoodsByChef, setError, updateFoodCart } from '../../../redux/slices/food';
 import { getMockTypeData } from '../../../utils/functions';
 import FoodCartCard from 'src/components/FoodCartCard';
 import Iconify from 'src/components/Iconify';
@@ -110,26 +110,28 @@ export default function FoodSection({ selectedCategory }) {
 
   const [isOpenNewCartDlg, setIsOpenNewCartDlg] = useState(false);
 
-  const [selectedItemData, setSelectedItemData] = useState([]);
+  const [selectedItemData, setSelectedItemData] = useState();
 
   const dispatch = useDispatch();
 
-  const handleClickHideButton = () => {
-    setIsHiddenCategory(!isHiddenCategory);
-  };
+  // const handleClickHideButton = () => {
+  //   setIsHiddenCategory(!isHiddenCategory);
+  // };
 
-  const handleClickItem = (data) => {
+  const handleClickItem = (props) => {
+    let data = { ...props };
+    data.count = data.quantity;
     setIsOpenCartDlg(true);
-    setSelectedItemData([data]);
+    setSelectedItemData(data);
   };
 
   const handleClickAddCart = useCallback(
     (data) => {
-      setSelectedItemData(data.foods);
-      if (cart.some((item) => item?.user_id !== data?.foods?.[0]?.user_id)) {
+      setSelectedItemData(data);
+      if (cart.some((item) => item?.user_id !== data?.user_id)) {
         setIsOpenNewCartDlg(true);
       } else {
-        dispatch(addFoodCart(data));
+        dispatch(updateFoodCart({ data: data, actionType: 'add' }));
       }
     },
     [cart]
@@ -140,11 +142,14 @@ export default function FoodSection({ selectedCategory }) {
   return (
     <RootStyle>
       <CartDialog
-        data={selectedItemData[0]}
+        data={selectedItemData}
         setSelectedItemData={setSelectedItemData}
         open={isOpenCartDlg}
         onSubmit={() => {
-          handleClickAddCart({ foods: selectedItemData, newAddCart: false });
+          handleClickAddCart({
+            ...selectedItemData,
+            selected_day: selectedCategory,
+          });
           setIsOpenCartDlg(false);
         }}
         onClose={() => setIsOpenCartDlg(false)}
@@ -153,7 +158,17 @@ export default function FoodSection({ selectedCategory }) {
       <NewCartDialog
         open={isOpenNewCartDlg}
         onSubmit={() => {
-          dispatch(addFoodCart({ foods: selectedItemData, newAddCart: true, deliveryDate: selectedCategory }));
+          dispatch(updateFoodCart({ actionType: 'clear' }));
+          dispatch(
+            updateFoodCart({
+              data: {
+                ...selectedItemData,
+                count: selectedItemData.quantity,
+                selected_day: selectedCategory,
+              },
+              actionType: 'add',
+            })
+          );
           setIsOpenNewCartDlg(false);
         }}
         onClose={() => {
@@ -265,7 +280,11 @@ export default function FoodSection({ selectedCategory }) {
                     onClick={() => handleClickItem(item)}
                     onClickPlus={() => {
                       if (isAuthenticated) {
-                        handleClickAddCart({ foods: [item], newAddCart: false, deliveryDate: selectedCategory });
+                        handleClickAddCart({
+                          ...item,
+                          count: item.quantity,
+                          selected_day: selectedCategory,
+                        });
                       } else {
                         router.push(PATH_AUTH.login);
                       }

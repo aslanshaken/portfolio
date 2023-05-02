@@ -4,7 +4,7 @@ import { IconButtonAnimate } from '../../components/animate';
 import Iconify from '../../components/Iconify';
 import Image from 'src/components/Image';
 import { useDispatch } from 'src/redux/store';
-import { removeFoodCart } from 'src/redux/slices/food';
+import { updateFoodCart } from 'src/redux/slices/food';
 import GradientText from 'src/components/GradientText';
 
 //
@@ -34,12 +34,15 @@ export default function CuisineCard({ cuisine = {} }) {
         />
 
         <Stack>
-          <Typography variant="h6" color="black" fontWeight={600} gutterBottom>
+          <Typography variant="h6" color="black" fontWeight={600}>
             {cuisine?.title}
           </Typography>
           <GradientText color="primary" variant="subtitle1">
             {`$${cuisine?.current_price} / ${cuisine?.measurement || ''}`}
           </GradientText>
+          <Typography variant="body2" fontWeight={600}>
+            {cuisine?.notes}
+          </Typography>
         </Stack>
       </Stack>
 
@@ -49,7 +52,7 @@ export default function CuisineCard({ cuisine = {} }) {
         <IconButtonAnimate
           color="error"
           onClick={() => {
-            dispatch(removeFoodCart({ food: cuisine, removeAll: false, removeOneItem: false }));
+            dispatch(updateFoodCart({ data: cuisine, actionType: 'delete' }));
           }}
         >
           <Iconify icon={'mdi:trash'} />

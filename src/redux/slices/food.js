@@ -43,31 +43,30 @@ const slice = createSlice({
       state.loading = true;
     },
 
-    addFoodCart(state, action) {
-      if (action.payload.newAddCart) {
-        state.checkout.cart = [];
-      } else if (action.payload?.deliveryDate) {
-        state.checkout.deliveryDate = action.payload.deliveryDate;
-      }
-      const newDatas = Array.isArray(action.payload.foods) ? action.payload.foods : [action.payload.foods];
-      state.checkout.cart = [...state.checkout.cart, ...newDatas];
-    },
+    updateFoodCart(state, action) {
+      switch (action.payload.actionType) {
+        case 'clear':
+          state.checkout.cart = [];
+          break;
 
-    removeFoodCart(state, action) {
-      if (action.payload.removeAll) {
-        state.checkout.cart = [];
-      } else {
-        if (action.payload.removeOneItem) {
-          const indexToRemove = state.checkout.cart.findIndex((obj) => obj.id === action.payload.food.id);
-          state.checkout.cart.splice(indexToRemove, 1);
-        } else {
-          state.checkout.cart = state.checkout.cart.filter((item) => item.id !== action.payload.food.id);
+        case 'add': {
+          const alreadyFood = state?.checkout?.cart?.find((item) => item.id === action.payload.data.id);
+          if (alreadyFood) {
+            alreadyFood.count += action.payload.data.count;
+            alreadyFood.notes = action.payload.data.notes ?? alreadyFood.notes;
+          } else {
+            state.checkout.cart = [...state.checkout.cart, action.payload.data];
+          }
+          break;
         }
-      }
-    },
 
-    clearCart(state) {
-      state.checkout.cart = [];
+        case 'delete':
+          state.checkout.cart = state.checkout.cart.filter((item) => item.id !== action.payload.data.id);
+          break;
+
+        default:
+          console.log('Unknown action type:', action.payload.actionType);
+      }
     },
 
     setError(state, action) {
@@ -153,9 +152,7 @@ export default slice.reducer;
 // Actions
 export const {
   startLoading,
-  addFoodCart,
-  removeFoodCart,
-  clearCart,
+  updateFoodCart,
   setError,
   setOrderId,
   setOrderDetail,
@@ -171,17 +168,19 @@ export const FOOD_SELECTOR = (state) => state.food;
 
 export function createOrders(data) {
   return async (dispatch) => {
-    const oreders = data.carts.map(({ id, count }) => ({
+    const oreders = data.map(({ id, count, notes, selected_day }) => ({
       food_id: id,
       count: count,
-      selected_day: data.selectedDay,
+      notes: notes,
+      selected_day: selected_day,
     }));
 
+    console.log('oreders: ', oreders);
     dispatch(startLoading());
     try {
       const response = await axios.post(`/api/${process.env.API_VERSION}/orders/create`, {
         order: {
-          chef_id: data.chefId,
+          chef_id: data[0].user_id,
           status: 'initiated',
           items_attributes: oreders,
         },

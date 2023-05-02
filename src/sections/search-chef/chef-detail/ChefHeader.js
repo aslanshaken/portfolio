@@ -10,7 +10,7 @@ import HeroHeader from 'src/components/HeroHeader';
 import { useDispatch, useSelector } from 'src/redux/store';
 import { CITYCUISINE_SELECTOR } from 'src/redux/slices/city';
 import { add, format } from 'date-fns';
-import { addFoodCart, FOOD_SELECTOR } from 'src/redux/slices/food';
+import { addFoodCart, FOOD_SELECTOR, updateCart, updateFoodCart } from 'src/redux/slices/food';
 import { useEffect, useState } from 'react';
 import ChangeDeliveryDateDialgo from './ChangeDeliveryDateDialgo';
 
@@ -24,13 +24,13 @@ ChefHeader.propTypes = {
 export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
   const { cuisine } = useSelector(CITYCUISINE_SELECTOR);
 
-  const {
-    chef: { chef },
-  } = useSelector(CITYCUISINE_SELECTOR);
+  const { chef: chefData } = useSelector(CITYCUISINE_SELECTOR);
+
+  const { chef } = chefData;
 
   const { checkout, foods } = useSelector(FOOD_SELECTOR);
 
-  const { cart, deliveryDate } = checkout;
+  const { cart } = checkout;
 
   const [tempCategory, setTempCategory] = useState();
 
@@ -48,18 +48,24 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
   useEffect(() => {
     if (categories.length > 0) {
       if (cart[0]?.user_id === chef?.id) {
-        setSelectedCategory(deliveryDate);
+        setSelectedCategory(cart?.[0]?.selected_day);
       } else {
         setSelectedCategory(categories[0]?.date);
       }
     }
-  }, [categories.length, deliveryDate, chef?.id]);
+  }, [categories.length, chef?.id]);
 
   const dispatch = useDispatch();
 
+  // const setCategory = () => {
+  //   setSelectedCategory(tempCategory);
+  //   dispatch(addFoodCart({ foods: [], newAddCart: true, deliveryDate: selectedCategory }));
+  //   setChangeDeliveryDateDialogIsOpen(false);
+  // };
+
   const setCategory = () => {
     setSelectedCategory(tempCategory);
-    dispatch(addFoodCart({ foods: [], newAddCart: true, deliveryDate: selectedCategory }));
+    dispatch(updateFoodCart({ actionType: 'clear' }));
     setChangeDeliveryDateDialogIsOpen(false);
   };
 

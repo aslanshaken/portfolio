@@ -27,7 +27,7 @@ import useAuth from '../../hooks/useAuth';
 import { PATH_AUTH, PATH_PAGE } from '../../routes/paths';
 import { useSelector } from '../../redux/store';
 import { FOOD_SELECTOR } from '../../redux/slices/food';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import MenuPopover from 'src/components/MenuPopover';
 
 const Badge = dynamic(() => import('@mui/material/Badge'), { ssr: false });
@@ -71,7 +71,15 @@ export default function MainHeader() {
 
   const { checkout } = useSelector(FOOD_SELECTOR);
 
-  const cartCount = checkout.cart.length;
+  const { cart } = checkout;
+
+  const [cartCount, setCartCount] = useState(0);
+
+  useEffect(() => {
+    setCartCount(
+      cart?.reduce((total, currentValue) => total + currentValue.count, 0)
+    );
+  }, [cart]);
 
   const isDesktop = useResponsive('up', 'md');
 

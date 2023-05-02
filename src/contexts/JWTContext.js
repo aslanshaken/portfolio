@@ -38,16 +38,6 @@ const handlers = {
     user: null,
   }),
 
-  REGISTER: (state, action) => {
-    const { user } = action.payload;
-
-    return {
-      ...state,
-      isAuthenticated: true,
-      user,
-    };
-  },
-
   UPDATEADDRESS: (state, action) => {
     const { user } = state;
     user.addresses = [
@@ -222,14 +212,10 @@ function AuthProvider({ children }) {
       },
     });
     const { user, auth_token } = response.data;
+  };
 
-    localStorage.setItem('accessToken', auth_token);
-    dispatch({
-      type: 'REGISTER',
-      payload: {
-        user,
-      },
-    });
+  const confirm = async (data) => {
+    const response = await axios.post(`/api/${process.env.API_VERSION}/confirm_user`, data);
   };
 
   const logout = async () => {
@@ -269,7 +255,7 @@ function AuthProvider({ children }) {
     });
 
     const userInfo = await axios.get(`/api/${process.env.API_VERSION}/users/profile`);
-    
+
     dispatch({
       type: 'ADDADDRESS',
       payload: userInfo.data.addresses[0],
@@ -336,6 +322,7 @@ function AuthProvider({ children }) {
         updatePersonalInfo,
         updatePassword,
         changeAddress,
+        confirm
       }}
     >
       {children}

@@ -16,6 +16,7 @@ export default function RegisterForm() {
   const { register } = useAuth();
 
   const [errorMsg, setErrorMsg] = useState();
+  const [successMsg, setSuccessMsg] = useState();
   const [showPassword, setShowPassword] = useState(false);
   const [showCPassword, setShowCPassword] = useState(false);
 
@@ -50,6 +51,7 @@ export default function RegisterForm() {
   const onSubmit = async (data) => {
     try {
       await register(data.firstName, data.lastName, data.email, data.password, data.password_confirmation);
+      setSuccessMsg('Please confirm your email.');
     } catch (error) {
       setErrorMsg(error.message);
       // reset();
@@ -60,8 +62,23 @@ export default function RegisterForm() {
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={3}>
         {errorMsg && (
-          <Alert severity="error" onClose={() => {setErrorMsg()}}>
+          <Alert
+            severity="error"
+            onClose={() => {
+              setErrorMsg();
+            }}
+          >
             {errorMsg}
+          </Alert>
+        )}
+        {successMsg && (
+          <Alert
+            severity="success"
+            onClose={() => {
+              setSuccessMsg();
+            }}
+          >
+            {successMsg}
           </Alert>
         )}
         <RHFTextField name="firstName" label="First name" />

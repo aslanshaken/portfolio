@@ -12,9 +12,19 @@ Image.propTypes = {
   sx: PropTypes.object,
   width: PropTypes.string,
   height: PropTypes.string,
+  objectFit: PropTypes.string,
 };
 
-export default function Image({ width = '100%', height = '100%', disabledEffect, effect, ratio, sx, ...other }) {
+export default function Image({
+  width = '100%',
+  height = '100%',
+  disabledEffect,
+  effect,
+  ratio,
+  sx,
+  objectFit = 'cover',
+  ...other
+}) {
   if (ratio) {
     return (
       <Box
@@ -33,7 +43,7 @@ export default function Image({ width = '100%', height = '100%', disabledEffect,
             bottom: 0,
             lineHeight: 0,
             position: 'absolute',
-            backgroundSize: 'cover !important',
+            backgroundSize: `${objectFit} !important`,
           },
           ...sx,
         }}
@@ -43,7 +53,7 @@ export default function Image({ width = '100%', height = '100%', disabledEffect,
           wrapperClassName="wrapper"
           effect={disabledEffect ? undefined : effect}
           placeholderSrc="/assets/placeholder.png"
-          sx={{ width: 1, height: other.height, objectFit: 'contain', objectPosition: 'center' }}
+          sx={{ width: 1, height: other.height, objectFit: objectFit, objectPosition: 'center' }}
           {...other}
         />
       </Box>
@@ -57,7 +67,7 @@ export default function Image({ width = '100%', height = '100%', disabledEffect,
         lineHeight: 0,
         display: 'block',
         overflow: 'hidden',
-        '& .wrapper': { width: 1, height: 1, backgroundSize: 'cover !important' },
+        '& .wrapper': { width: 1, height: 1, backgroundSize: `${objectFit} !important` },
         ...sx,
       }}
     >
@@ -66,7 +76,7 @@ export default function Image({ width = '100%', height = '100%', disabledEffect,
         wrapperClassName="wrapper"
         effect={disabledEffect ? undefined : effect}
         placeholderSrc="/assets/placeholder.png"
-        sx={{ width: { width }, height: { height }, objectFit: 'cover' }}
+        sx={{ width: { width }, height: { height }, objectFit: objectFit }}
         {...other}
       />
     </Box>
