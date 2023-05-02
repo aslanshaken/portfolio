@@ -158,6 +158,7 @@ export default function FoodSection({ selectedCategory }) {
       <NewCartDialog
         open={isOpenNewCartDlg}
         onSubmit={() => {
+          dispatch(updateFoodCart({ actionType: 'clear' }));
           dispatch(
             updateFoodCart({
               data: {

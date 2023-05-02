@@ -82,16 +82,6 @@ export default function CuisineDialog({ isOpen }) {
                 </Typography>
               </Button>
             ))}
-            <Button
-              onClick={async () => {
-                await router.push(`/cities/4/all/`);
-                dispatch(closeDialog());
-              }}
-              variant="outlined"
-              style={{ marginTop: 30 }}
-            >
-              Explore All
-            </Button>
           </Stack>
         </Stack>
       </DialogContent>
