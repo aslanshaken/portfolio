@@ -14,6 +14,8 @@ import { DIALOG_SELECTOR, setInitialized } from 'src/redux/slices/dialog';
 import useAuth from 'src/hooks/useAuth';
 import { FOOD_SELECTOR, getPopularFoods, updateFoodCart } from 'src/redux/slices/food';
 import LoadingScreen from 'src/components/LoadingScreen';
+import { useRouter } from 'next/router';
+import { PATH_AUTH, PATH_PAGE } from 'src/routes/paths';
 
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
@@ -26,10 +28,25 @@ HomePage.getLayout = function getLayout(page) {
 
 export default function HomePage() {
   const dispatch = useDispatch();
-  const { isAuthenticated } = useAuth();
+  const router = useRouter();
+  const { token, previous } = router.query;
+  const { isAuthenticated, confirm } = useAuth();
   const { initialized } = useSelector(DIALOG_SELECTOR);
   const { loading } = useSelector(FOOD_SELECTOR);
   const [welcomeDialogIsOpen, setWelcomeDialogIsOpen] = useState(false);
+
+  useEffect(() => {
+    const fetch = async () => {
+      await confirm({ token: token });
+      router.push(PATH_AUTH.login);
+    };
+
+    if (token && !isAuthenticated) {
+      fetch();
+    } else {
+      router.push('/');
+    }
+  }, []);
 
   useEffect(() => {
     if (!initialized) setWelcomeDialogIsOpen(true);

@@ -43,7 +43,7 @@ const handlers = {
 
     return {
       ...state,
-      isAuthenticated: true,
+      isAuthenticated: false,
       user,
     };
   },
@@ -232,6 +232,10 @@ function AuthProvider({ children }) {
     });
   };
 
+  const confirm = async (data) => {
+    const response = await axios.post(`/api/${process.env.API_VERSION}/confirm_user`, data);
+  };
+
   const logout = async () => {
     setSession(null);
     dispatch({ type: 'LOGOUT' });
@@ -269,7 +273,7 @@ function AuthProvider({ children }) {
     });
 
     const userInfo = await axios.get(`/api/${process.env.API_VERSION}/users/profile`);
-    
+
     dispatch({
       type: 'ADDADDRESS',
       payload: userInfo.data.addresses[0],
@@ -336,6 +340,7 @@ function AuthProvider({ children }) {
         updatePersonalInfo,
         updatePassword,
         changeAddress,
+        confirm
       }}
     >
       {children}

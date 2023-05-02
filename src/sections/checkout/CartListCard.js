@@ -46,11 +46,13 @@ export default function CartListCard() {
           <Typography variant="body2">Cart is empty.</Typography>
         ) : (
           <List disablePadding sx={{ overflowX: 'auto' }}>
-            {orderDetail?.items?.map((data, _i) => (
-              <ListItem key={'cart-cousine-' + _i} disableGutters>
-                <CuisineCard data={data} orderId={orderId} />
-              </ListItem>
-            ))}
+            {[...(orderDetail?.items || [])]
+              ?.sort((a, b) => a.id - b.id)
+              .map((data, _i) => (
+                <ListItem key={'cart-cousine-' + _i} disableGutters>
+                  <CuisineCard data={data} orderId={orderId} />
+                </ListItem>
+              ))}
           </List>
         )}
       </Box>

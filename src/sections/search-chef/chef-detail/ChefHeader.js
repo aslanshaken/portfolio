@@ -24,9 +24,9 @@ ChefHeader.propTypes = {
 export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
   const { cuisine } = useSelector(CITYCUISINE_SELECTOR);
 
-  const {
-    chef: { chef },
-  } = useSelector(CITYCUISINE_SELECTOR);
+  const { chef: chefData } = useSelector(CITYCUISINE_SELECTOR);
+
+  const { chef } = chefData;
 
   const { checkout, foods } = useSelector(FOOD_SELECTOR);
 
