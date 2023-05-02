@@ -110,7 +110,7 @@ export default function FoodSection({ selectedCategory }) {
 
   const [isOpenNewCartDlg, setIsOpenNewCartDlg] = useState(false);
 
-  const [selectedItemData, setSelectedItemData] = useState([]);
+  const [selectedItemData, setSelectedItemData] = useState();
 
   const dispatch = useDispatch();
 
