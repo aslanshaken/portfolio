@@ -22,19 +22,7 @@ import MenuAllerogyForm from './MenuAllerogyForm';
 import DropHiddenButton from '../../../components/DropHiddenButton';
 import CartDialog from './CartDialog';
 import { useDispatch, useSelector } from '../../../redux/store';
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-import { getFoodsByChef, setError, updateFoodCart } from '../../../redux/slices/food';
-=======
 import { addFoodCart, clearCart, getFoodsByChef, setError, updateFoodCart } from '../../../redux/slices/food';
->>>>>>> 4b8b9b5d7f6cdd48e46334a37aff69c56fa71009
-=======
-import { addFoodCart, clearCart, getFoodsByChef, setError, updateFoodCart } from '../../../redux/slices/food';
->>>>>>> 4b8b9b5d7f6cdd48e46334a37aff69c56fa71009
-=======
-import { addFoodCart, clearCart, getFoodsByChef, setError, updateFoodCart } from '../../../redux/slices/food';
->>>>>>> 4b8b9b5d7f6cdd48e46334a37aff69c56fa71009
 import { getMockTypeData } from '../../../utils/functions';
 import FoodCartCard from 'src/components/FoodCartCard';
 import Iconify from 'src/components/Iconify';
@@ -143,19 +131,7 @@ export default function FoodSection({ selectedCategory }) {
       if (cart.some((item) => item?.user_id !== data?.user_id)) {
         setIsOpenNewCartDlg(true);
       } else {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
         dispatch(updateFoodCart({ data: data, actionType: 'add' }));
-=======
-        dispatch(updateFoodCart({ data: data }));
->>>>>>> 4b8b9b5d7f6cdd48e46334a37aff69c56fa71009
-=======
-        dispatch(updateFoodCart({ data: data }));
->>>>>>> 4b8b9b5d7f6cdd48e46334a37aff69c56fa71009
-=======
-        dispatch(updateFoodCart({ data: data }));
->>>>>>> 4b8b9b5d7f6cdd48e46334a37aff69c56fa71009
       }
     },
     [cart]
@@ -189,19 +165,7 @@ export default function FoodSection({ selectedCategory }) {
                 count: selectedItemData.quantity,
                 selected_day: selectedCategory,
               },
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
               actionType: 'add',
-=======
-              actionType: 'new',
->>>>>>> 4b8b9b5d7f6cdd48e46334a37aff69c56fa71009
-=======
-              actionType: 'new',
->>>>>>> 4b8b9b5d7f6cdd48e46334a37aff69c56fa71009
-=======
-              actionType: 'new',
->>>>>>> 4b8b9b5d7f6cdd48e46334a37aff69c56fa71009
             })
           );
           setIsOpenNewCartDlg(false);

@@ -8,13 +8,7 @@ import CardHeader from 'src/components/card/CardHeader';
 import Iconify from 'src/components/Iconify';
 import Image from 'src/components/Image';
 import { useDispatch, useSelector } from 'src/redux/store';
-import {
-  deleteCart,
-  FOOD_SELECTOR,
-  getOrderDetail,
-  updateCart,
-  updateFoodCart,
-} from 'src/redux/slices/food';
+import { deleteCart, FOOD_SELECTOR, getOrderDetail, updateCart, updateFoodCart } from 'src/redux/slices/food';
 import useNotify from 'src/hooks/useNotify';
 import GradientText from 'src/components/GradientText';
 import { useRouter } from 'next/router';
@@ -129,25 +123,7 @@ function CuisineCard({ data = {}, orderId }) {
           <Typography variant="h6" color="black" fontWeight={600}>
             {data?.title}
           </Typography>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
           <Typography variant="body2">{data?.notes}</Typography>
-=======
-          <Typography variant="body2">
-            {data?.notes}
-          </Typography>
->>>>>>> 4b8b9b5d7f6cdd48e46334a37aff69c56fa71009
-=======
-          <Typography variant="body2">
-            {data?.notes}
-          </Typography>
->>>>>>> 4b8b9b5d7f6cdd48e46334a37aff69c56fa71009
-=======
-          <Typography variant="body2">
-            {data?.notes}
-          </Typography>
->>>>>>> 4b8b9b5d7f6cdd48e46334a37aff69c56fa71009
         </Stack>
       </Stack>
 

@@ -4,19 +4,7 @@ import { IconButtonAnimate } from '../../components/animate';
 import Iconify from '../../components/Iconify';
 import Image from 'src/components/Image';
 import { useDispatch } from 'src/redux/store';
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 import { updateFoodCart } from 'src/redux/slices/food';
-=======
-import { removeFoodCart } from 'src/redux/slices/food';
->>>>>>> 4b8b9b5d7f6cdd48e46334a37aff69c56fa71009
-=======
-import { removeFoodCart } from 'src/redux/slices/food';
->>>>>>> 4b8b9b5d7f6cdd48e46334a37aff69c56fa71009
-=======
-import { removeFoodCart } from 'src/redux/slices/food';
->>>>>>> 4b8b9b5d7f6cdd48e46334a37aff69c56fa71009
 import GradientText from 'src/components/GradientText';
 
 //
@@ -64,19 +52,7 @@ export default function CuisineCard({ cuisine = {} }) {
         <IconButtonAnimate
           color="error"
           onClick={() => {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-            dispatch(updateFoodCart({ data: cuisine, actionType:'delete' }));
-=======
-            dispatch(removeFoodCart({ food: cuisine, removeAll: false, removeOneItem: false }));
->>>>>>> 4b8b9b5d7f6cdd48e46334a37aff69c56fa71009
-=======
-            dispatch(removeFoodCart({ food: cuisine, removeAll: false, removeOneItem: false }));
->>>>>>> 4b8b9b5d7f6cdd48e46334a37aff69c56fa71009
-=======
-            dispatch(removeFoodCart({ food: cuisine, removeAll: false, removeOneItem: false }));
->>>>>>> 4b8b9b5d7f6cdd48e46334a37aff69c56fa71009
+            dispatch(updateFoodCart({ data: cuisine, actionType: 'delete' }));
           }}
         >
           <Iconify icon={'mdi:trash'} />

@@ -44,47 +44,11 @@ const slice = createSlice({
     },
 
     updateFoodCart(state, action) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
       switch (action.payload.actionType) {
         case 'clear':
           state.checkout.cart = [];
           break;
-=======
-=======
->>>>>>> 4b8b9b5d7f6cdd48e46334a37aff69c56fa71009
-=======
->>>>>>> 4b8b9b5d7f6cdd48e46334a37aff69c56fa71009
-      if (action.payload.actionType === 'clear') {
-        state.checkout.cart = [];
-      } else {
-        if (action.payload.actionType === 'new') {
-          state.checkout.cart = [action.payload.data];
-        } else {
-          const alreadyFood = state?.checkout?.cart?.find((item) => item?.id === action.payload.data.id);
-
-          if (alreadyFood) {
-            alreadyFood.count += action.payload.data.count;
-            alreadyFood.notes = action.payload.data.notes;
-          } else {
-            state.checkout.cart = [...state.checkout.cart, action.payload.data];
-          }
-        }
-      }
-    },
-
-    addFoodCart(state, action) {
-      if (action.payload.newAddCart) {
-        state.checkout.cart = [];
-      } else if (action.payload?.deliveryDate) {
-        state.checkout.deliveryDate = action.payload.deliveryDate;
-      }
-      const newDatas = Array.isArray(action.payload.foods) ? action.payload.foods : [action.payload.foods];
-      state.checkout.cart = [...state.checkout.cart, ...newDatas];
-    },
->>>>>>> 4b8b9b5d7f6cdd48e46334a37aff69c56fa71009
-
+          
         case 'add': {
           const alreadyFood = state?.checkout?.cart?.find((item) => item.id === action.payload.data.id);
           if (alreadyFood) {
@@ -189,18 +153,6 @@ export default slice.reducer;
 export const {
   startLoading,
   updateFoodCart,
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 4b8b9b5d7f6cdd48e46334a37aff69c56fa71009
-=======
->>>>>>> 4b8b9b5d7f6cdd48e46334a37aff69c56fa71009
-  addFoodCart,
-  removeFoodCart,
-  clearCart,
->>>>>>> 4b8b9b5d7f6cdd48e46334a37aff69c56fa71009
   setError,
   setOrderId,
   setOrderDetail,
