@@ -53,7 +53,7 @@ const slice = createSlice({
           const alreadyFood = state?.checkout?.cart?.find((item) => item.id === action.payload.data.id);
           if (alreadyFood) {
             alreadyFood.count += action.payload.data.count;
-            alreadyFood.notes = action.payload.data.notes;
+            alreadyFood.notes = action.payload.data.notes ?? alreadyFood.notes;
           } else {
             state.checkout.cart = [...state.checkout.cart, action.payload.data];
           }
