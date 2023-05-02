@@ -38,11 +38,7 @@ export default function ChefListPage() {
   useEffect(() => {
     async function fetch() {
       SetIsLoading(true);
-      if (cuisineId == 'all') {
-        await dispatch(getAllChefs(cityId));
-      } else {
-        await dispatch(getChefs(cityId, cuisineId));
-      }
+      await dispatch(getChefs(cityId, cuisineId));
       SetIsLoading(false);
       dispatch(getCity(router.query.cityId));
     }
@@ -59,9 +55,7 @@ export default function ChefListPage() {
     <LoadingScreen inner />
   ) : (
     <Page title="Search Chef">
-      {cuisineId !== 'all' && (
-        <HeroHeader loading={loading} backgroundImage={cuisine?.image} city="Austin" cuisine={cuisine?.name} />
-      )}
+      <HeroHeader loading={loading} backgroundImage={cuisine?.image} city="Austin" cuisine={cuisine?.name} />
       <ChooseChef />
     </Page>
   );
