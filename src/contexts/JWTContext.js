@@ -38,16 +38,6 @@ const handlers = {
     user: null,
   }),
 
-  REGISTER: (state, action) => {
-    const { user } = action.payload;
-
-    return {
-      ...state,
-      isAuthenticated: false,
-      user,
-    };
-  },
-
   UPDATEADDRESS: (state, action) => {
     const { user } = state;
     user.addresses = [
@@ -222,14 +212,6 @@ function AuthProvider({ children }) {
       },
     });
     const { user, auth_token } = response.data;
-
-    localStorage.setItem('accessToken', auth_token);
-    dispatch({
-      type: 'REGISTER',
-      payload: {
-        user,
-      },
-    });
   };
 
   const confirm = async (data) => {
