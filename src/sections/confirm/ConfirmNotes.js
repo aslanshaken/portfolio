@@ -1,7 +1,7 @@
 import { Box, Card, Divider, Stack, Typography } from '@mui/material';
 import { useEffect } from 'react';
 import CardHeader from 'src/components/card/CardHeader';
-import { FOOD_SELECTOR, clearCart } from 'src/redux/slices/food';
+import { FOOD_SELECTOR, updateFoodCart } from 'src/redux/slices/food';
 import { useDispatch, useSelector } from 'src/redux/store';
 
 export default function ConfirmNotes() {
@@ -12,7 +12,7 @@ export default function ConfirmNotes() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(clearCart());
+    dispatch(updateFoodCart({ actionType: 'clear' }));
   }, [dispatch]);
 
   return (

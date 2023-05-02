@@ -12,7 +12,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DIALOG_SELECTOR, setInitialized } from 'src/redux/slices/dialog';
 import useAuth from 'src/hooks/useAuth';
-import { FOOD_SELECTOR, clearCart, getPopularFoods } from 'src/redux/slices/food';
+import { FOOD_SELECTOR, getPopularFoods, updateFoodCart } from 'src/redux/slices/food';
 import LoadingScreen from 'src/components/LoadingScreen';
 
 // ----------------------------------------------------------------------
@@ -33,7 +33,7 @@ export default function HomePage() {
 
   useEffect(() => {
     if (!initialized) setWelcomeDialogIsOpen(true);
-    if (!isAuthenticated) dispatch(clearCart());
+    if (!isAuthenticated) dispatch(updateFoodCart({ actionType: 'clear' }));
   }, [dispatch, initialized, isAuthenticated]);
 
   useEffect(() => {

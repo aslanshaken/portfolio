@@ -9,13 +9,11 @@ import Iconify from 'src/components/Iconify';
 import Image from 'src/components/Image';
 import { useDispatch, useSelector } from 'src/redux/store';
 import {
-  addFoodCart,
-  clearCart,
   deleteCart,
   FOOD_SELECTOR,
   getOrderDetail,
-  removeFoodCart,
   updateCart,
+  updateFoodCart,
 } from 'src/redux/slices/food';
 import useNotify from 'src/hooks/useNotify';
 import GradientText from 'src/components/GradientText';
@@ -84,7 +82,6 @@ function CuisineCard({ data = {}, orderId }) {
     async (type) => {
       try {
         if (type === '+') {
-          // dispatch(addFoodCart({ foods: food, newAddCart: false }));
           const response = await dispatch(updateCart('add', orderId, data.id));
           successAlert(response.data.success);
         } else {
@@ -111,7 +108,7 @@ function CuisineCard({ data = {}, orderId }) {
       successAlert(response.data.success);
       setLoading(false);
       if (orderDetail?.items?.length == 1) {
-        dispatch(clearCart());
+        dispatch(updateFoodCart({ actionType: 'clear' }));
         setTimeout(() => {
           router.push('/');
         }, 500);
@@ -129,9 +126,28 @@ function CuisineCard({ data = {}, orderId }) {
         <Image alt={data?.title} src={data?.image} sx={{ borderRadius: '50%', width: 80, height: 80, minWidth: 80 }} />
 
         <Stack minWidth={200}>
-          <Typography variant="h6" color="black" fontWeight={600} gutterBottom>
+          <Typography variant="h6" color="black" fontWeight={600}>
             {data?.title}
           </Typography>
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+          <Typography variant="body2">{data?.notes}</Typography>
+=======
+          <Typography variant="body2">
+            {data?.notes}
+          </Typography>
+>>>>>>> 4b8b9b5d7f6cdd48e46334a37aff69c56fa71009
+=======
+          <Typography variant="body2">
+            {data?.notes}
+          </Typography>
+>>>>>>> 4b8b9b5d7f6cdd48e46334a37aff69c56fa71009
+=======
+          <Typography variant="body2">
+            {data?.notes}
+          </Typography>
+>>>>>>> 4b8b9b5d7f6cdd48e46334a37aff69c56fa71009
         </Stack>
       </Stack>
 
