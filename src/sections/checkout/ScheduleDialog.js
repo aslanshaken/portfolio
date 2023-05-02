@@ -103,7 +103,7 @@ export default function ScheduleDialog({ isPickup, subtitle, ...other }) {
 
   const scheduleTime = checkout?.orderDetail?.schedule_time;
 
-  const [selectedTime, setSelectedTime] = useState(scheduleTime ?? null);
+  const [selectedTime, setSelectedTime] = useState(scheduleTime ?? '');
 
   const slots = checkout?.orderDetail?.schedule_slots;
 
