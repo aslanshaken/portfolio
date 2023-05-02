@@ -30,7 +30,7 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
 
   const { checkout, foods } = useSelector(FOOD_SELECTOR);
 
-  const { cart, deliveryDate } = checkout;
+  const { cart } = checkout;
 
   const [tempCategory, setTempCategory] = useState();
 
@@ -48,12 +48,12 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
   useEffect(() => {
     if (categories.length > 0) {
       if (cart[0]?.user_id === chef?.id) {
-        setSelectedCategory(deliveryDate);
+        setSelectedCategory(cart?.[0]?.selected_day);
       } else {
         setSelectedCategory(categories[0]?.date);
       }
     }
-  }, [categories.length, deliveryDate, chef?.id]);
+  }, [categories.length, chef?.id]);
 
   const dispatch = useDispatch();
 

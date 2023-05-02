@@ -48,7 +48,7 @@ const slice = createSlice({
         case 'clear':
           state.checkout.cart = [];
           break;
-          
+
         case 'add': {
           const alreadyFood = state?.checkout?.cart?.find((item) => item.id === action.payload.data.id);
           if (alreadyFood) {
@@ -168,13 +168,14 @@ export const FOOD_SELECTOR = (state) => state.food;
 
 export function createOrders(data) {
   return async (dispatch) => {
-    const oreders = data.map(({ id, count, notes, selectedDay }) => ({
+    const oreders = data.map(({ id, count, notes, selected_day }) => ({
       food_id: id,
       count: count,
       notes: notes,
-      selected_day: selectedDay,
+      selected_day: selected_day,
     }));
 
+    console.log('oreders: ', oreders);
     dispatch(startLoading());
     try {
       const response = await axios.post(`/api/${process.env.API_VERSION}/orders/create`, {
