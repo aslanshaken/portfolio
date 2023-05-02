@@ -43,7 +43,7 @@ export default function ChefListPage() {
       dispatch(getCity(router.query.cityId));
     }
     fetch();
-  }, [dispatch, router, isAuthenticated, cityId, cuisineId]);
+  }, [cityId, cuisineId]);
 
   useEffect(() => {
     if (error?.status == 404) {

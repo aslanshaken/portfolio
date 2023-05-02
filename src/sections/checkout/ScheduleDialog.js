@@ -1,5 +1,16 @@
 import PropTypes from 'prop-types';
-import { Button, Card, Dialog, IconButton, Stack, Typography } from '@mui/material';
+import {
+  Button,
+  Card,
+  Dialog,
+  FormControl,
+  IconButton,
+  InputLabel,
+  MenuItem,
+  Select,
+  Stack,
+  Typography,
+} from '@mui/material';
 import CardHeader from '../../components/card/CardHeader';
 import { useEffect, useState } from 'react';
 import { Box } from '@mui/system';
@@ -98,6 +109,10 @@ export default function ScheduleDialog({ isPickup, subtitle, ...other }) {
 
   const isDateTomorrow = isTomorrow(new Date(deliveryDate));
 
+  const handleChange = (data) => {
+    setSelectedTime(data.target.value);
+  };
+
   // filter the array by checking if the label contains a time that is after the current hour
   const times = isDateTomorrow
     ? slots?.filter((time) => {
@@ -137,25 +152,25 @@ export default function ScheduleDialog({ isPickup, subtitle, ...other }) {
               There is no available times.
             </Typography>
           ) : (
-            times?.map((item, _i) => (
-              <Box
-                key={item + _i}
-                display={'flex'}
-                alignItems={'center'}
-                justifyContent={'center'}
-                width={120}
-                height={40}
-                color={item === selectedTime ? '#506C60' : 'rgba(80, 108, 96, 0.5)'}
-                bgcolor={item === selectedTime ? '#C1DED1' : 'rgba(193, 222, 209, 0.28)'}
-                borderRadius={2}
-                sx={{ cursor: 'pointer' }}
-                onClick={() => {
-                  setSelectedTime(item);
+            <FormControl sx={{ width: 1 }}>
+              <Select
+                fullWidth
+                value={selectedTime}
+                defaultValue={selectedTime}
+                onChange={handleChange}
+                style={{ width: '100%' }}
+                MenuProps={{
+                  anchorOrigin: { horizontal: 'center', vertical: 'bottom' },
+                  sx: { maxHeight: 300, mt: 1 },
                 }}
               >
-                {item}
-              </Box>
-            ))
+                {times?.map((item, _i) => (
+                  <MenuItem key={item + _i} value={item}>
+                    {item}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           )}
         </Stack>
 
