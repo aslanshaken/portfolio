@@ -33,7 +33,7 @@ export default function CartDialog({ data, setSelectedItemData, onSubmit, ...oth
   useEffect(() => {
     if (other.open) {
       setNote(cart?.find((item) => item?.id === data?.id)?.notes ?? '');
-      setOrderCount(data?.min_order);
+      setOrderCount(cart?.find((item) => item?.id === data?.id)?.notes ? 1 : data?.min_order);
     }
   }, [other.open]);
 
@@ -169,7 +169,7 @@ function CartCountBox({ value = 0, minOrder = 1, onChange, foodId }) {
   let newValue = value;
 
   const handleChange = (type) => {
-    if (type === '+') newValue += cart.find((item) => item?.id === foodId) ? 1 : minOrder;
+    if (type === '+') newValue++;
     else newValue--;
 
     if (newValue < minOrder) {
@@ -182,11 +182,16 @@ function CartCountBox({ value = 0, minOrder = 1, onChange, foodId }) {
 
   return (
     <CartCountStyle direction={'row'} spacing={2}>
-      {newValue > minOrder && (
-        <IconButtonAnimate onClick={() => handleChange('-')} disabled={value === 0 ? true : false}>
-          <Iconify icon={'ic:round-minus'} />
-        </IconButtonAnimate>
-      )}
+      <IconButtonAnimate
+        onClick={() => handleChange('-')}
+        disabled={value <= minOrder ? true : false}
+        sx={{
+          opacity: value <= minOrder ? 0.5 : 1,
+        }}
+      >
+        <Iconify icon={'ic:round-minus'} />
+      </IconButtonAnimate>
+
       <Typography variant="h6" sx={{ minWidth: 30, textAlign: 'center' }}>
         {value}
       </Typography>
