@@ -33,7 +33,7 @@ export default function CartDialog({ data, setSelectedItemData, onSubmit, ...oth
   useEffect(() => {
     if (other.open) {
       setNote(cart?.find((item) => item?.id === data?.id)?.notes ?? '');
-      setOrderCount(data?.quantity);
+      setOrderCount(data?.min_order);
     }
   }, [other.open]);
 
@@ -61,7 +61,12 @@ export default function CartDialog({ data, setSelectedItemData, onSubmit, ...oth
               </Stack>
             </Grid>
             <Grid>
-              <CartCountBox value={orderCount} minOrder={data?.quantity} onChange={(val) => setOrderCount(val)} />
+              <CartCountBox
+                foodId={data?.id}
+                value={orderCount}
+                minOrder={data?.min_order}
+                onChange={(val) => setOrderCount(val)}
+              />
             </Grid>
           </Grid>
           <Stack mt={2}>
@@ -154,15 +159,18 @@ CartCountBox.propTypes = {
   value: PropTypes.any,
   minOrder: PropTypes.any,
   onChange: PropTypes.func,
+  foodId: PropTypes.number,
 };
 
-function CartCountBox({ value = 0, minOrder = 1, onChange }) {
+function CartCountBox({ value = 0, minOrder = 1, onChange, foodId }) {
+  const { checkout } = useSelector(FOOD_SELECTOR);
+  const { cart } = checkout;
   const { errorAlert } = useNotify();
 
   const handleChange = (type) => {
     let newValue = value;
-    if (type === '+') newValue += minOrder;
-    else newValue -= minOrder;
+    if (type === '+') newValue += cart.find((item) => item?.id === foodId) ? 1 : minOrder;
+    else newValue--;
 
     if (newValue < minOrder) {
       newValue = minOrder;

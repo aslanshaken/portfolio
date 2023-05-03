@@ -120,7 +120,11 @@ export default function FoodSection({ selectedCategory }) {
 
   const handleClickItem = (props) => {
     let data = { ...props };
-    data.count = data.quantity;
+    if (!data.min_order) {
+      data.min_order = 1;
+    }
+    data.count = cart.find((item) => item?.id === data.id) ? 1 : data.min_order;
+    data.selected_day = selectedCategory;
     setIsOpenCartDlg(true);
     setSelectedItemData(data);
   };
@@ -146,10 +150,7 @@ export default function FoodSection({ selectedCategory }) {
         setSelectedItemData={setSelectedItemData}
         open={isOpenCartDlg}
         onSubmit={() => {
-          handleClickAddCart({
-            ...selectedItemData,
-            selected_day: selectedCategory,
-          });
+          handleClickAddCart(selectedItemData);
           setIsOpenCartDlg(false);
         }}
         onClose={() => setIsOpenCartDlg(false)}
@@ -161,11 +162,7 @@ export default function FoodSection({ selectedCategory }) {
           dispatch(updateFoodCart({ actionType: 'clear' }));
           dispatch(
             updateFoodCart({
-              data: {
-                ...selectedItemData,
-                count: selectedItemData.quantity,
-                selected_day: selectedCategory,
-              },
+              data: selectedItemData,
               actionType: 'add',
             })
           );
@@ -282,7 +279,7 @@ export default function FoodSection({ selectedCategory }) {
                       if (isAuthenticated) {
                         handleClickAddCart({
                           ...item,
-                          count: item.quantity,
+                          count: cart.find((food) => food?.id === item.id) ? 1 : item.min_order ?? 1,
                           selected_day: selectedCategory,
                         });
                       } else {
