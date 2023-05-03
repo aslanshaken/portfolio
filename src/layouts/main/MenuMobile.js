@@ -5,7 +5,18 @@ import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 // @mui
 import { alpha, styled } from '@mui/material/styles';
-import { Box, List, Drawer, Collapse, ListItemText, ListItemIcon, ListItemButton, Button } from '@mui/material';
+import {
+  Box,
+  List,
+  Drawer,
+  Collapse,
+  ListItemText,
+  ListItemIcon,
+  ListItemButton,
+  Button,
+  Stack,
+  Badge,
+} from '@mui/material';
 // config
 import { NAVBAR } from '../../config';
 // components
@@ -14,10 +25,13 @@ import Iconify from '../../components/Iconify';
 import Scrollbar from '../../components/Scrollbar';
 import { IconButtonAnimate } from '../../components/animate';
 import { NavSectionVertical } from '../../components/nav-section';
-import { PATH_AUTH } from '../../routes/paths';
+import { PATH_AUTH, PATH_PAGE } from '../../routes/paths';
 import { useDispatch } from 'react-redux';
 import { openDialog } from 'src/redux/slices/dialog';
 import useAuth from 'src/hooks/useAuth';
+import { ShoppingCartIcon } from 'src/assets';
+import { useSelector } from 'src/redux/store';
+import { FOOD_SELECTOR } from 'src/redux/slices/food';
 
 // ----------------------------------------------------------------------
 
@@ -43,6 +57,16 @@ export default function MenuMobile({ isHome, navConfig }) {
   const [open, setOpen] = useState(false);
 
   const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const { checkout } = useSelector(FOOD_SELECTOR);
+
+  const { cart } = checkout;
+
+  const [cartCount, setCartCount] = useState(0);
+
+  useEffect(() => {
+    setCartCount(cart?.reduce((total, currentValue) => total + currentValue.count, 0));
+  }, [cart]);
 
   useEffect(() => {
     if (drawerOpen) {
@@ -81,13 +105,31 @@ export default function MenuMobile({ isHome, navConfig }) {
         ModalProps={{ keepMounted: true }}
         PaperProps={{ sx: { pb: 5, width: 260, background: 'linear-gradient(106.35deg, #163E2B 0%, #0B2619 100%);' } }}
       >
-        <Scrollbar>
+        <Stack>
           <Logo sx={{ mx: 2.5, my: 3, height: '40' }} />
           <List disablePadding>
             {navConfig.map((link) => (
               <MenuMobileItem key={link.title} item={link} isOpen={open} onOpen={handleOpen} />
             ))}
+            <NextLink passHref href={PATH_PAGE.cart}>
+              <Stack ml={3} mt={2}>
+                {cartCount > 0 ? (
+                  <Badge
+                    component="div"
+                    badgeContent={cartCount}
+                    color="error"
+                    sx={{ width: 20, height: 10, top: 3 }}
+                  />
+                ) : (
+                  ''
+                )}
+                <IconButtonAnimate>
+                  <ShoppingCartIcon sx={{ width: 28, height: 28 }} />
+                </IconButtonAnimate>
+              </Stack>
+            </NextLink>
           </List>
+
           {!isAuthenticated && (
             <>
               <Box mt={2} mx={4}>
@@ -106,7 +148,7 @@ export default function MenuMobile({ isHome, navConfig }) {
               </Box>
             </>
           )}
-        </Scrollbar>
+        </Stack>
       </Drawer>
     </Box>
   );

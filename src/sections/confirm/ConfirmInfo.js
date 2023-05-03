@@ -71,9 +71,11 @@ export default function ConfirmInfo() {
         </Stack>
 
         <Divider sx={{ display: { xs: 'none', md: 'block' } }} />
+
         <Stack direction={{ md: 'row', xs: 'column' }} justifyContent={'space-between'} flex={'wrap'} gap={4}>
+          <Divider sx={{ order: 2 }} />
           <Stack
-            order={{ xs: 2, md: 1 }}
+            order={{ xs: 3, md: 1 }}
             whiteSpace={'nowrap'}
             direction={'row'}
             flexWrap={'nowrap'}
@@ -105,7 +107,7 @@ export default function ConfirmInfo() {
               </Stack>
             )}
           </Stack>
-          <Stack spacing={1} order={{ xs: 1, md: 2 }}>
+          <Stack spacing={1} order={{ xs: 1, md: 3 }}>
             <Typography variant="body2" color={'text.secondary'}>
               {is_pickup ? 'Pick Up' : 'Delivery'} Address
             </Typography>
@@ -131,7 +133,7 @@ export default function ConfirmInfo() {
           </Stack>
         </Stack>
 
-        <Stack
+        {/* <Stack
           pt={4}
           whiteSpace={'nowrap'}
           direction={'row'}
@@ -151,7 +153,7 @@ export default function ConfirmInfo() {
               $243
             </Typography>
           </Stack>
-        </Stack>
+        </Stack> */}
       </Stack>
     </RootStyle>
   );

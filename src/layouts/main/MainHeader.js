@@ -150,6 +150,7 @@ export default function MainHeader() {
             <Box sx={{ flexGrow: 1 }} />
 
             <Stack
+              display={{ xs: 'none', md: 'block' }}
               mr={{
                 xs: 2,
                 md: 3,

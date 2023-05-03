@@ -184,9 +184,9 @@ function CartCountBox({ value = 0, minOrder = 1, onChange, foodId }) {
     <CartCountStyle direction={'row'} spacing={2}>
       <IconButtonAnimate
         onClick={() => handleChange('-')}
-        disabled={value <= minOrder ? true : false}
+        disabled={value <= (cart?.find((item) => item?.id === foodId) ? 1 : minOrder) ? true : false}
         sx={{
-          opacity: value <= minOrder ? 0.5 : 1,
+          opacity: value <= (cart?.find((item) => item?.id === foodId) ? 1 : minOrder) ? 0.5 : 1,
         }}
       >
         <Iconify icon={'ic:round-minus'} />
