@@ -81,7 +81,7 @@ function CuisineCard({ data = {}, orderId }) {
           const response = await dispatch(updateCart('add', orderId, data.id));
           successAlert(response.data.success);
         } else {
-          if (data.count == 1) {
+          if (data.count == (data.min_order ?? 1)) {
             deleteItem(data?.id);
           } else {
             const response = await dispatch(updateCart('remove', orderId, data.id));
@@ -125,6 +125,7 @@ function CuisineCard({ data = {}, orderId }) {
           <Typography variant="h6" color="black" fontWeight={600}>
             {data?.title}
           </Typography>
+          <Typography variant="caption">min order {`${data?.min_order} ${data?.measurement || ''}`}</Typography>
           <Typography variant="body2">{data?.notes}</Typography>
         </Stack>
       </Stack>

@@ -91,7 +91,9 @@ export default function FoodCartCard(props) {
               {`$${price} / ${quantity} ${measurement || ''}`}
             </Typography>
             {min_order > 1 && (
-              <Typography variant="caption">min order {`${min_order} ${measurement || ''}`}</Typography>
+              <Typography variant="caption" color="text.secondary">
+                min order {`${min_order} ${measurement || ''}`}
+              </Typography>
             )}
           </Box>
           <Box>

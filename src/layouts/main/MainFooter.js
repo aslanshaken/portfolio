@@ -51,7 +51,7 @@ export default function MainFooter() {
                 fontWeight={'bold'}
                 textAlign={'center'}
               >
-                +1 929-928-5292
+                support@cookk.co
               </GradientText>
             </Stack>
 
@@ -82,7 +82,7 @@ export default function MainFooter() {
               fontWeight={'bold'}
               textAlign={'center'}
             >
-              +1 929-928-5292
+              support@cookk.co
             </GradientText>
             {/* <Typography color={'text.secondary'}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.

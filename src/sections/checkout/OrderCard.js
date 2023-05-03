@@ -54,7 +54,7 @@ export default function OrderCard({ isPickup }) {
 
   // router
   const { push } = useRouter();
-  
+
   // state
   const [isLoading, setIsLoading] = useState(false);
 
@@ -93,7 +93,6 @@ export default function OrderCard({ isPickup }) {
       if (!scheduleTime) {
         await dispatch(updateScheduleTime(orderId, scheduleTime));
       }
-      console.log('address: ', address);
       await changeAddress(isPickup, address?.id, orderId);
       await dispatch(addTips({ orderId: orderId, tips: tips }));
       const response = await dispatch(placeOrder(orderId));
@@ -156,9 +155,17 @@ export default function OrderCard({ isPickup }) {
 
       <Divider sx={{ mb: 2 }} />
       <Stack direction={'row'} justifyContent={'space-between'} mb={2}>
+        <Typography variant={'body2'}>{'Tip:'}</Typography>
+        <Typography fontWeight={'bold'} color={'secondary'}>
+          ${tips}
+        </Typography>
+      </Stack>
+
+      <Divider sx={{ mb: 2 }} />
+      <Stack direction={'row'} justifyContent={'space-between'} mb={2}>
         <Typography variant={'body2'}>{'Total:'}</Typography>
         <Typography fontWeight={'bold'} color={'secondary'}>
-          ${order_total}
+          ${order_total + tips}
         </Typography>
       </Stack>
 

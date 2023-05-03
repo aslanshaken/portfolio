@@ -172,10 +172,10 @@ function CartCountBox({ value = 0, minOrder = 1, onChange, foodId }) {
     if (type === '+') newValue++;
     else newValue--;
 
-    if (newValue < minOrder) {
-      newValue = minOrder;
-      errorAlert(`This dish can only be ordered in a minimum quantity of ${value}`);
-    }
+    // if (newValue < minOrder) {
+    //   newValue = minOrder;
+    //   errorAlert(`This dish can only be ordered in a minimum quantity of ${value}`);
+    // }
 
     onChange(newValue);
   };
