@@ -112,7 +112,7 @@ export default function MenuMobile({ isHome, navConfig }) {
               <MenuMobileItem key={link.title} item={link} isOpen={open} onOpen={handleOpen} />
             ))}
             <NextLink passHref href={PATH_PAGE.cart}>
-              <Stack ml={3} mt={2} alignItems={'center'}>
+              <Stack ml={3} mt={2}>
                 {cartCount > 0 ? (
                   <Badge
                     component="div"
