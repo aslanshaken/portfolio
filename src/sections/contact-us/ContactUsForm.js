@@ -45,7 +45,7 @@ export default function ContactUsForm() {
   };
 
   const handleCall = () => {
-    window.location.href = 'tel:+19299285292';
+    window.location.href = 'support@cookk.co';
   };
 
   return (

@@ -120,7 +120,11 @@ export default function FoodSection({ selectedCategory }) {
 
   const handleClickItem = (props) => {
     let data = { ...props };
-    data.count = data.quantity;
+    if (!data.min_order) {
+      data.min_order = 1;
+    }
+    data.count = cart.find((item) => item?.id === data.id) ? 1 : data.min_order;
+    data.selected_day = selectedCategory;
     setIsOpenCartDlg(true);
     setSelectedItemData(data);
   };
@@ -146,10 +150,7 @@ export default function FoodSection({ selectedCategory }) {
         setSelectedItemData={setSelectedItemData}
         open={isOpenCartDlg}
         onSubmit={() => {
-          handleClickAddCart({
-            ...selectedItemData,
-            selected_day: selectedCategory,
-          });
+          handleClickAddCart(selectedItemData);
           setIsOpenCartDlg(false);
         }}
         onClose={() => setIsOpenCartDlg(false)}
@@ -161,11 +162,7 @@ export default function FoodSection({ selectedCategory }) {
           dispatch(updateFoodCart({ actionType: 'clear' }));
           dispatch(
             updateFoodCart({
-              data: {
-                ...selectedItemData,
-                count: selectedItemData.quantity,
-                selected_day: selectedCategory,
-              },
+              data: selectedItemData,
               actionType: 'add',
             })
           );
@@ -268,12 +265,13 @@ export default function FoodSection({ selectedCategory }) {
               </Grid>
             </Grid> */}
             <Grid container spacing={3}>
-              {foods?.[selectedCategory]?.slice((currentPage - 1) * 10, currentPage * 10).map((item) => (
+              {foods?.[selectedCategory]?.slice((currentPage - 1) * 12, currentPage * 12).map((item) => (
                 <Grid key={item?.id} item lg={4} md={6} sm={6} xs={12} width={1}>
                   <FoodCartCard
                     name={item?.title}
                     cover={item?.image_url}
                     price={item?.current_price}
+                    min_order={item?.min_order}
                     we_kc={`${item?.gram} gr / ${item?.kc} kc`}
                     quantity={item?.quantity}
                     measurement={item?.measurement}
@@ -282,7 +280,7 @@ export default function FoodSection({ selectedCategory }) {
                       if (isAuthenticated) {
                         handleClickAddCart({
                           ...item,
-                          count: item.quantity,
+                          count: cart.find((food) => food?.id === item.id) ? 1 : item.min_order ?? 1,
                           selected_day: selectedCategory,
                         });
                       } else {
@@ -293,8 +291,8 @@ export default function FoodSection({ selectedCategory }) {
                 </Grid>
               ))}
             </Grid>
-            {foods?.[selectedCategory]?.length > 10 && (
-              <Pagination count={Math.ceil(foods?.[selectedCategory]?.length / 10)} setCurrentPage={setCurrentPage} />
+            {foods?.[selectedCategory]?.length > 12 && (
+              <Pagination count={Math.ceil(foods?.[selectedCategory]?.length / 12)} setCurrentPage={setCurrentPage} />
             )}
           </Stack>
         </Stack>

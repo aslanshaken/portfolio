@@ -32,10 +32,10 @@ export default function DeliverySteps({ address, isPickup }) {
   const STEPS = [
     {
       icon: 'uil:schedule',
-      title: `${isPickup ? 'Pick Up Schedule' : 'Delivery Schedule'}`,
+      title: `${isPickup ? 'Pick up schedule' : 'Delivery schedule'}`,
       subtitle: `${selectedDate ?? ''}`,
       content: scheduleTime ?? '',
-      buttonText: 'Choose a time',
+      buttonText: 'Select a time',
       onClickButton: () => {
         setIsOpenScheduleDialog(true);
       },
@@ -161,7 +161,7 @@ function DeliveryStepCard({
           </Typography>
         </Box>
         {buttonText != '' && (
-          <Button variant={'outlined'} color="secondary" onClick={onClickButton}>
+          <Button variant={'outlined'} color="secondary" onClick={onClickButton} sx={{ textTransform: 'none' }}>
             {buttonText}
           </Button>
         )}

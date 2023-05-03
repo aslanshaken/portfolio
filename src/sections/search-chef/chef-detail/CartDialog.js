@@ -33,7 +33,7 @@ export default function CartDialog({ data, setSelectedItemData, onSubmit, ...oth
   useEffect(() => {
     if (other.open) {
       setNote(cart?.find((item) => item?.id === data?.id)?.notes ?? '');
-      setOrderCount(data?.quantity);
+      setOrderCount(cart?.find((item) => item?.id === data?.id)?.notes ? 1 : data?.min_order);
     }
   }, [other.open]);
 
@@ -52,7 +52,7 @@ export default function CartDialog({ data, setSelectedItemData, onSubmit, ...oth
           <Grid container justifyContent={'space-between'}>
             <Grid item>
               <Stack>
-                <Typography variant="subtitle1" gutterBottom fontWeight={400} fontSize="1.4rem">
+                <Typography variant="subtitle1" gutterBottom fontWeight={400} fontSize="1.4rem" width={320}>
                   {data?.title}
                 </Typography>
                 <Typography variant="subtitle1" gutterBottom fontWeight={600} fontSize="1.2rem">
@@ -61,7 +61,12 @@ export default function CartDialog({ data, setSelectedItemData, onSubmit, ...oth
               </Stack>
             </Grid>
             <Grid>
-              <CartCountBox value={orderCount} minOrder={data?.quantity} onChange={(val) => setOrderCount(val)} />
+              <CartCountBox
+                foodId={data?.id}
+                value={orderCount}
+                minOrder={data?.min_order}
+                onChange={(val) => setOrderCount(val)}
+              />
             </Grid>
           </Grid>
           <Stack mt={2}>
@@ -154,29 +159,39 @@ CartCountBox.propTypes = {
   value: PropTypes.any,
   minOrder: PropTypes.any,
   onChange: PropTypes.func,
+  foodId: PropTypes.number,
 };
 
-function CartCountBox({ value = 0, minOrder = 1, onChange }) {
+function CartCountBox({ value = 0, minOrder = 1, onChange, foodId }) {
+  const { checkout } = useSelector(FOOD_SELECTOR);
+  const { cart } = checkout;
   const { errorAlert } = useNotify();
+  let newValue = value;
 
   const handleChange = (type) => {
-    let newValue = value;
-    if (type === '+') newValue += minOrder;
-    else newValue -= minOrder;
+    if (type === '+') newValue++;
+    else newValue--;
 
-    if (newValue < minOrder) {
-      newValue = minOrder;
-      errorAlert(`This dish can only be ordered in a minimum quantity of ${value}`);
-    }
+    // if (newValue < minOrder) {
+    //   newValue = minOrder;
+    //   errorAlert(`This dish can only be ordered in a minimum quantity of ${value}`);
+    // }
 
     onChange(newValue);
   };
 
   return (
     <CartCountStyle direction={'row'} spacing={2}>
-      <IconButtonAnimate onClick={() => handleChange('-')} disabled={value === 0 ? true : false}>
+      <IconButtonAnimate
+        onClick={() => handleChange('-')}
+        disabled={value <= (cart?.find((item) => item?.id === foodId) ? 1 : minOrder) ? true : false}
+        sx={{
+          opacity: value <= (cart?.find((item) => item?.id === foodId) ? 1 : minOrder) ? 0.5 : 1,
+        }}
+      >
         <Iconify icon={'ic:round-minus'} />
       </IconButtonAnimate>
+
       <Typography variant="h6" sx={{ minWidth: 30, textAlign: 'center' }}>
         {value}
       </Typography>

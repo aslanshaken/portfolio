@@ -52,7 +52,7 @@ export default function ConfirmInfo() {
           </Stack>
           <Stack spacing={1}>
             <Typography variant="body2" color={'text.secondary'}>
-              Order date
+              {is_pickup ? 'Pick Up' : 'Delivery'} date
             </Typography>
             <Typography variant="subtitle1">{orderDate}</Typography>
           </Stack>
@@ -68,109 +68,72 @@ export default function ConfirmInfo() {
             </Typography>
             <Typography variant="subtitle1">#{order_num}</Typography>
           </Stack>
-          <Stack
-            width={{ xs: '100%', md: 'fit-content' }}
-            direction={'row'}
-            spacing={12}
-            whiteSpace={'pre-wrap'}
-            justifyContent={'space-between'}
-          >
-            {/* <Stack spacing={1} alignItems={'center'}>
-              <Typography variant="body2" color={'text.secondary'}>
-                Payment
-              </Typography>
-              <Image alt={'master-card'} src={'/assets/search-chef/mastercard.png'} sx={{ width: 40 }} />
-            </Stack> */}
-            <Stack spacing={1} display={{ xs: 'block', md: 'none' }}>
-              <Typography variant="body2" color={'text.secondary'}>
-                {is_pickup ? 'Pick Up' : 'Delivery'} Address
-              </Typography>
-              <Typography variant="subtitle1">
-                {is_pickup ? (
-                  primary_address != null ? (
-                    `${primary_address?.line1}, ${primary_address?.apartment}, ${primary_address?.state}, ${primary_address?.city}, 
-                ${primary_address?.zip}`
-                  ) : (
-                    <Typography variant="body2" color={'gray'}>
-                      There is no address
-                    </Typography>
-                  )
-                ) : primary_address != null ? (
-                  `${order_address?.line1}, ${order_address?.apartment}, ${order_address?.state}, ${order_address?.city}, 
-                ${order_address?.zip}`
-                ) : (
-                  <Typography variant="body2" color={'gray'}>
-                    There is no address
-                  </Typography>
-                )}
-              </Typography>
-            </Stack>
-          </Stack>
-        </Stack>
-
-        <Divider />
-
-        <Stack display={{ xs: 'none', md: 'flex' }} spacing={1}>
-          <Typography variant="body2" color={'text.secondary'}>
-            {is_pickup ? 'Pick Up' : 'Delivery'} Address
-          </Typography>
-          <Typography variant="subtitle1">
-            {is_pickup ? (
-              primary_address != null ? (
-                `${primary_address?.line1}, ${primary_address?.apartment}, ${primary_address?.state}, ${primary_address?.city}, 
-                ${primary_address?.zip}`
-              ) : (
-                <Typography variant="body2" color={'gray'}>
-                  There is no address
-                </Typography>
-              )
-            ) : primary_address != null ? (
-              `${order_address?.line1}, ${order_address?.apartment}, ${order_address?.state}, ${order_address?.city}, 
-                ${order_address?.zip}`
-            ) : (
-              <Typography variant="body2" color={'gray'}>
-                There is no address
-              </Typography>
-            )}
-          </Typography>
         </Stack>
 
         <Divider sx={{ display: { xs: 'none', md: 'block' } }} />
 
-        <Stack
-          whiteSpace={'nowrap'}
-          direction={'row'}
-          flexWrap={'wrap'}
-          justifyContent={{ xs: 'space-between', md: 'flex-start' }}
-          gap={8}
-        >
-          <Stack spacing={1}>
-            <Typography variant="subtitle1">Chef</Typography>
-            <Stack direction={'row'} alignItems={'center'} spacing={2}>
-              <Avatar
-                alt="Travis Howard"
-                src={chef_details?.image_url}
-                sx={{
-                  width: 60,
-                  height: 60,
-                }}
-              />
-              <Typography variant="body2" color={'text.secondary'} fontWeight={'600'}>
-                {chef_details?.first_name} {chef_details?.last_name}
-              </Typography>
+        <Stack direction={{ md: 'row', xs: 'column' }} justifyContent={'space-between'} flex={'wrap'} gap={4}>
+          <Divider sx={{ order: 2 }} />
+          <Stack
+            order={{ xs: 3, md: 1 }}
+            whiteSpace={'nowrap'}
+            direction={'row'}
+            flexWrap={'nowrap'}
+            justifyContent={{ xs: 'space-between', md: 'flex-start' }}
+            gap={8}
+          >
+            <Stack spacing={1}>
+              <Typography variant="subtitle1">Chef</Typography>
+              <Stack direction={'row'} alignItems={'center'} spacing={2}>
+                <Avatar
+                  alt="Travis Howard"
+                  src={chef_details?.image_url}
+                  sx={{
+                    width: 60,
+                    height: 60,
+                  }}
+                />
+                <Typography variant="body2" color={'text.secondary'} fontWeight={'600'}>
+                  {chef_details?.first_name} {chef_details?.last_name}
+                </Typography>
+              </Stack>
             </Stack>
+            {status && (
+              <Stack spacing={3} textAlign={'center'}>
+                <Typography variant="subtitle1">Status</Typography>
+                <Label variant={'ghost'} color={STATUS_COLOR[status]} sx={{ textTransform: 'capitalize' }}>
+                  {status}
+                </Label>
+              </Stack>
+            )}
           </Stack>
-          {status && (
-            <Stack spacing={3} textAlign={'center'}>
-              <Typography variant="subtitle1">Status</Typography>
-              <Label variant={'ghost'} color={STATUS_COLOR[status]} sx={{ textTransform: 'capitalize' }}>
-                {status}
-              </Label>
-            </Stack>
-          )}
+          <Stack spacing={1} order={{ xs: 1, md: 3 }}>
+            <Typography variant="body2" color={'text.secondary'}>
+              {is_pickup ? 'Pick Up' : 'Delivery'} Address
+            </Typography>
+            <Typography variant="subtitle1">
+              {is_pickup ? (
+                primary_address != null ? (
+                  `${primary_address?.line1}, ${primary_address?.apartment}, ${primary_address?.state}, ${primary_address?.city}, 
+                ${primary_address?.zip}`
+                ) : (
+                  <Typography variant="body2" color={'gray'}>
+                    There is no address
+                  </Typography>
+                )
+              ) : primary_address != null ? (
+                `${order_address?.line1}, ${order_address?.apartment}, ${order_address?.state}, ${order_address?.city}, 
+                ${order_address?.zip}`
+              ) : (
+                <Typography variant="body2" color={'gray'}>
+                  There is no address
+                </Typography>
+              )}
+            </Typography>
+          </Stack>
         </Stack>
 
-        <Stack
+        {/* <Stack
           pt={4}
           whiteSpace={'nowrap'}
           direction={'row'}
@@ -190,7 +153,7 @@ export default function ConfirmInfo() {
               $243
             </Typography>
           </Stack>
-        </Stack>
+        </Stack> */}
       </Stack>
     </RootStyle>
   );

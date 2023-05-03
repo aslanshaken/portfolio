@@ -44,10 +44,11 @@ export default function OrderCard({ isPickup }) {
 
   const { user } = useAuth();
 
-  const address = user?.addresses?.find((item) => item.primary_address == true);
+  // const address = user?.addresses?.find((item) => item.primary_address == true);
   // redux
   const { checkout } = useSelector(FOOD_SELECTOR);
   const { orderDetail, orderId, cart } = checkout;
+  const address = orderDetail?.available_addresses?.find((item) => item.primary_address == true);
 
   const scheduleTime = checkout?.orderDetail?.schedule_time;
 
@@ -154,9 +155,17 @@ export default function OrderCard({ isPickup }) {
 
       <Divider sx={{ mb: 2 }} />
       <Stack direction={'row'} justifyContent={'space-between'} mb={2}>
+        <Typography variant={'body2'}>{'Tip:'}</Typography>
+        <Typography fontWeight={'bold'} color={'secondary'}>
+          ${tips}
+        </Typography>
+      </Stack>
+
+      <Divider sx={{ mb: 2 }} />
+      <Stack direction={'row'} justifyContent={'space-between'} mb={2}>
         <Typography variant={'body2'}>{'Total:'}</Typography>
         <Typography fontWeight={'bold'} color={'secondary'}>
-          ${order_total}
+          ${order_total + tips}
         </Typography>
       </Stack>
 

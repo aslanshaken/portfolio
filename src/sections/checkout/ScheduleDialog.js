@@ -103,8 +103,6 @@ export default function ScheduleDialog({ isPickup, subtitle, ...other }) {
 
   const scheduleTime = checkout?.orderDetail?.schedule_time;
 
-  const [selectedTime, setSelectedTime] = useState(scheduleTime ?? '');
-
   const slots = checkout?.orderDetail?.schedule_slots;
 
   const isDateTomorrow = isTomorrow(new Date(checkout?.orderDetail?.item?.[0]?.selected_day));
@@ -126,6 +124,12 @@ export default function ScheduleDialog({ isPickup, subtitle, ...other }) {
       })
     : slots;
 
+  const [selectedTime, setSelectedTime] = useState(scheduleTime);
+
+  useEffect(()=>{
+    if (!selectedTime) setSelectedTime(times?.[0]);
+  },[times])
+
   const onSubmit = async () => {
     try {
       setIsLoading(true);
@@ -145,7 +149,7 @@ export default function ScheduleDialog({ isPickup, subtitle, ...other }) {
         <Iconify icon={'iconoir:cancel'} />
       </IconButton>
       <Stack p={{ xs: 3, sm: 8 }}>
-        <Typography variant="h3">Choose a time</Typography>
+        <Typography variant="h3">Select a time</Typography>
         <Stack direction={'row'} flexWrap={'wrap'} justifyContent={{ xs: 'center', sm: 'flex-start' }} py={4} gap={4}>
           {times?.length == 0 ? (
             <Typography variant="caption" color={'gray'} textAlign={'left'} width={'100%'}>

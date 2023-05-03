@@ -22,8 +22,6 @@ ChefHeader.propTypes = {
 // ----------------------------------------------------------------------
 
 export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
-  const { cuisine } = useSelector(CITYCUISINE_SELECTOR);
-
   const { chef: chefData } = useSelector(CITYCUISINE_SELECTOR);
 
   const { chef } = chefData;
@@ -130,9 +128,9 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
                     <Typography display={{ xs: 'block', md: 'none' }} color={'black'} variant={'subtitle1'}>
                       Zip code: {chef?.primary_address?.zip}
                     </Typography>
-                    <Typography color={'black'} variant={'subtitle1'}>
+                    {/* <Typography color={'black'} variant={'subtitle1'}>
                       {cuisine?.name}
-                    </Typography>
+                    </Typography> */}
                     <Typography color={'black'} variant={'subtitle1'}>
                       Rating: {chef?.rating}
                     </Typography>

@@ -5,11 +5,7 @@ import Iconify from 'src/components/Iconify';
 export default function NewCartDialog({ ...other }) {
   return (
     <Dialog maxWidth={'sm'} {...other}>
-      <IconButton
-        onClick={other.onClose}
-        width={'fit-content'}
-        sx={{ position: 'absolute', right: '0' }}
-      >
+      <IconButton onClick={other.onClose} width={'fit-content'} sx={{ position: 'absolute', right: '0' }}>
         <Iconify icon={'iconoir:cancel'} />
       </IconButton>
       <Stack p={6} spacing={4}>
@@ -20,7 +16,7 @@ export default function NewCartDialog({ ...other }) {
           You can only order food from one cook at a time, so if you want to order from a different cook, you need to
           start a new cart.
         </Typography>
-        <Stack direction={'row'} justifyContent={'space-between'} pt={4}>
+        <Stack direction={'row'} justifyContent={'space-between'} pt={4} gap={6}>
           <Button size="large" variant="contained" color={'secondary'} sx={{ px: 8 }} onClick={other.onSubmit}>
             Yes
           </Button>

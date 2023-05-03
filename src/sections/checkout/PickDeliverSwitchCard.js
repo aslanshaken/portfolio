@@ -6,6 +6,7 @@ import AddressesDialog from './AddressesDialog';
 import { useDispatch, useSelector } from 'src/redux/store';
 import useAuth from 'src/hooks/useAuth';
 import { FOOD_SELECTOR, updateIsPickup } from 'src/redux/slices/food';
+import useNotify from 'src/hooks/useNotify';
 
 const RootStyle = styled(Stack)(({ theme }) => ({
   padding: theme.spacing(3),
@@ -19,8 +20,10 @@ PickDeliverSwitchCard.propTypes = {
   setIsPickup: PropTypes.func,
 };
 
-export default function PickDeliverSwitchCard({ isPickup, setIsPickup }) {
+export default function PickDeliverSwitchCard({ isPickup = true, setIsPickup }) {
   const { checkout } = useSelector(FOOD_SELECTOR);
+
+  const { successAlert } = useNotify();
 
   const { user } = useAuth();
 
@@ -38,10 +41,7 @@ export default function PickDeliverSwitchCard({ isPickup, setIsPickup }) {
 
   return (
     <RootStyle>
-      <AddressesDialog
-        open={isOpenAddressesDialog}
-        onClose={() => setIsOpenAddressesDialog(false)}
-      />
+      <AddressesDialog open={isOpenAddressesDialog} onClose={() => setIsOpenAddressesDialog(false)} />
       <Box display={'flex'} justifyContent={'space-between'} flexWrap={'wrap'} gap={2}>
         <Box>
           <ButtonGroup color="secondary">
@@ -59,8 +59,11 @@ export default function PickDeliverSwitchCard({ isPickup, setIsPickup }) {
               variant={isPickup ? 'outlined' : 'contained'}
               sx={{ px: 5, fontWeight: 500 }}
               onClick={() => {
-                dispatch(updateIsPickup(false, orderId));
-                setIsPickup(false);
+                successAlert(
+                  'At the moment, delivery services are not available, but we are actively working towards making it possible'
+                );
+                // dispatch(updateIsPickup(false, orderId));
+                // setIsPickup(false);
               }}
             >
               {'Delivery'}
