@@ -52,7 +52,7 @@ export default function ConfirmInfo() {
           </Stack>
           <Stack spacing={1}>
             <Typography variant="body2" color={'text.secondary'}>
-              Order date
+              {is_pickup ? 'Pick Up' : 'Delivery'} date
             </Typography>
             <Typography variant="subtitle1">{orderDate}</Typography>
           </Stack>

@@ -18,7 +18,7 @@ FoodCartCard.propTypes = {
   chefavatar: PropTypes.string,
   measurement: PropTypes.string,
   quantity: PropTypes.number,
-  count: PropTypes.number,
+  min_order: PropTypes.number,
 };
 
 export default function FoodCartCard(props) {
@@ -32,7 +32,7 @@ export default function FoodCartCard(props) {
     measurement,
     onClick = () => {},
     onClickPlus = () => {},
-    count,
+    min_order,
     ...other
   } = props;
 
@@ -90,6 +90,9 @@ export default function FoodCartCard(props) {
             <Typography color="text.primary" variant="subtitle1" fontWeight={600}>
               {`$${price} / ${quantity} ${measurement || ''}`}
             </Typography>
+            {min_order > 1 && (
+              <Typography variant="caption">min order {`${min_order} ${measurement || ''}`}</Typography>
+            )}
           </Box>
           <Box>
             <IconButtonAnimate sx={{ p: 0, width: 33, height: 33 }} onClick={onClickPlus}>

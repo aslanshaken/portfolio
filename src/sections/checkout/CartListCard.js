@@ -190,7 +190,6 @@ function CartCountBox({ value = 0, onChange = () => {} }) {
       <Button onClick={() => handleChange('-')}>
         <Iconify icon={'ic:round-minus'} />
       </Button>
-
       <Button disableRipple>
         <Typography variant="body1" color={'text.secondary'} sx={{ minWidth: 30, textAlign: 'center' }}>
           {value}

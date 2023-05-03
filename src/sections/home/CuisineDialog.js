@@ -17,8 +17,10 @@ export default function CuisineDialog({ isOpen }) {
   const { cuisines } = useSelector(CITYCUISINE_SELECTOR);
 
   useEffect(() => {
-    dispatch(getCuisines());
-  }, [dispatch]);
+    if (isOpen) {
+      dispatch(getCuisines());
+    }
+  }, [dispatch, isOpen]);
 
   return (
     <Dialog maxWidth={'sm'} fullWidth open={isOpen} onClose={() => dispatch(closeDialog())}>

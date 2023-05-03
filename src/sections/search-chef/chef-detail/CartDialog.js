@@ -52,7 +52,7 @@ export default function CartDialog({ data, setSelectedItemData, onSubmit, ...oth
           <Grid container justifyContent={'space-between'}>
             <Grid item>
               <Stack>
-                <Typography variant="subtitle1" gutterBottom fontWeight={400} fontSize="1.4rem">
+                <Typography variant="subtitle1" gutterBottom fontWeight={400} fontSize="1.4rem" width={320}>
                   {data?.title}
                 </Typography>
                 <Typography variant="subtitle1" gutterBottom fontWeight={600} fontSize="1.2rem">
@@ -166,9 +166,9 @@ function CartCountBox({ value = 0, minOrder = 1, onChange, foodId }) {
   const { checkout } = useSelector(FOOD_SELECTOR);
   const { cart } = checkout;
   const { errorAlert } = useNotify();
+  let newValue = value;
 
   const handleChange = (type) => {
-    let newValue = value;
     if (type === '+') newValue += cart.find((item) => item?.id === foodId) ? 1 : minOrder;
     else newValue--;
 
@@ -182,9 +182,11 @@ function CartCountBox({ value = 0, minOrder = 1, onChange, foodId }) {
 
   return (
     <CartCountStyle direction={'row'} spacing={2}>
-      <IconButtonAnimate onClick={() => handleChange('-')} disabled={value === 0 ? true : false}>
-        <Iconify icon={'ic:round-minus'} />
-      </IconButtonAnimate>
+      {newValue > minOrder && (
+        <IconButtonAnimate onClick={() => handleChange('-')} disabled={value === 0 ? true : false}>
+          <Iconify icon={'ic:round-minus'} />
+        </IconButtonAnimate>
+      )}
       <Typography variant="h6" sx={{ minWidth: 30, textAlign: 'center' }}>
         {value}
       </Typography>

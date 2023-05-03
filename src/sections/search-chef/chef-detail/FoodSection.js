@@ -265,12 +265,13 @@ export default function FoodSection({ selectedCategory }) {
               </Grid>
             </Grid> */}
             <Grid container spacing={3}>
-              {foods?.[selectedCategory]?.slice((currentPage - 1) * 10, currentPage * 10).map((item) => (
+              {foods?.[selectedCategory]?.slice((currentPage - 1) * 12, currentPage * 12).map((item) => (
                 <Grid key={item?.id} item lg={4} md={6} sm={6} xs={12} width={1}>
                   <FoodCartCard
                     name={item?.title}
                     cover={item?.image_url}
                     price={item?.current_price}
+                    min_order={item?.min_order}
                     we_kc={`${item?.gram} gr / ${item?.kc} kc`}
                     quantity={item?.quantity}
                     measurement={item?.measurement}
@@ -290,8 +291,8 @@ export default function FoodSection({ selectedCategory }) {
                 </Grid>
               ))}
             </Grid>
-            {foods?.[selectedCategory]?.length > 10 && (
-              <Pagination count={Math.ceil(foods?.[selectedCategory]?.length / 10)} setCurrentPage={setCurrentPage} />
+            {foods?.[selectedCategory]?.length > 12 && (
+              <Pagination count={Math.ceil(foods?.[selectedCategory]?.length / 12)} setCurrentPage={setCurrentPage} />
             )}
           </Stack>
         </Stack>

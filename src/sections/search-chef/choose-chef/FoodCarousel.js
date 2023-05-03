@@ -78,10 +78,6 @@ export default function FoodCarousel({ foods }) {
               key={food?.id}
               name={food?.title}
               cover={food?.image_url}
-              price={food?.current_price}
-              measurement={food?.measurement}
-              quantity={food?.quantity}
-              we_kc={`${food?.gramm} gr / ${food?.kc} kc`}
             />
           ))}
         </Slider>

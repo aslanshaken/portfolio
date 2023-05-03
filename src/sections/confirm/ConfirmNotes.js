@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'src/redux/store';
 
 export default function ConfirmNotes() {
   const { orderConfirmInfo } = useSelector(FOOD_SELECTOR);
-  const notes = orderConfirmInfo?.notes ?? "Is there anything else you'd like us to know about your order?";
+  const notes = orderConfirmInfo?.notes ?? "";
   const { sub_total, service_fee, order_total, discount } = orderConfirmInfo ?? {};
 
   const dispatch = useDispatch();

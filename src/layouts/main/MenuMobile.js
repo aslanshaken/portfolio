@@ -64,7 +64,7 @@ export default function MenuMobile({ isHome, navConfig }) {
   };
 
   return (
-    <>
+    <Box order={-1}>
       <IconButtonAnimate
         onClick={handleDrawerOpen}
         sx={{
@@ -108,7 +108,7 @@ export default function MenuMobile({ isHome, navConfig }) {
           )}
         </Scrollbar>
       </Drawer>
-    </>
+    </Box>
   );
 }
 

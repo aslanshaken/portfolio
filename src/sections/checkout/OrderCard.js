@@ -44,16 +44,17 @@ export default function OrderCard({ isPickup }) {
 
   const { user } = useAuth();
 
-  const address = user?.addresses?.find((item) => item.primary_address == true);
+  // const address = user?.addresses?.find((item) => item.primary_address == true);
   // redux
   const { checkout } = useSelector(FOOD_SELECTOR);
   const { orderDetail, orderId, cart } = checkout;
+  const address = orderDetail?.available_addresses?.find((item) => item.primary_address == true);
 
   const scheduleTime = checkout?.orderDetail?.schedule_time;
 
   // router
   const { push } = useRouter();
-
+  
   // state
   const [isLoading, setIsLoading] = useState(false);
 
@@ -92,6 +93,7 @@ export default function OrderCard({ isPickup }) {
       if (!scheduleTime) {
         await dispatch(updateScheduleTime(orderId, scheduleTime));
       }
+      console.log('address: ', address);
       await changeAddress(isPickup, address?.id, orderId);
       await dispatch(addTips({ orderId: orderId, tips: tips }));
       const response = await dispatch(placeOrder(orderId));

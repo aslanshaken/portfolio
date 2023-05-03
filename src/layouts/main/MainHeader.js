@@ -76,9 +76,7 @@ export default function MainHeader() {
   const [cartCount, setCartCount] = useState(0);
 
   useEffect(() => {
-    setCartCount(
-      cart?.reduce((total, currentValue) => total + currentValue.count, 0)
-    );
+    setCartCount(cart?.reduce((total, currentValue) => total + currentValue.count, 0));
   }, [cart]);
 
   const isDesktop = useResponsive('up', 'md');
@@ -140,8 +138,8 @@ export default function MainHeader() {
             <Box
               sx={{
                 position: 'absolute',
-                left: { sm: '50%' },
-                translate: { sm: '-50%' },
+                left: '50%',
+                translate: '-50%',
                 height: '50%',
                 display: 'flex',
               }}
