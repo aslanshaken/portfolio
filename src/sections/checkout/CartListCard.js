@@ -125,7 +125,9 @@ function CuisineCard({ data = {}, orderId }) {
           <Typography variant="h6" color="black" fontWeight={600}>
             {data?.title}
           </Typography>
-          <Typography variant="caption">min order {`${data?.min_order} ${data?.measurement || ''}`}</Typography>
+          {data?.min_order && (
+            <Typography variant="caption">min order {`${data?.min_order} ${data?.measurement || ''}`}</Typography>
+          )}
           <Typography variant="body2">{data?.notes}</Typography>
         </Stack>
       </Stack>

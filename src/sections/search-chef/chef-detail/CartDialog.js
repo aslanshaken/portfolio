@@ -52,7 +52,7 @@ export default function CartDialog({ data, setSelectedItemData, onSubmit, ...oth
           <Grid container justifyContent={'space-between'}>
             <Grid item>
               <Stack>
-                <Typography variant="subtitle1" gutterBottom fontWeight={400} fontSize="1.4rem" width={320}>
+                <Typography variant="subtitle1" gutterBottom fontWeight={400} fontSize="1.4rem" width={300}>
                   {data?.title}
                 </Typography>
                 <Typography variant="subtitle1" gutterBottom fontWeight={600} fontSize="1.2rem">

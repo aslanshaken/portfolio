@@ -88,8 +88,14 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
       <Container>
         <Box display={'flex'} mb={7}>
           <Box px={2} width={'100%'}>
-            <Box display={'flex'} justifyContent={'space-between'} flexWrap={'wrap'} width={'100%'}>
-              <Box display={'flex'} gap={2}>
+            <Box
+              display={'flex'}
+              justifyContent={'space-between'}
+              flexWrap={'wrap'}
+              width={'100%'}
+              position={'relative'}
+            >
+              <Stack direction={'row'} alignItems={'center'} spacing={2}>
                 <Box position={'relative'}>
                   <Avatar
                     alt="Travis Howard"
@@ -97,11 +103,11 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
                     sx={{
                       width: {
                         md: 150,
-                        xs: 100,
+                        xs: 130,
                       },
                       height: {
                         md: 150,
-                        xs: 100,
+                        xs: 130,
                       },
                     }}
                   />
@@ -121,7 +127,7 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
                   <Typography color={'black'} variant={'h3'} fontWeight={'600'} pt={1}>
                     {chef?.company_name}
                   </Typography>
-                  <Box display={'flex'} gap={2} flexWrap={'wrap'} py={1}>
+                  <Stack direction={{ sm: 'row', xs: 'column' }} gap={2} flexWrap={'wrap'}>
                     <Typography color={'black'} variant={'subtitle1'}>
                       by {chef?.first_name} {chef?.last_name}
                     </Typography>
@@ -143,15 +149,22 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
                     <Typography display={{ md: 'block', xs: 'none' }} color={'black'} variant={'subtitle1'}>
                       Zip code: {chef?.primary_address?.zip}
                     </Typography>
-                  </Box>
+                  </Stack>
                   <Hidden mdDown>
                     <Box maxWidth={'600px'}>
                       <ReadMore>{chef?.about_me}</ReadMore>
                     </Box>
                   </Hidden>
                 </Box>
-              </Box>
-              <Stack direction={'row'} flexWrap={'nowrap'} mt={2} mb={4} spacing={1}>
+              </Stack>
+              <Stack
+                direction={'row'}
+                flexWrap={'nowrap'}
+                mt={2}
+                mb={4}
+                spacing={1}
+                sx={{ position: 'absolute', top: -70, right: 0 }}
+              >
                 <NextLink href={chef?.instagram ?? '#'} passHref>
                   <Box>
                     <Image
