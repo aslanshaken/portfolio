@@ -152,18 +152,16 @@ export default function MainHeader() {
               mr={{
                 xs: 2,
                 md: 3,
-                position:'relative'
+                position: 'relative',
               }}
             >
-              {cartCount > 0 ? (
+              {cartCount > 0 && (
                 <Badge
                   component="div"
                   badgeContent={cartCount}
                   color="error"
-                  sx={{ width: 20, height: 10, position:'absolute', top: 0, right: 0 }}
+                  sx={{ width: 20, height: 10, position: 'absolute', top: 0, right: 0 }}
                 />
-              ) : (
-                ''
               )}
               <NextLink passHref href={PATH_PAGE.cart}>
                 <IconButtonAnimate>

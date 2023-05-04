@@ -92,10 +92,19 @@ export default function MenuMobile({ isHome, navConfig }) {
       <IconButtonAnimate
         onClick={handleDrawerOpen}
         sx={{
+          position: 'relative',
           ml: 1,
           ...(isHome && { color: 'common.white' }),
         }}
       >
+        {cartCount > 0 && (
+          <Badge
+            component="div"
+            badgeContent={cartCount}
+            color="error"
+            sx={{ width: 20, height: 10, position: 'absolute', top: 0, right: 0 }}
+          />
+        )}
         <Iconify icon={'material-symbols:menu-rounded'} />
       </IconButtonAnimate>
 
@@ -113,17 +122,15 @@ export default function MenuMobile({ isHome, navConfig }) {
             ))}
             <NextLink passHref href={PATH_PAGE.cart}>
               <Stack ml={3} mt={2}>
-                {cartCount > 0 ? (
-                  <Badge
-                    component="div"
-                    badgeContent={cartCount}
-                    color="error"
-                    sx={{ width: 20, height: 10, top: 3 }}
-                  />
-                ) : (
-                  ''
-                )}
                 <IconButtonAnimate>
+                  {cartCount > 0 && (
+                    <Badge
+                      component="div"
+                      badgeContent={cartCount}
+                      color="error"
+                      sx={{ width: 20, height: 10, position: 'absolute', top: 0, right: 0 }}
+                    />
+                  )}
                   <ShoppingCartIcon sx={{ width: 28, height: 28 }} />
                 </IconButtonAnimate>
               </Stack>
