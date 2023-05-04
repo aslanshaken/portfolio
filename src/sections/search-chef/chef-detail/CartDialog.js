@@ -59,8 +59,11 @@ export default function CartDialog({ data, setSelectedItemData, onSubmit, ...oth
                   {`$${data?.current_price} /${data?.quantity} ${data?.measurement || ''}`}
                 </Typography>
               </Stack>
+              <Typography color="text.secondary">
+                min order {`${data?.min_order} ${data?.measurement || ''}`}
+              </Typography>
             </Grid>
-            <Grid>
+            <Grid mt={2}>
               <CartCountBox
                 foodId={data?.id}
                 value={orderCount}

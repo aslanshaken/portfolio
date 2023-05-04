@@ -129,7 +129,7 @@ export default function MainHeader() {
               position: 'relative',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'space-between',
+              justifyContent: 'center',
               height: 1,
             }}
           >
@@ -138,10 +138,8 @@ export default function MainHeader() {
             <Box
               sx={{
                 position: 'absolute',
-                left: '50%',
-                translate: '-50%',
                 height: '50%',
-                display: 'flex',
+                width: 180,
               }}
             >
               <Logo />
