@@ -1,7 +1,19 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { LoadingButton } from '@mui/lab';
-import { Box, Dialog, Divider, Grid, IconButton, Stack, styled, TextField, Typography } from '@mui/material';
+import {
+  Box,
+  Dialog,
+  DialogContent,
+  DialogContentText,
+  Divider,
+  Grid,
+  IconButton,
+  Stack,
+  styled,
+  TextField,
+  Typography,
+} from '@mui/material';
 import Image from '../../../components/Image';
 import { IconButtonAnimate } from '../../../components/animate';
 import Iconify from '../../../components/Iconify';
@@ -39,104 +51,108 @@ export default function CartDialog({ data, setSelectedItemData, onSubmit, ...oth
 
   return (
     <Dialog maxWidth={'sm'} fullWidth {...other}>
-      <IconButton
-        onClick={other.onClose}
-        width={'fit-content'}
-        sx={{ position: 'absolute', right: '0', color: 'black' }}
-      >
-        <Iconify icon={'iconoir:cancel'} />
-      </IconButton>
-      <Stack>
-        <Image src={data?.image_url} alt="Cuisine Splash" sx={{ width: 1, height: 400 }} />
-        <Stack py={3} px={5}>
-          <Grid container justifyContent={'space-between'}>
-            <Grid item>
-              <Stack>
-                <Typography variant="subtitle1" gutterBottom fontWeight={400} fontSize="1.4rem" width={300}>
-                  {data?.title}
-                </Typography>
-                <Typography variant="subtitle1" gutterBottom fontWeight={600} fontSize="1.2rem">
-                  {`$${data?.current_price} /${data?.quantity} ${data?.measurement || ''}`}
-                </Typography>
-              </Stack>
-              <Typography color="text.secondary">
-                min order {`${data?.min_order} ${data?.measurement || ''}`}
+      <DialogContent sx={{ padding: 0 }}>
+        <IconButton
+          onClick={other.onClose}
+          width={'fit-content'}
+          sx={{ background: 'white', position: 'absolute', right: 10, top: 10, color: 'black', zIndex: 10 }}
+        >
+          <Iconify icon={'iconoir:cancel'} />
+        </IconButton>
+        <Stack>
+          <Image src={data?.image_url} alt="Cuisine Splash" sx={{ width: 1, height: 400 }} />
+          <Stack py={3} px={5}>
+            <Grid container justifyContent={'space-between'}>
+              <Grid item>
+                <Stack>
+                  <Typography variant="subtitle1" gutterBottom fontWeight={400} fontSize="1.4rem" width={300}>
+                    {data?.title}
+                  </Typography>
+                </Stack>
+                <Stack direction={'row'} justifyContent={'space-between'}>
+                  <Stack>
+                    <Typography variant="subtitle1" gutterBottom fontWeight={600} fontSize="1.2rem">
+                      {`$${data?.current_price} /${data?.quantity} ${data?.measurement || ''}`}
+                    </Typography>
+                    <Typography color="text.secondary">
+                      min order {`${data?.min_order} ${data?.measurement || ''}`}
+                    </Typography>
+                  </Stack>
+                  <CartCountBox
+                    foodId={data?.id}
+                    value={orderCount}
+                    minOrder={data?.min_order}
+                    onChange={(val) => setOrderCount(val)}
+                  />
+                </Stack>
+              </Grid>
+            </Grid>
+            <Stack mt={2}>
+              <Typography variant="subtitle1" gutterBottom>
+                {'Description'}
               </Typography>
-            </Grid>
-            <Grid mt={2}>
-              <CartCountBox
-                foodId={data?.id}
-                value={orderCount}
-                minOrder={data?.min_order}
-                onChange={(val) => setOrderCount(val)}
+              <Typography variant="caption">{data?.description}</Typography>
+            </Stack>
+            <Stack mt={5}>
+              <Typography variant="subtitle1" gutterBottom>
+                {'Ingredients'}
+              </Typography>
+              <Typography variant="caption">{data?.ingredients}</Typography>
+            </Stack>
+
+            <Box mt={2.5}>
+              <Divider />
+            </Box>
+
+            <Stack mt={2.5}>
+              <Typography variant="subtitle1" gutterBottom>
+                {'Allergy warning'}
+              </Typography>
+              <Typography variant="caption">
+                Please be aware that the ingredients mentioned are the primary ones, and the food could contain
+                allergens such as milk, peanuts, tree nuts, wheat, dairy, eggs, fish, shellfish, soy, or sesame.
+              </Typography>
+            </Stack>
+
+            <Box mt={2.5}>
+              <Divider />
+            </Box>
+
+            <Stack mt={2.5}>
+              <Typography variant="subtitle1" gutterBottom>
+                {'Notes'}
+              </Typography>
+              <TextField
+                onChange={(e) => setNote(e.target.value)}
+                size="small"
+                sx={{ textarea: { fontSize: '0.75rem' } }}
+                multiline
+                rows={4}
+                defaultValue={note}
               />
-            </Grid>
-          </Grid>
-          <Stack mt={2}>
-            <Typography variant="subtitle1" gutterBottom>
-              {'Description'}
-            </Typography>
-            <Typography variant="caption">{data?.description}</Typography>
+            </Stack>
+
+            <Box mt={8} />
+
+            <LoadingButton
+              variant="contained"
+              color="secondary"
+              onClick={() => {
+                if (isAuthenticated) {
+                  data.notes = note;
+                  data.count = orderCount;
+                  setSelectedItemData(data);
+                  onSubmit();
+                } else {
+                  router.push(PATH_AUTH.login);
+                }
+              }}
+            >
+              {'Add to cart'}
+            </LoadingButton>
           </Stack>
-          <Stack mt={5}>
-            <Typography variant="subtitle1" gutterBottom>
-              {'Ingredients'}
-            </Typography>
-            <Typography variant="caption">{data?.ingredients}</Typography>
-          </Stack>
-
-          <Box mt={2.5}>
-            <Divider />
-          </Box>
-
-          <Stack mt={2.5}>
-            <Typography variant="subtitle1" gutterBottom>
-              {'Allergy warning'}
-            </Typography>
-            <Typography variant="caption">
-              Please be aware that the ingredients mentioned are the primary ones, and the food could contain allergens
-              such as milk, peanuts, tree nuts, wheat, dairy, eggs, fish, shellfish, soy, or sesame.
-            </Typography>
-          </Stack>
-
-          <Box mt={2.5}>
-            <Divider />
-          </Box>
-
-          <Stack mt={2.5}>
-            <Typography variant="subtitle1" gutterBottom>
-              {'Notes'}
-            </Typography>
-            <TextField
-              onChange={(e) => setNote(e.target.value)}
-              size="small"
-              sx={{ textarea: { fontSize: '0.75rem' } }}
-              multiline
-              rows={4}
-              defaultValue={note}
-            />
-          </Stack>
-
-          <Box mt={8} />
-
-          <LoadingButton
-            variant="contained"
-            color="secondary"
-            onClick={() => {
-              if (isAuthenticated) {
-                data.notes = note;
-                data.count = orderCount;
-                setSelectedItemData(data);
-                onSubmit();
-              } else {
-                router.push(PATH_AUTH.login);
-              }
-            }}
-          >
-            {'Add to cart'}
-          </LoadingButton>
         </Stack>
-      </Stack>
+      </DialogContent>
     </Dialog>
   );
 }
@@ -145,7 +161,7 @@ export default function CartDialog({ data, setSelectedItemData, onSubmit, ...oth
 
 const CartCountStyle = styled(Stack)(({ theme }) => ({
   '& *': {
-    color: theme.palette.secondary.main,
+    color: theme.palette.primary.main,
   },
   border: `solid 1px`,
   borderColor: theme.palette.secondary.main,
@@ -184,21 +200,35 @@ function CartCountBox({ value = 0, minOrder = 1, onChange, foodId }) {
   };
 
   return (
-    <CartCountStyle direction={'row'} spacing={2}>
+    <CartCountStyle direction={'row'} sx={{ padding: '1px', height: 'fit-content' }}>
       <IconButtonAnimate
         onClick={() => handleChange('-')}
         disabled={value <= (cart?.find((item) => item?.id === foodId) ? 1 : minOrder) ? true : false}
         sx={{
-          opacity: value <= (cart?.find((item) => item?.id === foodId) ? 1 : minOrder) ? 0.5 : 1,
+          py: 0.5,
+          opacity: value <= (cart?.find((item) => item?.id === foodId) ? 1 : minOrder) ? 0.7 : 1,
         }}
       >
         <Iconify icon={'ic:round-minus'} />
       </IconButtonAnimate>
 
-      <Typography variant="h6" sx={{ minWidth: 30, textAlign: 'center' }}>
+      <Typography
+        color={'text.primary'}
+        variant="h6"
+        sx={(theme) => ({
+          px: 2,
+          textAlign: 'center',
+          height: '100%',
+        })}
+      >
         {value}
       </Typography>
-      <IconButtonAnimate onClick={() => handleChange('+')}>
+      <IconButtonAnimate
+        onClick={() => handleChange('+')}
+        sx={{
+          py: 0.5,
+        }}
+      >
         <Iconify icon={'ic:round-plus'} />
       </IconButtonAnimate>
     </CartCountStyle>
