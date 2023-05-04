@@ -129,7 +129,7 @@ export default function MainHeader() {
               position: 'relative',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'space-between',
+              justifyContent: 'center',
               height: 1,
             }}
           >
@@ -138,10 +138,8 @@ export default function MainHeader() {
             <Box
               sx={{
                 position: 'absolute',
-                left: '50%',
-                translate: '-50%',
                 height: '50%',
-                display: 'flex',
+                width: 180,
               }}
             >
               <Logo />
@@ -154,12 +152,16 @@ export default function MainHeader() {
               mr={{
                 xs: 2,
                 md: 3,
+                position: 'relative',
               }}
             >
-              {cartCount > 0 ? (
-                <Badge component="div" badgeContent={cartCount} color="error" sx={{ width: 20, height: 10, top: 3 }} />
-              ) : (
-                ''
+              {cartCount > 0 && (
+                <Badge
+                  component="div"
+                  badgeContent={cartCount}
+                  color="error"
+                  sx={{ width: 20, height: 10, position: 'absolute', top: 0, right: 0 }}
+                />
               )}
               <NextLink passHref href={PATH_PAGE.cart}>
                 <IconButtonAnimate>
