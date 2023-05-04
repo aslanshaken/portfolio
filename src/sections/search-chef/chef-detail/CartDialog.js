@@ -5,7 +5,6 @@ import {
   Box,
   Dialog,
   DialogContent,
-  DialogContentText,
   Divider,
   Grid,
   IconButton,
@@ -63,20 +62,22 @@ export default function CartDialog({ data, setSelectedItemData, onSubmit, ...oth
           <Image src={data?.image_url} alt="Cuisine Splash" sx={{ width: 1, height: 400 }} />
           <Stack py={3} px={5}>
             <Grid container justifyContent={'space-between'}>
-              <Grid item>
+              <Grid item xs={12}>
                 <Stack>
                   <Typography variant="subtitle1" gutterBottom fontWeight={400} fontSize="1.4rem" width={300}>
                     {data?.title}
                   </Typography>
                 </Stack>
-                <Stack direction={'row'} justifyContent={'space-between'}>
+                <Stack direction={'row'} justifyContent={'space-between'} width={1}>
                   <Stack>
                     <Typography variant="subtitle1" gutterBottom fontWeight={600} fontSize="1.2rem">
                       {`$${data?.current_price} /${data?.quantity} ${data?.measurement || ''}`}
                     </Typography>
-                    <Typography color="text.secondary">
-                      min order {`${data?.min_order} ${data?.measurement || ''}`}
-                    </Typography>
+                    {data?.min_order > 1 && (
+                      <Typography color="text.secondary">
+                        min order {`${data?.min_order} ${data?.measurement || ''}`}
+                      </Typography>
+                    )}
                   </Stack>
                   <CartCountBox
                     foodId={data?.id}
