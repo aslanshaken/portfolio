@@ -77,10 +77,10 @@ export default function PickDeliverSwitchCard({ isPickup = true, setIsPickup }) 
               pickupAddress ? (
                 <Stack>
                   <Typography variant={'caption'} maxWidth={200}>
-                    {pickupAddress?.zip + ' ' + pickupAddress?.line1}
+                    {pickupAddress?.line1 + ' ' + pickupAddress?.apartment}
                   </Typography>
                   <Typography variant={'caption'} maxWidth={200}>
-                    {pickupAddress?.apartment + ' ' + pickupAddress?.state + ' ' + pickupAddress?.city}
+                    {pickupAddress?.city + ' ' + pickupAddress?.state + ' ' + pickupAddress?.zip}
                   </Typography>
                 </Stack>
               ) : (
@@ -92,10 +92,10 @@ export default function PickDeliverSwitchCard({ isPickup = true, setIsPickup }) 
                   <Box display={'flex'} gap={4}>
                     <Stack>
                       <Typography variant={'caption'} maxWidth={200}>
-                        {deliveryAddress?.zip + ' ' + deliveryAddress?.line1}
+                        {deliveryAddress?.line1 + ' ' + deliveryAddress?.apartment}
                       </Typography>
                       <Typography variant={'caption'} maxWidth={200}>
-                        {deliveryAddress?.apartment + ' ' + deliveryAddress?.state + ' ' + deliveryAddress?.city}
+                        {deliveryAddress?.city + ' ' + deliveryAddress?.state + ' ' + deliveryAddress?.zip}
                       </Typography>
                     </Stack>
                     <Typography
