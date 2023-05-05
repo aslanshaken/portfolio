@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 // axios
 import axios from 'src/utils/axios';
-import { dispatch } from '../store';
+import { parse, format } from 'date-fns';
 
 // ----------------------------------------------------------------------
 
@@ -172,10 +172,12 @@ export function createOrders(data) {
       food_id: id,
       count: count,
       notes: notes,
-      selected_day: selected_day,
+      selected_day: format(
+        parse(selected_day, 'MM/dd/yy', new Date()),
+        'MM/dd/yyyy',
+      ),
     }));
 
-    console.log('oreders: ', oreders);
     dispatch(startLoading());
     try {
       const response = await axios.post(`/api/${process.env.API_VERSION}/orders/create`, {

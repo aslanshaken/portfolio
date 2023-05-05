@@ -20,10 +20,20 @@ const RootStyle = styled('div')(({ theme }) => ({
 
 export default function ConfirmInfo() {
   const { orderConfirmInfo } = useSelector(FOOD_SELECTOR);
-  const { full_name, order_date, chef_details, status, is_pickup, order_address, order_num, schedule_time } =
-    orderConfirmInfo ?? {};
+  const {
+    full_name,
+    order_date,
+    chef_details,
+    status,
+    is_pickup,
+    order_address,
+    order_num,
+    schedule_time,
+    pickup_date,
+  } = orderConfirmInfo ?? {};
   const { primary_address } = chef_details ?? {};
   const orderDate = format(new Date(order_date ?? new Date()), 'MMMM d, yyyy');
+  const pickupDate = format(new Date(pickup_date ?? new Date()), 'MMMM d, yyyy');
   // const { user } = useAuth();
   // const { checkout } = useSelector(FOOD_SELECTOR);
   // const { deliveryDate } = checkout;
@@ -52,9 +62,15 @@ export default function ConfirmInfo() {
           </Stack>
           <Stack spacing={1}>
             <Typography variant="body2" color={'text.secondary'}>
-              {is_pickup ? 'Pick Up' : 'Delivery'} date
+              Order date
             </Typography>
             <Typography variant="subtitle1">{orderDate}</Typography>
+          </Stack>
+          <Stack spacing={1}>
+            <Typography variant="body2" color={'text.secondary'}>
+              {is_pickup ? 'Pick Up' : 'Delivery'} date
+            </Typography>
+            <Typography variant="subtitle1">{is_pickup ? pickupDate : 'Delivery'}</Typography>
           </Stack>
           <Stack spacing={1}>
             <Typography variant="body2" color={'text.secondary'}>
