@@ -35,7 +35,7 @@ export default class MyDocument extends Document {
 
           <link rel="stylesheet" href="/fonts/index.css" />
 
-          <meta name="description" content="United Food System" />
+          <meta name="description" content="Taste homemade cooking from your community" />
           <meta name="keywords" content="hickory,united food" />
           <meta name="author" content="Ali Bai" />
         </Head>
