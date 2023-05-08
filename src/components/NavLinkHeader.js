@@ -2,8 +2,7 @@ import PropTypes from 'prop-types';
 import NextLink from 'next/link';
 import { Breadcrumbs, Link, Typography } from '@mui/material';
 import React from 'react';
-import { useDispatch, useSelector } from 'src/redux/store';
-import { CITYCUISINE_SELECTOR } from 'src/redux/slices/city';
+import { useDispatch } from 'src/redux/store';
 import { openDialog } from 'src/redux/slices/dialog';
 import { useRouter } from 'next/router';
 
@@ -14,10 +13,9 @@ NavLinkHeader.propTypes = {
 };
 
 export default function NavLinkHeader({ cuisine = '', chef = '' }) {
-  const cuisineId = useSelector(CITYCUISINE_SELECTOR)?.cuisine?.id;
   const dispatch = useDispatch();
   const router = useRouter();
-  const { chefId } = router.query;
+  const { cuisineId, chefId } = router.query;
 
   return (
     <Breadcrumbs separator="->" sx={{ fontWeight: 600, mt: 5, py: 3 }}>
