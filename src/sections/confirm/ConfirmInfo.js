@@ -32,8 +32,9 @@ export default function ConfirmInfo() {
     pickup_date,
   } = orderConfirmInfo ?? {};
   const { primary_address } = chef_details ?? {};
-  const orderDate = format(new Date(order_date ?? new Date()), 'MMMM d, yyyy');
-  const pickupDate = format(new Date(pickup_date ?? new Date()), 'MMMM d, yyyy');
+  const orderDate = order_date ? format(parse(order_date, 'yyyy-MM-dd', new Date()), 'MMMM d, yyyy') : '';
+  const pickupDate = pickup_date ? format(parse(pickup_date, 'yyyy-MM-dd', new Date()), 'MMMM d, yyyy') : '';
+
   // const { user } = useAuth();
   // const { checkout } = useSelector(FOOD_SELECTOR);
   // const { deliveryDate } = checkout;
