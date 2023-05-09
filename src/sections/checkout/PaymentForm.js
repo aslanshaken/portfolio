@@ -94,6 +94,7 @@ export default function PaymentForm({ onClose }) {
             billingDetails: {
               address: {
                 country: 'never',
+                postalCode: 'never',
               },
             },
           },
