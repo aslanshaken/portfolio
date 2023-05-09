@@ -15,7 +15,7 @@ import useAuth from 'src/hooks/useAuth';
 import { FOOD_SELECTOR, getPopularFoods, updateFoodCart } from 'src/redux/slices/food';
 import LoadingScreen from 'src/components/LoadingScreen';
 import { useRouter } from 'next/router';
-import { PATH_AUTH, PATH_PAGE } from 'src/routes/paths';
+import { PATH_AUTH } from 'src/routes/paths';
 
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
