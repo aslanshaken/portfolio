@@ -40,7 +40,7 @@ export default function OrderTableRow({ row, selected, headLabel, onEditRow, onS
     setOrderId(id);
   }, [id]);
 
-  const cuisineNames = [...new Set(items.map((item) => item?.cusine?.name))];
+  // const cuisineNames = [...new Set(items.map((item) => item?.cusine?.name))];
 
   const [openMenu, setOpenMenuActions] = useState(null);
 
@@ -77,7 +77,7 @@ export default function OrderTableRow({ row, selected, headLabel, onEditRow, onS
         {chef?.first_name} {chef?.last_name}
       </TableCell>
 
-      <TableCell align="center">{cuisineNames?.join(' / ')}</TableCell>
+      {/* <TableCell align="center">{cuisineNames?.join(' / ')}</TableCell> */}
 
       <TableCell align="center" sx={{ color: '#8CCC67' }}>
         ${sub_total}

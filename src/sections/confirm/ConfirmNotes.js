@@ -53,14 +53,16 @@ export default function ConfirmNotes() {
               ${service_fee}
             </Typography>
           </Stack>
-          <Stack direction={'row'} justifyContent={'space-between'}>
-            <Typography variant={'body2'} color={'text.secondary'} fontWeight={'600'}>
-              {'Tips'}
-            </Typography>
-            <Typography fontWeight={'bold'} color={'secondary'}>
-              ${tips}
-            </Typography>
-          </Stack>
+          {tips > 0 && (
+            <Stack direction={'row'} justifyContent={'space-between'}>
+              <Typography variant={'body2'} color={'text.secondary'} fontWeight={'600'}>
+                {'Tips'}
+              </Typography>
+              <Typography fontWeight={'bold'} color={'secondary'}>
+                ${tips}
+              </Typography>
+            </Stack>
+          )}
           {discount && (
             <Stack direction={'row'} justifyContent={'space-between'}>
               <Typography variant={'body2'} color={'text.secondary'} fontWeight={'600'}>
