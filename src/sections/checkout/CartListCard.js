@@ -77,6 +77,7 @@ function CuisineCard({ data = {}, orderId }) {
   const handleClickAddCart = useCallback(
     async (type) => {
       try {
+        setIsLoading(true);
         if (type === '+') {
           const response = await dispatch(updateCart('add', orderId, data.id));
           successAlert(response.data.success);
@@ -89,7 +90,9 @@ function CuisineCard({ data = {}, orderId }) {
           }
         }
         await dispatch(getOrderDetail(orderId));
+        setIsLoading(false);
       } catch (error) {
+        setIsLoading(false);
         errorAlert(error.message);
       }
     },
@@ -115,6 +118,7 @@ function CuisineCard({ data = {}, orderId }) {
   };
 
   const [loading, setLoading] = useState(false);
+  const [isloading, setIsLoading] = useState(false);
 
   return (
     <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'} spacing={2} width={1}>
@@ -135,6 +139,7 @@ function CuisineCard({ data = {}, orderId }) {
       <Stack direction={'row'} alignItems={'center'} spacing={6}>
         <Box>
           <CartCountBox
+            isloading={isloading}
             value={data?.count}
             minOrder={data?.min_order}
             onChange={handleClickAddCart}
@@ -180,9 +185,12 @@ const CartCountStyle = styled(ButtonGroup)(({ theme }) => ({
 CartCountBox.propTypes = {
   value: PropTypes.any,
   onChange: PropTypes.func,
+  minOrder: PropTypes.number,
+  isloading: PropTypes.bool,
+  cartId: PropTypes.any,
 };
 
-function CartCountBox({ value = 0, minOrder, cartId, onChange = () => {} }) {
+function CartCountBox({ value = 0, minOrder, isloading, cartId, onChange = () => {} }) {
   const { checkout } = useSelector(FOOD_SELECTOR);
   const { cart } = checkout;
   const handleChange = (type) => {
@@ -197,20 +205,20 @@ function CartCountBox({ value = 0, minOrder, cartId, onChange = () => {} }) {
 
   return (
     <CartCountStyle color={'inherit'} variant={'contained'}>
-      <Button
-        disabled={value <= (cart?.find((item) => item?.id === cartId) ? 1 : minOrder) ? true : false}
+      <LoadingButton
+        disabled={value <= (cart?.find((item) => item?.id === cartId) ? 1 : minOrder) || isloading ? true : false}
         onClick={() => handleChange('-')}
       >
         <Iconify icon={'ic:round-minus'} />
-      </Button>
+      </LoadingButton>
       <Button disableRipple>
         <Typography variant="body1" color={'text.secondary'} sx={{ minWidth: 30, textAlign: 'center' }}>
           {value}
         </Typography>
       </Button>
-      <Button onClick={() => handleChange('+')}>
+      <LoadingButton disabled={isloading} onClick={() => handleChange('+')}>
         <Iconify icon={'ic:round-plus'} />
-      </Button>
+      </LoadingButton>
     </CartCountStyle>
   );
 }
