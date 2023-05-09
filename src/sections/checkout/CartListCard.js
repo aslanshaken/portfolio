@@ -125,7 +125,7 @@ function CuisineCard({ data = {}, orderId }) {
           <Typography variant="h6" color="black" fontWeight={600}>
             {data?.title}
           </Typography>
-          {data?.min_order && (
+          {data?.min_order > 1 && (
             <Typography variant="caption">min order {`${data?.min_order} ${data?.measurement || ''}`}</Typography>
           )}
           <Typography variant="body2">{data?.notes}</Typography>
@@ -134,7 +134,12 @@ function CuisineCard({ data = {}, orderId }) {
 
       <Stack direction={'row'} alignItems={'center'} spacing={6}>
         <Box>
-          <CartCountBox value={data?.count} minOrder={data?.min_order} onChange={handleClickAddCart} cartId={data?.id} />
+          <CartCountBox
+            value={data?.count}
+            minOrder={data?.min_order}
+            onChange={handleClickAddCart}
+            cartId={data?.id}
+          />
         </Box>
 
         <Typography variant={'subtitle1'} color={'success.main'}>
@@ -177,7 +182,7 @@ CartCountBox.propTypes = {
   onChange: PropTypes.func,
 };
 
-function CartCountBox({ value = 0, minOrder, cartId, onChange = () => { } }) {
+function CartCountBox({ value = 0, minOrder, cartId, onChange = () => {} }) {
   const { checkout } = useSelector(FOOD_SELECTOR);
   const { cart } = checkout;
   const handleChange = (type) => {
@@ -192,7 +197,10 @@ function CartCountBox({ value = 0, minOrder, cartId, onChange = () => { } }) {
 
   return (
     <CartCountStyle color={'inherit'} variant={'contained'}>
-      <Button disabled={value <= (cart?.find((item) => item?.id === cartId) ? 1 : minOrder) ? true : false} onClick={() => handleChange('-')}>
+      <Button
+        disabled={value <= (cart?.find((item) => item?.id === cartId) ? 1 : minOrder) ? true : false}
+        onClick={() => handleChange('-')}
+      >
         <Iconify icon={'ic:round-minus'} />
       </Button>
       <Button disableRipple>
