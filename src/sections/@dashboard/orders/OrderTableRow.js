@@ -32,7 +32,7 @@ OrderTableRow.propTypes = {
 export default function OrderTableRow({ row, selected, headLabel, onEditRow, onSelectRow, onDeleteRow }) {
   const theme = useTheme();
 
-  const { order_num, items, id, sub_total, status, chef } = row;
+  const { order_num, order_date, items, id, sub_total, status, chef } = row;
 
   const [orderId, setOrderId] = useState();
 
@@ -65,7 +65,7 @@ export default function OrderTableRow({ row, selected, headLabel, onEditRow, onS
       </TableCell>
 
       <TableCell align="center" sx={{ fontWeight: 700 }}>
-        {items?.length}
+        {order_date}
         {/* <Box display={'flex'} justifyContent={'center'}>
           {items?.map((item) => (
             <Image key={item?.id} alt="Order item image" src={item?.image} sx={{ width: 50, height: 50 }} />

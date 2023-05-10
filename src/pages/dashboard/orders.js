@@ -65,7 +65,7 @@ import LoadingScreen from 'src/components/LoadingScreen';
 
 const TABLE_HEAD = [
   { id: 'order_number', label: 'Order Number', align: 'left', width: 180 },
-  { id: 'items_count', label: 'Items Count', align: 'center' },
+  { id: 'order_date', label: 'Order Date', align: 'center' },
   { id: 'chef', label: 'Chef', align: 'center' },
   { id: 'price', label: 'Price', align: 'center' },
   { id: 'status', label: 'Status', align: 'center' },

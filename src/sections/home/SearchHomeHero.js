@@ -52,14 +52,14 @@ export default function SearchHomeHero() {
           }}
         >
           <Typography textAlign={'center'} variant="h3" fontSize="2.5rem !important" color={'#FFFFFF'}>
-            Delicious homemade <br />
-            food delivered to your door
+            Taste homemade cooking <br />
+            from your local community
           </Typography>
           <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 2, sm: 0 }} position={'relative'}>
             <SearchInput
               icon="ic:outline-location-on"
               placeholder="Enter delivery address"
-              buttonLabel="Find Home Chefs"
+              buttonLabel="Find home chefs in Austin"
             />
           </Stack>
         </Stack>
