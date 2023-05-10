@@ -32,7 +32,7 @@ export default function ConfirmInfo() {
     pickup_date,
   } = orderConfirmInfo ?? {};
   const { primary_address } = chef_details ?? {};
-  const orderDate = order_date ? format(parse(order_date, 'yyyy-MM-dd', new Date()), 'MMMM d, yyyy') : '';
+  const orderDate = order_date ? format(parse(order_date, 'MM/dd/yyyy', new Date()), 'MMMM d, yyyy') : '';
   const pickupDate = pickup_date ? format(parse(pickup_date, 'MM/dd/yyyy', new Date()), 'MMMM d, yyyy') : '';
 
   // const { user } = useAuth();
