@@ -23,13 +23,15 @@ import { useDispatch, useSelector } from 'src/redux/store';
 
 //
 PaymentDialog.propTypes = {
+  open: PropTypes.bool,
   data: PropTypes.object,
 };
 PaymentDialog.defaultProps = {
+  open: false,
   data: {},
 };
 
-export default function PaymentDialog({ data, ...other }) {
+export default function PaymentDialog({ open, data, ...other }) {
   // redux
   const dispatch = useDispatch();
 
@@ -41,6 +43,8 @@ export default function PaymentDialog({ data, ...other }) {
 
   // effect
   useEffect(() => {
+    if (!open) return;
+
     async function fetch() {
       setIsLoading(true);
       const response = await dispatch(createCardIntent());
@@ -56,10 +60,10 @@ export default function PaymentDialog({ data, ...other }) {
     }
 
     fetch();
-  }, [dispatch]);
+  }, [open]);
 
   return (
-    <Dialog maxWidth={'sm'} fullWidth {...other}>
+    <Dialog maxWidth={'sm'} fullWidth open={open} {...other}>
       <IconButton onClick={other.onClose} width={'fit-content'} sx={{ position: 'absolute', right: '0' }}>
         <Iconify icon={'iconoir:cancel'} />
       </IconButton>
