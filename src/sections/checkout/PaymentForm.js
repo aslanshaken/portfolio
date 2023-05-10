@@ -53,14 +53,15 @@ export default function PaymentForm({ onClose }) {
             billing_details: {
               address: {
                 country: null,
-                postal_code: postalCode,
               },
             },
           },
         },
       });
 
+      console.log('result: ', result);
       if (result.error) {
+        console.log(1);
         setCardError(result.error.message);
       } else {
         successAlert('Your payment method has been added successfully.');
@@ -70,6 +71,7 @@ export default function PaymentForm({ onClose }) {
         onClose();
       }
     } catch (error) {
+      console.log(2, error);
       setCardError(error.message);
     } finally {
       setIsLoading(false);
@@ -94,22 +96,29 @@ export default function PaymentForm({ onClose }) {
             billingDetails: {
               address: {
                 country: 'never',
-                postalCode: 'never',
               },
             },
           },
         }}
       />
-      {formIsShow && <Stack mt={-5} sx={{ backgroundColor: 'white', position: 'relative', zIndex: 1 }}>
-        <Typography sx={{ fontSize: '0.93rem' }}>Zip code</Typography>
-        <TextField size='small' placeholder='12345' sx={{ borderRadius: 1.5 }} fullWidth onChange={e => setPostalCode(e.target.value)} />
-        {/* {!postalCode && <Typography color={`#df1b41`} sx={{ fontSize: '0.93rem' }}>Zip code's security code is incomplete.</Typography>} */}
-        <Typography variant='caption' mt={1}>
-          By providing your card information, you allow Cookk to charge your card for future payments in accordance with their terms.
-        </Typography>
-      </Stack>}
+      {/* {formIsShow && (
+        <Stack mt={-5} sx={{ backgroundColor: 'white', position: 'relative', zIndex: 1 }}>
+          <Typography sx={{ fontSize: '0.93rem' }}>Zip code</Typography>
+          <TextField
+            size="small"
+            placeholder="12345"
+            sx={{ borderRadius: 1.5 }}
+            fullWidth
+            onChange={(e) => setPostalCode(e.target.value)}
+          />
+          <Typography variant="caption" mt={1}>
+            By providing your card information, you allow Cookk to charge your card for future payments in accordance
+            with their terms.
+          </Typography>
+        </Stack>
+      )} */}
 
-      {cardError && <FormHelperText error>{cardError}</FormHelperText>}
+      {cardError && <FormHelperText error>{`Invalid card.`}</FormHelperText>}
 
       <Box mt={6} />
 
