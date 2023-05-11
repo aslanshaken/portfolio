@@ -53,7 +53,7 @@ export default function SearchHomeHero() {
         >
           <Typography textAlign={'center'} variant="h3" fontSize="2.5rem !important" color={'#FFFFFF'}>
             Taste homemade cooking <br />
-            from your local community
+            from your community
           </Typography>
           <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 2, sm: 0 }} position={'relative'}>
             <SearchInput
