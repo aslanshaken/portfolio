@@ -3,7 +3,7 @@ import Container from 'src/components/Container';
 import Image from 'src/components/Image';
 
 const cards = [
-  { image: 'image 33', title: '1', content: `Discover nearby chefs offering diverse cuisines"` },
+  { image: 'image 33', title: '1', content: `Discover nearby chefs offering diverse cuisines` },
   { image: 'image 35', title: '2', content: `Select your meals - whether fresh or frozen` },
   { image: 'image 36', title: '3', content: `Sit back and relax - we'll deliver it to your door` },
 ];
