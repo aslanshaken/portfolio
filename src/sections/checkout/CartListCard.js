@@ -130,7 +130,7 @@ function CuisineCard({ data = {}, orderId }) {
             {data?.title}
           </Typography>
           {data?.min_order > 1 && (
-            <Typography variant="caption">min order {`${data?.min_order} ${data?.measurement || ''}`}</Typography>
+            <Typography variant="caption">min orders {`${data?.min_order} ${data?.measurement || ''}`}</Typography>
           )}
           <Typography variant="body2">{data?.notes}</Typography>
         </Stack>

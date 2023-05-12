@@ -61,7 +61,6 @@ export default function PaymentForm({ onClose }) {
 
       console.log('result: ', result);
       if (result.error) {
-        console.log(1);
         setCardError(result.error.message);
       } else {
         successAlert('Your payment method has been added successfully.');

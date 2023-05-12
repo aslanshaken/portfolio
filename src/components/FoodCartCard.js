@@ -92,7 +92,7 @@ export default function FoodCartCard(props) {
             </Typography>
             {min_order > 1 && (
               <Typography variant="caption" color="text.secondary">
-                min order {`${min_order} ${measurement || ''}`}
+                min orders {`${min_order} ${measurement || ''}`}
               </Typography>
             )}
           </Box>

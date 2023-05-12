@@ -75,7 +75,7 @@ export default function CartDialog({ data, setSelectedItemData, onSubmit, ...oth
                     </Typography>
                     {data?.min_order > 1 && (
                       <Typography color="text.secondary">
-                        min order {`${data?.min_order} ${data?.measurement || ''}`}
+                        min orders {`${data?.min_order} ${data?.measurement || ''}`}
                       </Typography>
                     )}
                   </Stack>
