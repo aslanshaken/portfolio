@@ -51,7 +51,6 @@ const slice = createSlice({
           break;
 
         case 'add': {
-          console.log('action.payload.data: ', action.payload.data);
           const alreadyFood = state?.checkout?.cart?.find((item) => item.id === action.payload.data.id);
           if (alreadyFood) {
             alreadyFood.count += action.payload.data.count;
