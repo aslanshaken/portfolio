@@ -40,9 +40,11 @@ export default function CuisineCard({ cuisine = {} }) {
               min orders {`${cuisine?.min_order} ${cuisine?.measurement || ''}`}
             </Typography>
           )}
-          <Typography variant="body2" fontWeight={600}>
-            {cuisine?.notes}
-          </Typography>
+          {cuisine?.notes && (
+            <Typography variant="body2" fontWeight={600}>
+              {cuisine?.notes}
+            </Typography>
+          )}
         </Stack>
         <Stack direction={'row'} alignItems={'center'} spacing={3}>
           <Typography color="text.secondary">{cuisine?.count}</Typography>

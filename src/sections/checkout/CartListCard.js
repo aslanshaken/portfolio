@@ -72,7 +72,7 @@ function CuisineCard({ data = {}, orderId }) {
   const { successAlert, errorAlert } = useNotify();
   let { count, ...food } = data;
   const { checkout } = useSelector(FOOD_SELECTOR);
-  const { orderDetail, cart } = checkout ?? {};
+  const { orderDetail } = checkout ?? {};
 
   const handleClickAddCart = useCallback(
     async (type) => {
@@ -82,7 +82,7 @@ function CuisineCard({ data = {}, orderId }) {
           const response = await dispatch(updateCart('add', orderId, data.id));
           // successAlert(response.data.success);
         } else {
-          if (cart?.find((item) => item?.id === data?.id)?.count === (data.min_order ?? 1)) {
+          if (orderDetail?.items?.find((item) => item?.id === data?.id)?.count === (data.min_order ?? 1)) {
             deleteItem(data?.id);
           } else {
             const response = await dispatch(updateCart('remove', orderId, data.id));
@@ -132,7 +132,7 @@ function CuisineCard({ data = {}, orderId }) {
         width={1}
         gap={1}
       >
-        <Stack minWidth={200}>
+        <Stack width={{ sm: 230 }}>
           <Typography variant="h6" color="black" fontWeight={600}>
             {data?.title}
           </Typography>
@@ -143,7 +143,7 @@ function CuisineCard({ data = {}, orderId }) {
         </Stack>
 
         <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'} flexWrap={'wrap'} gap={1}>
-          <Box paddingRight={6}>
+          <Box paddingRight={4}>
             <CartCountBox
               isloading={isloading}
               value={data?.count}
@@ -153,9 +153,14 @@ function CuisineCard({ data = {}, orderId }) {
             />
           </Box>
           <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'} width={'fit-content'} gap={4}>
-            <Typography variant={'subtitle1'} color={'success.main'}>
-              ${data?.cost}
-            </Typography>
+            <Stack direction={'row'} gap={1}>
+              <Typography variant={'subtitle1'} color={'success.main'}>
+                ${data?.cost * orderDetail?.items?.find((item) => item?.id === data?.id)?.count}
+              </Typography>
+              <Typography variant={'body2'}>
+                ( ${data?.cost} x {orderDetail?.items?.find((item) => item?.id === data?.id)?.count} )
+              </Typography>
+            </Stack>
 
             <Box>
               <LoadingButton
