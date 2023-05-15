@@ -35,9 +35,11 @@ export default function CuisineCard({ cuisine = {} }) {
           <GradientText color="primary" variant="subtitle2">
             {`$${cuisine?.current_price} / ${cuisine?.quantity} ${cuisine?.measurement || ''}`}
           </GradientText>
-          <Typography variant="caption" color="text.secondary">
-            min orders {`${cuisine?.min_order} ${cuisine?.measurement || ''}`}
-          </Typography>
+          {cuisine?.min_order > 1 && (
+            <Typography variant="caption" color="text.secondary">
+              min orders {`${cuisine?.min_order} ${cuisine?.measurement || ''}`}
+            </Typography>
+          )}
           <Typography variant="body2" fontWeight={600}>
             {cuisine?.notes}
           </Typography>
