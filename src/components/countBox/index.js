@@ -49,7 +49,7 @@ export default function CountBox({ data = {}, setIsOpenNewCartDlg = () => {}, se
     setValue(cart?.find((item) => item?.id === data?.id)?.count ?? 0);
   }, [cart, data]);
 
-  return (
+  return cart?.find((item) => item?.id === data?.id && item?.user_id === data?.user_id) ? (
     <CartCountStyle direction={'row'} alignItems={'center'}>
       <IconButtonAnimate disabled={value === 0} onClick={() => handleChange('remove')}>
         <Iconify icon={'ic:round-minus'} />
@@ -61,5 +61,9 @@ export default function CountBox({ data = {}, setIsOpenNewCartDlg = () => {}, se
         <Iconify icon={'ic:round-plus'} />
       </IconButtonAnimate>
     </CartCountStyle>
+  ) : (
+    <IconButtonAnimate sx={{ p: 0, width: 25, height: 25 }} onClick={() => handleChange('add')}>
+      <Iconify icon={'ic:outline-plus'} sx={{ width: 25, height: 25, color: 'text.secondary' }} />
+    </IconButtonAnimate>
   );
 }
