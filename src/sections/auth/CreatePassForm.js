@@ -11,6 +11,7 @@ import Iconify from '../../components/Iconify';
 import axios from 'src/utils/axios';
 import useNotify from 'src/hooks/useNotify';
 import { useRouter } from 'next/router';
+import { PATH_PAGE } from 'src/routes/paths';
 
 // --------------------------------------------------------
 
@@ -48,6 +49,7 @@ export default function CreatePassForm() {
         password: data.password,
       });
       successAlert();
+      router.push(PATH_PAGE.home);
     } catch (error) {
       errorAlert(error.message);
       reset();
