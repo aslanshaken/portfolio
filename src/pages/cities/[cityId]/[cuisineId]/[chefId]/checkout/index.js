@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Grid, Stack } from '@mui/material';
+import { Box, Grid, Link, Stack, Typography } from '@mui/material';
+import NextLink from 'next/link';
 // layouts
 import Layout from 'src/layouts';
 // components
@@ -15,6 +16,7 @@ import { useDispatch, useSelector } from 'src/redux/store';
 import { FOOD_SELECTOR, getOrderDetail } from 'src/redux/slices/food';
 import { PATH_PAGE } from 'src/routes/paths';
 import { useRouter } from 'next/router';
+import { HEADER } from 'src/config';
 
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
@@ -31,6 +33,10 @@ export default function CheckoutPage() {
   const { checkout } = useSelector(FOOD_SELECTOR);
 
   const { cart } = checkout;
+
+  const cuisineId = cart?.[0]?.cuisine?.id;
+  
+  const chefId = cart?.[0]?.chef?.id;
 
   const { orderId, orderDetail } = checkout;
 
@@ -54,6 +60,29 @@ export default function CheckoutPage() {
 
   return (
     <Page title="Search Chef">
+      <Container>
+        <Box position={'relative'}>
+          <Box
+            sx={{
+              position: 'absolute',
+              zIndex: 10,
+              left: 0,
+              top: { xs: HEADER.MOBILE_HEIGHT, md: HEADER.MAIN_DESKTOP_HEIGHT },
+            }}
+          >
+            <NextLink
+              href={PATH_PAGE.searchChef.cities({ cityId: '4', cuisineId: cuisineId, chefId: chefId })}
+              passHref
+            >
+              <Link underline="none">
+                <Typography mt={2} sx={{ color: 'black' }} className="sign-up">
+                  Go back to chef
+                </Typography>
+              </Link>
+            </NextLink>
+          </Box>
+        </Box>
+      </Container>
       <HeroHeader title={'Checkout'} bottomBorder={false} />
 
       <Container>
