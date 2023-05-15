@@ -2,18 +2,12 @@ import { Box, Card, Divider, Stack, Typography } from '@mui/material';
 import { useEffect } from 'react';
 import CardHeader from 'src/components/card/CardHeader';
 import { FOOD_SELECTOR, updateFoodCart } from 'src/redux/slices/food';
-import { useDispatch, useSelector } from 'src/redux/store';
+import { dispatch, useDispatch, useSelector } from 'src/redux/store';
 
 export default function ConfirmNotes() {
   const { orderConfirmInfo } = useSelector(FOOD_SELECTOR);
   const notes = orderConfirmInfo?.notes ?? '';
   const { sub_total, service_fee, order_total, discount, tips } = orderConfirmInfo ?? {};
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(updateFoodCart({ actionType: 'clear' }));
-  }, [dispatch]);
 
   return (
     <Stack spacing={8}>
