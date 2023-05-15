@@ -170,8 +170,17 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
                 <NextLink href={chef?.instagram ?? '#'} passHref>
                   <Box>
                     <Image
-                      src={'/assets/search-chef/follow.png'}
-                      sx={{ border: '2px solid', borderRadius: '13px', height: 40, width: 40, cursor: 'pointer' }}
+                      src={'/assets/search-chef/follow1.png'}
+                      sx={{ height: 40, width: 40, cursor: 'pointer' }}
+                      alt={'follow-image'}
+                    />
+                  </Box>
+                </NextLink>
+                <NextLink href={chef?.instagram ?? '#'} passHref>
+                  <Box>
+                    <Image
+                      src={'/assets/search-chef/follow2.png'}
+                      sx={{ height: 40, width: 40, cursor: 'pointer' }}
                       alt={'follow-image'}
                     />
                   </Box>
