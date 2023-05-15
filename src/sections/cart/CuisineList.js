@@ -1,4 +1,4 @@
-import { List, ListItem, ListItemButton, Typography } from '@mui/material';
+import { Box, List, ListItem, ListItemButton, Stack, Typography } from '@mui/material';
 import { FOOD_SELECTOR } from 'src/redux/slices/food';
 import { useSelector } from 'src/redux/store';
 import CuisineCard from './CuisineCard';
@@ -10,17 +10,15 @@ export default function CuisineList() {
   const { cart } = checkout;
 
   return (
-    <List sx={{ mt: 5, mb: 3, overflowX: 'auto', px: { md: 6 } }}>
+    <Stack sx={{ mt: 5, mb: 3, px: { md: 6 } }} gap={3}>
       <Typography ml={2} variant={'subtitle1'} color={'black'}>
         Items in your cart
       </Typography>
       {cart.map((data, _i) => (
-        <ListItem key={'cart-cousine-' + _i} disableGutters>
-          <ListItemButton>
-            <CuisineCard cuisine={data} />
-          </ListItemButton>
-        </ListItem>
+        <Box px={1} key={'cart-cousine-' + _i}>
+          <CuisineCard cuisine={data} />
+        </Box>
       ))}
-    </List>
+    </Stack>
   );
 }

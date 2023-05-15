@@ -6,6 +6,7 @@ import Image from 'src/components/Image';
 import { useDispatch } from 'src/redux/store';
 import { updateFoodCart } from 'src/redux/slices/food';
 import GradientText from 'src/components/GradientText';
+import CountBox from 'src/components/countBox';
 
 //
 
@@ -17,47 +18,44 @@ export default function CuisineCard({ cuisine = {} }) {
   const dispatch = useDispatch();
 
   return (
-    <Stack
-      direction={'row'}
-      alignItems={'center'}
-      justifyContent="space-between"
-      width={'100%'}
-      spacing={{ xs: 2, md: 5, lg: 7 }}
-    >
-      <Stack direction={'row'} alignItems={'center'} spacing={4} minWidth={300}>
-        <Image
-          alt={cuisine?.title}
-          src={cuisine?.image_url}
-          width={'80px'}
-          height={'80px'}
-          sx={{ borderRadius: '50%', minWidth: 80, minHeight: 80 }}
-        />
+    <Stack direction={'row'} alignItems={'center'} justifyContent="space-between" width={'100%'} spacing={2}>
+      <Image
+        alt={cuisine?.title}
+        src={cuisine?.image_url}
+        width={'100px'}
+        height={'100px'}
+        sx={{ borderRadius: '50%', minWidth: 100, minHeight: 100 }}
+      />
 
-        <Stack>
-          <Typography variant="h6" color="black" fontWeight={600}>
+      <Stack direction={'row'} width={1} justifyContent="space-between" flexWrap={'wrap'} gap={1}>
+        <Stack maxWidth={180}>
+          <Typography variant="subtitle1" color="black" fontWeight={600}>
             {cuisine?.title}
           </Typography>
-          <GradientText color="primary" variant="subtitle1">
-            {`$${cuisine?.current_price} / ${cuisine?.measurement || ''}`}
+          <GradientText color="primary" variant="subtitle2">
+            {`$${cuisine?.current_price} / ${cuisine?.quantity} ${cuisine?.measurement || ''}`}
           </GradientText>
+          <Typography variant="caption" color="text.secondary">
+            min orders {`${cuisine?.min_order} ${cuisine?.measurement || ''}`}
+          </Typography>
           <Typography variant="body2" fontWeight={600}>
             {cuisine?.notes}
           </Typography>
         </Stack>
+        <Stack direction={'row'} alignItems={'center'} spacing={3}>
+          <Typography color="text.secondary">{cuisine?.count}</Typography>
+          <CountBox data={cuisine} />
+        </Stack>
       </Stack>
 
-      <Stack direction={'row'} alignItems={'center'} spacing={4}>
-        <Typography color="text.secondary">{cuisine?.count}</Typography>
-
-        <IconButtonAnimate
+      {/* <IconButtonAnimate
           color="error"
           onClick={() => {
             dispatch(updateFoodCart({ data: cuisine, actionType: 'delete' }));
           }}
         >
           <Iconify icon={'mdi:trash'} />
-        </IconButtonAnimate>
-      </Stack>
+        </IconButtonAnimate> */}
     </Stack>
   );
 }
