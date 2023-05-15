@@ -56,7 +56,6 @@ export default function ContactUsForm() {
         px={{ xs: 2, sm: 6, md: 2, lg: 6 }}
         sx={{
           borderRadius: 1,
-          background: 'url(/assets/textures/cuisine-cart.png)',
           padding: 5,
         }}
       >

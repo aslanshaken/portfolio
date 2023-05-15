@@ -1,5 +1,5 @@
 import { LoadingButton } from '@mui/lab';
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Link, Stack, Typography } from '@mui/material';
 import CuisineList from './CuisineList';
 import ProfileCover from './ProfileCover';
 import NextLink from 'next/link';
@@ -11,10 +11,11 @@ import { ShoppingCartIcon } from 'src/assets';
 import Iconify from 'src/components/Iconify';
 import { useEffect, useState } from 'react';
 import { createCardIntent } from 'src/redux/service/payment';
+import { PATH_PAGE } from 'src/routes/paths';
 
 //
 export default function CartChef() {
-  const { chef, cuisines } = useSelector(CITYCUISINE_SELECTOR);
+  const { cuisines } = useSelector(CITYCUISINE_SELECTOR);
 
   const { checkout } = useSelector(FOOD_SELECTOR);
 
@@ -22,11 +23,13 @@ export default function CartChef() {
 
   const { cart, deliveryDate } = checkout;
 
-  const [cartCount, setCartCount] = useState(0);
+  const cuisineId = cart?.[0]?.cuisine?.id;
 
-  useEffect(() => {
-    setCartCount(cart?.reduce((total, currentValue) => total + currentValue.count, 0));
-  }, [cart]);
+  const cartCount = cart?.length;
+
+  // useEffect(() => {
+  //   setCartCount(cart?.reduce((total, currentValue) => total + currentValue.count, 0));
+  // }, [cart]);
 
   const router = useRouter();
 
@@ -37,9 +40,7 @@ export default function CartChef() {
   const handleClickCreateOrders = async () => {
     setLoading(true);
     await dispatch(clearOrderDetail());
-    const response = await dispatch(
-      createOrders(cart)
-    );
+    const response = await dispatch(createOrders(cart));
     setLoading(false);
     router.push('/cities/4/4/2/checkout/');
   };
@@ -53,6 +54,15 @@ export default function CartChef() {
         </Stack>
       ) : (
         <>
+          <Box sx={{ position: 'absolute', left: 10, top: 10 }}>
+            <NextLink href={PATH_PAGE.searchChef.cities({ cityId: '4', cuisineId: cuisineId })} passHref>
+              <Link underline="none">
+                <Typography mt={2} sx={{ color: 'black' }} className="sign-up">
+                  Return to chef
+                </Typography>
+              </Link>
+            </NextLink>
+          </Box>
           <ProfileCover cuisineNames={[...cuisineNames]} />
           <CuisineList />
 

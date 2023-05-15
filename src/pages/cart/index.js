@@ -18,7 +18,7 @@ CartPage.getLayout = function getLayout(page) {
 export default function CartPage() {
   return (
     <Page title="Cart" gutterTop>
-      <Container sx={{ py: 10 }}>
+      <Container sx={{ py: 10, position: 'relative' }}>
         <Grid container spacing={2} justifyContent={'center'}>
           <Grid item xs={12} md={6} mb={3}>
             <CartChef />

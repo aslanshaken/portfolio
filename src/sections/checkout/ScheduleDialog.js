@@ -105,7 +105,7 @@ export default function ScheduleDialog({ isPickup, subtitle, ...other }) {
 
   const slots = checkout?.orderDetail?.schedule_slots;
 
-  const isDateTomorrow = isTomorrow(new Date(checkout?.orderDetail?.item?.[0]?.selected_day));
+  const isDateTomorrow = isTomorrow(new Date(checkout?.scheduleDate));
 
   const handleChange = (data) => {
     setSelectedTime(data.target.value);
@@ -134,7 +134,7 @@ export default function ScheduleDialog({ isPickup, subtitle, ...other }) {
     try {
       setIsLoading(true);
       const response = await dispatch(updateScheduleTime(orderId, selectedTime));
-      successAlert(response.success);
+      // successAlert(response.success);
       await dispatch(getOrderDetail(orderId));
       setIsLoading(false);
       other.onClose();

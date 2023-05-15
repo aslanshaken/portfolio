@@ -59,19 +59,16 @@ export default function PaymentForm({ onClose }) {
         },
       });
 
-      console.log('result: ', result);
       if (result.error) {
-        console.log(1);
         setCardError(result.error.message);
       } else {
-        successAlert('Your payment method has been added successfully.');
+        // successAlert('Your payment method has been added successfully.');
         await setTimeout(() => {
           dispatch(getSavedCards());
         }, 1000);
         onClose();
       }
     } catch (error) {
-      console.log(2, error);
       setCardError(error.message);
     } finally {
       setIsLoading(false);

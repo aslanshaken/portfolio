@@ -43,7 +43,7 @@ export default function NotesPanel({ data, isPickup, ...other }) {
           note: note,
         })
       );
-      successAlert(response?.success);
+      // successAlert(response?.success);
       other.onClose();
     } catch (error) {
       errorAlert(error.message);

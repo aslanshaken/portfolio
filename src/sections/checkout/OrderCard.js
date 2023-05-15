@@ -14,7 +14,7 @@ import {
 import Iconify from 'src/components/Iconify';
 import NextLink from 'next/link';
 import { useDispatch, useSelector } from 'src/redux/store';
-import { addTips, FOOD_SELECTOR, updateScheduleTime } from 'src/redux/slices/food';
+import { addTips, FOOD_SELECTOR, updateFoodCart, updateScheduleTime } from 'src/redux/slices/food';
 import { useState } from 'react';
 import { LoadingButton } from '@mui/lab';
 import { createCardIntent, placeOrder } from 'src/redux/service/payment';
@@ -96,6 +96,7 @@ export default function OrderCard({ isPickup }) {
       await changeAddress(isPickup, address?.id, orderId);
       await dispatch(addTips({ orderId: orderId, tips: tips }));
       const response = await dispatch(placeOrder(orderId));
+      dispatch(updateFoodCart({ actionType: 'clear' }));
 
       if (placeOrder.fulfilled.match(response)) {
         successAlert('Your payment was successful.');

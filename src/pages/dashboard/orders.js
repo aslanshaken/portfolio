@@ -146,9 +146,15 @@ export default function OrderPage() {
         />
       </Stack> */}
       <Scrollbar>
-        <TableContainer sx={{ minWidth: 800, position: 'relative' }}>
+        <TableContainer sx={{ position: 'relative' }}>
           <Table size={'small'}>
-            <TableHeadCustom order={order} orderBy={orderBy} headLabel={TABLE_HEAD} rowCount={orders?.length} />
+            <TableHeadCustom
+              sx={{ display: { xs: 'none', sm: 'contents' } }}
+              order={order}
+              orderBy={orderBy}
+              headLabel={TABLE_HEAD}
+              rowCount={orders?.length}
+            />
 
             <TableBody>
               {orders?.slice((currentPage - 1) * 10, currentPage * 10).map((row, _i) => (

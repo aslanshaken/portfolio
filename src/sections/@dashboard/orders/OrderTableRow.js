@@ -3,13 +3,14 @@ import NextLink from 'next/link';
 import PropTypes from 'prop-types';
 // @mui
 import { useTheme } from '@mui/material/styles';
-import { Avatar, Checkbox, TableRow, TableCell, Typography, MenuItem, Box, Link } from '@mui/material';
+import { Avatar, Checkbox, TableRow, TableCell, Typography, MenuItem, Box, Link, Card, Stack } from '@mui/material';
 // components
 import Label from '../../../components/Label';
 import Iconify from '../../../components/Iconify';
 import { TableMoreMenu } from '../../../components/table';
 import Image from 'src/components/Image';
 import { PATH_PAGE } from 'src/routes/paths';
+import useResponsive from 'src/hooks/useResponsive';
 
 // ----------------------------------------------------------------------
 
@@ -52,7 +53,9 @@ export default function OrderTableRow({ row, selected, headLabel, onEditRow, onS
     setOpenMenuActions(null);
   };
 
-  return (
+  const isDesktop = useResponsive('up', 'sm');
+
+  return isDesktop ? (
     <TableRow hover>
       <TableCell align="left" sx={{ fontStyle: 'italic', color: 'text.secondary' }}>
         {status == 'initiated' ? (
@@ -91,5 +94,38 @@ export default function OrderTableRow({ row, selected, headLabel, onEditRow, onS
         )}
       </TableCell>
     </TableRow>
+  ) : (
+    <NextLink href={PATH_PAGE.orderConfirm.orders({ orderId })} passHref>
+      <Link>
+        <Card sx={{ my: 1, px: 6, py: 2 }}>
+          <Stack direction={'row'} gap={2} justifyContent={'space-between'}>
+            <Typography variant='subtitle1' color='grey'>Order Number :</Typography>
+            <Typography>#{order_num}</Typography>
+          </Stack>
+          <Stack direction={'row'} gap={2} justifyContent={'space-between'}>
+            <Typography variant='subtitle1' color='grey'>Order Date :</Typography>
+            <Typography>{order_date}</Typography>
+          </Stack>
+          <Stack direction={'row'} gap={2} justifyContent={'space-between'}>
+            <Typography variant='subtitle1' color='grey'>Chef :</Typography>
+            <Typography>
+              {chef?.first_name} {chef?.last_name}
+            </Typography>
+          </Stack>
+          <Stack direction={'row'} gap={2} justifyContent={'space-between'}>
+            <Typography variant='subtitle1' color='grey'>Price :</Typography>
+            <Typography>${sub_total}</Typography>
+          </Stack>
+          <Stack direction={'row'} gap={2} justifyContent={'space-between'}>
+            <Typography variant='subtitle1' color='grey'>Status :</Typography>
+            {status && (
+              <Label variant={'ghost'} color={STATUS_COLOR[status]} sx={{ textTransform: 'capitalize' }}>
+                {status}
+              </Label>
+            )}
+          </Stack>
+        </Card>
+      </Link>
+    </NextLink>
   );
 }
