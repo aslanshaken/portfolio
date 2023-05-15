@@ -47,7 +47,7 @@ export default function CuisineCard({ cuisine = {} }) {
           )}
         </Stack>
         <Stack direction={'row'} alignItems={'center'} spacing={3}>
-          <Typography color="text.secondary">{cuisine?.count}</Typography>
+          {/* <Typography color="text.secondary">{cuisine?.count}</Typography> */}
           <CountBox data={cuisine} />
         </Stack>
       </Stack>
