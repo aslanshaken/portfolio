@@ -82,12 +82,8 @@ function CuisineCard({ data = {}, orderId }) {
           const response = await dispatch(updateCart('add', orderId, data.id));
           // successAlert(response.data.success);
         } else {
-          if (orderDetail?.items?.find((item) => item?.id === data?.id)?.count === (data.min_order ?? 1)) {
-            deleteItem(data?.id);
-          } else {
-            const response = await dispatch(updateCart('remove', orderId, data.id));
-            // successAlert(response.data.success);
-          }
+          const response = await dispatch(updateCart('remove', orderId, data.id));
+          // successAlert(response.data.success);
         }
         // await dispatch(getOrderDetail(orderId));
         setIsLoading(false);
