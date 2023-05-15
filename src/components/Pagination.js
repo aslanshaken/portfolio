@@ -7,6 +7,13 @@ Pagination.propTypes = {
 };
 
 export default function Pagination({ count, setCurrentPage }) {
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
   return (
     <MUIpagination
       sx={{
@@ -32,6 +39,7 @@ export default function Pagination({ count, setCurrentPage }) {
       }}
       onChange={(event, page) => {
         setCurrentPage(page);
+        scrollToTop();
       }}
       count={count}
       variant="outlined"

@@ -23,13 +23,13 @@ export default function CartChef() {
 
   const { cart, deliveryDate } = checkout;
 
-  const cuisineId = cart[0].cuisine?.id;
+  const cuisineId = cart?.[0]?.cuisine?.id;
 
-  const [cartCount, setCartCount] = useState(0);
+  const cartCount = cart?.length;
 
-  useEffect(() => {
-    setCartCount(cart?.reduce((total, currentValue) => total + currentValue.count, 0));
-  }, [cart]);
+  // useEffect(() => {
+  //   setCartCount(cart?.reduce((total, currentValue) => total + currentValue.count, 0));
+  // }, [cart]);
 
   const router = useRouter();
 
@@ -56,7 +56,7 @@ export default function CartChef() {
         <>
           <Box sx={{ position: 'absolute', left: 10, top: 10 }}>
             <NextLink href={PATH_PAGE.searchChef.cities({ cityId: '4', cuisineId: cuisineId })} passHref>
-              <Link underline='none'>
+              <Link underline="none">
                 <Typography mt={2} sx={{ color: 'black' }} className="sign-up">
                   Return to chef
                 </Typography>

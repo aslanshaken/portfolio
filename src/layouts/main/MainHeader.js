@@ -73,11 +73,11 @@ export default function MainHeader() {
 
   const { cart } = checkout;
 
-  const [cartCount, setCartCount] = useState(0);
+  const cartCount = cart?.length;
 
-  useEffect(() => {
-    setCartCount(cart?.reduce((total, currentValue) => total + currentValue.count, 0));
-  }, [cart]);
+  // useEffect(() => {
+  //   setCartCount(cart?.reduce((total, currentValue) => total + currentValue.count, 0));
+  // }, [cart]);
 
   const isDesktop = useResponsive('up', 'md');
 
