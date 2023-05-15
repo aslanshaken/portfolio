@@ -29,13 +29,16 @@ const FoodCard = styled('div')(() => ({
     position: 'absolute',
     top: '100%',
     width: '100%',
-    height: '100%',
+    height: '0',
     background: 'rgba(0,0,0,0.5)',
-    transition: 'ease-in 0.25s',
+    opacity: 0,
+    transition: '.3s ease'
   },
 
   '.food-image-wrapper:hover .food-backdrop': {
     top: 0,
+    height:'100%',
+    opacity: 1,
   },
 }));
 
@@ -85,8 +88,8 @@ export default function FoodCartCard(props) {
               position: 'relative',
               borderRadius: '50%',
               overflow: 'hidden',
-              backgroundImage:`url(${cover})`,
-              backgroundSize:'cover'
+              backgroundImage: `url(${cover})`,
+              backgroundSize: 'cover',
             }}
           >
             {/* <Image alt={name} src={cover} sx={{ position: 'absolute', width: '100%', height: '100%', top: 0 }} /> */}
