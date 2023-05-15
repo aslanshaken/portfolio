@@ -85,7 +85,7 @@ function CuisineCard({ data = {}, orderId }) {
           const response = await dispatch(updateCart('remove', orderId, data.id));
           // successAlert(response.data.success);
         }
-        // await dispatch(getOrderDetail(orderId));
+        await dispatch(getOrderDetail(orderId));
         setIsLoading(false);
       } catch (error) {
         setIsLoading(false);
