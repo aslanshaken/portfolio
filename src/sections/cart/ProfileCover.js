@@ -1,11 +1,13 @@
+import NextLink from 'next/link';
 import PropTypes from 'prop-types';
-import { Box, Stack, styled, Typography } from '@mui/material';
+import { Box, Link, Stack, styled, Typography } from '@mui/material';
 import Avatar from '../../components/Avatar';
 import Iconify from '../../components/Iconify';
 import GradientText from 'src/components/GradientText';
 import { useSelector } from 'src/redux/store';
 import { CITYCUISINE_SELECTOR } from 'src/redux/slices/city';
 import { FOOD_SELECTOR } from 'src/redux/slices/food';
+import { PATH_PAGE } from 'src/routes/paths';
 
 const RootStyle = styled('div')(() => ({
   position: 'relative',
@@ -36,7 +38,9 @@ ProfileCover.propTypes = {
 
 export default function ProfileCover({ certified = true, cuisineNames = [] }) {
   const { checkout } = useSelector(FOOD_SELECTOR);
-
+  const { cart } = checkout ?? {};
+  const cuisineId = cart?.[0]?.cuisine?.id;
+  const chefId = cart?.[0]?.chef?.id;
   const { chef } = checkout?.cart[0] ?? {};
 
   return (
@@ -50,35 +54,39 @@ export default function ProfileCover({ certified = true, cuisineNames = [] }) {
           your selections before proceeding to checkout.
         </Typography>
       </Stack>
-      <InfoStyle>
-        <Stack direction={'row'} px={{ md: 6 }}>
-          <Box position={'relative'} sx={{ width: 120, height: 120 }}>
-            <Avatar
-              alt={'Cheff profile avatar'}
-              src={chef?.image_url}
-              sx={{ width: { xs: 100, md: 120 }, height: { xs: 100, md: 120 } }}
-            />
-            <Iconify
-              icon={'material-symbols:verified'}
-              sx={{ color: '#0ED3CF', position: 'absolute', top: 10, right: 0 }}
-            />
-          </Box>
-          <Stack ml={4} my={'auto'}>
-            <Typography variant="h4" color="black" gutterBottom>
-              {chef?.company_name}
-            </Typography>
-            <Typography color={'black'} variant={'subtitle1'}>
-              by {chef?.first_name} {chef?.last_name}
-            </Typography>
-            {/* <Stack direction={{ md: 'row', xs: 'column' }} spacing={{ md: 2 }}>
+      <NextLink href={PATH_PAGE.searchChef.cities({ cityId: '4', cuisineId: cuisineId, chefId: chefId })} passHref>
+        <Link underline='none'>
+          <InfoStyle>
+            <Stack direction={'row'} px={{ md: 6 }}>
+              <Box position={'relative'} sx={{ width: 120, height: 120 }}>
+                <Avatar
+                  alt={'Cheff profile avatar'}
+                  src={chef?.image_url}
+                  sx={{ width: { xs: 100, md: 120 }, height: { xs: 100, md: 120 } }}
+                />
+                <Iconify
+                  icon={'material-symbols:verified'}
+                  sx={{ color: '#0ED3CF', position: 'absolute', top: 10, right: 0 }}
+                />
+              </Box>
+              <Stack ml={4} my={'auto'}>
+                <Typography variant="h4" color="black" gutterBottom>
+                  {chef?.company_name}
+                </Typography>
+                <Typography color={'black'} variant={'subtitle1'}>
+                  by {chef?.first_name} {chef?.last_name}
+                </Typography>
+                {/* <Stack direction={{ md: 'row', xs: 'column' }} spacing={{ md: 2 }}>
               <Typography variant="body1" color="black" flex={1}>
                 {cuisineNames?.join(' / ')}
               </Typography>
               <GradientText variant="body1">{certified && 'Certified chef'}</GradientText>
             </Stack> */}
-          </Stack>
-        </Stack>
-      </InfoStyle>
+              </Stack>
+            </Stack>
+          </InfoStyle>
+        </Link>
+      </NextLink>
     </RootStyle>
   );
 }
