@@ -134,7 +134,7 @@ export default function ScheduleDialog({ isPickup, subtitle, ...other }) {
     try {
       setIsLoading(true);
       const response = await dispatch(updateScheduleTime(orderId, selectedTime));
-      successAlert(response.success);
+      // successAlert(response.success);
       await dispatch(getOrderDetail(orderId));
       setIsLoading(false);
       other.onClose();
