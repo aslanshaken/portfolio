@@ -30,6 +30,7 @@ const initialState = {
     discount: 0,
     delivering: 0,
     billing: null,
+    scheduleDate: null,
     scheduleTime: null,
   },
   orderConfirmInfo: null,
@@ -50,12 +51,26 @@ const slice = createSlice({
           break;
 
         case 'add': {
+          console.log('action.payload.data: ', action.payload.data);
           const alreadyFood = state?.checkout?.cart?.find((item) => item.id === action.payload.data.id);
           if (alreadyFood) {
             alreadyFood.count += action.payload.data.count;
             alreadyFood.notes = action.payload.data.notes ?? alreadyFood.notes;
           } else {
-            state.checkout.cart = [...state.checkout.cart, action.payload.data];
+            const temp = { ...action.payload.data };
+            temp.selected_day = state.checkout.scheduleDate;
+            state.checkout.cart = [...state.checkout.cart, temp];
+          }
+          break;
+        }
+
+        case 'remove': {
+          const alreadyFood = state?.checkout?.cart?.find((item) => item.id === action.payload.data.id);
+          if (alreadyFood.count > alreadyFood.min_order) {
+            alreadyFood.count -= 1;
+            alreadyFood.notes = action.payload.data.notes ?? alreadyFood.notes;
+          } else {
+            state.checkout.cart = state.checkout.cart.filter((item) => item?.id !== action.payload.data.id);
           }
           break;
         }
@@ -97,6 +112,11 @@ const slice = createSlice({
     setOrders(state, action) {
       state.loading = false;
       state.orders = action.payload;
+    },
+
+    setScheduleDate(state, action) {
+      state.loading = false;
+      state.checkout.scheduleDate = action.payload;
     },
 
     setScheduleTime(state, action) {
@@ -159,6 +179,7 @@ export const {
   setDeliveryInstructions,
   setDeliveryAddress,
   setScheduleTime,
+  setScheduleDate,
   setIsPickup,
   clearOrderDetail,
 } = slice.actions;
@@ -172,10 +193,7 @@ export function createOrders(data) {
       food_id: id,
       count: count,
       notes: notes,
-      selected_day: format(
-        parse(selected_day, 'MM/dd/yy', new Date()),
-        'MM/dd/yyyy',
-      ),
+      selected_day: format(parse(selected_day, 'MM/dd/yy', new Date()), 'MM/dd/yyyy'),
     }));
 
     dispatch(startLoading());

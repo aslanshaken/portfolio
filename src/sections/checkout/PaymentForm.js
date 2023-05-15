@@ -59,7 +59,6 @@ export default function PaymentForm({ onClose }) {
         },
       });
 
-      console.log('result: ', result);
       if (result.error) {
         setCardError(result.error.message);
       } else {
@@ -70,7 +69,6 @@ export default function PaymentForm({ onClose }) {
         onClose();
       }
     } catch (error) {
-      console.log(2, error);
       setCardError(error.message);
     } finally {
       setIsLoading(false);

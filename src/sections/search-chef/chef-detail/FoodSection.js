@@ -22,7 +22,14 @@ import MenuAllerogyForm from './MenuAllerogyForm';
 import DropHiddenButton from '../../../components/DropHiddenButton';
 import CartDialog from './CartDialog';
 import { useDispatch, useSelector } from '../../../redux/store';
-import { addFoodCart, clearCart, getFoodsByChef, setError, updateFoodCart } from '../../../redux/slices/food';
+import {
+  addFoodCart,
+  clearCart,
+  getFoodsByChef,
+  setError,
+  setScheduleDate,
+  updateFoodCart,
+} from '../../../redux/slices/food';
 import { getMockTypeData } from '../../../utils/functions';
 import FoodCartCard from 'src/components/FoodCartCard';
 import Iconify from 'src/components/Iconify';
@@ -124,7 +131,6 @@ export default function FoodSection({ selectedCategory }) {
       data.min_order = 1;
     }
     data.count = cart.find((item) => item?.id === data.id) ? 1 : data.min_order;
-    data.selected_day = selectedCategory;
     setIsOpenCartDlg(true);
     setSelectedItemData(data);
   };
@@ -150,6 +156,7 @@ export default function FoodSection({ selectedCategory }) {
         setSelectedItemData={setSelectedItemData}
         open={isOpenCartDlg}
         onSubmit={() => {
+          dispatch(setScheduleDate(selectedCategory));
           handleClickAddCart(selectedItemData);
           setIsOpenCartDlg(false);
         }}
@@ -268,6 +275,7 @@ export default function FoodSection({ selectedCategory }) {
               {foods?.[selectedCategory]?.slice((currentPage - 1) * 12, currentPage * 12).map((item) => (
                 <Grid key={item?.id} item lg={4} md={6} sm={6} xs={12} width={1}>
                   <FoodCartCard
+                    data={item}
                     name={item?.title}
                     cover={item?.image_url}
                     price={item?.current_price}
@@ -275,18 +283,9 @@ export default function FoodSection({ selectedCategory }) {
                     we_kc={`${item?.gram} gr / ${item?.kc} kc`}
                     quantity={item?.quantity}
                     measurement={item?.measurement}
+                    setIsOpenNewCartDlg={setIsOpenNewCartDlg}
+                    setSelectedItemData={setSelectedItemData}
                     onClick={() => handleClickItem(item)}
-                    onClickPlus={() => {
-                      if (isAuthenticated) {
-                        handleClickAddCart({
-                          ...item,
-                          count: cart.find((food) => food?.id === item.id) ? 1 : item.min_order ?? 1,
-                          selected_day: selectedCategory,
-                        });
-                      } else {
-                        router.push(PATH_AUTH.login);
-                      }
-                    }}
                   />
                 </Grid>
               ))}

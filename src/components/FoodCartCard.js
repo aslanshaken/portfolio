@@ -4,10 +4,12 @@ import { IconButtonAnimate } from './animate';
 import GradientText from './GradientText';
 import Image from './Image';
 import Iconify from './Iconify';
+import CountBox from './countBox';
 
 // ----------------------------------------------------------------------
 
 FoodCartCard.propTypes = {
+  data: PropTypes.object,
   name: PropTypes.string,
   cover: PropTypes.string,
   price: PropTypes.number,
@@ -23,6 +25,7 @@ FoodCartCard.propTypes = {
 
 export default function FoodCartCard(props) {
   const {
+    data,
     chefname,
     chefavatar,
     name,
@@ -32,6 +35,8 @@ export default function FoodCartCard(props) {
     measurement,
     onClick = () => {},
     onClickPlus = () => {},
+    setIsOpenNewCartDlg = () => {},
+    setSelectedItemData = () => {},
     min_order,
     ...other
   } = props;
@@ -68,6 +73,7 @@ export default function FoodCartCard(props) {
 
         <Stack
           direction="row"
+          gap={1}
           justifyContent={'space-between'}
           alignItems={'center'}
           sx={{ paddingTop: '2rem', paddingBottom: '1rem', paddingRight: '1rem', paddingLeft: '1rem' }}
@@ -97,9 +103,10 @@ export default function FoodCartCard(props) {
             )}
           </Box>
           <Box>
-            <IconButtonAnimate sx={{ p: 0, width: 33, height: 33 }} onClick={onClickPlus}>
+            {/* <IconButtonAnimate sx={{ p: 0, width: 33, height: 33 }} onClick={onClickPlus}>
               <Iconify icon={'ic:outline-plus'} sx={{ width: 33, height: 33, color: 'text.secondary' }} />
-            </IconButtonAnimate>
+            </IconButtonAnimate> */}
+            <CountBox setIsOpenNewCartDlg={setIsOpenNewCartDlg} setSelectedItemData={setSelectedItemData} data={data} />
           </Box>
         </Stack>
       </CardContent>

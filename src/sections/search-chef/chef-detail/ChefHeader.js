@@ -10,7 +10,7 @@ import HeroHeader from 'src/components/HeroHeader';
 import { useDispatch, useSelector } from 'src/redux/store';
 import { CITYCUISINE_SELECTOR } from 'src/redux/slices/city';
 import { add, format } from 'date-fns';
-import { addFoodCart, FOOD_SELECTOR, updateCart, updateFoodCart } from 'src/redux/slices/food';
+import { addFoodCart, FOOD_SELECTOR, setScheduleDate, updateCart, updateFoodCart } from 'src/redux/slices/food';
 import { useEffect, useState } from 'react';
 import ChangeDeliveryDateDialgo from './ChangeDeliveryDateDialgo';
 
@@ -28,7 +28,7 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
 
   const { checkout, foods } = useSelector(FOOD_SELECTOR);
 
-  const { cart } = checkout;
+  const { cart, scheduleDate } = checkout;
 
   const [tempCategory, setTempCategory] = useState();
 
@@ -46,7 +46,7 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
   useEffect(() => {
     if (categories.length > 0) {
       if (cart[0]?.user_id === chef?.id) {
-        setSelectedCategory(cart?.[0]?.selected_day);
+        setSelectedCategory(scheduleDate);
       } else {
         setSelectedCategory(categories[0]?.date);
       }
@@ -63,6 +63,7 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
 
   const setCategory = () => {
     setSelectedCategory(tempCategory);
+    dispatch(setScheduleDate(tempCategory));
     dispatch(updateFoodCart({ actionType: 'clear' }));
     setChangeDeliveryDateDialogIsOpen(false);
   };
@@ -73,6 +74,7 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
       setTempCategory(data);
     } else {
       setSelectedCategory(data);
+      dispatch(setScheduleDate(data));
     }
   };
 

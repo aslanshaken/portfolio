@@ -17,7 +17,7 @@ export default function DeliverySteps({ address, isPickup }) {
   const [isOpenNotesPanel, setIsOpenNotesPanel] = useState(false);
   const { checkout, savedCards } = useSelector(FOOD_SELECTOR);
   const scheduleTime = checkout?.orderDetail?.schedule_time;
-  const selectedDay = checkout?.orderDetail?.items[0]?.selected_day;
+  const selectedDay = checkout?.scheduleDate;
   const [selectedDate, setSelectedDate] = useState();
   const dispatch = useDispatch();
 

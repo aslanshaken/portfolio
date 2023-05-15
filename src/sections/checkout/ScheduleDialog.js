@@ -105,7 +105,7 @@ export default function ScheduleDialog({ isPickup, subtitle, ...other }) {
 
   const slots = checkout?.orderDetail?.schedule_slots;
 
-  const isDateTomorrow = isTomorrow(new Date(checkout?.orderDetail?.items?.[0]?.selected_day));
+  const isDateTomorrow = isTomorrow(new Date(checkout?.scheduleDate));
 
   const handleChange = (data) => {
     setSelectedTime(data.target.value);
