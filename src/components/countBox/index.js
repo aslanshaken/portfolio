@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { IconButtonAnimate } from '../animate';
 import Iconify from '../Iconify';
 import { dispatch, useSelector } from 'src/redux/store';
-import { FOOD_SELECTOR, updateFoodCart } from 'src/redux/slices/food';
+import { FOOD_SELECTOR, setScheduleDate, updateFoodCart } from 'src/redux/slices/food';
 import useAuth from 'src/hooks/useAuth';
 import { useRouter } from 'next/router';
 import { PATH_PAGE } from 'src/routes/paths';
@@ -23,7 +23,7 @@ const CartCountStyle = styled(Stack)(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function CountBox({ data = {}, setIsOpenNewCartDlg = () => {}, setSelectedItemData = () => {} }) {
+export default function CountBox({ data = {}, setIsOpenNewCartDlg = () => {}, setSelectedItemData = () => {}, selectedCategory }) {
   const { isAuthenticated } = useAuth();
   const [value, setValue] = useState(0);
   const router = useRouter();
@@ -39,6 +39,9 @@ export default function CountBox({ data = {}, setIsOpenNewCartDlg = () => {}, se
         setSelectedItemData(temp);
         setIsOpenNewCartDlg(true);
       } else {
+        if (cart?.length === 0) {
+          dispatch(setScheduleDate(selectedCategory));
+        }
         dispatch(updateFoodCart({ data: temp, actionType: actionType }));
       }
     } else {

@@ -82,7 +82,11 @@ function CuisineCard({ data = {}, orderId }) {
           const response = await dispatch(updateCart('add', orderId, data.id));
           // successAlert(response.data.success);
         } else {
-          const response = await dispatch(updateCart('remove', orderId, data.id));
+          if (orderDetail?.items?.find((item) => item?.id === data?.id)?.count > data?.min_order) {
+            const response = await dispatch(updateCart('remove', orderId, data.id));
+          } else {
+            deleteItem(data?.id);
+          }
           // successAlert(response.data.success);
         }
         await dispatch(getOrderDetail(orderId));
@@ -148,16 +152,15 @@ function CuisineCard({ data = {}, orderId }) {
               cartId={data?.id}
             />
           </Box>
-          <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'} width={'fit-content'} gap={4}>
-            <Stack direction={'row'} gap={1}>
-              <Typography variant={'subtitle1'} color={'success.main'}>
-                ${data?.cost * orderDetail?.items?.find((item) => item?.id === data?.id)?.count}
-              </Typography>
-              <Typography variant={'body2'}>
-                ( ${data?.cost} x {orderDetail?.items?.find((item) => item?.id === data?.id)?.count} )
-              </Typography>
-            </Stack>
-
+          <Stack direction={'row'} gap={1}>
+            <Typography variant={'subtitle1'} color={'success.main'}>
+              ${data?.cost * orderDetail?.items?.find((item) => item?.id === data?.id)?.count}
+            </Typography>
+            <Typography variant={'body2'}>
+              ( ${data?.cost} x {orderDetail?.items?.find((item) => item?.id === data?.id)?.count} )
+            </Typography>
+          </Stack>
+          {/* 
             <Box>
               <LoadingButton
                 loading={loading}
@@ -169,8 +172,7 @@ function CuisineCard({ data = {}, orderId }) {
               >
                 <Iconify icon={'mdi:trash'} />
               </LoadingButton>
-            </Box>
-          </Stack>
+            </Box> */}
         </Stack>
       </Stack>
     </Stack>
@@ -205,7 +207,7 @@ function CartCountBox({ value = 0, minOrder, isloading, cartId, onChange = () =>
   const [newValue, setNewValue] = useState(value);
   const handleChange = (type) => {
     if (type === '+') setNewValue(newValue + 1);
-    else setNewValue(newValue - 1);
+    else setNewValue(newValue - (newValue > minOrder ?? 1 ? 1 : minOrder));
 
     if (newValue == 0) setNewValue(0);
 
@@ -215,14 +217,15 @@ function CartCountBox({ value = 0, minOrder, isloading, cartId, onChange = () =>
   return (
     <CartCountStyle color={'inherit'} variant={'contained'}>
       <LoadingButton
-        disabled={newValue <= (cart?.find((item) => item?.id === cartId) ? 1 : minOrder) || isloading ? true : false}
+        // disabled={newValue <= (cart?.find((item) => item?.id === cartId) ? 1 : minOrder) || isloading ? true : false}
+        disabled={isloading}
         onClick={() => handleChange('-')}
       >
         <Iconify icon={'ic:round-minus'} />
       </LoadingButton>
       <Button disableRipple>
         <Typography variant="body1" color={'text.secondary'} sx={{ minWidth: 30, textAlign: 'center' }}>
-          {newValue}
+          {value}
         </Typography>
       </Button>
       <LoadingButton disabled={isloading} onClick={() => handleChange('+')}>

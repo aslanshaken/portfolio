@@ -28,7 +28,7 @@ export default function CuisineCard({ cuisine = {} }) {
       />
 
       <Stack direction={'row'} width={1} justifyContent="space-between" flexWrap={'wrap'} gap={1}>
-        <Stack maxWidth={180}>
+        <Stack width={{sm:200, xs:1}}>
           <Typography variant="subtitle1" color="black" fontWeight={600}>
             {cuisine?.title}
           </Typography>

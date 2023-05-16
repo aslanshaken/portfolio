@@ -62,11 +62,7 @@ export default function MenuMobile({ isHome, navConfig }) {
 
   const { cart } = checkout;
 
-  const [cartCount, setCartCount] = useState(0);
-
-  useEffect(() => {
-    setCartCount(cart?.reduce((total, currentValue) => total + currentValue.count, 0));
-  }, [cart]);
+   const cartCount = cart?.length;
 
   useEffect(() => {
     if (drawerOpen) {

@@ -24,14 +24,14 @@ export default function CuisineDialog({ isOpen }) {
 
   return (
     <Dialog maxWidth={'sm'} fullWidth open={isOpen} onClose={() => dispatch(closeDialog())}>
-      <IconButton
-        onClick={() => dispatch(closeDialog())}
-        width={'fit-content'}
-        sx={{ position: 'absolute', right: '0' }}
-      >
-        <Iconify icon={'iconoir:cancel'} />
-      </IconButton>
       <DialogContent sx={{ p: 0 }}>
+        <IconButton
+          onClick={() => dispatch(closeDialog())}
+          width={'fit-content'}
+          sx={{ position: 'absolute', right: '0' }}
+        >
+          <Iconify icon={'iconoir:cancel'} />
+        </IconButton>
         <Stack p={6} color={'black'}>
           <Typography variant="h3">Select cuisine</Typography>
           <Typography mt={2} variant={'body2'}>
