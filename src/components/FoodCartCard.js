@@ -94,8 +94,7 @@ export default function FoodCartCard(props) {
               width: '160px',
               height: '160px',
               position: 'relative',
-              borderRadius: '50%',
-              overflow: 'clip',
+              clipPath: 'circle(80px at center)',
             }}
           >
             <Image alt={name} src={cover} sx={{ position: 'absolute', width: '100%', height: '100%', top: 0 }} />
