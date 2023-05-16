@@ -166,6 +166,7 @@ export default function FoodSection({ selectedCategory }) {
       <NewCartDialog
         open={isOpenNewCartDlg}
         onSubmit={() => {
+          dispatch(setScheduleDate(selectedCategory));
           dispatch(updateFoodCart({ actionType: 'clear' }));
           dispatch(
             updateFoodCart({
@@ -286,6 +287,7 @@ export default function FoodSection({ selectedCategory }) {
                     setIsOpenNewCartDlg={setIsOpenNewCartDlg}
                     setSelectedItemData={setSelectedItemData}
                     onClick={() => handleClickItem(item)}
+                    selectedCategory={selectedCategory}
                   />
                 </Grid>
               ))}
