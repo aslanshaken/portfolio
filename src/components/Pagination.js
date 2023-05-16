@@ -8,10 +8,7 @@ Pagination.propTypes = {
 
 export default function Pagination({ count, setCurrentPage }) {
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
+    window.scroll(0, 0);
   };
 
   return (
