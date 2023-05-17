@@ -6,7 +6,7 @@ import { dispatch, useSelector } from 'src/redux/store';
 import { FOOD_SELECTOR, setScheduleDate, updateFoodCart } from 'src/redux/slices/food';
 import useAuth from 'src/hooks/useAuth';
 import { useRouter } from 'next/router';
-import { PATH_PAGE } from 'src/routes/paths';
+import { PATH_AUTH } from 'src/routes/paths';
 import styled from '@emotion/styled';
 //
 
@@ -23,7 +23,12 @@ const CartCountStyle = styled(Stack)(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function CountBox({ data = {}, setIsOpenNewCartDlg = () => {}, setSelectedItemData = () => {}, selectedCategory }) {
+export default function CountBox({
+  data = {},
+  setIsOpenNewCartDlg = () => {},
+  setSelectedItemData = () => {},
+  selectedCategory,
+}) {
   const { isAuthenticated } = useAuth();
   const [value, setValue] = useState(0);
   const router = useRouter();
@@ -45,7 +50,7 @@ export default function CountBox({ data = {}, setIsOpenNewCartDlg = () => {}, se
         dispatch(updateFoodCart({ data: temp, actionType: actionType }));
       }
     } else {
-      router.push(PATH_PAGE.home);
+      router.push(PATH_AUTH.login);
     }
   };
   useEffect(() => {
