@@ -102,6 +102,8 @@ export default function ScheduleDialog({ isPickup, subtitle, ...other }) {
   const [isLoading, setIsLoading] = useState(false);
 
   const scheduleTime = checkout?.orderDetail?.schedule_time;
+  
+  const scheduleDate = checkout?.orderDetail?.items?.[0]?.selected_day;
 
   const slots = checkout?.orderDetail?.schedule_slots;
 
@@ -110,19 +112,26 @@ export default function ScheduleDialog({ isPickup, subtitle, ...other }) {
   const handleChange = (data) => {
     setSelectedTime(data.target.value);
   };
+  const [times, setTimes] = useState([]);
 
-  // filter the array by checking if the label contains a time that is after the current hour
-  const times = isDateTomorrow
-    ? slots?.filter((time) => {
-        const timeString = time;
-        const date = new Date(`2000-01-01 ${timeString}`);
-        const formattedTime = format(date, 'HH');
-        const currentDate = new Date();
-        const futureDate = addHours(currentDate, 17);
-        const hourAfter17Hours = getHours(futureDate);
-        return formattedTime > hourAfter17Hours; // compare the start time with the current hour
-      })
-    : slots;
+  useEffect(() => {
+    if (scheduleDate) {
+      const dateToCheck = parse(scheduleDate, 'MM/dd/yyyy', new Date());
+      const isDateTomorrow = isTomorrow(dateToCheck);
+      const temp = isDateTomorrow
+        ? slots?.filter((time) => {
+            const dateObj = parse(time, 'h:mm a', new Date());
+            const formattedTime = format(dateObj, 'HH');
+            const currentDate = new Date();
+            const futureDate = addHours(currentDate, 17);
+            const hourAfter17Hours = getHours(futureDate);
+            return formattedTime > hourAfter17Hours; // compare the start time with the current hour
+          })
+        : slots;
+
+      setTimes(temp);
+    }
+  }, [scheduleDate]);
 
   const [selectedTime, setSelectedTime] = useState(scheduleTime);
 
