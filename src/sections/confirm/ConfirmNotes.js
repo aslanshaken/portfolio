@@ -7,7 +7,7 @@ import { dispatch, useDispatch, useSelector } from 'src/redux/store';
 export default function ConfirmNotes() {
   const { orderConfirmInfo } = useSelector(FOOD_SELECTOR);
   const notes = orderConfirmInfo?.notes ?? '';
-  const { sub_total, service_fee, order_total, discount, tips } = orderConfirmInfo ?? {};
+  const { sub_total, delivery_fee, service_fee, order_total, discount, tips } = orderConfirmInfo ?? {};
 
   return (
     <Stack spacing={8}>
@@ -47,6 +47,16 @@ export default function ConfirmNotes() {
               ${service_fee}
             </Typography>
           </Stack>
+          {delivery_fee > 0 && (
+            <Stack direction={'row'} justifyContent={'space-between'}>
+              <Typography variant={'body2'} color={'text.secondary'} fontWeight={'600'}>
+                {'Delivery Fee'}
+              </Typography>
+              <Typography fontWeight={'bold'} color={'secondary'}>
+                ${delivery_fee}
+              </Typography>
+            </Stack>
+          )}
           {tips > 0 && (
             <Stack direction={'row'} justifyContent={'space-between'}>
               <Typography variant={'body2'} color={'text.secondary'} fontWeight={'600'}>
@@ -57,7 +67,7 @@ export default function ConfirmNotes() {
               </Typography>
             </Stack>
           )}
-          {discount && (
+          {discount > 0 && (
             <Stack direction={'row'} justifyContent={'space-between'}>
               <Typography variant={'body2'} color={'text.secondary'} fontWeight={'600'}>
                 {'Discount'}

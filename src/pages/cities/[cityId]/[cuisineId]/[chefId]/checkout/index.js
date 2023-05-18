@@ -35,7 +35,7 @@ export default function CheckoutPage() {
   const { cart } = checkout;
 
   const cuisineId = cart?.[0]?.cuisine?.id;
-  
+
   const chefId = cart?.[0]?.chef?.id;
 
   const { orderId, orderDetail } = checkout;
@@ -45,14 +45,8 @@ export default function CheckoutPage() {
   const [isPickup, setIsPickup] = useState(true);
 
   useEffect(() => {
-    const fetch = async () => {
-      await dispatch(getOrderDetail(orderId));
-      if (cart.length == 0) {
-        router.push(PATH_PAGE.home);
-      }
-    };
-    fetch();
-  }, [cart, dispatch, orderId, router]);
+    dispatch(getOrderDetail(orderId));
+  }, [dispatch, orderId]);
 
   useEffect(() => {
     if (orderDetail) setIsPickup(orderDetail?.is_pickup);
