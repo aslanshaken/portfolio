@@ -71,7 +71,7 @@ export default function ConfirmInfo() {
             <Typography variant="body2" color={'text.secondary'}>
               {is_pickup ? 'Pick Up' : 'Delivery'} date
             </Typography>
-            <Typography variant="subtitle1">{is_pickup ? pickupDate : 'Delivery'}</Typography>
+            <Typography variant="subtitle1">{pickupDate}</Typography>
           </Stack>
           <Stack spacing={1}>
             <Typography variant="body2" color={'text.secondary'}>

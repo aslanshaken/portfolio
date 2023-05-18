@@ -131,11 +131,11 @@ export default function FoodCartCard(props) {
               <Typography color="text.primary" variant="subtitle1" fontWeight={600}>
                 {`$${price} / ${quantity} ${measurement || ''}`}
               </Typography>
-              {min_order > 1 && (
+              <Box sx={{ height: 10 }}>
                 <Typography variant="caption" color="text.secondary">
-                  min orders {`${min_order} ${measurement || ''}`}
+                  {min_order > 1 && `min orders ${`${min_order} ${measurement || ''}`}`}
                 </Typography>
-              )}
+              </Box>
             </Box>
             <Box>
               {/* <IconButtonAnimate sx={{ p: 0, width: 33, height: 33 }} onClick={onClickPlus}>
