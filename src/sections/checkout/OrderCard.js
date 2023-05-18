@@ -14,7 +14,7 @@ import {
 import Iconify from 'src/components/Iconify';
 import NextLink from 'next/link';
 import { useDispatch, useSelector } from 'src/redux/store';
-import { addTips, FOOD_SELECTOR, updateFoodCart, updateScheduleTime } from 'src/redux/slices/food';
+import { addTips, applyCoupon, FOOD_SELECTOR, updateFoodCart, updateScheduleTime } from 'src/redux/slices/food';
 import { useState } from 'react';
 import { LoadingButton } from '@mui/lab';
 import { createCardIntent, placeOrder } from 'src/redux/service/payment';
@@ -40,6 +40,7 @@ const TopBottomButtonStyle = styled(ButtonGroup)(({ theme }) => ({
 
 export default function OrderCard({ isPickup }) {
   const [disabled, setDisabled] = useState(true);
+  const [promocode, setPromocode] = useState();
   const { changeAddress } = useAuth();
 
   const { user } = useAuth();
@@ -78,10 +79,7 @@ export default function OrderCard({ isPickup }) {
 
   // const { sub_total, service_fee, items, order_total } = orderDetail;
 
-  const sub_total = orderDetail?.sub_total;
-  const service_fee = orderDetail?.service_fee;
-  const items = orderDetail?.items;
-  const order_total = orderDetail?.order_total;
+  const { delivery_fee, sub_total, service_fee, items, order_total } = orderDetail ?? {};
 
   const dispatch = useDispatch();
 
@@ -94,14 +92,15 @@ export default function OrderCard({ isPickup }) {
         await dispatch(updateScheduleTime(orderId, scheduleTime));
       }
       await changeAddress(isPickup, address?.id, orderId);
+      await dispatch(applyCoupon(promocode, orderId));
       await dispatch(addTips({ orderId: orderId, tips: tips }));
       const response = await dispatch(placeOrder(orderId));
-      dispatch(updateFoodCart({ actionType: 'clear' }));
 
       if (placeOrder.fulfilled.match(response)) {
         successAlert('Your payment was successful.');
         setIsLoading(false);
         setTimeout(() => {
+          dispatch(updateFoodCart({ actionType: 'clear' }));
           push(PATH_PAGE.orderConfirm.orders({ orderId }));
         }, 1000);
       } else if (placeOrder.rejected.match(response)) {
@@ -153,6 +152,18 @@ export default function OrderCard({ isPickup }) {
           ${service_fee}
         </Typography>
       </Stack>
+
+      {delivery_fee > 0 && (
+        <>
+          <Divider sx={{ mb: 2 }} />
+          <Stack direction={'row'} justifyContent={'space-between'} mb={2}>
+            <Typography variant={'body2'}>{'Delivery Fee:'}</Typography>
+            <Typography fontWeight={'bold'} color={'secondary'}>
+              ${delivery_fee}
+            </Typography>
+          </Stack>
+        </>
+      )}
 
       <Divider sx={{ mb: 2 }} />
       <Stack direction={'row'} justifyContent={'space-between'} mb={2}>
@@ -210,7 +221,13 @@ export default function OrderCard({ isPickup }) {
         {'Enter your promocode here'}
       </Typography>
 
-      <TextField fullWidth label={'Promocode'} variant={'filled'} size={'small'} />
+      <TextField
+        fullWidth
+        label={'Promocode'}
+        variant={'filled'}
+        size={'small'}
+        onChange={(e) => setPromocode(e.target.value)}
+      />
 
       <Box mt={5} />
 

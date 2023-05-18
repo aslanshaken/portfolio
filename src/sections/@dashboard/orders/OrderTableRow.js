@@ -33,7 +33,7 @@ OrderTableRow.propTypes = {
 export default function OrderTableRow({ row, selected, headLabel, onEditRow, onSelectRow, onDeleteRow }) {
   const theme = useTheme();
 
-  const { order_num, order_date, items, id, sub_total, status, chef } = row;
+  const { order_num, order_date, items, id, order_total, status, chef } = row;
 
   const [orderId, setOrderId] = useState();
 
@@ -83,7 +83,7 @@ export default function OrderTableRow({ row, selected, headLabel, onEditRow, onS
       {/* <TableCell align="center">{cuisineNames?.join(' / ')}</TableCell> */}
 
       <TableCell align="center" sx={{ color: '#8CCC67' }}>
-        ${sub_total}
+        ${order_total}
       </TableCell>
 
       <TableCell align="center">
@@ -99,25 +99,35 @@ export default function OrderTableRow({ row, selected, headLabel, onEditRow, onS
       <Link>
         <Card sx={{ my: 1, px: 6, py: 2 }}>
           <Stack direction={'row'} gap={2} justifyContent={'space-between'}>
-            <Typography variant='subtitle1' color='grey'>Order Number :</Typography>
+            <Typography variant="subtitle1" color="grey">
+              Order Number :
+            </Typography>
             <Typography>#{order_num}</Typography>
           </Stack>
           <Stack direction={'row'} gap={2} justifyContent={'space-between'}>
-            <Typography variant='subtitle1' color='grey'>Order Date :</Typography>
+            <Typography variant="subtitle1" color="grey">
+              Order Date :
+            </Typography>
             <Typography>{order_date}</Typography>
           </Stack>
           <Stack direction={'row'} gap={2} justifyContent={'space-between'}>
-            <Typography variant='subtitle1' color='grey'>Chef :</Typography>
+            <Typography variant="subtitle1" color="grey">
+              Chef :
+            </Typography>
             <Typography>
               {chef?.first_name} {chef?.last_name}
             </Typography>
           </Stack>
           <Stack direction={'row'} gap={2} justifyContent={'space-between'}>
-            <Typography variant='subtitle1' color='grey'>Price :</Typography>
-            <Typography>${sub_total}</Typography>
+            <Typography variant="subtitle1" color="grey">
+              Price :
+            </Typography>
+            <Typography>${order_total}</Typography>
           </Stack>
           <Stack direction={'row'} gap={2} justifyContent={'space-between'}>
-            <Typography variant='subtitle1' color='grey'>Status :</Typography>
+            <Typography variant="subtitle1" color="grey">
+              Status :
+            </Typography>
             {status && (
               <Label variant={'ghost'} color={STATUS_COLOR[status]} sx={{ textTransform: 'capitalize' }}>
                 {status}

@@ -274,6 +274,19 @@ export function addTips(data) {
   };
 }
 
+export function applyCoupon(promocode, orderId) {
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try {
+      const response = await axios.post(`/api/${process.env.API_VERSION}/orders/${orderId}/apply_coupon`, {
+        code: promocode,
+      });
+    } catch (error) {
+      dispatch(slice.actions.setError(error));
+    }
+  };
+}
+
 export function updateScheduleTime(orderId, scheduleTime) {
   return async (dispatch) => {
     dispatch(startLoading());

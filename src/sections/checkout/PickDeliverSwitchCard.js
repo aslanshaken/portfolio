@@ -5,7 +5,7 @@ import Image from 'src/components/Image';
 import AddressesDialog from './AddressesDialog';
 import { useDispatch, useSelector } from 'src/redux/store';
 import useAuth from 'src/hooks/useAuth';
-import { FOOD_SELECTOR, updateIsPickup } from 'src/redux/slices/food';
+import { FOOD_SELECTOR, getOrderDetail, updateIsPickup } from 'src/redux/slices/food';
 import useNotify from 'src/hooks/useNotify';
 
 const RootStyle = styled(Stack)(({ theme }) => ({
@@ -23,15 +23,13 @@ PickDeliverSwitchCard.propTypes = {
 export default function PickDeliverSwitchCard({ isPickup = true, setIsPickup }) {
   const { checkout } = useSelector(FOOD_SELECTOR);
 
-  const { successAlert } = useNotify();
-
-  const { user } = useAuth();
-
-  const deliveryAddress = user?.addresses?.find((item) => item.primary_address == true);
-
   const { orderDetail, orderId } = checkout;
 
+  const deliveryAddress = orderDetail?.available_addresses?.[0];
+
   const pickupAddress = orderDetail?.pickup_address;
+
+  const [loading, setIsloading] = useState(false);
 
   // const deliveryAddress = orderDetail?.address;
 
@@ -46,24 +44,34 @@ export default function PickDeliverSwitchCard({ isPickup = true, setIsPickup }) 
         <Box>
           <ButtonGroup color="secondary">
             <Button
+              disabled={loading}
               variant={isPickup ? 'contained' : 'outlined'}
               sx={{ px: 5, fontWeight: 500 }}
-              onClick={() => {
-                dispatch(updateIsPickup(true, orderId));
-                setIsPickup(true);
+              onClick={async () => {
+                if (!isPickup) {
+                  setIsloading(true);
+                  await dispatch(updateIsPickup(true, orderId));
+                  await dispatch(getOrderDetail(orderId));
+                  setIsloading(false);
+                }
               }}
             >
               {'Pickup'}
             </Button>
             <Button
+              disabled={loading}
               variant={isPickup ? 'outlined' : 'contained'}
               sx={{ px: 5, fontWeight: 500 }}
-              onClick={() => {
-                successAlert(
-                  'At the moment, delivery services are not available, but we are actively working towards making it possible'
-                );
-                // dispatch(updateIsPickup(false, orderId));
-                // setIsPickup(false);
+              onClick={async () => {
+                // successAlert(
+                //   'At the moment, delivery services are not available, but we are actively working towards making it possible'
+                // );
+                if (isPickup) {
+                  setIsloading(true);
+                  await dispatch(updateIsPickup(false, orderId));
+                  await dispatch(getOrderDetail(orderId));
+                  setIsloading(false);
+                }
               }}
             >
               {'Delivery'}

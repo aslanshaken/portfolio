@@ -13,6 +13,7 @@ import useNotify from 'src/hooks/useNotify';
 import GradientText from 'src/components/GradientText';
 import { useRouter } from 'next/router';
 import { LoadingButton } from '@mui/lab';
+import { PATH_PAGE } from 'src/routes/paths';
 
 //
 export default function CartListCard() {
@@ -109,7 +110,7 @@ function CuisineCard({ data = {}, orderId }) {
       if (orderDetail?.items?.length == 1) {
         dispatch(updateFoodCart({ actionType: 'clear' }));
         setTimeout(() => {
-          router.push('/');
+          router.push(PATH_PAGE.home);
         }, 500);
       }
     } catch (error) {
