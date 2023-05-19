@@ -200,14 +200,15 @@ function AuthProvider({ children }) {
     });
   };
 
-  const register = async (first_name, last_name, email, password, password_confirmation) => {
+  const register = async (data) => {
     const response = await axios.post(`/api/${process.env.API_VERSION}/sign_up`, {
       users: {
-        first_name,
-        last_name,
-        email,
-        password,
-        password_confirmation,
+        first_name: data.firstName,
+        last_name: data.lastName,
+        mobile: data.phoneNumber,
+        email: data.email,
+        password: data.password,
+        password_confirmation: data.password_confirmation,
         user_type: 'end_user',
       },
     });
@@ -322,7 +323,7 @@ function AuthProvider({ children }) {
         updatePersonalInfo,
         updatePassword,
         changeAddress,
-        confirm
+        confirm,
       }}
     >
       {children}
