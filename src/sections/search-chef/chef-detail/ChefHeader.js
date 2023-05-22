@@ -45,10 +45,11 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
   const [prevChefId, setPrevChefId] = useState();
 
   useEffect(() => {
-    if (chefId) {
-      const currentIndex = chefs?.findIndex((item) => item.chef.id == chefId);
-      setPrevChefId(chefs?.[currentIndex - 1]?.chef?.id);
-      setNextChefId(chefs?.[currentIndex + 1]?.chef?.id);
+    if (chefId && chefs) {
+      const availableChefs = chefs?.filter((item) => item?.chef?.can_sell);
+      const currentIndex = availableChefs?.findIndex((item) => item.chef.id == chefId);
+      setPrevChefId(availableChefs?.[currentIndex - 1]?.chef?.id);
+      setNextChefId(availableChefs?.[currentIndex + 1]?.chef?.id);
     }
   }, [chefId, chefs]);
 
@@ -106,7 +107,7 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
 
       <HeroHeader cuisine={'Back'} />
       <Container>
-        <Stack direction={'row'} gap={6} width={'100%'} justifyContent={'space-between'}>
+        <Stack marginTop={4} direction={'row'} gap={6} width={'100%'} justifyContent={'space-between'}>
           {prevChefId ? (
             <NextLink href={PATH_PAGE.searchChef.cities({ cityId, cuisineId, chefId: prevChefId })} passHref>
               <Link underline="none">Previous Chef</Link>
@@ -192,8 +193,8 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
                     <Typography display={{ md: 'block', xs: 'none' }} color={'black'} variant={'subtitle1'}>
                       Zip code: {chef?.primary_address?.zip}
                     </Typography>
-                    <Typography display={{ md: 'block', xs: 'none' }} color={'black'} variant={'subtitle1'}>
-                      Delivery fee: ${chef?.delivery_fee ?? 0}
+                    <Typography color={'black'} variant={'subtitle1'}>
+                      Delivery fee: ${chef?.delivery_fee ?? 4.99}
                     </Typography>
                   </Stack>
                   <Hidden mdDown>

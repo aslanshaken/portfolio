@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
 import NextLink from 'next/link';
-import { Breadcrumbs, Link, Typography } from '@mui/material';
+import { Breadcrumbs, Icon, Link, Stack, Typography } from '@mui/material';
 import React from 'react';
 import { useDispatch } from 'src/redux/store';
 import { openDialog } from 'src/redux/slices/dialog';
 import { useRouter } from 'next/router';
+import Iconify from './Iconify';
 
 NavLinkHeader.propTypes = {
   city: PropTypes.string,
@@ -32,7 +33,10 @@ export default function NavLinkHeader({ cuisine = '', chef = '' }) {
             }}
             color="inherit"
           >
-            <Typography variant='h5' >{cuisine}</Typography>
+            <Stack direction={'row'} alignItems="center">
+              {cuisine === 'Back' && <Iconify icon={'eva:arrow-back-fill'} />}
+              <Typography variant="h5">{cuisine}</Typography>
+            </Stack>
           </Link>
         </NextLink>
       )}
