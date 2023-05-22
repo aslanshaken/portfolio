@@ -13,6 +13,8 @@ import { add, format } from 'date-fns';
 import { addFoodCart, FOOD_SELECTOR, setScheduleDate, updateCart, updateFoodCart } from 'src/redux/slices/food';
 import { useEffect, useState } from 'react';
 import ChangeDeliveryDateDialgo from './ChangeDeliveryDateDialgo';
+import { useRouter } from 'next/router';
+import { PATH_PAGE } from 'src/routes/paths';
 
 ChefHeader.propTypes = {
   selectedCategory: PropTypes.string,
@@ -22,7 +24,7 @@ ChefHeader.propTypes = {
 // ----------------------------------------------------------------------
 
 export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
-  const { chef: chefData } = useSelector(CITYCUISINE_SELECTOR);
+  const { chef: chefData, chefs } = useSelector(CITYCUISINE_SELECTOR);
 
   const { chef } = chefData ?? {};
 
@@ -33,6 +35,23 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
   const [tempCategory, setTempCategory] = useState();
 
   const [changeDeliveryDateDialogIsOpen, setChangeDeliveryDateDialogIsOpen] = useState(false);
+
+  const router = useRouter();
+
+  const { cityId, cuisineId, chefId } = router.query;
+
+  const [nextChefId, setNextChefId] = useState();
+
+  const [prevChefId, setPrevChefId] = useState();
+
+  useEffect(() => {
+    if (chefId && chefs) {
+      const availableChefs = chefs?.filter((item) => item?.chef?.can_sell);
+      const currentIndex = availableChefs?.findIndex((item) => item.chef.id == chefId);
+      setPrevChefId(availableChefs?.[currentIndex - 1]?.chef?.id);
+      setNextChefId(availableChefs?.[currentIndex + 1]?.chef?.id);
+    }
+  }, [chefId, chefs]);
 
   const categories = Object.keys(foods)
     .sort((a, b) => new Date(a) - new Date(b))
@@ -88,6 +107,22 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
 
       <HeroHeader cuisine={'Back'} />
       <Container>
+        <Stack marginTop={4} direction={'row'} gap={6} width={'100%'} justifyContent={'space-between'}>
+          {prevChefId ? (
+            <NextLink href={PATH_PAGE.searchChef.cities({ cityId, cuisineId, chefId: prevChefId })} passHref>
+              <Link underline="none">Previous Chef</Link>
+            </NextLink>
+          ) : (
+            <Typography color={'lightGray'}>Previous Chef</Typography>
+          )}
+          {nextChefId ? (
+            <NextLink href={PATH_PAGE.searchChef.cities({ cityId, cuisineId, chefId: nextChefId })} passHref>
+              <Link underline="none">Next Chef</Link>
+            </NextLink>
+          ) : (
+            <Typography color={'lightGray'}>Next Chef</Typography>
+          )}
+        </Stack>
         <Box display={'flex'} mb={7}>
           <Box px={2} width={'100%'}>
             <Box
@@ -97,7 +132,14 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
               width={'100%'}
               position={'relative'}
             >
-              <Stack direction={'row'} alignItems={'center'} spacing={2}>
+              <Stack
+                marginTop={4}
+                direction={{ sm: 'row', xs: 'column' }}
+                alignItems={'center'}
+                justifyContent={'center'}
+                spacing={{ sm: 2 }}
+                width={'100%'}
+              >
                 <Box position={'relative'}>
                   <Avatar
                     alt="Travis Howard"
@@ -129,7 +171,7 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
                   <Typography color={'black'} variant={'h3'} fontWeight={'600'} pt={1}>
                     {chef?.company_name}
                   </Typography>
-                  <Stack direction={{ sm: 'row', xs: 'column' }} gap={2} flexWrap={'wrap'}>
+                  <Stack direction={'row'} gap={2} flexWrap={'wrap'}>
                     <Typography color={'black'} variant={'subtitle1'}>
                       by {chef?.first_name} {chef?.last_name}
                     </Typography>
@@ -151,6 +193,9 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
                     <Typography display={{ md: 'block', xs: 'none' }} color={'black'} variant={'subtitle1'}>
                       Zip code: {chef?.primary_address?.zip}
                     </Typography>
+                    <Typography color={'black'} variant={'subtitle1'}>
+                      Delivery fee: ${chef?.delivery_fee ?? 4.99}
+                    </Typography>
                   </Stack>
                   <Hidden mdDown>
                     <Box maxWidth={'600px'}>
@@ -158,39 +203,6 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
                     </Box>
                   </Hidden>
                 </Box>
-              </Stack>
-              <Stack
-                direction={'row'}
-                flexWrap={'nowrap'}
-                mt={2}
-                mb={4}
-                spacing={1}
-                sx={{ position: 'absolute', top: -70, right: 0 }}
-              >
-                <NextLink href={chef?.instagram ?? '#'} passHref>
-                  <Box>
-                    <Image
-                      src={'/assets/search-chef/follow1.png'}
-                      sx={{ height: 40, width: 40, cursor: 'pointer' }}
-                      alt={'follow-image'}
-                    />
-                  </Box>
-                </NextLink>
-                <NextLink href={chef?.instagram ?? '#'} passHref>
-                  <Box>
-                    <Image
-                      src={'/assets/search-chef/follow2.png'}
-                      sx={{ height: 40, width: 40, cursor: 'pointer' }}
-                      alt={'follow-image'}
-                    />
-                  </Box>
-                </NextLink>
-                {/* <IconButton
-                  color={'secondary'}
-                  sx={{ border: '2px solid', height: 40, width: 40, borderRadius: '13px' }}
-                >
-                  <Iconify icon={'mdi:cards-heart-outline'} />
-                </IconButton> */}
               </Stack>
             </Box>
             <Hidden mdUp>
