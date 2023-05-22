@@ -107,15 +107,19 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
       <HeroHeader cuisine={'Back'} />
       <Container>
         <Stack direction={'row'} gap={6} width={'100%'} justifyContent={'space-between'}>
-          {prevChefId && (
+          {prevChefId ? (
             <NextLink href={PATH_PAGE.searchChef.cities({ cityId, cuisineId, chefId: prevChefId })} passHref>
               <Link underline="none">Previous Chef</Link>
             </NextLink>
+          ) : (
+            <Typography color={'lightGray'}>Previous Chef</Typography>
           )}
-          {nextChefId && (
+          {nextChefId ? (
             <NextLink href={PATH_PAGE.searchChef.cities({ cityId, cuisineId, chefId: nextChefId })} passHref>
               <Link underline="none">Next Chef</Link>
             </NextLink>
+          ) : (
+            <Typography color={'lightGray'}>Next Chef</Typography>
           )}
         </Stack>
         <Box display={'flex'} mb={7}>
