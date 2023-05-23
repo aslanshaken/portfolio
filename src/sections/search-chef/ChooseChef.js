@@ -202,8 +202,8 @@ export default function ChooseChef() {
                     container
                     display={'flex'}
                     flexWrap={'wrap'}
-                    gap={4}
-                    px={{ lg: 8, xs: 4 }}
+                    gap={{ xs: 1.5, sm: 4 }}
+                    px={{ sm: 4, xs: 1 }}
                     py={2}
                     sx={{
                       borderBottom: '1px solid',
@@ -212,23 +212,22 @@ export default function ChooseChef() {
                   >
                     <Box>
                       <Typography display={'flex'} flexWrap={'nowrap'} gap={1} variant="subtitle1">
-                        <Iconify
-                          icon={'material-symbols:star'}
-                          sx={{ width: 21, height: 21, color: 'primary.main' }}
-                        />{' '}
+                        <Iconify icon={'material-symbols:star'} sx={{ width: 21, height: 21, color: 'primary.main' }} />{' '}
                         {item?.chef?.rating}
                       </Typography>
                     </Box>
-                    <Box>
+                    <Stack direction={'row'} gap={0.7}>
+                      <Typography>Orders: </Typography>
                       <Typography variant="subtitle1" display={'flex'} flexWrap={'nowrap'}>
-                        Orders: {item?.chef?.orders}
+                        {item?.chef?.orders}
                       </Typography>
-                    </Box>
-                    <Box>
+                    </Stack>
+                    <Stack direction={'row'} gap={0.7}>
+                      <Typography>Delivery fee: </Typography>
                       <Typography variant="subtitle1" display={'flex'} flexWrap={'nowrap'}>
-                        Delivery fee: ${item?.chef?.delivery_fee ?? 4.99}
+                        ${item?.chef?.delivery_fee ?? 4.99}
                       </Typography>
-                    </Box>
+                    </Stack>
                   </Box>
                   <Grid container spacing={{ xs: 5, md: 2 }} py={2}>
                     <Grid item xs={12} lg={4} ml={1}>

@@ -40,7 +40,7 @@ export default function ChefPage() {
   useEffect(() => {
     async function fetch() {
       setIsLoading(true);
-      dispatch(getChefs(cityId, cuisineId, chefId));
+      await dispatch(getChefs(cityId, cuisineId, chefId));
       await dispatch(getFoodsByChef(cityId, cuisineId, chefId));
       setIsLoading(false);
     }
