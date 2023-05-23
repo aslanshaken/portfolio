@@ -140,7 +140,7 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
                 spacing={{ sm: 2 }}
                 width={'100%'}
               >
-                <Box position={'relative'}>
+                <Box position={'relative'} marginBottom={2}>
                   <Avatar
                     alt="Travis Howard"
                     src={chef?.image_url}
@@ -167,8 +167,8 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
                     }}
                   />
                 </Box>
-                <Stack gap={{ xs: 2, md: 0 }}>
-                  <Stack direction={'row'} alignItems={'center'} gap={1} justifyContent={{ xs: 'center', sm: 'left' }}>
+                <Stack gap={{ xs: 2, md: 0 }} width={'100%'}>
+                  <Stack textAlign={{ xs: 'center', sm: 'left' }}>
                     <Typography color={'black'} variant={'h3'} fontWeight={'600'}>
                       {chef?.company_name}
                     </Typography>
@@ -176,7 +176,31 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
                       by {chef?.first_name} {chef?.last_name}
                     </Typography>
                   </Stack>
-                  <Stack direction={'row'} gap={2} flexWrap={'wrap'} justifyContent={{ xs: 'center', sm: 'left' }}>
+                  <Stack direction={'row'} flexWrap={'wrap'} gap={1} justifyContent={'space-between'} px={2} width={'100%'}>
+                    <Stack gap={1}>
+                      <Typography color={'black'} variant={'subtitle1'}>
+                        Rating: {chef?.rating}
+                      </Typography>
+                      <Typography color={'black'} variant={'subtitle1'}>
+                        Deliveries: {chef?.orders}
+                      </Typography>
+                    </Stack>
+                    <Stack gap={1}>
+                      <Typography display={{ xs: 'block', md: 'none' }} color={'black'} variant={'subtitle1'}>
+                        Zip code: {chef?.primary_address?.zip}
+                      </Typography>
+                      <Typography color={'black'} variant={'subtitle1'}>
+                        Delivery fee: ${chef?.delivery_fee ?? 4.99}
+                      </Typography>
+                    </Stack>
+                  </Stack>
+                  <Stack
+                    direction={'row'}
+                    display={{ xs: 'none', sm: 'flex' }}
+                    gap={2}
+                    flexWrap={'wrap'}
+                    justifyContent={{ xs: 'center', sm: 'left' }}
+                  >
                     <Typography display={{ xs: 'none', sm: 'block' }} color={'black'} variant={'subtitle1'}>
                       by {chef?.first_name} {chef?.last_name}
                     </Typography>
