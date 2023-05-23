@@ -201,6 +201,7 @@ export default function ChooseChef() {
                   <Box
                     container
                     display={'flex'}
+                    flexWrap={'wrap'}
                     gap={4}
                     px={{ lg: 8, xs: 4 }}
                     py={2}
@@ -218,6 +219,11 @@ export default function ChooseChef() {
                     <Box>
                       <Typography variant="subtitle1" display={'flex'} flexWrap={'nowrap'}>
                         Orders: {item?.chef?.orders}
+                      </Typography>
+                    </Box>
+                    <Box>
+                      <Typography variant="subtitle1" display={'flex'} flexWrap={'nowrap'}>
+                        Delivery fee: ${item?.chef?.delivery_fee ?? 4.99}
                       </Typography>
                     </Box>
                   </Box>
