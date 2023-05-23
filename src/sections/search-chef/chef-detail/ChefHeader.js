@@ -112,14 +112,14 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
             <NextLink href={PATH_PAGE.searchChef.cities({ cityId, cuisineId, chefId: prevChefId })} passHref>
               <Link underline="none">Previous Chef</Link>
             </NextLink>
-          ) : (
+          ): (
             <Box> </Box>
           )}
           {nextChefId ? (
             <NextLink href={PATH_PAGE.searchChef.cities({ cityId, cuisineId, chefId: nextChefId })} passHref>
               <Link underline="none">Next Chef</Link>
             </NextLink>
-          ) : (
+          ): (
             <Box> </Box>
           )}
         </Stack>
@@ -168,11 +168,11 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
                   />
                 </Box>
                 <Stack gap={{ xs: 2, md: 0 }} width={'100%'}>
-                  <Stack textAlign={{ xs: 'center', sm: 'left' }} gap={2}>
+                  <Stack textAlign={{ xs: 'center', sm: 'left' }}>
                     <Typography color={'black'} variant={'h3'} fontWeight={'600'}>
                       {chef?.company_name}
                     </Typography>
-                    <Typography display={{ xs: 'block', sm: 'none' }} color={'black'} variant={'subtitle1'}>
+                    <Typography py={3} display={{ xs: 'block', sm: 'none' }} color={'black'} variant={'subtitle1'}>
                       by {chef?.first_name} {chef?.last_name}
                     </Typography>
                   </Stack>
@@ -186,29 +186,29 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
                     width={'100%'}
                   >
                     <Stack gap={1}>
-                      <Stack direction={'row'} gap={1}>
+                      <Stack direction={'row'} gap={0.7}>
                         <Typography color={'black'} variant={'body1'}>
-                          Rating :
+                          Rating:
                         </Typography>
                         <Typography variant="subtitle1">{chef?.rating}</Typography>
                       </Stack>
-                      <Stack direction={'row'} gap={1}>
+                      <Stack direction={'row'} gap={0.7}>
                         <Typography color={'black'} variant={'body1'}>
-                          Deliveries :
+                          Deliveries:
                         </Typography>
                         <Typography variant="subtitle1">{chef?.orders}</Typography>
                       </Stack>
                     </Stack>
                     <Stack gap={1}>
-                      <Stack direction={'row'} gap={1}>
+                      <Stack direction={'row'} gap={0.7}>
                         <Typography color={'black'} variant={'body1'}>
-                          Zip code :
+                          Zip code:
                         </Typography>
                         <Typography variant="subtitle1">{chef?.primary_address?.zip}</Typography>
                       </Stack>
-                      <Stack direction={'row'} gap={1}>
+                      <Stack direction={'row'} gap={0.7}>
                         <Typography color={'black'} variant={'body1'}>
-                          Delivery fee :
+                          Delivery fee:
                         </Typography>
                         <Typography variant="subtitle1">${chef?.delivery_fee ?? 4.99}</Typography>
                       </Stack>
@@ -224,30 +224,27 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
                     <Typography color={'black'} variant={'subtitle1'}>
                       by {chef?.first_name} {chef?.last_name}
                     </Typography>
-                    {/* <Typography color={'black'} variant={'subtitle1'}>
-                      {cuisine?.name}
-                    </Typography> */}
-                    <Stack direction={'row'} gap={1}>
+                    <Stack direction={'row'} gap={0.7}>
                       <Typography color={'black'} variant={'body1'}>
-                        Rating :
+                        Rating:
                       </Typography>
                       <Typography variant="subtitle1">{chef?.rating}</Typography>
                     </Stack>
-                    <Stack direction={'row'} gap={1}>
+                    <Stack direction={'row'} gap={0.7}>
                       <Typography color={'black'} variant={'body1'}>
-                        Deliveries :
+                        Deliveries:
                       </Typography>
                       <Typography variant="subtitle1">{chef?.orders}</Typography>
                     </Stack>
-                    <Stack direction={'row'} gap={1}>
+                    <Stack direction={'row'} gap={0.7}>
                       <Typography color={'black'} variant={'body1'}>
-                        Zip code :
+                        Zip code:
                       </Typography>
                       <Typography variant="subtitle1">{chef?.primary_address?.zip}</Typography>
                     </Stack>
-                    <Stack direction={'row'} gap={1}>
+                    <Stack direction={'row'} gap={0.7}>
                       <Typography color={'black'} variant={'body1'}>
-                        Delivery fee :
+                        Delivery fee:
                       </Typography>
                       <Typography variant="subtitle1">${chef?.delivery_fee ?? 4.99}</Typography>
                     </Stack>
@@ -280,10 +277,10 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
             <Stack direction="row" spacing={4} position={'relative'} zIndex={10} overflow={'auto'} py={2}>
               {categories.length == 0 ? (
                 <Typography>There is no available dates.</Typography>
-              ) : (
+              ): (
                 categories.map((item) => (
                   <Button
-                    disabled={foods?.[item?.date]?.length > 0 ? false : true}
+                    disabled={foods?.[item?.date]?.length > 0 ? false: true}
                     key={item?.id}
                     variant={'contained'}
                     sx={{
@@ -292,7 +289,7 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
                       whiteSpace: 'nowrap',
                       minWidth: 'fit-content',
                       border: item?.date === selectedCategory && 'none',
-                      background: item?.date === selectedCategory ? '#B3B3B3' : '#DAEFE5',
+                      background: item?.date === selectedCategory ? '#B3B3B3': '#DAEFE5',
                       color: '#31342B',
                     }}
                     onClick={() => handleClickCategory(item?.date)}
