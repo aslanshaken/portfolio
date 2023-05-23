@@ -113,14 +113,14 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
               <Link underline="none">Previous Chef</Link>
             </NextLink>
           ) : (
-            <Typography color={'lightGray'}>Previous Chef</Typography>
+            <Box> </Box>
           )}
           {nextChefId ? (
             <NextLink href={PATH_PAGE.searchChef.cities({ cityId, cuisineId, chefId: nextChefId })} passHref>
               <Link underline="none">Next Chef</Link>
             </NextLink>
           ) : (
-            <Typography color={'lightGray'}>Next Chef</Typography>
+            <Box> </Box>
           )}
         </Stack>
         <Box display={'flex'} mb={7}>
@@ -167,12 +167,17 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
                     }}
                   />
                 </Box>
-                <Box>
-                  <Typography color={'black'} variant={'h3'} fontWeight={'600'} pt={1}>
-                    {chef?.company_name}
-                  </Typography>
-                  <Stack direction={'row'} gap={2} flexWrap={'wrap'}>
-                    <Typography color={'black'} variant={'subtitle1'}>
+                <Stack gap={{ xs: 2, md: 0 }}>
+                  <Stack direction={'row'} alignItems={'center'} gap={1} justifyContent={{ xs: 'center', sm: 'left' }}>
+                    <Typography color={'black'} variant={'h3'} fontWeight={'600'}>
+                      {chef?.company_name}
+                    </Typography>
+                    <Typography display={{ xs: 'block', sm: 'none' }} color={'black'} variant={'subtitle1'}>
+                      by {chef?.first_name} {chef?.last_name}
+                    </Typography>
+                  </Stack>
+                  <Stack direction={'row'} gap={2} flexWrap={'wrap'} justifyContent={{ xs: 'center', sm: 'left' }}>
+                    <Typography display={{ xs: 'none', sm: 'block' }} color={'black'} variant={'subtitle1'}>
                       by {chef?.first_name} {chef?.last_name}
                     </Typography>
                     <Typography display={{ xs: 'block', md: 'none' }} color={'black'} variant={'subtitle1'}>
@@ -187,7 +192,7 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
                     <Typography color={'black'} variant={'subtitle1'}>
                       Deliveries: {chef?.orders}
                     </Typography>
-                    <GradientText color={'primary'} variant={'subtitle1'}>
+                    <GradientText display={{ md: 'block', xs: 'none' }} color={'primary'} variant={'subtitle1'}>
                       Certified chef
                     </GradientText>
                     <Typography display={{ md: 'block', xs: 'none' }} color={'black'} variant={'subtitle1'}>
@@ -197,12 +202,14 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
                       Delivery fee: ${chef?.delivery_fee ?? 4.99}
                     </Typography>
                   </Stack>
-                  <Hidden mdDown>
-                    <Box maxWidth={'600px'}>
-                      <ReadMore>{chef?.about_me}</ReadMore>
-                    </Box>
-                  </Hidden>
-                </Box>
+                  <Box marginTop={{ xs: 2, md: 0 }}>
+                    <Hidden mdDown>
+                      <Box maxWidth={'600px'}>
+                        <ReadMore>{chef?.about_me}</ReadMore>
+                      </Box>
+                    </Hidden>
+                  </Box>
+                </Stack>
               </Stack>
             </Box>
             <Hidden mdUp>
