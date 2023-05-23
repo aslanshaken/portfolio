@@ -212,8 +212,11 @@ export default function ChooseChef() {
                   >
                     <Box>
                       <Typography display={'flex'} flexWrap={'nowrap'} gap={1} variant="subtitle1">
-                        Rating: {item?.chef?.rating}
-                        <Iconify icon={'material-symbols:star'} sx={{ width: 21, height: 21, color: 'primary.main' }} />
+                        <Iconify
+                          icon={'material-symbols:star'}
+                          sx={{ width: 21, height: 21, color: 'primary.main' }}
+                        />{' '}
+                        {item?.chef?.rating}
                       </Typography>
                     </Box>
                     <Box>
