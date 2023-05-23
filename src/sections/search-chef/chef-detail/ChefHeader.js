@@ -112,14 +112,14 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
             <NextLink href={PATH_PAGE.searchChef.cities({ cityId, cuisineId, chefId: prevChefId })} passHref>
               <Link underline="none">Previous Chef</Link>
             </NextLink>
-          ): (
+          ) : (
             <Box> </Box>
           )}
           {nextChefId ? (
             <NextLink href={PATH_PAGE.searchChef.cities({ cityId, cuisineId, chefId: nextChefId })} passHref>
               <Link underline="none">Next Chef</Link>
             </NextLink>
-          ): (
+          ) : (
             <Box> </Box>
           )}
         </Stack>
@@ -248,6 +248,9 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
                       </Typography>
                       <Typography variant="subtitle1">${chef?.delivery_fee ?? 4.99}</Typography>
                     </Stack>
+                    <GradientText color={'primary'} variant={'subtitle1'}>
+                      Certified chef
+                    </GradientText>
                   </Stack>
                   <Box marginTop={{ xs: 2, md: 0 }}>
                     <Hidden mdDown>
@@ -277,10 +280,10 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
             <Stack direction="row" spacing={4} position={'relative'} zIndex={10} overflow={'auto'} py={2}>
               {categories.length == 0 ? (
                 <Typography>There is no available dates.</Typography>
-              ): (
+              ) : (
                 categories.map((item) => (
                   <Button
-                    disabled={foods?.[item?.date]?.length > 0 ? false: true}
+                    disabled={foods?.[item?.date]?.length > 0 ? false : true}
                     key={item?.id}
                     variant={'contained'}
                     sx={{
@@ -289,7 +292,7 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
                       whiteSpace: 'nowrap',
                       minWidth: 'fit-content',
                       border: item?.date === selectedCategory && 'none',
-                      background: item?.date === selectedCategory ? '#B3B3B3': '#DAEFE5',
+                      background: item?.date === selectedCategory ? '#B3B3B3' : '#DAEFE5',
                       color: '#31342B',
                     }}
                     onClick={() => handleClickCategory(item?.date)}
