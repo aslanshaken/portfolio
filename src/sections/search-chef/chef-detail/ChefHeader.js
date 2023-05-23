@@ -176,22 +176,42 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
                       by {chef?.first_name} {chef?.last_name}
                     </Typography>
                   </Stack>
-                  <Stack direction={'row'} flexWrap={'wrap'} gap={1} justifyContent={'space-between'} px={2} width={'100%'}>
+                  <Stack
+                    display={{ xs: 'flex', sm: 'none' }}
+                    direction={'row'}
+                    flexWrap={'wrap'}
+                    gap={1}
+                    justifyContent={'space-between'}
+                    px={2}
+                    width={'100%'}
+                  >
                     <Stack gap={1}>
-                      <Typography color={'black'} variant={'subtitle1'}>
-                        Rating: {chef?.rating}
-                      </Typography>
-                      <Typography color={'black'} variant={'subtitle1'}>
-                        Deliveries: {chef?.orders}
-                      </Typography>
+                      <Stack direction={'row'} gap={1}>
+                        <Typography color={'black'} variant={'body1'}>
+                          Rating :
+                        </Typography>
+                        <Typography variant="subtitle1">{chef?.rating}</Typography>
+                      </Stack>
+                      <Stack direction={'row'} gap={1}>
+                        <Typography color={'black'} variant={'body1'}>
+                          Deliveries :
+                        </Typography>
+                        <Typography variant="subtitle1">{chef?.orders}</Typography>
+                      </Stack>
                     </Stack>
                     <Stack gap={1}>
-                      <Typography display={{ xs: 'block', md: 'none' }} color={'black'} variant={'subtitle1'}>
-                        Zip code: {chef?.primary_address?.zip}
-                      </Typography>
-                      <Typography color={'black'} variant={'subtitle1'}>
-                        Delivery fee: ${chef?.delivery_fee ?? 4.99}
-                      </Typography>
+                      <Stack direction={'row'} gap={1}>
+                        <Typography color={'black'} variant={'body1'}>
+                          Zip code :
+                        </Typography>
+                        <Typography variant="subtitle1">{chef?.primary_address?.zip}</Typography>
+                      </Stack>
+                      <Stack direction={'row'} gap={1}>
+                        <Typography color={'black'} variant={'body1'}>
+                          Delivery fee :
+                        </Typography>
+                        <Typography variant="subtitle1">${chef?.delivery_fee ?? 4.99}</Typography>
+                      </Stack>
                     </Stack>
                   </Stack>
                   <Stack
@@ -201,30 +221,36 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
                     flexWrap={'wrap'}
                     justifyContent={{ xs: 'center', sm: 'left' }}
                   >
-                    <Typography display={{ xs: 'none', sm: 'block' }} color={'black'} variant={'subtitle1'}>
+                    <Typography color={'black'} variant={'subtitle1'}>
                       by {chef?.first_name} {chef?.last_name}
-                    </Typography>
-                    <Typography display={{ xs: 'block', md: 'none' }} color={'black'} variant={'subtitle1'}>
-                      Zip code: {chef?.primary_address?.zip}
                     </Typography>
                     {/* <Typography color={'black'} variant={'subtitle1'}>
                       {cuisine?.name}
                     </Typography> */}
-                    <Typography color={'black'} variant={'subtitle1'}>
-                      Rating: {chef?.rating}
-                    </Typography>
-                    <Typography color={'black'} variant={'subtitle1'}>
-                      Deliveries: {chef?.orders}
-                    </Typography>
-                    <GradientText display={{ md: 'block', xs: 'none' }} color={'primary'} variant={'subtitle1'}>
-                      Certified chef
-                    </GradientText>
-                    <Typography display={{ md: 'block', xs: 'none' }} color={'black'} variant={'subtitle1'}>
-                      Zip code: {chef?.primary_address?.zip}
-                    </Typography>
-                    <Typography color={'black'} variant={'subtitle1'}>
-                      Delivery fee: ${chef?.delivery_fee ?? 4.99}
-                    </Typography>
+                    <Stack direction={'row'} gap={1}>
+                      <Typography color={'black'} variant={'body1'}>
+                        Rating :
+                      </Typography>
+                      <Typography variant="subtitle1">{chef?.rating}</Typography>
+                    </Stack>
+                    <Stack direction={'row'} gap={1}>
+                      <Typography color={'black'} variant={'body1'}>
+                        Deliveries :
+                      </Typography>
+                      <Typography variant="subtitle1">{chef?.orders}</Typography>
+                    </Stack>
+                    <Stack direction={'row'} gap={1}>
+                      <Typography color={'black'} variant={'body1'}>
+                        Zip code :
+                      </Typography>
+                      <Typography variant="subtitle1">{chef?.primary_address?.zip}</Typography>
+                    </Stack>
+                    <Stack direction={'row'} gap={1}>
+                      <Typography color={'black'} variant={'body1'}>
+                        Delivery fee :
+                      </Typography>
+                      <Typography variant="subtitle1">${chef?.delivery_fee ?? 4.99}</Typography>
+                    </Stack>
                   </Stack>
                   <Box marginTop={{ xs: 2, md: 0 }}>
                     <Hidden mdDown>
