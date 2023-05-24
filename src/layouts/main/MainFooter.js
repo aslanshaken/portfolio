@@ -12,6 +12,9 @@ import SocialsButton from '../../components/SocialsButton';
 import { ArrowTopIcon } from '../../assets';
 import { Box } from '@mui/system';
 import getAppInfo from 'src/utils/getAppInfo';
+import { useState } from 'react';
+import PolicyDialog from 'src/sections/footer/policyDialog';
+import ServiceDialog from 'src/sections/footer/serviceDialog';
 
 // ----------------------------------------------------------------------
 
@@ -30,6 +33,9 @@ const RootStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function MainFooter() {
+  const [policyDialogIsOpen, setPolicyDialogIsOpen] = useState(false);
+  const [serviceDialogIsOpen, setServiceDialogIsOpen] = useState(false);
+
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -39,6 +45,8 @@ export default function MainFooter() {
 
   return (
     <RootStyle>
+      <PolicyDialog open={policyDialogIsOpen} onClose={() => setPolicyDialogIsOpen(false)} />
+      <ServiceDialog open={serviceDialogIsOpen} onClose={() => setServiceDialogIsOpen(false)} />
       <Container>
         <Stack pt={6} pb={{ xs: 10, md: 2 }}>
           <Stack direction={'row'}>
@@ -77,11 +85,7 @@ export default function MainFooter() {
             maxWidth={400}
             mx={'auto'}
           >
-            <GradientText
-              variant="body1"
-              fontWeight={'bold'}
-              textAlign={'center'}
-            >
+            <GradientText variant="body1" fontWeight={'bold'} textAlign={'center'}>
               support@cookk.co
             </GradientText>
             {/* <Typography color={'text.secondary'}>
@@ -92,10 +96,14 @@ export default function MainFooter() {
           <Stack direction={'row'} justifyContent={{ xs: 'center', md: 'space-between' }}>
             <Stack direction={'row'} spacing={3} display={{ xs: 'none', md: 'flex' }}>
               <Typography>{`© ${getAppInfo('name')} 2023`}</Typography>
-              <Typography>Privacy Policy</Typography>
-              <Typography>Terms of Service</Typography>
+              <Link onClick={() => setPolicyDialogIsOpen(true)} underline="none" sx={{ cursor: 'pointer' }}>
+                <Typography color={'white'}>Privacy Policy</Typography>
+              </Link>
+              <Link onClick={() => setServiceDialogIsOpen(true)} underline="none" sx={{ cursor: 'pointer' }}>
+                <Typography color={'white'}>Terms of Service</Typography>
+              </Link>
             </Stack>
-            <SocialsButton />
+            <SocialsButton links={{ instagram: 'https://instagram.com/cookk.co' }} />
           </Stack>
         </Stack>
         <Box
