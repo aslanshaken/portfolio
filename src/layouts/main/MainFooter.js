@@ -93,7 +93,7 @@ export default function MainFooter() {
             </Typography>
             <Typography>3678 Summit Park Avenue Southfield, MI 697,US</Typography> */}
           </Stack>
-          <Stack direction={'row'} justifyContent={{ xs: 'center', md: 'space-between' }}>
+          <Stack direction={'row'} alignItems={'center'} justifyContent={{ xs: 'center', md: 'space-between' }}>
             <Stack direction={'row'} spacing={3} display={{ xs: 'none', md: 'flex' }}>
               <Typography>{`© ${getAppInfo('name')} 2023`}</Typography>
               <Link onClick={() => setPolicyDialogIsOpen(true)} underline="none" sx={{ cursor: 'pointer' }}>
@@ -104,6 +104,22 @@ export default function MainFooter() {
               </Link>
             </Stack>
             <SocialsButton links={{ instagram: 'https://instagram.com/cookk.co' }} />
+          </Stack>
+          <Stack
+            flexWrap={'wrap'}
+            display={{ md: 'none', xs: 'flex' }}
+            direction={'row'}
+            marginTop={4}
+            gap={4}
+            justifyContent={{ xs: 'center', md: 'space-between' }}
+          >
+            <Typography>{`© ${getAppInfo('name')} 2023`}</Typography>
+            <Link onClick={() => setPolicyDialogIsOpen(true)} underline="none" sx={{ cursor: 'pointer' }}>
+              <Typography color={'white'}>Privacy Policy</Typography>
+            </Link>
+            <Link onClick={() => setServiceDialogIsOpen(true)} underline="none" sx={{ cursor: 'pointer' }}>
+              <Typography color={'white'}>Terms of Service</Typography>
+            </Link>
           </Stack>
         </Stack>
         <Box

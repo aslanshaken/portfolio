@@ -86,7 +86,7 @@ export default function DeliverySteps({ address, isPickup }) {
           )}
         </Stack>
       ),
-      buttonText: 'Add a new card',
+      buttonText: savedCards?.length === 0 && 'Add a new card',
       onClickButton: () => {
         setIsOpenPaymentDialog(true);
       },
@@ -174,7 +174,7 @@ function DeliveryStepCard({
         flexWrap={'wrap'}
         gap={2}
       >
-        <Box flex={1} pr={6}>
+        <Box flex={1}>
           <Typography variant="caption" color={'text.secondary'}>
             {content}
           </Typography>

@@ -9,7 +9,7 @@ export default function ServiceDialog({ ...other }) {
   return (
     <Dialog maxWidth={'sm'} fullWidth {...other}>
       <DialogContent sx={{ p: 0 }}>
-        <IconButton width={'fit-content'} sx={{ position: 'absolute', right: '0' }}>
+        <IconButton onClick={other.onClose} width={'fit-content'} sx={{ position: 'absolute', right: '0' }}>
           <Iconify icon={'iconoir:cancel'} />
         </IconButton>
         <Container sx={{ py: 6 }}>
@@ -49,12 +49,13 @@ export default function ServiceDialog({ ...other }) {
               purposes.
             </Typography>
 
-            <Typography>b. Prohibited Conduct: You agree that you will not:
-              Use the Services for any unlawful, unauthorized, or fraudulent purposes. Engage in any activity that could
-              interfere with or disrupt the functioning of the Services. Post, upload, or transmit any content that is
-              harmful, offensive, defamatory, or violates the rights of others. Attempt to gain unauthorized access to
-              any part of the Services or any other systems or networks connected to the Services. Use any automated
-              means, such as bots or scrapers, to access or collect information from the Services.
+            <Typography>
+              b. Prohibited Conduct: You agree that you will not: Use the Services for any unlawful, unauthorized, or
+              fraudulent purposes. Engage in any activity that could interfere with or disrupt the functioning of the
+              Services. Post, upload, or transmit any content that is harmful, offensive, defamatory, or violates the
+              rights of others. Attempt to gain unauthorized access to any part of the Services or any other systems or
+              networks connected to the Services. Use any automated means, such as bots or scrapers, to access or
+              collect information from the Services.
             </Typography>
             <Typography>
               c. Content Ownership: Cookk retains all rights, title, and interest in and to the Services, including all
@@ -78,7 +79,7 @@ export default function ServiceDialog({ ...other }) {
             <Typography>Privacy:</Typography>
 
             <Typography>
-              Your privacy is important to us. Please review our Privacy Policy [provide hyperlink] to understand how we
+              Your privacy is important to us. Please review our Privacy Policy www.cookk.co to understand how we
               collect, use, and disclose your information when you use the Services.
             </Typography>
 

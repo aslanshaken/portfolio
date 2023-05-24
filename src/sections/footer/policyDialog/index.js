@@ -8,7 +8,11 @@ export default function PolicyDialog({ ...other }) {
   return (
     <Dialog maxWidth={'sm'} fullWidth {...other}>
       <DialogContent sx={{ p: 0 }}>
-        <IconButton width={'fit-content'} sx={{ position: 'absolute', right: '0' }}>
+        <IconButton
+          onClick={other.onClose}
+          width={'fit-content'}
+          sx={{ position: 'absolute', right: '0' }}
+        >
           <Iconify icon={'iconoir:cancel'} />
         </IconButton>
         <Container sx={{ py: 6 }}>
