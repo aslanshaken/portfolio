@@ -6,9 +6,12 @@ import { useState } from 'react';
 import NotesPanel from './NotesPanel';
 import ScheduleDialog from './ScheduleDialog';
 import { useDispatch, useSelector } from 'src/redux/store';
-import { FOOD_SELECTOR, getSavedCards } from 'src/redux/slices/food';
+import { FOOD_SELECTOR, deleteCard, getSavedCards } from 'src/redux/slices/food';
 import { format } from 'date-fns';
 import { useEffect } from 'react';
+import { IconButtonAnimate } from 'src/components/animate';
+import Iconify from 'src/components/Iconify';
+import useNotify from 'src/hooks/useNotify';
 
 //
 export default function DeliverySteps({ address, isPickup }) {
@@ -20,6 +23,17 @@ export default function DeliverySteps({ address, isPickup }) {
   const selectedDay = checkout?.scheduleDate;
   const [selectedDate, setSelectedDate] = useState();
   const dispatch = useDispatch();
+  const { errorAlert } = useNotify();
+
+  const deletePayment = async () => {
+    try {
+      const response = await dispatch(deleteCard());
+      dispatch(getSavedCards());
+      // successAlert(response.data.success);
+    } catch (error) {
+      errorAlert(error.message);
+    }
+  };
 
   useEffect(() => {
     dispatch(getSavedCards());
@@ -49,14 +63,19 @@ export default function DeliverySteps({ address, isPickup }) {
         <Stack spacing={1}>
           {savedCards ? (
             savedCards?.map((item) => (
-              <Grid container width={'100%'} key={item?.id} whiteSpace={'nowrap'}>
+              <Grid container width={'100%'} key={item?.id} whiteSpace={'nowrap'} alignItems={'center'}>
                 <Grid item xs={4}>
                   <Typography variant="caption" color={'secondary'}>
                     {item?.brand}
                   </Typography>
                 </Grid>
                 <Grid item xs={8}>
-                  **** **** **** {item?.last_four}
+                  <Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
+                    <Box>**** **** **** {item?.last_four}</Box>
+                    <IconButtonAnimate color="error" onClick={deletePayment}>
+                      <Iconify icon={'mdi:trash'} />
+                    </IconButtonAnimate>
+                  </Stack>
                 </Grid>
               </Grid>
             ))

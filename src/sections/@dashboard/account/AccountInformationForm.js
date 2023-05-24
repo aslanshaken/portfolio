@@ -65,7 +65,7 @@ export default function AccountInformationForm() {
   const addressScahema = Yup.object().shape({
     custom_vocabulary: Yup.string(),
     address: Yup.string().required('address is required'),
-    apartment: Yup.string().required('apartment is required'),
+    apartment: Yup.string(),
     state: Yup.string().required('state is required'),
     city: Yup.string().required('city is required'),
     zip: Yup.number().required('ZIP is required'),

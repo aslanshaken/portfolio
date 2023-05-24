@@ -48,7 +48,7 @@ export default function AddressesDialog({ ...other }) {
 
   const schema = Yup.object().shape({
     address: Yup.string().required('Address is required'),
-    apartment: Yup.string().required('Apartment is required'),
+    apartment: Yup.string(),
     state: Yup.string().required('State is required'),
     city: Yup.string().required('City is required'),
     zip: Yup.string().required('Zip is required'),
