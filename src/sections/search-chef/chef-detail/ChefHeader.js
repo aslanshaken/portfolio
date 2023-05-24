@@ -299,7 +299,7 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
                 ))
               )}
             </Stack>
-            <Typography variant="body2">Chef requires 17 hours for food preparation</Typography>
+            <Typography variant="body2" marginTop={3}>Chef requires 17 hours for food preparation</Typography>
           </Box>
           <Divider />
         </Box>
