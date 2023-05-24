@@ -14,7 +14,14 @@ import {
 import Iconify from 'src/components/Iconify';
 import NextLink from 'next/link';
 import { useDispatch, useSelector } from 'src/redux/store';
-import { addTips, applyCoupon, FOOD_SELECTOR, updateFoodCart, updateScheduleTime } from 'src/redux/slices/food';
+import {
+  addTips,
+  applyCoupon,
+  FOOD_SELECTOR,
+  getOrderDetail,
+  updateFoodCart,
+  updateScheduleTime,
+} from 'src/redux/slices/food';
 import { useState } from 'react';
 import { LoadingButton } from '@mui/lab';
 import { createCardIntent, placeOrder } from 'src/redux/service/payment';
@@ -85,6 +92,17 @@ export default function OrderCard({ isPickup }) {
 
   const [tips, setTips] = useState(orderDetail?.tips ?? 0);
 
+  const sendPromocode = async () => {
+    const response = await dispatch(applyCoupon(promocode, orderId));
+    if(!response){
+      errorAlert('Promocode is not valid');
+    }
+    else{
+      successAlert('Successfully applied promo code');
+    }
+    dispatch(getOrderDetail(orderId));
+  };
+
   const handleClickOrder = async () => {
     setIsLoading(true);
     try {
@@ -92,7 +110,6 @@ export default function OrderCard({ isPickup }) {
         await dispatch(updateScheduleTime(orderId, scheduleTime));
       }
       await changeAddress(isPickup, address?.id, orderId);
-      await dispatch(applyCoupon(promocode, orderId));
       await dispatch(addTips({ orderId: orderId, tips: tips }));
       const response = await dispatch(placeOrder(orderId));
 
@@ -221,13 +238,19 @@ export default function OrderCard({ isPickup }) {
         {'Enter your promocode here'}
       </Typography>
 
-      <TextField
-        fullWidth
-        label={'Promocode'}
-        variant={'filled'}
-        size={'small'}
-        onChange={(e) => setPromocode(e.target.value)}
-      />
+      <Stack direction={'row'}>
+        <TextField
+          fullWidth
+          label={'Promocode'}
+          variant={'filled'}
+          size={'small'}
+          onChange={(e) => setPromocode(e.target.value)}
+        />
+
+        <Button onClick={sendPromocode} variant="contained" color="secondary" sx={{ width: 'fit-content' }}>
+          Add
+        </Button>
+      </Stack>
 
       <Box mt={5} />
 

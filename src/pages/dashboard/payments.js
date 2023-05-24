@@ -34,7 +34,7 @@ export default function PaymentsPage() {
     try {
       const response = await dispatch(deleteCard());
       dispatch(getSavedCards());
-      successAlert(response.data.success);
+      // successAlert(response.data.success);
     } catch (error) {
       errorAlert(error.message);
     }

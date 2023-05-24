@@ -24,7 +24,7 @@ export default function Login() {
           Log in
         </GradientText>
         <Typography color={'text.secondary'} mb={7.5}>
-          Welcome back! Please enter your details...
+          Welcome back! Please enter your details
         </Typography>
         <LoginForm />
       </Container>

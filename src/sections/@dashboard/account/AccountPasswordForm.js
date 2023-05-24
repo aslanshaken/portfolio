@@ -49,7 +49,7 @@ export default function AccountPasswordForm() {
   const onSubmit = async (data) => {
     try {
       const response = await updatePassword(data);
-      successAlert(response.data.success);
+      // successAlert(response.data.success);
     } catch (error) {
       errorAlert(error.message);
     }

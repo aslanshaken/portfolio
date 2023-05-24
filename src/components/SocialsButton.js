@@ -49,7 +49,7 @@ export default function SocialsButton({ initialColor = false, simple = true, lin
       {SOCIALS.map((social) => {
         const { name, icon, path, socialColor } = social;
         return simple ? (
-          <Link key={name} href={path}>
+          <Link key={name} href={path} target='_blank'>
             <Tooltip title={name} placement="top">
               <IconButton
                 color="inherit"

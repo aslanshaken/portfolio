@@ -48,7 +48,7 @@ export default function AddressesDialog({ ...other }) {
 
   const schema = Yup.object().shape({
     address: Yup.string().required('Address is required'),
-    apartment: Yup.string().required('Apartment is required'),
+    apartment: Yup.string(),
     state: Yup.string().required('State is required'),
     city: Yup.string().required('City is required'),
     zip: Yup.string().required('Zip is required'),
@@ -69,10 +69,10 @@ export default function AddressesDialog({ ...other }) {
       if (address) {
         data.id = address?.id;
         const response = await updateAddress(data);
-        successAlert(response.data.success);
+        // successAlert(response.data.success);
       } else {
         const response = await addAddress(data);
-        successAlert(response.data.success);
+        // successAlert(response.data.success);
       }
       dispatch(getOrderDetail(orderId));
       // dispatch(setDeliveryAddress(data));

@@ -281,6 +281,7 @@ export function applyCoupon(promocode, orderId) {
       const response = await axios.post(`/api/${process.env.API_VERSION}/orders/${orderId}/apply_coupon`, {
         code: promocode,
       });
+      return response.data;
     } catch (error) {
       dispatch(slice.actions.setError(error));
     }

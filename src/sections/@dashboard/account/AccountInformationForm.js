@@ -56,7 +56,7 @@ export default function AccountInformationForm() {
   const personalInfoOnSubmit = async (data) => {
     try {
       const response = await updatePersonalInfo(data);
-      successAlert(response.data.success);
+      // successAlert(response.data.success);
     } catch (error) {
       errorAlert(error.message);
     }
@@ -65,7 +65,7 @@ export default function AccountInformationForm() {
   const addressScahema = Yup.object().shape({
     custom_vocabulary: Yup.string(),
     address: Yup.string().required('address is required'),
-    apartment: Yup.string().required('apartment is required'),
+    apartment: Yup.string(),
     state: Yup.string().required('state is required'),
     city: Yup.string().required('city is required'),
     zip: Yup.number().required('ZIP is required'),
@@ -98,10 +98,10 @@ export default function AccountInformationForm() {
     try {
       if (address?.id) {
         const response = await updateAddress(data);
-        successAlert(response.data.success);
+        // successAlert(response.data.success);
       } else {
         const response = await addAddress(data);
-        successAlert(response.data.success);
+        // successAlert(response.data.success);
       }
     } catch (error) {
       errorAlert(error.message);

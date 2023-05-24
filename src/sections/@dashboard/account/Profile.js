@@ -50,7 +50,7 @@ export default function Profile() {
 
       updateAvatar(avatar);
       setIsLoading(false);
-      successAlert(response.data.success);
+      // successAlert(response.data.success);
 
       setAvatarUrl(
         Object.assign(file, {
