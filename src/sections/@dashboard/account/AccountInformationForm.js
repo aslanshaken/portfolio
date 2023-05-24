@@ -56,7 +56,7 @@ export default function AccountInformationForm() {
   const personalInfoOnSubmit = async (data) => {
     try {
       const response = await updatePersonalInfo(data);
-      successAlert(response.data.success);
+      // successAlert(response.data.success);
     } catch (error) {
       errorAlert(error.message);
     }
@@ -98,10 +98,10 @@ export default function AccountInformationForm() {
     try {
       if (address?.id) {
         const response = await updateAddress(data);
-        successAlert(response.data.success);
+        // successAlert(response.data.success);
       } else {
         const response = await addAddress(data);
-        successAlert(response.data.success);
+        // successAlert(response.data.success);
       }
     } catch (error) {
       errorAlert(error.message);

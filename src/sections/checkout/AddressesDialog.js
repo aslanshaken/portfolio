@@ -69,10 +69,10 @@ export default function AddressesDialog({ ...other }) {
       if (address) {
         data.id = address?.id;
         const response = await updateAddress(data);
-        successAlert(response.data.success);
+        // successAlert(response.data.success);
       } else {
         const response = await addAddress(data);
-        successAlert(response.data.success);
+        // successAlert(response.data.success);
       }
       dispatch(getOrderDetail(orderId));
       // dispatch(setDeliveryAddress(data));

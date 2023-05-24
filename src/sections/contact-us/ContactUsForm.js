@@ -38,7 +38,7 @@ export default function ContactUsForm() {
   const onSubmit = async (data) => {
     try {
       dispatch(contactUs(data));
-      successAlert();
+      // successAlert();
     } catch (error) {
       errorAlert(error.message);
     }

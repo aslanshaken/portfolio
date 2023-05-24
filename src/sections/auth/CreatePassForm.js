@@ -48,7 +48,7 @@ export default function CreatePassForm() {
         token: router.query.token,
         password: data.password,
       });
-      successAlert();
+      // successAlert();
       router.push(PATH_PAGE.home);
     } catch (error) {
       errorAlert(error.message);
