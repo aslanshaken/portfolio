@@ -215,6 +215,7 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
                     </Stack>
                   </Stack>
                   <Stack
+                    marginBottom={2}
                     direction={'row'}
                     display={{ xs: 'none', sm: 'flex' }}
                     gap={2}
@@ -299,7 +300,6 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
                 ))
               )}
             </Stack>
-            <Typography variant="body2" marginTop={3}>Chef requires 17 hours for food preparation</Typography>
           </Box>
           <Divider />
         </Box>
