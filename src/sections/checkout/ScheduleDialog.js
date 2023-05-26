@@ -55,12 +55,15 @@ export default function ScheduleDialog({ setSelectedDate, selectedDate, selected
       const today = new Date();
       const formattedDate = format(today, 'MM/dd/yy');
       const futureDate = addHours(today, 5);
-      const times = foods?.[formattedDate]?.[0]?.time_slots?.filter((item) => {
-        const dateObj = parse(item, 'h:mm a', today);
-        const formattedTime = format(dateObj, 'HH');
-        const hourAfter5Hours = getHours(futureDate);
-        return formattedTime > hourAfter5Hours;
-      });
+      const isTodayFutureDate = isToday(futureDate);
+      const times = isTodayFutureDate
+        ? foods?.[formattedDate]?.[0]?.time_slots?.filter((item) => {
+            const dateObj = parse(item, 'h:mm a', today);
+            const formattedTime = format(dateObj, 'HH');
+            const hourAfter5Hours = getHours(futureDate);
+            return formattedTime > hourAfter5Hours;
+          })
+        : [];
       setTodaySlots(times);
       const isFutureToday = isToday(futureDate);
       const time_slots = foods?.[selectedDate]?.[0]?.time_slots;
@@ -82,7 +85,6 @@ export default function ScheduleDialog({ setSelectedDate, selectedDate, selected
       const selectedDateIsToday = isToday(new Date(key));
       const selectedDateIsTomorrow = isTomorrow(new Date(key));
       const formattedDate = format(new Date(key), 'MMMM d');
-
       return {
         id: _i,
         label: selectedDateIsToday ? 'Today' : selectedDateIsTomorrow ? 'Tomorrow' : formattedDate,
