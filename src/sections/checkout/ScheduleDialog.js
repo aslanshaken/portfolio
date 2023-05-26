@@ -72,11 +72,13 @@ export default function ScheduleDialog({ setSelectedDate, selectedDate, selected
   }, [foods, selectedDate]);
 
   useEffect(() => {
-    const fomrattedDate = new Date(tempCategory);
-    const isFutureToday = isToday(fomrattedDate);
-    const time_slots = foods?.[tempCategory]?.[0]?.time_slots;
-    setSlots(isFutureToday ? todaySlots : time_slots);
-    setSelectedTime(selectedDate === tempCategory ? selectedTime : isFutureToday ? todaySlots[0] : time_slots[0]);
+    if (other.open) {
+      const fomrattedDate = new Date(tempCategory);
+      const isFutureToday = isToday(fomrattedDate);
+      const time_slots = foods?.[tempCategory]?.[0]?.time_slots;
+      setSlots(isFutureToday ? todaySlots : time_slots);
+      setSelectedTime(selectedDate === tempCategory ? selectedTime : isFutureToday ? todaySlots[0] : time_slots[0]);
+    }
   }, [tempCategory, other.open]);
 
   const categories = Object.keys(foods)
