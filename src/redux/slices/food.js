@@ -186,13 +186,14 @@ export const {
 // Selector
 export const FOOD_SELECTOR = (state) => state.food;
 
-export function createOrders(data) {
+export function createOrders(data, scheduleTime) {
   return async (dispatch) => {
     const oreders = data.map(({ id, count, notes, selected_day }) => ({
       food_id: id,
       count: count,
       notes: notes,
       selected_day: format(parse(selected_day, 'MM/dd/yy', new Date()), 'MM/dd/yyyy'),
+      selected_time: scheduleTime,
     }));
 
     dispatch(startLoading());

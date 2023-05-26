@@ -58,8 +58,6 @@ export default function OrderCard({ isPickup }) {
   const { orderDetail, orderId, cart } = checkout;
   const address = orderDetail?.available_addresses?.find((item) => item.primary_address == true);
 
-  const scheduleTime = checkout?.orderDetail?.schedule_time;
-
   // router
   const { push } = useRouter();
 
@@ -94,10 +92,9 @@ export default function OrderCard({ isPickup }) {
 
   const sendPromocode = async () => {
     const response = await dispatch(applyCoupon(promocode, orderId));
-    if(!response){
+    if (!response) {
       errorAlert('Promocode is not valid');
-    }
-    else{
+    } else {
       successAlert('Successfully applied promo code');
     }
     dispatch(getOrderDetail(orderId));
@@ -106,9 +103,7 @@ export default function OrderCard({ isPickup }) {
   const handleClickOrder = async () => {
     setIsLoading(true);
     try {
-      if (!scheduleTime) {
-        await dispatch(updateScheduleTime(orderId, scheduleTime));
-      }
+      await dispatch(updateScheduleTime(orderId, checkout?.orderDetail?.items?.[0]?.selected_time));
       await changeAddress(isPickup, address?.id, orderId);
       await dispatch(addTips({ orderId: orderId, tips: tips }));
       const response = await dispatch(placeOrder(orderId));

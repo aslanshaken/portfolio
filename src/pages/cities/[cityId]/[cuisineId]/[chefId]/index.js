@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'src/redux/store';
 import { CITYCUISINE_SELECTOR, getChefs } from 'src/redux/slices/city';
 import { useRouter } from 'next/router';
 import LoadingScreen from 'src/components/LoadingScreen';
-import { getFoodsByChef } from 'src/redux/slices/food';
+import { FOOD_SELECTOR, getFoodsByChef } from 'src/redux/slices/food';
 
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
@@ -23,7 +23,12 @@ ChefPage.getLayout = function getLayout(page) {
 // ----------------------------------------------------------------------
 
 export default function ChefPage() {
-  const [selectedCategory, setSelectedCategory] = useState();
+  const [selectedDate, setSelectedDate] = useState();
+
+  const { checkout } = useSelector(FOOD_SELECTOR);
+  const { scheduleTime } = checkout;
+
+  const [selectedTime, setSelectedTime] = useState(scheduleTime);
 
   const { cuisines } = useSelector(CITYCUISINE_SELECTOR);
 
@@ -52,8 +57,13 @@ export default function ChefPage() {
     <LoadingScreen inner />
   ) : (
     <Page title="Search Chef">
-      <ChefHeader selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
-      <FoodSection selectedCategory={selectedCategory} />
+      <ChefHeader
+        selectedDate={selectedDate}
+        setSelectedDate={setSelectedDate}
+        selectedTime={selectedTime}
+        setSelectedTime={setSelectedTime}
+      />
+      <FoodSection selectedDate={selectedDate} selectedTime={selectedTime} />
     </Page>
   );
 }
