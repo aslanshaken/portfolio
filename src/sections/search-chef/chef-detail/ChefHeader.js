@@ -277,7 +277,7 @@ export default function ChefHeader({ selectedDate, setSelectedDate, selectedTime
                 Available dates
               </Typography>
             </Box>
-            <Stack direction={{sm:'row', xs:'column'}} gap={2}>
+            <Stack direction={{ sm: 'row', xs: 'column' }} gap={2}>
               <Button
                 variant={'contained'}
                 sx={{
@@ -299,7 +299,7 @@ export default function ChefHeader({ selectedDate, setSelectedDate, selectedTime
                   background: '#DAEFE5',
                 }}
               >
-                Select new time
+                Select a new time
               </Button>
             </Stack>
           </Box>
