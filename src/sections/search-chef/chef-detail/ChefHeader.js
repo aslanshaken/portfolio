@@ -272,12 +272,12 @@ export default function ChefHeader({ selectedDate, setSelectedDate, selectedTime
         <Box>
           <Divider />
           <Box my={4}>
-            <Box>
+            <Box mb={2}>
               <Typography variant="h3" color={'black'}>
                 Available dates
               </Typography>
             </Box>
-            <Stack direction={'row'} gap={2}>
+            <Stack direction={{sm:'row', xs:'column'}} gap={2}>
               <Button
                 variant={'contained'}
                 sx={{

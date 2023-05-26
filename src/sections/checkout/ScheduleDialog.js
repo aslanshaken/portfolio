@@ -33,7 +33,6 @@ export default function ScheduleDialog({ setSelectedDate, selectedDate, selected
       setChangeDeliveryDateDialogIsOpen(true);
     } else {
       setSelectedDate(tempCategory);
-      console.log('selectedTime: ', selectedTime);
       dispatch(setScheduleTime(selectedTime));
     }
     other.onClose();
@@ -72,10 +71,10 @@ export default function ScheduleDialog({ setSelectedDate, selectedDate, selected
   useEffect(() => {
     const fomrattedDate = new Date(tempCategory);
     const isFutureToday = isToday(fomrattedDate);
-    const time_slots = foods?.[selectedDate]?.[0]?.time_slots;
+    const time_slots = foods?.[tempCategory]?.[0]?.time_slots;
     setSlots(isFutureToday ? todaySlots : time_slots);
     setSelectedTime(selectedDate === tempCategory ? selectedTime : isFutureToday ? todaySlots[0] : time_slots[0]);
-  }, [tempCategory]);
+  }, [tempCategory, other.open]);
 
   const categories = Object.keys(foods)
     .sort((a, b) => new Date(a) - new Date(b))
@@ -127,7 +126,7 @@ export default function ScheduleDialog({ setSelectedDate, selectedDate, selected
                         variant={tempCategory === item.date ? 'contained' : 'outlined'}
                         color="secondary"
                         key={item?.id}
-                        sx={{ px: 6, whiteSpace: 'nowrap' }}
+                        sx={{ px: { sm: 6, xs: 3 }, whiteSpace: 'nowrap' }}
                       >
                         {item.label}
                       </Button>
@@ -141,7 +140,7 @@ export default function ScheduleDialog({ setSelectedDate, selectedDate, selected
                       style={{ width: '100%', height: 38 }}
                       MenuProps={{
                         anchorOrigin: { horizontal: 'center', vertical: 'bottom' },
-                        sx: { maxHeight: 190, mt: 1 },
+                        sx: { maxHeight: 250, mt: 1 },
                       }}
                     >
                       {slots?.map((item, _i) => (
@@ -151,7 +150,7 @@ export default function ScheduleDialog({ setSelectedDate, selectedDate, selected
                       ))}
                     </Select>
 
-                    <LoadingButton onClick={onSubmit} variant="outlined" color="secondary">
+                    <LoadingButton onClick={onSubmit} variant="contained" color="secondary">
                       Save
                     </LoadingButton>
                   </Stack>
