@@ -28,6 +28,7 @@ import {
   getFoodsByChef,
   setError,
   setScheduleDate,
+  setScheduleTime,
   updateFoodCart,
 } from '../../../redux/slices/food';
 import { getMockTypeData } from '../../../utils/functions';
@@ -96,7 +97,7 @@ const SideBarStyle = styled(Box)(() => ({
 
 // --------------------------------------------
 
-export default function FoodSection({ selectedCategory }) {
+export default function FoodSection({ selectedDate, selectedTime }) {
   const [currentPage, setCurrentPage] = useState(1);
 
   const router = useRouter();
@@ -156,7 +157,8 @@ export default function FoodSection({ selectedCategory }) {
         setSelectedItemData={setSelectedItemData}
         open={isOpenCartDlg}
         onSubmit={() => {
-          dispatch(setScheduleDate(selectedCategory));
+          dispatch(setScheduleDate(selectedDate));
+          dispatch(setScheduleTime(selectedTime));
           handleClickAddCart(selectedItemData);
           setIsOpenCartDlg(false);
         }}
@@ -166,7 +168,8 @@ export default function FoodSection({ selectedCategory }) {
       <NewCartDialog
         open={isOpenNewCartDlg}
         onSubmit={() => {
-          dispatch(setScheduleDate(selectedCategory));
+          dispatch(setScheduleDate(selectedDate));
+          dispatch(setScheduleTime(selectedTime));
           dispatch(updateFoodCart({ actionType: 'clear' }));
           dispatch(
             updateFoodCart({
@@ -190,7 +193,7 @@ export default function FoodSection({ selectedCategory }) {
           overflow="hidden"
           width={1}
         >
-          {/* {!selectedCategory && <Backdrop open={true} className="overlay" />} */}
+          {/* {!selectedDate && <Backdrop open={true} className="overlay" />} */}
           {/* <MotionContainer
             {...(isDesktop && {
               action: true,
@@ -239,7 +242,7 @@ export default function FoodSection({ selectedCategory }) {
               },
             })}
           >
-            {/* {!selectedCategory && (
+            {/* {!selectedDate && (
               <Typography
                 variant="h3"
                 sx={{ position: 'absolute', left: '40%', top: '50%', zIndex: 5, fontWeight: '500' }}
@@ -273,7 +276,7 @@ export default function FoodSection({ selectedCategory }) {
               </Grid>
             </Grid> */}
             <Grid container spacing={3}>
-              {foods?.[selectedCategory]?.slice((currentPage - 1) * 12, currentPage * 12).map((item) => (
+              {foods?.[selectedDate]?.slice((currentPage - 1) * 12, currentPage * 12).map((item) => (
                 <Grid key={item?.id} item lg={4} md={6} sm={6} xs={12} width={1}>
                   <FoodCartCard
                     data={item}
@@ -287,13 +290,14 @@ export default function FoodSection({ selectedCategory }) {
                     setIsOpenNewCartDlg={setIsOpenNewCartDlg}
                     setSelectedItemData={setSelectedItemData}
                     onClick={() => handleClickItem(item)}
-                    selectedCategory={selectedCategory}
+                    selectedDate={selectedDate}
+                    selectedTime={selectedTime}
                   />
                 </Grid>
               ))}
             </Grid>
-            {foods?.[selectedCategory]?.length > 12 && (
-              <Pagination count={Math.ceil(foods?.[selectedCategory]?.length / 12)} setCurrentPage={setCurrentPage} />
+            {foods?.[selectedDate]?.length > 12 && (
+              <Pagination count={Math.ceil(foods?.[selectedDate]?.length / 12)} setCurrentPage={setCurrentPage} />
             )}
           </Stack>
         </Stack>

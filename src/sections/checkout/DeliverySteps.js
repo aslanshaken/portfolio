@@ -4,7 +4,6 @@ import CardHeader from '../../components/card/CardHeader';
 import PaymentDialog from './PaymentDialog';
 import { useState } from 'react';
 import NotesPanel from './NotesPanel';
-import ScheduleDialog from './ScheduleDialog';
 import { useDispatch, useSelector } from 'src/redux/store';
 import { FOOD_SELECTOR, deleteCard, getSavedCards } from 'src/redux/slices/food';
 import { format } from 'date-fns';
@@ -12,18 +11,22 @@ import { useEffect } from 'react';
 import { IconButtonAnimate } from 'src/components/animate';
 import Iconify from 'src/components/Iconify';
 import useNotify from 'src/hooks/useNotify';
+import { useRouter } from 'next/router';
+import { PATH_PAGE } from 'src/routes/paths';
 
 //
 export default function DeliverySteps({ address, isPickup }) {
   const [isOpenPaymentDialog, setIsOpenPaymentDialog] = useState(false);
-  const [isOpenScheduleDialog, setIsOpenScheduleDialog] = useState(false);
   const [isOpenNotesPanel, setIsOpenNotesPanel] = useState(false);
   const { checkout, savedCards } = useSelector(FOOD_SELECTOR);
-  const scheduleTime = checkout?.orderDetail?.schedule_time;
-  const selectedDay = checkout?.scheduleDate;
-  const [selectedDate, setSelectedDate] = useState();
+  const { cart } = checkout;
+  const scheduleDay = checkout?.orderDetail?.items?.[0]?.selected_day;
+  const scheduleTime = checkout?.orderDetail?.items?.[0]?.selected_time;
   const dispatch = useDispatch();
+  const router = useRouter();
   const { errorAlert } = useNotify();
+  const cuisineId = cart?.[0]?.cuisine?.id;
+  const chefId = cart?.[0]?.chef?.id;
 
   const deletePayment = async () => {
     try {
@@ -39,19 +42,15 @@ export default function DeliverySteps({ address, isPickup }) {
     dispatch(getSavedCards());
   }, [dispatch]);
 
-  useEffect(() => {
-    if (selectedDay) setSelectedDate(format(new Date(selectedDay), 'EEEE, MMM d'));
-  }, [selectedDay]);
-
   const STEPS = [
     {
       icon: 'uil:schedule',
       title: `${isPickup ? 'Pick up schedule' : 'Delivery schedule'}`,
-      subtitle: `${selectedDate ?? ''}`,
+      subtitle: `${scheduleDay ? format(new Date(scheduleDay), 'EEEE, MMM d') : ''}`,
       content: scheduleTime ?? '',
-      buttonText: 'Select a time',
+      buttonText: 'Change',
       onClickButton: () => {
-        setIsOpenScheduleDialog(true);
+        router.push(PATH_PAGE.searchChef.cities({ cityId: '4', cuisineId: cuisineId, chefId: chefId }));
       },
       status: false,
     },
@@ -110,7 +109,6 @@ export default function DeliverySteps({ address, isPickup }) {
   return (
     <>
       <PaymentDialog open={isOpenPaymentDialog} onClose={() => setIsOpenPaymentDialog(false)} />
-      <ScheduleDialog open={isOpenScheduleDialog} onClose={() => setIsOpenScheduleDialog(false)} isPickup={isPickup} />
 
       <Stack spacing={2}>
         {STEPS.map((step, _i) => (

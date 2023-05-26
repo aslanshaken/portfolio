@@ -1,48 +1,38 @@
 import PropTypes from 'prop-types';
 import NextLink from 'next/link';
-import { Avatar, Box, Button, Divider, IconButton, Typography, Hidden, Stack, Link } from '@mui/material';
+import { Avatar, Box, Button, Divider, Typography, Hidden, Stack, Link } from '@mui/material';
 import Container from '../../../components/Container';
 import Iconify from '../../../components/Iconify';
-import GradientText from '../../../components/GradientText';
 import ReadMore from '../../../components/ReadMore';
-import Image from 'src/components/Image';
 import HeroHeader from 'src/components/HeroHeader';
-import { useDispatch, useSelector } from 'src/redux/store';
+import { useSelector } from 'src/redux/store';
 import { CITYCUISINE_SELECTOR } from 'src/redux/slices/city';
-import { add, format } from 'date-fns';
-import { addFoodCart, FOOD_SELECTOR, setScheduleDate, updateCart, updateFoodCart } from 'src/redux/slices/food';
+import { addDays, addHours, format, getMinutes, isToday, isTomorrow, parse } from 'date-fns';
+import { FOOD_SELECTOR, setScheduleTime } from 'src/redux/slices/food';
 import { useEffect, useState } from 'react';
-import ChangeDeliveryDateDialgo from './ChangeDeliveryDateDialgo';
 import { useRouter } from 'next/router';
 import { PATH_PAGE } from 'src/routes/paths';
+import ScheduleDialog from 'src/sections/checkout/ScheduleDialog';
 
 ChefHeader.propTypes = {
-  selectedCategory: PropTypes.string,
-  setSelectedCategory: PropTypes.func,
+  selectedDate: PropTypes.string,
+  setSelectedDate: PropTypes.func,
 };
 
 // ----------------------------------------------------------------------
 
-export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
+export default function ChefHeader({ selectedDate, setSelectedDate, selectedTime, setSelectedTime }) {
   const { chef: chefData, chefs } = useSelector(CITYCUISINE_SELECTOR);
-
   const { chef } = chefData ?? {};
-
   const { checkout, foods } = useSelector(FOOD_SELECTOR);
-
-  const { cart, scheduleDate } = checkout;
-
-  const [tempCategory, setTempCategory] = useState();
-
-  const [changeDeliveryDateDialogIsOpen, setChangeDeliveryDateDialogIsOpen] = useState(false);
-
+  const { cart, scheduleTime, scheduleDate } = checkout;
   const router = useRouter();
-
   const { cityId, cuisineId, chefId } = router.query;
-
   const [nextChefId, setNextChefId] = useState();
-
   const [prevChefId, setPrevChefId] = useState();
+  const [isOpenScheduleDialog, setIsOpenScheduleDialog] = useState(false);
+  const [formattedDate, setFormattedDate] = useState();
+  const [todaySlots, setTodaySlots] = useState();
 
   useEffect(() => {
     if (chefId && chefs) {
@@ -55,54 +45,66 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
 
   const categories = Object.keys(foods)
     .sort((a, b) => new Date(a) - new Date(b))
-    .map((key, _i) => ({
-      id: _i,
-      label: format(new Date(key), 'MM/dd/yy'),
-      date: format(new Date(key), 'MM/dd/yy'),
-    }))
-    .filter((item) => new Date(item?.date) > new Date().setHours(0, 0, 0, 0));
+    .map((key, _i) => {
+      const selectedDateIsToday = isToday(new Date(key));
+      const selectedDateIsTomorrow = isTomorrow(new Date(key));
+      const formattedDate = format(new Date(key), 'MMMM d');
+      return {
+        id: _i,
+        label: selectedDateIsToday ? 'Today' : selectedDateIsTomorrow ? 'Tomorrow' : formattedDate,
+        date: format(new Date(key), 'MM/dd/yy'),
+      };
+    })
+    .filter(
+      todaySlots?.length === 0
+        ? (item) => new Date(item?.date) > new Date().setHours(0, 0, 0, 0)
+        : (item) => new Date(item?.date) >= new Date().setHours(0, 0, 0, 0)
+    );
 
   useEffect(() => {
-    if (categories.length > 0) {
-      if (cart[0]?.user_id === chef?.id) {
-        setSelectedCategory(scheduleDate);
-      } else {
-        setSelectedCategory(categories[0]?.date);
-      }
-    }
-  }, [categories.length, chef?.id]);
+    const currentTime = new Date();
+    const tomorrow = addDays(currentTime, 1);
+    const formattedToday = format(currentTime, 'MM/dd/yy');
+    const formattedTomorrow = format(tomorrow, 'MM/dd/yy');
+    const time_slots = foods?.[formattedToday]?.[0]?.time_slots.filter((time) => {
+      const dateObj = parse(time, 'hh:mm aa', new Date());
+      const hour = format(dateObj, 'HH');
+      const minute = getMinutes(dateObj);
+      const addedHour = addHours(currentTime, 5);
+      const timeToCheck = new Date();
+      timeToCheck.setHours(hour, minute, 0, 0);
+      return timeToCheck > addedHour;
+    });
+    setTodaySlots(time_slots);
 
-  const dispatch = useDispatch();
-
-  // const setCategory = () => {
-  //   setSelectedCategory(tempCategory);
-  //   dispatch(addFoodCart({ foods: [], newAddCart: true, deliveryDate: selectedCategory }));
-  //   setChangeDeliveryDateDialogIsOpen(false);
-  // };
-
-  const setCategory = () => {
-    setSelectedCategory(tempCategory);
-    dispatch(setScheduleDate(tempCategory));
-    dispatch(updateFoodCart({ actionType: 'clear' }));
-    setChangeDeliveryDateDialogIsOpen(false);
-  };
-
-  const handleClickCategory = (data) => {
-    if (selectedCategory !== data && cart.length > 0) {
-      setChangeDeliveryDateDialogIsOpen(true);
-      setTempCategory(data);
+    if (cart[0]?.user_id === chef?.id) {
+      setSelectedDate(scheduleDate);
+      setScheduleTime(scheduleTime);
     } else {
-      setSelectedCategory(data);
-      dispatch(setScheduleDate(data));
+      setFormattedDate(time_slots?.length > 0 ? categories?.[0]?.label : categories?.[1]?.label);
+      setSelectedDate(time_slots?.length > 0 ? categories?.[0]?.date : categories?.[1]?.date);
+      setSelectedTime(time_slots?.length === 0 ? foods?.[formattedTomorrow]?.[0]?.time_slots?.[0] : time_slots?.[0]);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    if (selectedDate) {
+      const selectedDateIsToday = isToday(new Date(selectedDate));
+      const selectedDateIsTomorrow = isTomorrow(new Date(selectedDate));
+      const formattedDate = format(new Date(selectedDate), 'MMMM d');
+      setFormattedDate(selectedDateIsToday ? 'Today' : selectedDateIsTomorrow ? 'Tomorrow' : formattedDate);
+    }
+  }, [selectedDate]);
 
   return (
     <>
-      <ChangeDeliveryDateDialgo
-        open={changeDeliveryDateDialogIsOpen}
-        onSubmit={setCategory}
-        onClose={() => setChangeDeliveryDateDialogIsOpen(false)}
+      <ScheduleDialog
+        setSelectedDate={setSelectedDate}
+        selectedDate={selectedDate}
+        selectedTime={selectedTime}
+        setSelectedTime={setSelectedTime}
+        open={isOpenScheduleDialog}
+        onClose={() => setIsOpenScheduleDialog(false)}
       />
 
       <HeroHeader cuisine={'Back'} />
@@ -275,30 +277,30 @@ export default function ChefHeader({ selectedCategory, setSelectedCategory }) {
                 Available dates
               </Typography>
             </Box>
-            <Stack direction="row" spacing={4} position={'relative'} zIndex={10} overflow={'auto'} py={2}>
-              {categories.length == 0 ? (
-                <Typography>There is no available dates.</Typography>
-              ) : (
-                categories.map((item) => (
-                  <Button
-                    disabled={foods?.[item?.date]?.length > 0 ? false : true}
-                    key={item?.id}
-                    variant={'contained'}
-                    sx={{
-                      fontWeight: 500,
-                      px: 4,
-                      whiteSpace: 'nowrap',
-                      minWidth: 'fit-content',
-                      border: item?.date === selectedCategory && 'none',
-                      background: item?.date === selectedCategory ? '#B3B3B3' : '#DAEFE5',
-                      color: '#31342B',
-                    }}
-                    onClick={() => handleClickCategory(item?.date)}
-                  >
-                    {item?.label}
-                  </Button>
-                ))
-              )}
+            <Stack direction={'row'} gap={2}>
+              <Button
+                variant={'contained'}
+                sx={{
+                  fontWeight: 500,
+                  color: '#31342B',
+                  textTransform: 'none',
+                  background: '#B3B3B3',
+                }}
+              >
+                {formattedDate} at {selectedTime}
+              </Button>
+              <Button
+                onClick={() => setIsOpenScheduleDialog(true)}
+                variant={'contained'}
+                sx={{
+                  fontWeight: 500,
+                  color: '#31342B',
+                  textTransform: 'none',
+                  background: '#DAEFE5',
+                }}
+              >
+                Select new time
+              </Button>
             </Stack>
           </Box>
           <Divider />

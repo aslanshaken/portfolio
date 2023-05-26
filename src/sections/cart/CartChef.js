@@ -21,7 +21,7 @@ export default function CartChef() {
 
   const [loading, setLoading] = useState(false);
 
-  const { cart, deliveryDate } = checkout;
+  const { cart, scheduleTime } = checkout;
 
   const cuisineId = cart?.[0]?.cuisine?.id;
 
@@ -40,7 +40,7 @@ export default function CartChef() {
   const handleClickCreateOrders = async () => {
     setLoading(true);
     await dispatch(clearOrderDetail());
-    const response = await dispatch(createOrders(cart));
+    const response = await dispatch(createOrders(cart, scheduleTime));
     setLoading(false);
     router.push('/cities/4/4/2/checkout/');
   };

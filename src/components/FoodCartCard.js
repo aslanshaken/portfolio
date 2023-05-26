@@ -62,7 +62,8 @@ export default function FoodCartCard(props) {
     measurement,
     onClick = () => {},
     onClickPlus = () => {},
-    selectedCategory,
+    selectedDate,
+    selectedTime,
     setIsOpenNewCartDlg = () => {},
     setSelectedItemData = () => {},
     min_order,
@@ -142,7 +143,8 @@ export default function FoodCartCard(props) {
               <Iconify icon={'ic:outline-plus'} sx={{ width: 33, height: 33, color: 'text.secondary' }} />
             </IconButtonAnimate> */}
               <CountBox
-                selectedCategory={selectedCategory}
+                selectedDate={selectedDate}
+                selectedTime={selectedTime}
                 setIsOpenNewCartDlg={setIsOpenNewCartDlg}
                 setSelectedItemData={setSelectedItemData}
                 data={data}

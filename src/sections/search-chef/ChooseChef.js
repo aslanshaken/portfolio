@@ -168,11 +168,11 @@ export default function ChooseChef() {
                   sx={(theme) => ({
                     whiteSpace: 'nowrap',
                     minWidth: 'fit-content',
-                    border: item.id === selectedCategory && 'none',
-                    background: item.id === selectedCategory ? '#595959' : 'white',
-                    color: item.id === selectedCategory ? theme.palette.GradientText : '#31342B',
+                    border: item.id === selectedDate && 'none',
+                    background: item.id === selectedDate ? '#595959' : 'white',
+                    color: item.id === selectedDate ? theme.palette.GradientText : '#31342B',
                   })}
-                  onClick={() => setSelectedCategory(item.id)}
+                  onClick={() => setSelectedDate(item.id)}
                 >
                   {item.label}
                 </Button>
