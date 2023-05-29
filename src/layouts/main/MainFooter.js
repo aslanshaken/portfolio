@@ -103,7 +103,9 @@ export default function MainFooter() {
                 <Typography color={'white'}>Terms of Service</Typography>
               </Link>
             </Stack>
-            <SocialsButton links={{ instagram: 'https://instagram.com/cookk.co' }} />
+            <SocialsButton
+              links={{ instagram: 'https://instagram.com/cookk.co', twitter: 'https://www.facebook.com/cookk.co' }}
+            />
           </Stack>
           <Stack
             flexWrap={'wrap'}
