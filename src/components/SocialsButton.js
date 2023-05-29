@@ -16,12 +16,12 @@ SocialsButton.propTypes = {
 
 export default function SocialsButton({ initialColor = false, simple = true, links = {}, sx, ...other }) {
   const SOCIALS = [
-    {
-      name: 'Twitter',
-      icon: 'eva:twitter-outline',
-      socialColor: '#00AAEC',
-      path: links.twitter || '#twitter-link',
-    },
+    // {
+    //   name: 'Twitter',
+    //   icon: 'eva:twitter-outline',
+    //   socialColor: '#00AAEC',
+    //   path: links.twitter || '#twitter-link',
+    // },
     {
       name: 'Instagram',
       icon: 'ant-design:instagram-outline',

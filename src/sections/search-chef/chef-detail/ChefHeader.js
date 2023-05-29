@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import NextLink from 'next/link';
-import { Avatar, Box, Button, Divider, Typography, Hidden, Stack, Link } from '@mui/material';
+import { Avatar, Box, Button, Divider, Typography, Hidden, Stack, Link, useStepContext } from '@mui/material';
 import Container from '../../../components/Container';
 import Iconify from '../../../components/Iconify';
 import ReadMore from '../../../components/ReadMore';
@@ -62,7 +62,7 @@ export default function ChefHeader({ selectedDate, setSelectedDate, selectedTime
     );
 
   useEffect(() => {
-    const currentTime = new Date();
+  const currentTime = new Date();
     const tomorrow = addDays(currentTime, 1);
     const formattedToday = format(currentTime, 'MM/dd/yy');
     const formattedTomorrow = format(tomorrow, 'MM/dd/yy');
@@ -109,7 +109,7 @@ export default function ChefHeader({ selectedDate, setSelectedDate, selectedTime
 
       <HeroHeader cuisine={'Back'} />
       <Container>
-        <Stack marginTop={4} direction={'row'} gap={6} width={'100%'} justifyContent={'space-between'}>
+        <Stack marginTop={2} direction={'row'} gap={6} width={'100%'} justifyContent={'space-between'}>
           {prevChefId ? (
             <NextLink href={PATH_PAGE.searchChef.cities({ cityId, cuisineId, chefId: prevChefId })} passHref>
               <Link underline="none">Previous Chef</Link>

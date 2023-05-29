@@ -29,6 +29,7 @@ import useNotify from 'src/hooks/useNotify';
 import { useRouter } from 'next/router';
 import useAuth from 'src/hooks/useAuth';
 import { PATH_PAGE } from 'src/routes/paths';
+import LoadingScreen from 'src/components/LoadingScreen';
 
 //
 
@@ -110,11 +111,9 @@ export default function OrderCard({ isPickup }) {
 
       if (placeOrder.fulfilled.match(response)) {
         successAlert('Your payment was successful.');
+        dispatch(updateFoodCart({ actionType: 'clear' }));
         setIsLoading(false);
-        setTimeout(() => {
-          dispatch(updateFoodCart({ actionType: 'clear' }));
-          push(PATH_PAGE.orderConfirm.orders({ orderId }));
-        }, 1000);
+        push(PATH_PAGE.orderConfirm.orders({ orderId }));
       } else if (placeOrder.rejected.match(response)) {
         const error = response.payload.message;
         errorAlert(error);
@@ -126,7 +125,9 @@ export default function OrderCard({ isPickup }) {
     }
   };
 
-  return (
+  return isLoading ? (
+    <LoadingScreen />
+  ) : (
     <Stack
       sx={{
         borderRadius: 1,
@@ -267,7 +268,6 @@ export default function OrderCard({ isPickup }) {
 
       <LoadingButton
         disabled={disabled}
-        loading={isLoading}
         size="large"
         variant={'contained'}
         sx={{ borderRadius: '30px' }}
