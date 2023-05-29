@@ -1,3 +1,4 @@
+import NextLink from 'next/link';
 // layouts
 import Layout from '../layouts';
 // components
@@ -7,7 +8,7 @@ import PopularDishes from '../sections/home/PopularDishes';
 import GeneralQuestions from 'src/sections/home/GeneralQuestions';
 import SearchHomeHero from 'src/sections/home/SearchHomeHero';
 import HowItWork from 'src/sections/home/HowItWork';
-import { Box } from '@mui/material';
+import { Box, Link, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DIALOG_SELECTOR, setInitialized } from 'src/redux/slices/dialog';
@@ -15,7 +16,7 @@ import useAuth from 'src/hooks/useAuth';
 import { FOOD_SELECTOR, getPopularFoods, updateFoodCart } from 'src/redux/slices/food';
 import LoadingScreen from 'src/components/LoadingScreen';
 import { useRouter } from 'next/router';
-import { PATH_AUTH } from 'src/routes/paths';
+import { PATH_AUTH, PATH_PAGE } from 'src/routes/paths';
 
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
@@ -74,7 +75,13 @@ export default function HomePage() {
       {/* <SearchChef /> */}
       {/* <Benefit /> */}
       <GeneralQuestions />
-      <Box mt={10} />
+      <Box justifyContent={'center'} width={'100%'} display={'flex'} my={4}>
+        <NextLink href={PATH_PAGE.searchChef.cities({ cityId: 4, cuisineId: 7 })} passHref>
+          <Link underline="none">
+            <Typography variant="h4">View all chefs</Typography>
+          </Link>
+        </NextLink>
+      </Box>
     </Page>
   );
 }
