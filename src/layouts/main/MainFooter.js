@@ -104,7 +104,7 @@ export default function MainFooter() {
               </Link>
             </Stack>
             <SocialsButton
-              links={{ instagram: 'https://instagram.com/cookk.co', twitter: 'https://www.facebook.com/cookk.co' }}
+              links={{ instagram: 'https://instagram.com/cookk.co', facebook: 'https://www.facebook.com/cookk.co' }}
             />
           </Stack>
           <Stack
