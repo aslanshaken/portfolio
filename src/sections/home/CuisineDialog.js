@@ -44,60 +44,62 @@ export default function CuisineDialog({ isOpen }) {
           >
             <Iconify icon={'material-symbols:keyboard-arrow-up'} width={20} height={20} />
           </IconButton> */}
-            {cuisines?.map((item, _i) => (
-              <>
-                {_i == 1 && <Divider sx={{ my: 1, width: '100%' }} />}
-                <Button
-                  key={_i}
-                  onClick={async () => {
-                    await router.push(`/cities/4/${item?.id}/`);
-                    dispatch(closeDialog());
-                  }}
-                  direction={'row'}
-                  sx={{
-                    width: 'fit-content',
-                    minWidth: 300,
-                    justifyContent: 'left',
-                    mx: 'auto',
-                    px: { sm: 5 },
-                  }}
-                >
-                  {item?.image ? (
-                    <>
-                      <Box
-                        sx={{
-                          minWidth: 70,
-                          height: 70,
-                          marginRight: 3,
-                          borderRadius: '100%',
-                          overflow: 'hidden',
-                          position: 'relative',
-                        }}
-                      >
-                        <NextImage
-                          alt={'cuisine'}
-                          src={item?.image}
-                          layout="fill"
-                          quality={5}
-                          priority
-                          objectFit="cover"
-                        />
-                      </Box>
-                    </>
-                  ) : (
-                    <Iconify
-                      icon={'material-symbols:cookie'}
-                      color={'disabled'}
-                      sx={{ width: 70, height: 70 }}
-                      mr={3}
-                    />
-                  )}
-                  <Typography variant="subtitle1" color={'black'}>
-                    {item?.name}
-                  </Typography>
-                </Button>
-              </>
-            ))}
+            {[cuisines?.find((item) => item?.id === 7), ...(cuisines?.filter((item) => item?.id !== 7) || [])]?.map(
+              (item, _i) => (
+                <>
+                  {_i == 1 && <Divider sx={{ my: 1, width: '100%' }} />}
+                  <Button
+                    key={_i}
+                    onClick={async () => {
+                      await router.push(`/cities/4/${item?.id}/`);
+                      dispatch(closeDialog());
+                    }}
+                    direction={'row'}
+                    sx={{
+                      width: 'fit-content',
+                      minWidth: 300,
+                      justifyContent: 'left',
+                      mx: 'auto',
+                      px: { sm: 5 },
+                    }}
+                  >
+                    {item?.image ? (
+                      <>
+                        <Box
+                          sx={{
+                            minWidth: 70,
+                            height: 70,
+                            marginRight: 3,
+                            borderRadius: '100%',
+                            overflow: 'hidden',
+                            position: 'relative',
+                          }}
+                        >
+                          <NextImage
+                            alt={'cuisine'}
+                            src={item?.image}
+                            layout="fill"
+                            quality={5}
+                            priority
+                            objectFit="cover"
+                          />
+                        </Box>
+                      </>
+                    ) : (
+                      <Iconify
+                        icon={'material-symbols:cookie'}
+                        color={'disabled'}
+                        sx={{ width: 70, height: 70 }}
+                        mr={3}
+                      />
+                    )}
+                    <Typography variant="subtitle1" color={'black'}>
+                      {item?.name}
+                    </Typography>
+                  </Button>
+                </>
+              )
+            )}
           </Stack>
         </Stack>
       </DialogContent>
