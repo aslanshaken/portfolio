@@ -152,6 +152,7 @@ export default function CartDialog({ data, foods, setSelectedItemData, onSubmit,
                 multiline
                 rows={4}
                 defaultValue={note}
+                value={note}
               />
             </Stack>
 
