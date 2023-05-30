@@ -22,6 +22,7 @@ import { PATH_AUTH } from 'src/routes/paths';
 import useNotify from 'src/hooks/useNotify';
 import { useSelector } from 'src/redux/store';
 import { FOOD_SELECTOR } from 'src/redux/slices/food';
+import GradientText from 'src/components/GradientText';
 
 //
 CartDialog.propTypes = {
@@ -99,14 +100,14 @@ export default function CartDialog({ data, foods, setSelectedItemData, onSubmit,
                   {'Similiar food'}
                 </Typography>
                 {similiarFoods.map((item) => (
-                  <Typography
+                  <GradientText
                     key={item.id}
                     variant="subtitle2"
-                    sx={{ cursor: 'pointer', color: 'gray' }}
+                    sx={{ cursor: 'pointer' }}
                     onClick={() => setSelectedItemData(item)}
                   >
                     {item.title} - {`$${item.current_price} /${item.quantity} ${item.measurement || ''}`}
-                  </Typography>
+                  </GradientText>
                 ))}
               </Stack>
             )}

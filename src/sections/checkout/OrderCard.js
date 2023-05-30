@@ -218,7 +218,9 @@ export default function OrderCard({ isPickup }) {
               label={'Fair enough'}
               variant={'filled'}
               size={'small'}
-              onChange={(e) => setTips(parseFloat(e.target.value))}
+              onChange={(e) => {
+                setTips(parseFloat(e.target.value == '' ? 0 : e.target.value));
+              }}
             />
             <TopBottomButtonStyle orientation={'vertical'} color={'inherit'}>
               <Button onClick={() => setTips(tips + 1)}>

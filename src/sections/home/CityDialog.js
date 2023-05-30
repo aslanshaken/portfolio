@@ -26,12 +26,11 @@ export default function CityDialog({ isOpen }) {
         <Iconify icon={'iconoir:cancel'} />
       </IconButton>
       <Stack p={6} color={'black'}>
-        <Typography variant="h3">Select your city</Typography>
+        <Typography variant="h3">Select a city</Typography>
         <Typography mt={2} variant={'body2'}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-          magna aliqua.
+          Explore our selection of cities, each offering a unique culinary experience that caters to every taste
         </Typography>
-        <Stack spacing={2} mt={8} width={'fit-content'} mx={'auto'}>
+        <Stack spacing={2} mt={8}>
           {cities.map((item) => (
             <Button
               key={item.id}
@@ -41,7 +40,7 @@ export default function CityDialog({ isOpen }) {
                 dispatch(closeDialog());
                 // dispatch(openDialog('choose_cuisine_dialog'));
               }}
-              sx={{ width: '100%', px: 5 }}
+              sx={{ width: 'fit-content', px: 5 }}
             >
               <Typography variant="h4" fontWeight={'500'} color={'secondary'}>
                 {item.name}
