@@ -61,7 +61,7 @@ export default function SearchInput({ buttonLabel = 'Search' }) {
           height: 45,
           minWidth: 230,
           fontSize: { xs: 16, sm: 18 },
-          fontWeight: 400,
+          fontWeight: 600,
           // display: { xs: 'flex', md: 'none' },
 
           '&:hover': {
