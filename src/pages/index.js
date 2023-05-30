@@ -56,7 +56,7 @@ export default function HomePage() {
 
   useEffect(() => {
     dispatch(setInitialized(true));
-    dispatch(getPopularFoods());
+    // dispatch(getPopularFoods());
   }, [dispatch, welcomeDialogIsOpen]);
 
   return loading ? (
@@ -70,7 +70,7 @@ export default function HomePage() {
       <SearchHomeHero />
       <HowItWork />
       {/* <BringFood /> */}
-      <PopularDishes />
+      {/* <PopularDishes /> */}
       {/* <AwesomeFood /> */}
       {/* <SearchChef /> */}
       {/* <Benefit /> */}

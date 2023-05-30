@@ -276,7 +276,7 @@ export default function FoodSection({ selectedDate, selectedTime }) {
               </Grid>
             </Grid> */}
             <Grid container spacing={3}>
-              {foods?.[selectedDate]?.slice((currentPage - 1) * 12, currentPage * 12).map((item) => (
+              {foods?.[selectedDate]?.foods?.slice((currentPage - 1) * 12, currentPage * 12).map((item) => (
                 <Grid key={item?.id} item lg={4} md={6} sm={6} xs={12} width={1}>
                   <FoodCartCard
                     data={item}
@@ -296,8 +296,8 @@ export default function FoodSection({ selectedDate, selectedTime }) {
                 </Grid>
               ))}
             </Grid>
-            {foods?.[selectedDate]?.length > 12 && (
-              <Pagination count={Math.ceil(foods?.[selectedDate]?.length / 12)} setCurrentPage={setCurrentPage} />
+            {foods?.[selectedDate]?.foods?.length > 12 && (
+              <Pagination count={Math.ceil(foods?.[selectedDate]?.foods?.length / 12)} setCurrentPage={setCurrentPage} />
             )}
           </Stack>
         </Stack>
