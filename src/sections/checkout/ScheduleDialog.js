@@ -96,14 +96,14 @@ export default function ScheduleDialog({
               <FormControl sx={{ width: 1 }}>
                 <Stack direction={'row'} gap={4}>
                   <Stack gap={1}>
-                    {categories?.map((item) => (
+                    {categories?.map((item, _i) => (
                       <Button
                         onClick={() => {
                           setTempCategory(item);
                         }}
                         variant={tempCategory === item ? 'contained' : 'outlined'}
                         color="secondary"
-                        key={item?.id}
+                        key={item + _i}
                         sx={{ px: { sm: 6, xs: 3 }, whiteSpace: 'nowrap' }}
                       >
                         {format(new Date(item), 'MMM d')}
@@ -122,7 +122,7 @@ export default function ScheduleDialog({
                       }}
                     >
                       {timeSlots?.map((item, _i) => (
-                        <MenuItem key={_i} value={item}>
+                        <MenuItem key={item + _i} value={item}>
                           {item}
                         </MenuItem>
                       ))}

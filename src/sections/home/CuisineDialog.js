@@ -46,10 +46,9 @@ export default function CuisineDialog({ isOpen }) {
           </IconButton> */}
             {[cuisines?.find((item) => item?.id === 7), ...(cuisines?.filter((item) => item?.id !== 7) || [])]?.map(
               (item, _i) => (
-                <>
+                <Stack key={_i}>
                   {_i == 1 && <Divider sx={{ my: 1, width: '100%' }} />}
                   <Button
-                    key={_i}
                     onClick={async () => {
                       await router.push(`/cities/4/${item?.id}/`);
                       dispatch(closeDialog());
@@ -97,7 +96,7 @@ export default function CuisineDialog({ isOpen }) {
                       {item?.name}
                     </Typography>
                   </Button>
-                </>
+                </Stack>
               )
             )}
           </Stack>
