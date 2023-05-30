@@ -76,7 +76,14 @@ export default function HomePage() {
       {/* <Benefit /> */}
       <GeneralQuestions />
       <Box justifyContent={'center'} width={'100%'} display={'flex'} my={8}>
-        <Button variant='contained' size='large' onClick={() => dispatch(openDialog('choose_city_dialog'))}>Find Home Chefs</Button>
+        <Button
+          variant="contained"
+          size="large"
+          onClick={() => dispatch(openDialog('choose_city_dialog'))}
+          sx={{ borderRadius: 10, px: 6 }}
+        >
+          <Typography variant="h6">Find Home Chefs</Typography>
+        </Button>
       </Box>
     </Page>
   );
