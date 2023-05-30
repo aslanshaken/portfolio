@@ -8,10 +8,10 @@ import PopularDishes from '../sections/home/PopularDishes';
 import GeneralQuestions from 'src/sections/home/GeneralQuestions';
 import SearchHomeHero from 'src/sections/home/SearchHomeHero';
 import HowItWork from 'src/sections/home/HowItWork';
-import { Box, Link, Typography } from '@mui/material';
+import { Box, Button, Link, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { DIALOG_SELECTOR, setInitialized } from 'src/redux/slices/dialog';
+import { DIALOG_SELECTOR, openDialog, setInitialized } from 'src/redux/slices/dialog';
 import useAuth from 'src/hooks/useAuth';
 import { FOOD_SELECTOR, getPopularFoods, updateFoodCart } from 'src/redux/slices/food';
 import LoadingScreen from 'src/components/LoadingScreen';
@@ -75,12 +75,8 @@ export default function HomePage() {
       {/* <SearchChef /> */}
       {/* <Benefit /> */}
       <GeneralQuestions />
-      <Box justifyContent={'center'} width={'100%'} display={'flex'} my={4}>
-        <NextLink href={PATH_PAGE.searchChef.cities({ cityId: 4, cuisineId: 7 })} passHref>
-          <Link underline="none">
-            <Typography variant="h4">View all chefs</Typography>
-          </Link>
-        </NextLink>
+      <Box justifyContent={'center'} width={'100%'} display={'flex'} my={8}>
+        <Button variant='contained' size='large' onClick={() => dispatch(openDialog('choose_city_dialog'))}>Find Home Chefs</Button>
       </Box>
     </Page>
   );

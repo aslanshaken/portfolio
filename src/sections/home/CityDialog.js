@@ -1,23 +1,24 @@
 import { Button, Dialog, IconButton, Stack, Typography } from '@mui/material';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import Iconify from 'src/components/Iconify';
+import { CITYCUISINE_SELECTOR, getAllChefs, getCities, getCuisines } from 'src/redux/slices/city';
 import { closeDialog, openDialog } from 'src/redux/slices/dialog';
-import { useDispatch } from 'src/redux/store';
-
-const cities = [
-  { id: 'austin', name: 'Austin' },
-  { id: 'new_york', name: 'New York' },
-  { id: 'miami', name: 'Miami' },
-];
+import { useDispatch, useSelector } from 'src/redux/store';
 
 export default function CityDialog({ isOpen }) {
+  const router = useRouter();
   const dispatch = useDispatch();
+  const { cities } = useSelector(CITYCUISINE_SELECTOR);
+  useEffect(() => {
+    dispatch(getCities());
+  }, []);
 
   return (
-    <Dialog maxWidth={'sm'} fullWidth open={isOpen}>
+    <Dialog maxWidth={'sm'} fullWidth open={isOpen} onClose={() => dispatch(closeDialog())}>
       <IconButton
         onClick={() => {
           dispatch(closeDialog());
-          dispatch(openDialog('choose_cuisine_dialog'));
         }}
         width={'fit-content'}
         sx={{ position: 'absolute', right: '0' }}
@@ -34,9 +35,11 @@ export default function CityDialog({ isOpen }) {
           {cities.map((item) => (
             <Button
               key={item.id}
-              onClick={() => {
+              onClick={async () => {
+                const cuisineId = await dispatch(getCuisines(item.id));
+                await router.push(`/cities/${item.id}/${cuisineId}/`);
                 dispatch(closeDialog());
-                dispatch(openDialog('choose_cuisine_dialog'));
+                // dispatch(openDialog('choose_cuisine_dialog'));
               }}
               sx={{ width: '100%', px: 5 }}
             >

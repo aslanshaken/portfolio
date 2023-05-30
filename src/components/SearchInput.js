@@ -51,7 +51,7 @@ export default function SearchInput({ buttonLabel = 'Search' }) {
         }}
       /> */}
       <Button
-        onClick={() => dispatch(openDialog('choose_cuisine_dialog'))}
+        onClick={() => dispatch(openDialog('choose_city_dialog'))}
         variant="contained"
         sx={{
           m: 'auto',
