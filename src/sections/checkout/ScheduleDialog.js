@@ -3,10 +3,11 @@ import { Button, Dialog, FormControl, IconButton, MenuItem, Select, Stack, Typog
 import { useEffect, useState } from 'react';
 import { LoadingButton } from '@mui/lab';
 import { dispatch, useSelector } from 'src/redux/store';
-import { FOOD_SELECTOR, setScheduleTime, updateFoodCart } from 'src/redux/slices/food';
+import { FOOD_SELECTOR, getFoodsByChef, setScheduleDate, setScheduleTime, updateFoodCart } from 'src/redux/slices/food';
 import { format, parse, addHours, getHours, isToday, isTomorrow } from 'date-fns';
 import Iconify from 'src/components/Iconify';
 import ChangeDeliveryDateDialgo from '../search-chef/chef-detail/ChangeDeliveryDateDialgo';
+import { useRouter } from 'next/router';
 
 //
 ScheduleDialog.propTypes = {
@@ -16,25 +17,37 @@ ScheduleDialog.defaultProps = {
   data: {},
 };
 
-export default function ScheduleDialog({ setSelectedDate, selectedDate, selectedTime, setSelectedTime, ...other }) {
+export default function ScheduleDialog({
+  setSelectedDate,
+  selectedDate,
+  selectedTime,
+  setSelectedTime,
+  categories,
+  slots,
+  ...other
+}) {
   const [tempCategory, setTempCategory] = useState();
   const [changeDeliveryDateDialogIsOpen, setChangeDeliveryDateDialogIsOpen] = useState(false);
-  const { checkout, foods } = useSelector(FOOD_SELECTOR);
+  const { checkout } = useSelector(FOOD_SELECTOR);
   const { cart } = checkout;
-  const [todaySlots, setTodaySlots] = useState();
-  const [slots, setSlots] = useState();
+  const router = useRouter();
+  const { cityId, cuisineId, chefId } = router.query;
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (data) => {
     setSelectedTime(data.target.value);
   };
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
+    setLoading(true);
     if (selectedDate !== tempCategory && cart.length > 0) {
       setChangeDeliveryDateDialogIsOpen(true);
     } else {
       setSelectedDate(tempCategory);
       dispatch(setScheduleTime(selectedTime));
     }
+    await dispatch(getFoodsByChef(cityId, cuisineId, chefId, format(new Date(tempCategory), 'MM/dd/yyyy')));
+    setLoading(false);
     other.onClose();
   };
 
@@ -51,53 +64,11 @@ export default function ScheduleDialog({ setSelectedDate, selectedDate, selected
   }, [selectedDate]);
 
   useEffect(() => {
-    if (foods && selectedDate) {
-      const today = new Date();
-      const formattedDate = format(today, 'MM/dd/yy');
-      const futureDate = addHours(today, 5);
-      const isTodayFutureDate = isToday(futureDate);
-      const times = isTodayFutureDate
-        ? foods?.[formattedDate]?.[0]?.time_slots?.filter((item) => {
-            const dateObj = parse(item, 'h:mm a', today);
-            const formattedTime = format(dateObj, 'HH');
-            const hourAfter5Hours = getHours(futureDate);
-            return formattedTime > hourAfter5Hours;
-          })
-        : [];
-      setTodaySlots(times);
-      const isFutureToday = isToday(futureDate);
-      const time_slots = foods?.[selectedDate]?.[0]?.time_slots;
-      setSlots(isFutureToday ? times : time_slots);
-    }
-  }, [foods, selectedDate]);
-
-  useEffect(() => {
     if (other.open) {
-      const fomrattedDate = new Date(tempCategory);
-      const isFutureToday = isToday(fomrattedDate);
-      const time_slots = foods?.[tempCategory]?.[0]?.time_slots;
-      setSlots(isFutureToday ? todaySlots : time_slots);
-      setSelectedTime(selectedDate === tempCategory ? selectedTime : isFutureToday ? todaySlots[0] : time_slots[0]);
+      setSelectedTime(tempCategory === selectedDate ? selectedTime : slots[0]);
+      console.log('selectedTime: ', selectedTime);
     }
   }, [tempCategory, other.open]);
-
-  const categories = Object.keys(foods)
-    .sort((a, b) => new Date(a) - new Date(b))
-    .map((key, _i) => {
-      const selectedDateIsToday = isToday(new Date(key));
-      const selectedDateIsTomorrow = isTomorrow(new Date(key));
-      const formattedDate = format(new Date(key), 'MMMM d');
-      return {
-        id: _i,
-        label: selectedDateIsToday ? 'Today' : selectedDateIsTomorrow ? 'Tomorrow' : formattedDate,
-        date: format(new Date(key), 'MM/dd/yy'),
-      };
-    })
-    .filter(
-      todaySlots?.length === 0
-        ? (item) => new Date(item?.date) > new Date().setHours(0, 0, 0, 0)
-        : (item) => new Date(item?.date) >= new Date().setHours(0, 0, 0, 0)
-    );
 
   return (
     <>
@@ -124,15 +95,14 @@ export default function ScheduleDialog({ setSelectedDate, selectedDate, selected
                     {categories?.map((item) => (
                       <Button
                         onClick={() => {
-                          setSlots(foods?.[item.date]?.[0]?.time_slots);
-                          setTempCategory(item?.date);
+                          setTempCategory(item);
                         }}
-                        variant={tempCategory === item.date ? 'contained' : 'outlined'}
+                        variant={tempCategory === item ? 'contained' : 'outlined'}
                         color="secondary"
                         key={item?.id}
                         sx={{ px: { sm: 6, xs: 3 }, whiteSpace: 'nowrap' }}
                       >
-                        {item.label}
+                        {format(new Date(item), 'MMM d')}
                       </Button>
                     ))}
                   </Stack>
@@ -148,13 +118,13 @@ export default function ScheduleDialog({ setSelectedDate, selectedDate, selected
                       }}
                     >
                       {slots?.map((item, _i) => (
-                        <MenuItem key={item + _i} value={item}>
+                        <MenuItem key={_i} value={item}>
                           {item}
                         </MenuItem>
                       ))}
                     </Select>
 
-                    <LoadingButton onClick={onSubmit} variant="contained" color="secondary">
+                    <LoadingButton loading={loading} onClick={onSubmit} variant="contained" color="secondary">
                       Save
                     </LoadingButton>
                   </Stack>

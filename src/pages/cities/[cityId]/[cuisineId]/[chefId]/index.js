@@ -12,6 +12,7 @@ import { CITYCUISINE_SELECTOR, getChefs } from 'src/redux/slices/city';
 import { useRouter } from 'next/router';
 import LoadingScreen from 'src/components/LoadingScreen';
 import { FOOD_SELECTOR, getFoodsByChef } from 'src/redux/slices/food';
+import { format } from 'date-fns';
 
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
@@ -26,7 +27,7 @@ export default function ChefPage() {
   const [selectedDate, setSelectedDate] = useState();
 
   const { checkout } = useSelector(FOOD_SELECTOR);
-  const { scheduleTime } = checkout;
+  const { scheduleTime, scheduleDate, cart } = checkout;
 
   const [selectedTime, setSelectedTime] = useState(scheduleTime);
 
@@ -44,14 +45,16 @@ export default function ChefPage() {
 
   useEffect(() => {
     async function fetch() {
+      const formattedDate=format(new Date(scheduleDate), 'MM/dd/yyyy')
+      const selectedDate = cart[0]?.user_id == chefId ? formattedDate : '';
       setIsLoading(true);
       await dispatch(getChefs(cityId, cuisineId, chefId));
-      await dispatch(getFoodsByChef(cityId, cuisineId, chefId));
+      await dispatch(getFoodsByChef(cityId, cuisineId, chefId, selectedDate));
       setIsLoading(false);
     }
 
     fetch();
-  }, [dispatch, router, isAuthenticated, cuisineId, chefId, cityId, cuisines]);
+  }, [dispatch, router, isAuthenticated, cuisineId, chefId, cityId, cuisines, scheduleDate]);
 
   return loading ? (
     <LoadingScreen inner />

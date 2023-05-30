@@ -296,8 +296,8 @@ export default function FoodSection({ selectedDate, selectedTime }) {
                 </Grid>
               ))}
             </Grid>
-            {foods?.[selectedDate]?.length > 12 && (
-              <Pagination count={Math.ceil(foods?.[selectedDate]?.length / 12)} setCurrentPage={setCurrentPage} />
+            {foods?.[selectedDate]?.foods?.length > 12 && (
+              <Pagination count={Math.ceil(foods?.[selectedDate]?.foods?.length / 12)} setCurrentPage={setCurrentPage} />
             )}
           </Stack>
         </Stack>

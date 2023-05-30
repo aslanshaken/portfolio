@@ -22,17 +22,18 @@ ChefHeader.propTypes = {
 // ----------------------------------------------------------------------
 
 export default function ChefHeader({ selectedDate, setSelectedDate, selectedTime, setSelectedTime }) {
-  const { chef: chefData, chefs } = useSelector(CITYCUISINE_SELECTOR);
-  const { chef } = chefData ?? {};
-  const { checkout, foods } = useSelector(FOOD_SELECTOR);
-  const { cart, scheduleTime, scheduleDate } = checkout;
   const router = useRouter();
-  const { cityId, cuisineId, chefId } = router.query;
   const [nextChefId, setNextChefId] = useState();
   const [prevChefId, setPrevChefId] = useState();
+  const { chef: chefData, chefs } = useSelector(CITYCUISINE_SELECTOR);
+  const { chef } = chefData ?? {};
   const [isOpenScheduleDialog, setIsOpenScheduleDialog] = useState(false);
+  const { foods, checkout } = useSelector(FOOD_SELECTOR);
+  const { cart, scheduleDate, scheduleTime } = checkout;
+  const { cityId, cuisineId, chefId } = router.query;
   const [formattedDate, setFormattedDate] = useState();
-  const [todaySlots, setTodaySlots] = useState();
+  const [categories, setCategories] = useState();
+  const [slots, setSlots] = useState();
 
   useEffect(() => {
     if (chefId && chefs) {
@@ -43,47 +44,21 @@ export default function ChefHeader({ selectedDate, setSelectedDate, selectedTime
     }
   }, [chefId, chefs]);
 
-  const categories = Object.keys(foods)
-    .sort((a, b) => new Date(a) - new Date(b))
-    .map((key, _i) => {
-      const selectedDateIsToday = isToday(new Date(key));
-      const selectedDateIsTomorrow = isTomorrow(new Date(key));
-      const formattedDate = format(new Date(key), 'MMMM d');
-      return {
-        id: _i,
-        label: selectedDateIsToday ? 'Today' : selectedDateIsTomorrow ? 'Tomorrow' : formattedDate,
-        date: format(new Date(key), 'MM/dd/yy'),
-      };
-    })
-    .filter(
-      todaySlots?.length === 0
-        ? (item) => new Date(item?.date) > new Date().setHours(0, 0, 0, 0)
-        : (item) => new Date(item?.date) >= new Date().setHours(0, 0, 0, 0)
-    );
-
   useEffect(() => {
-  const currentTime = new Date();
-    const tomorrow = addDays(currentTime, 1);
-    const formattedToday = format(currentTime, 'MM/dd/yy');
-    const formattedTomorrow = format(tomorrow, 'MM/dd/yy');
-    const time_slots = foods?.[formattedToday]?.[0]?.time_slots.filter((time) => {
-      const dateObj = parse(time, 'hh:mm aa', new Date());
-      const hour = format(dateObj, 'HH');
-      const minute = getMinutes(dateObj);
-      const addedHour = addHours(currentTime, 5);
-      const timeToCheck = new Date();
-      timeToCheck.setHours(hour, minute, 0, 0);
-      return timeToCheck > addedHour;
-    });
-    setTodaySlots(time_slots);
+    const availableDates = Object.keys(foods);
+    const initialSlots = foods?.[availableDates[0]]?.slots;
+    const currentTimePlusFiveHours = addHours(new Date(), 5);
+    const filteredArray = initialSlots.filter((time) => parse(time, 'hh:mm a', new Date()) > currentTimePlusFiveHours);
+    setSlots(filteredArray.length === 0 ? foods?.[availableDates[1]]?.slots : filteredArray);
+    const temp = filteredArray.length === 0 ? availableDates.slice(1, availableDates.length - 1) : availableDates;
+    setCategories(temp);
 
     if (cart[0]?.user_id === chef?.id) {
       setSelectedDate(scheduleDate);
       setScheduleTime(scheduleTime);
     } else {
-      setFormattedDate(time_slots?.length > 0 ? categories?.[0]?.label : categories?.[1]?.label);
-      setSelectedDate(time_slots?.length > 0 ? categories?.[0]?.date : categories?.[1]?.date);
-      setSelectedTime(time_slots?.length === 0 ? foods?.[formattedTomorrow]?.[0]?.time_slots?.[0] : time_slots?.[0]);
+      setSelectedDate(filteredArray.length === 0 ? availableDates[1] : availableDates[0]);
+      setSelectedTime(filteredArray.length === 0 ? foods?.[availableDates[1]]?.slots?.[0] : filteredArray[0]);
     }
   }, []);
 
@@ -99,6 +74,8 @@ export default function ChefHeader({ selectedDate, setSelectedDate, selectedTime
   return (
     <>
       <ScheduleDialog
+        slots={slots}
+        categories={categories}
         setSelectedDate={setSelectedDate}
         selectedDate={selectedDate}
         selectedTime={selectedTime}
