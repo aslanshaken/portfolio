@@ -27,15 +27,17 @@ export default function ScheduleDialog({
   ...other
 }) {
   const [tempCategory, setTempCategory] = useState();
+  const [tempTime, setTempTime] = useState(selectedTime);
   const [changeDeliveryDateDialogIsOpen, setChangeDeliveryDateDialogIsOpen] = useState(false);
-  const { checkout } = useSelector(FOOD_SELECTOR);
+  const { checkout, foods } = useSelector(FOOD_SELECTOR);
   const { cart } = checkout;
   const router = useRouter();
   const { cityId, cuisineId, chefId } = router.query;
   const [loading, setLoading] = useState(false);
+  const [timeSlots, setTimeSlots] = useState(slots);
 
   const handleChange = (data) => {
-    setSelectedTime(data.target.value);
+    setTempTime(data.target.value);
   };
 
   const onSubmit = async () => {
@@ -44,7 +46,8 @@ export default function ScheduleDialog({
       setChangeDeliveryDateDialogIsOpen(true);
     } else {
       setSelectedDate(tempCategory);
-      dispatch(setScheduleTime(selectedTime));
+      setSelectedTime(tempTime);
+      dispatch(setScheduleTime(tempTime));
     }
     await dispatch(getFoodsByChef(cityId, cuisineId, chefId, format(new Date(tempCategory), 'MM/dd/yyyy')));
     setLoading(false);
@@ -65,8 +68,9 @@ export default function ScheduleDialog({
 
   useEffect(() => {
     if (other.open) {
-      setSelectedTime(tempCategory === selectedDate ? selectedTime : slots[0]);
-      console.log('selectedTime: ', selectedTime);
+      const temp = tempCategory === categories[0] ? slots : foods?.[categories[1]]?.slots;
+      setTimeSlots(temp);
+      setTempTime(tempCategory === selectedDate ? selectedTime : temp[0]);
     }
   }, [tempCategory, other.open]);
 
@@ -108,8 +112,8 @@ export default function ScheduleDialog({
                   </Stack>
                   <Stack justifyContent={'space-between'} width={'100%'}>
                     <Select
-                      value={selectedTime}
-                      defaultValue={selectedTime}
+                      value={tempTime}
+                      defaultValue={tempTime}
                       onChange={handleChange}
                       style={{ width: '100%', height: 38 }}
                       MenuProps={{
@@ -117,7 +121,7 @@ export default function ScheduleDialog({
                         sx: { maxHeight: 250, mt: 1 },
                       }}
                     >
-                      {slots?.map((item, _i) => (
+                      {timeSlots?.map((item, _i) => (
                         <MenuItem key={_i} value={item}>
                           {item}
                         </MenuItem>
