@@ -33,20 +33,25 @@ CartDialog.defaultProps = {
   data: {},
 };
 
-export default function CartDialog({ data, setSelectedItemData, onSubmit, ...other }) {
+export default function CartDialog({ data, foods, setSelectedItemData, onSubmit, ...other }) {
   const { isAuthenticated } = useAuth();
   const router = useRouter();
   const [orderCount, setOrderCount] = useState();
   const [note, setNote] = useState();
   const { checkout } = useSelector(FOOD_SELECTOR);
   const { cart } = checkout;
+  const [similiarFoods, setSimiliarFoods] = useState();
 
   useEffect(() => {
     if (other.open) {
+      const temp = foods?.filter(
+        (item) => item.title.split('with')[0] === data.title.split('with')[0] && item.id != data.id
+      );
+      setSimiliarFoods(temp);
       setNote(cart?.find((item) => item?.id === data?.id)?.notes ?? '');
-      setOrderCount(cart?.find((item) => item?.id === data?.id)?.notes ? 1 : data?.min_order);
+      setOrderCount(cart?.find((item) => item?.id === data?.id) ? 1 : data?.min_order ?? 1);
     }
-  }, [other.open]);
+  }, [other.open, data.id]);
 
   return (
     <Dialog maxWidth={'sm'} fullWidth {...other}>
@@ -88,6 +93,23 @@ export default function CartDialog({ data, setSelectedItemData, onSubmit, ...oth
                 </Stack>
               </Grid>
             </Grid>
+            {similiarFoods?.length > 0 && (
+              <Stack mt={2}>
+                <Typography variant="subtitle1" gutterBottom>
+                  {'Similiar food'}
+                </Typography>
+                {similiarFoods.map((item) => (
+                  <Typography
+                    key={item.id}
+                    variant="subtitle2"
+                    sx={{ cursor: 'pointer' }}
+                    onClick={() => setSelectedItemData(item)}
+                  >
+                    {item.title} - {`$${item.current_price} /${item.quantity} ${item.measurement || ''}`}
+                  </Typography>
+                ))}
+              </Stack>
+            )}
             <Stack mt={2}>
               <Typography variant="subtitle1" gutterBottom>
                 {'Description'}
@@ -140,10 +162,11 @@ export default function CartDialog({ data, setSelectedItemData, onSubmit, ...oth
               color="secondary"
               onClick={() => {
                 if (isAuthenticated) {
-                  data.notes = note;
-                  data.count = orderCount;
-                  setSelectedItemData(data);
-                  onSubmit();
+                  const temp = { ...data };
+                  temp.notes = note;
+                  temp.count = orderCount;
+                  setSelectedItemData(temp);
+                  onSubmit(temp);
                 } else {
                   router.push(PATH_AUTH.login);
                 }

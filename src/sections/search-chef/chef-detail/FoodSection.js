@@ -154,12 +154,13 @@ export default function FoodSection({ selectedDate, selectedTime }) {
     <RootStyle>
       <CartDialog
         data={selectedItemData}
+        foods={foods?.[selectedDate]?.foods}
         setSelectedItemData={setSelectedItemData}
         open={isOpenCartDlg}
-        onSubmit={() => {
+        onSubmit={(data) => {
           dispatch(setScheduleDate(selectedDate));
           dispatch(setScheduleTime(selectedTime));
-          handleClickAddCart(selectedItemData);
+          handleClickAddCart(data);
           setIsOpenCartDlg(false);
         }}
         onClose={() => setIsOpenCartDlg(false)}
@@ -297,7 +298,10 @@ export default function FoodSection({ selectedDate, selectedTime }) {
               ))}
             </Grid>
             {foods?.[selectedDate]?.foods?.length > 12 && (
-              <Pagination count={Math.ceil(foods?.[selectedDate]?.foods?.length / 12)} setCurrentPage={setCurrentPage} />
+              <Pagination
+                count={Math.ceil(foods?.[selectedDate]?.foods?.length / 12)}
+                setCurrentPage={setCurrentPage}
+              />
             )}
           </Stack>
         </Stack>
