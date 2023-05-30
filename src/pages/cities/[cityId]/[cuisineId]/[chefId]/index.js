@@ -45,16 +45,16 @@ export default function ChefPage() {
 
   useEffect(() => {
     async function fetch() {
+      setIsLoading(true);
       const formattedDate=format(new Date(scheduleDate), 'MM/dd/yyyy')
       const selectedDate = cart[0]?.user_id == chefId ? formattedDate : '';
-      setIsLoading(true);
       await dispatch(getChefs(cityId, cuisineId, chefId));
       await dispatch(getFoodsByChef(cityId, cuisineId, chefId, selectedDate));
       setIsLoading(false);
     }
 
     fetch();
-  }, [dispatch, router, isAuthenticated, cuisineId, chefId, cityId, cuisines, scheduleDate]);
+  }, [dispatch, router, isAuthenticated, cuisineId, chefId, cityId]);
 
   return loading ? (
     <LoadingScreen inner />
