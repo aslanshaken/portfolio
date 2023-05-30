@@ -47,7 +47,7 @@ export default function ChefHeader({ selectedDate, setSelectedDate, selectedTime
   useEffect(() => {
     const availableDates = Object.keys(foods);
     const initialSlots = foods?.[availableDates[0]]?.slots;
-    const currentTimePlusFiveHours = addHours(new Date(), 5);
+    const currentTimePlusFiveHours = addHours(new Date(), chef?.time_to_cook);
     const filteredArray = initialSlots.filter((time) => parse(time, 'hh:mm a', new Date()) > currentTimePlusFiveHours);
     setSlots(filteredArray.length === 0 ? foods?.[availableDates[1]]?.slots : filteredArray);
     const temp = filteredArray.length === 0 ? availableDates.slice(1, availableDates.length - 1) : availableDates;

@@ -148,7 +148,7 @@ DeliveryStepCard.propTypes = {
   title: PropTypes.string,
   subtitle: PropTypes.string,
   content: PropTypes.any,
-  buttonText: PropTypes.string,
+  buttonText: PropTypes.any,
   onClickButton: PropTypes.func,
 };
 
