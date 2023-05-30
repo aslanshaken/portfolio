@@ -40,7 +40,7 @@ export default function CityDialog({ isOpen }) {
                 dispatch(closeDialog());
                 // dispatch(openDialog('choose_cuisine_dialog'));
               }}
-              sx={{ width: 'fit-content', px: 5 }}
+              sx={{ width: 'fit-content'}}
             >
               <Typography variant="h4" fontWeight={'500'} color={'secondary'}>
                 {item.name}

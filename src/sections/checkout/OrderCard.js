@@ -184,7 +184,7 @@ export default function OrderCard({ isPickup }) {
           <Stack direction={'row'} justifyContent={'space-between'} mb={2}>
             <Typography variant={'body2'}>{'Tip:'}</Typography>
             <Typography fontWeight={'bold'} color={'secondary'}>
-              ${tips}
+              ${tips == '' ? 0 : tips}
             </Typography>
           </Stack>
         </>
@@ -194,7 +194,7 @@ export default function OrderCard({ isPickup }) {
       <Stack direction={'row'} justifyContent={'space-between'} mb={2}>
         <Typography variant={'body2'}>{'Total:'}</Typography>
         <Typography fontWeight={'bold'} color={'secondary'}>
-          ${order_total + tips}
+          ${order_total + (tips == '' ? 0 : tips)}
         </Typography>
       </Stack>
 
@@ -219,7 +219,7 @@ export default function OrderCard({ isPickup }) {
               variant={'filled'}
               size={'small'}
               onChange={(e) => {
-                setTips(parseFloat(e.target.value == '' ? 0 : e.target.value));
+                setTips(e.target.value);
               }}
             />
             <TopBottomButtonStyle orientation={'vertical'} color={'inherit'}>
