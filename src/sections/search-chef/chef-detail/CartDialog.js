@@ -102,7 +102,7 @@ export default function CartDialog({ data, foods, setSelectedItemData, onSubmit,
                   <Typography
                     key={item.id}
                     variant="subtitle2"
-                    sx={{ cursor: 'pointer' }}
+                    sx={{ cursor: 'pointer', color: 'gray' }}
                     onClick={() => setSelectedItemData(item)}
                   >
                     {item.title} - {`$${item.current_price} /${item.quantity} ${item.measurement || ''}`}
