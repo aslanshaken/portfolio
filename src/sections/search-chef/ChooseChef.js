@@ -257,7 +257,7 @@ export default function ChooseChef() {
               <Image
                 src="/assets/search-chef/oops.png"
                 width={300}
-                sx={{ position: 'absolute', right: 0, bottom: 0, zIndex: 0 }}
+                sx={{ position: 'absolute', right: { lg: 200, md: 100, xs: 0 }, bottom: 0, zIndex: 0 }}
               />
               <Stack gap={3} zIndex={1}>
                 <Typography variant="h3">We are sorry</Typography>
