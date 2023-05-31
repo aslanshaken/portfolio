@@ -30,40 +30,6 @@ import Image from 'src/components/Image';
 import LoadingScreen from 'src/components/LoadingScreen';
 import { HEADER } from 'src/config';
 import { openDialog } from 'src/redux/slices/dialog';
-// --------------------------------------------
-
-const sort_type = [{ name: 'sort by Popularity' }, { name: 'sort by New' }, { name: 'sort by Oldest' }];
-
-const categories = [
-  {
-    id: '1',
-    label: 'Frozen Meals',
-  },
-  {
-    id: '2',
-    label: 'Cakes',
-  },
-  {
-    id: '3',
-    label: 'Vegeterian',
-  },
-  {
-    id: '4',
-    label: 'Halal',
-  },
-  {
-    id: '5',
-    label: 'Catering',
-  },
-  {
-    id: '6',
-    label: 'Popular',
-  },
-  {
-    id: '7',
-    label: 'Delivery today',
-  },
-];
 
 // --------------------------------------------
 
@@ -118,18 +84,13 @@ const VisitChefLinkStyle = styled(Link)(() => ({
 
 export default function ChooseChef() {
   const [currentPage, setCurrentPage] = useState(1);
-
   const [warnningMsg, setWarnningMsg] = useState();
-
   const { chefs, city, error } = useSelector(CITYCUISINE_SELECTOR);
-
   const router = useRouter();
-
   const [chefArray, setChefsArray] = useState(chefs);
-
   const { cuisineId, cityId } = router.query;
-
   const [searchKey, setSearchKey] = useState('');
+  const [status, setStatus] = useState(false);
 
   const searchChefs = (key) => {
     if (key.length > 3) {
@@ -169,7 +130,6 @@ export default function ChooseChef() {
                 value={searchKey}
                 placeholder="Search for a meal, cuisine or country"
                 hiddenLabel
-                type="search"
                 variant="filled"
                 sx={{ padding: 1 }}
                 InputProps={{
@@ -179,12 +139,29 @@ export default function ChooseChef() {
                     </InputAdornment>
                   ),
                   endAdornment: (
-                    <Button onClick={() => searchChefs(searchKey)} size="small" variant="outlined">
-                      Search
+                    <Button
+                      onClick={() => {
+                        if (searchKey != '') {
+                          setStatus(!status);
+                          if (status) {
+                            setSearchKey('');
+                            searchChefs('');
+                          } else {
+                            searchChefs(searchKey);
+                          }
+                        }
+                      }}
+                      size="small"
+                      color="secondary"
+                      variant="outlined"
+                    >
+                      {status ? 'Clear' : 'Search'}
                     </Button>
                   ),
                 }}
               />
+
+              <Typography color={'error'}>{warnningMsg}</Typography>
 
               <Stack marginTop={2} direction={'row'} gap={2} flexWrap={'wrap'}>
                 <Button color="secondary" onClick={() => dispatch(openDialog('choose_city_dialog'))}>
@@ -224,8 +201,6 @@ export default function ChooseChef() {
                   Get free delivery on orders over $50
                 </Typography>
               </Stack>
-
-              <Typography color={'error'}>{warnningMsg}</Typography>
               {city && (
                 <Typography variant="h3" color={'black'} marginTop={4}>
                   Chefs in {city?.name}, TX
