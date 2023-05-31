@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 import NextLink from 'next/link';
-import { Avatar, Box, Button, Divider, Typography, Hidden, Stack, Link, useStepContext } from '@mui/material';
+import { Avatar, Box, Button, Divider, Typography, Hidden, Stack, Link } from '@mui/material';
 import Container from '../../../components/Container';
 import Iconify from '../../../components/Iconify';
 import ReadMore from '../../../components/ReadMore';
 import HeroHeader from 'src/components/HeroHeader';
 import { useSelector } from 'src/redux/store';
 import { CITYCUISINE_SELECTOR } from 'src/redux/slices/city';
-import { addDays, addHours, format, getMinutes, isToday, isTomorrow, parse } from 'date-fns';
+import { addHours, format, isAfter, isSameDay, isToday, isTomorrow, parse, parseISO } from 'date-fns';
 import { FOOD_SELECTOR, setScheduleTime } from 'src/redux/slices/food';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
@@ -45,20 +45,22 @@ export default function ChefHeader({ selectedDate, setSelectedDate, selectedTime
   }, [chefId, chefs]);
 
   useEffect(() => {
-    const availableDates = Object.keys(foods);
+    const availableDates = Object.keys(foods)?.filter(
+      (item) => isSameDay(new Date(item), new Date()) || isAfter(new Date(item), new Date())
+    );
     const initialSlots = foods?.[availableDates[0]]?.slots;
     const currentTimePlusFiveHours = addHours(new Date(), chef?.time_to_cook);
-    const filteredArray = initialSlots.filter((time) => parse(time, 'hh:mm a', new Date()) > currentTimePlusFiveHours);
-    setSlots(filteredArray.length === 0 ? foods?.[availableDates[1]]?.slots : filteredArray);
-    const temp = filteredArray.length === 0 ? availableDates.slice(1, availableDates.length - 1) : availableDates;
+    const filteredArray = initialSlots?.filter((time) => parse(time, 'hh:mm a', new Date()) > currentTimePlusFiveHours);
+    setSlots(filteredArray?.length === 0 ? foods?.[availableDates[1]]?.slots : filteredArray);
+    const temp = filteredArray?.length === 0 ? availableDates.slice(1, availableDates.length - 1) : availableDates;
     setCategories(temp);
 
     if (cart[0]?.user_id === chef?.id) {
       setSelectedDate(scheduleDate);
       setScheduleTime(scheduleTime);
     } else {
-      setSelectedDate(filteredArray.length === 0 ? availableDates[1] : availableDates[0]);
-      setSelectedTime(filteredArray.length === 0 ? foods?.[availableDates[1]]?.slots?.[0] : filteredArray[0]);
+      setSelectedDate(filteredArray?.length === 0 ? availableDates[1] : availableDates[0]);
+      setSelectedTime(filteredArray?.length === 0 ? foods?.[availableDates[1]]?.slots?.[0] : filteredArray?.[0]);
     }
   }, []);
 
