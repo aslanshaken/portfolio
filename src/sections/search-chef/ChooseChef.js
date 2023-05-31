@@ -121,6 +121,23 @@ export default function ChooseChef() {
     }
   }, [searchKey]);
 
+  const onSubmit = () => {
+    if (searchKey != '') {
+      setStatus(!status);
+      if (status) {
+        setSearchKey('');
+        searchChefs('');
+      } else {
+        searchChefs(searchKey);
+      }
+    }
+  };
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      onSubmit();
+    }
+  };
+
   if (error) return <LoadingScreen inner />;
 
   return (
@@ -138,6 +155,7 @@ export default function ChooseChef() {
                 hiddenLabel
                 variant="filled"
                 sx={{ padding: 1 }}
+                onKeyDown={handleKeyDown}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
@@ -147,15 +165,7 @@ export default function ChooseChef() {
                   endAdornment: (
                     <Button
                       onClick={() => {
-                        if (searchKey != '') {
-                          setStatus(!status);
-                          if (status) {
-                            setSearchKey('');
-                            searchChefs('');
-                          } else {
-                            searchChefs(searchKey);
-                          }
-                        }
+                        onSubmit();
                       }}
                       size="small"
                       color="secondary"
@@ -243,10 +253,16 @@ export default function ChooseChef() {
             </Box> */}
           </Stack>
           {chefArray?.length === 0 ? (
-            <Stack textAlign={'center'} gap={3}>
-              <Typography variant="h3">We are sorry</Typography>
-              <Typography>We couldn't find any matching results for your search</Typography>
-              <Typography>Oops...</Typography>
+            <Stack textAlign={'center'} position={'relative'} minHeight={300} backgroundColor="white" padding={6}>
+              <Image
+                src="/assets/search-chef/oops.png"
+                width={300}
+                sx={{ position: 'absolute', right: 0, bottom: 0, zIndex: 0 }}
+              />
+              <Stack gap={3} zIndex={1}>
+                <Typography variant="h3">We are sorry</Typography>
+                <Typography>We couldn't find any matching results for your search</Typography>
+              </Stack>
             </Stack>
           ) : (
             chefArray?.slice((currentPage - 1) * 10, currentPage * 10).map((item, _i) => (
