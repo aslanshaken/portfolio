@@ -367,7 +367,7 @@ export default function ChooseChef() {
             ))
           )}
         </Box>
-        {chefs?.length > 10 && <Pagination count={Math.ceil(chefs?.length / 10)} setCurrentPage={setCurrentPage} />}
+        {chefArray?.length > 10 && <Pagination count={Math.ceil(chefs?.length / 10)} setCurrentPage={setCurrentPage} />}
       </Container>
     </RootStyle>
   );
