@@ -115,6 +115,12 @@ export default function ChooseChef() {
     }
   };
 
+  useEffect(() => {
+    if (searchKey === '') {
+      setStatus(false);
+    }
+  }, [searchKey]);
+
   if (error) return <LoadingScreen inner />;
 
   return (
