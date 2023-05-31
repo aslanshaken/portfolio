@@ -81,7 +81,11 @@ export default function ScheduleDialog({
       <ChangeDeliveryDateDialgo
         open={changeDeliveryDateDialogIsOpen}
         onSubmit={setCategory}
-        onClose={() => setChangeDeliveryDateDialogIsOpen(false)}
+        onClose={async () => {
+          console.log('selectedDate: ', selectedDate);
+          await dispatch(getFoodsByChef(cityId, cuisineId, chefId, format(new Date(selectedDate), 'MM/dd/yyyy')));
+          setChangeDeliveryDateDialogIsOpen(false);
+        }}
       />
       <Dialog maxWidth={'sm'} fullWidth {...other}>
         <IconButton onClick={other.onClose} width={'fit-content'} sx={{ position: 'absolute', right: '0' }}>
