@@ -57,7 +57,7 @@ export default function ChefHeader({ selectedDate, setSelectedDate, selectedTime
 
     if (cart[0]?.user_id === chef?.id) {
       setSelectedDate(scheduleDate);
-      setScheduleTime(scheduleTime);
+      setSelectedTime(scheduleTime);
     } else {
       setSelectedDate(filteredArray?.length === 0 ? availableDates[1] : availableDates[0]);
       setSelectedTime(filteredArray?.length === 0 ? foods?.[availableDates[1]]?.slots?.[0] : filteredArray?.[0]);

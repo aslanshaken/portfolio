@@ -56,6 +56,8 @@ export default function ScheduleDialog({
 
   const setCategory = () => {
     setSelectedDate(tempCategory);
+    setSelectedTime(tempTime);
+    dispatch(setScheduleTime(tempTime));
     dispatch(updateFoodCart({ actionType: 'clear' }));
     setChangeDeliveryDateDialogIsOpen(false);
   };
