@@ -130,8 +130,11 @@ export default function ChooseChef() {
       } else {
         searchChefs(searchKey);
       }
+    } else {
+      setChefsArray(chefs);
     }
   };
+
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
       onSubmit();
@@ -181,7 +184,11 @@ export default function ChooseChef() {
               <Typography color={'error'}>{warnningMsg}</Typography>
 
               <Stack marginTop={2} direction={'row'} gap={2} flexWrap={'wrap'}>
-                <Button color="secondary" onClick={() => dispatch(openDialog('choose_city_dialog'))}>
+                <Button
+                  sx={{ textTransform: 'none' }}
+                  color="secondary"
+                  onClick={() => dispatch(openDialog('choose_city_dialog'))}
+                >
                   Select a different city
                 </Button>
                 <Button

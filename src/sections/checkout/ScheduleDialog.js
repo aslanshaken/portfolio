@@ -26,7 +26,7 @@ export default function ScheduleDialog({
   slots,
   ...other
 }) {
-  const [tempCategory, setTempCategory] = useState();
+  const [tempDate, setTempDate] = useState();
   const [tempTime, setTempTime] = useState(selectedTime);
   const [changeDeliveryDateDialogIsOpen, setChangeDeliveryDateDialogIsOpen] = useState(false);
   const { checkout, foods } = useSelector(FOOD_SELECTOR);
@@ -41,40 +41,48 @@ export default function ScheduleDialog({
   };
 
   const onSubmit = async () => {
-    setLoading(true);
-    if (selectedDate !== tempCategory && cart.length > 0) {
+    if (selectedDate !== tempDate && cart.length > 0) {
       setChangeDeliveryDateDialogIsOpen(true);
     } else {
-      setSelectedDate(tempCategory);
+      setLoading(true);
+      setSelectedDate(tempDate);
       setSelectedTime(tempTime);
       dispatch(setScheduleTime(tempTime));
+      await dispatch(getFoodsByChef(cityId, cuisineId, chefId, tempDate));
+      other.onClose();
+      setLoading(false);
     }
-    await dispatch(getFoodsByChef(cityId, cuisineId, chefId, format(new Date(tempCategory), 'MM/dd/yyyy')));
-    setLoading(false);
-    other.onClose();
   };
 
-  const setCategory = () => {
-    setSelectedDate(tempCategory);
+  const setCategory = async () => {
+    setLoading(true);
+    setSelectedDate(tempDate);
     setSelectedTime(tempTime);
     dispatch(setScheduleTime(tempTime));
     dispatch(updateFoodCart({ actionType: 'clear' }));
     setChangeDeliveryDateDialogIsOpen(false);
+    await dispatch(getFoodsByChef(cityId, cuisineId, chefId, tempDate));
+    setLoading(false);
+    other.onClose();
   };
 
   useEffect(() => {
     if (selectedDate) {
-      setTempCategory(selectedDate);
+      setTempDate(selectedDate);
     }
   }, [selectedDate]);
 
   useEffect(() => {
     if (other.open) {
-      const temp = tempCategory === categories[0] ? slots : foods?.[categories[1]]?.slots;
+      const temp = tempDate === categories[0] ? slots : foods?.[categories[1]]?.slots;
       setTimeSlots(temp);
-      setTempTime(tempCategory === selectedDate ? selectedTime : temp[0]);
+      setTempTime(tempDate === selectedDate ? selectedTime : temp[0]);
     }
-  }, [tempCategory, other.open]);
+  }, [tempDate, other.open]);
+
+  useEffect(() => {
+    setTempDate(selectedDate);
+  }, [other.open]);
 
   return (
     <>
@@ -82,8 +90,7 @@ export default function ScheduleDialog({
         open={changeDeliveryDateDialogIsOpen}
         onSubmit={setCategory}
         onClose={async () => {
-          console.log('selectedDate: ', selectedDate);
-          await dispatch(getFoodsByChef(cityId, cuisineId, chefId, format(new Date(selectedDate), 'MM/dd/yyyy')));
+          other.onClose();
           setChangeDeliveryDateDialogIsOpen(false);
         }}
       />
@@ -105,9 +112,9 @@ export default function ScheduleDialog({
                     {categories?.map((item, _i) => (
                       <Button
                         onClick={() => {
-                          setTempCategory(item);
+                          setTempDate(item);
                         }}
-                        variant={tempCategory === item ? 'contained' : 'outlined'}
+                        variant={tempDate === item ? 'contained' : 'outlined'}
                         color="secondary"
                         key={item + _i}
                         sx={{ px: { sm: 6, xs: 3 }, whiteSpace: 'nowrap' }}
