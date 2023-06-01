@@ -212,7 +212,7 @@ export default function ChooseChef() {
 
               <Typography color={'error'}>{warnningMsg}</Typography>
 
-              <Stack marginTop={2} direction={'row'} gap={2} flexWrap={'wrap'}>
+              <Box marginTop={2} whiteSpace={'nowrap'} sx={{ overflowX: 'scroll' }}>
                 <Button
                   sx={{ textTransform: 'none' }}
                   color="secondary"
@@ -244,7 +244,7 @@ export default function ChooseChef() {
                 <Button onClick={filterChefsByCakes} color="secondary">
                   Cakes
                 </Button> */}
-              </Stack>
+              </Box>
 
               <Divider sx={{ marginTop: 2 }} />
 
@@ -353,14 +353,19 @@ export default function ChooseChef() {
                           </Typography>
                         </Stack>
                       )}
-                      {item?.chef?.delivery_available && item?.chef?.delivery_fee && (
-                        <Stack direction={'row'} gap={0.7}>
-                          <Typography>Delivery: </Typography>
+                      {item?.chef?.delivery_available &&
+                        (item?.chef?.delivery_fee ? (
+                          <Stack direction={'row'} gap={0.7}>
+                            <Typography>Delivery: </Typography>
+                            <Typography variant="subtitle1" display={'flex'} flexWrap={'nowrap'}>
+                              ${item?.chef?.delivery_fee ?? 4.99}
+                            </Typography>
+                          </Stack>
+                        ) : (
                           <Typography variant="subtitle1" display={'flex'} flexWrap={'nowrap'}>
-                            ${item?.chef?.delivery_fee ?? 4.99}
+                            Pickup Only
                           </Typography>
-                        </Stack>
-                      )}
+                        ))}
                       <Box>
                         <Typography display={'flex'} flexWrap={'nowrap'} gap={1} variant="subtitle1">
                           <Iconify

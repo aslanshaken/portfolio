@@ -190,7 +190,7 @@ export default function OrderCard({ isPickup }) {
       <Stack direction={'row'} justifyContent={'space-between'} mb={2}>
         <Typography variant={'body2'}>{'Total:'}</Typography>
         <Typography fontWeight={'bold'} color={'secondary'}>
-          ${order_total + parseFloat(tips == '' ? 0 : tips)}
+          ${(order_total + parseFloat(tips == '' ? 0 : tips)).toFixed(2)}
         </Typography>
       </Stack>
 

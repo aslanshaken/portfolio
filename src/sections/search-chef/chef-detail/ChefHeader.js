@@ -218,7 +218,7 @@ export default function ChefHeader({
 
           <Typography color={'error'}>{warnningMsg}</Typography>
 
-          <Stack marginTop={2} direction={'row'} gap={2} flexWrap={'wrap'}>
+          <Box marginTop={2} whiteSpace={'nowrap'} sx={{ overflowX: 'scroll' }}>
             <NextLink color="inherit" href={`/cities/${cityId}/${cuisineId}/`} passHref>
               <Button color="secondary">Go back</Button>
             </NextLink>
@@ -229,7 +229,7 @@ export default function ChefHeader({
                 searchFoods('');
               }}
             >
-              All Chefs
+              All Foods
             </Button>
             {/* <Button onClick={filterFoodsByDeliveryAvailable} color="secondary">
               Frozen Meals
@@ -240,7 +240,7 @@ export default function ChefHeader({
             <Button onClick={filterFoodsByCatering} color="secondary">
               Random Food title 2
             </Button> */}
-          </Stack>
+          </Box>
 
           <Divider sx={{ marginTop: 2 }} />
 

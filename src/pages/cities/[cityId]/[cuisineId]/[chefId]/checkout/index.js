@@ -82,13 +82,23 @@ export default function CheckoutPage() {
     <Page title="Search Chef">
       <Container>
         <RootStyle position={'relative'}>
+          <NextLink href={PATH_PAGE.searchChef.cities({ cityId: '4', cuisineId: cuisineId, chefId: chefId })} passHref>
+            <Link underline="none">
+              <Typography mt={2} sx={{ color: 'black' }} className="sign-up">
+                Go back to chef
+              </Typography>
+            </Link>
+          </NextLink>
+          <Typography variant="h3" my={3}>
+            Checkout
+          </Typography>
           <Stack
             sx={{ width: '100%' }}
             textAlign={'center'}
             position={'relative'}
             backgroundColor={(theme) => theme.palette.secondary.main}
             padding={2}
-            my={6}
+            my={3}
           >
             <Image
               src={'/assets/search-chef/Texture.png'}
@@ -98,14 +108,6 @@ export default function CheckoutPage() {
               Get free delivery on orders over $100
             </Typography>
           </Stack>
-          <NextLink href={PATH_PAGE.searchChef.cities({ cityId: '4', cuisineId: cuisineId, chefId: chefId })} passHref>
-            <Link underline="none">
-              <Typography mt={2} sx={{ color: 'black' }} className="sign-up">
-                Go back to chef
-              </Typography>
-            </Link>
-          </NextLink>
-          <Typography variant="h3" my={3}>Checkout</Typography>
         </RootStyle>
       </Container>
 

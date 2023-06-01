@@ -36,14 +36,15 @@ export default function CityDialog({ isOpen }) {
               key={item.id}
               onClick={async () => {
                 const cuisineId = await dispatch(getCuisines(item.id));
-                await router.push(`/cities/${item.id}/7/`);
+                await router.push(`/cities/${item.id}/${cuisineId}/`);
                 dispatch(closeDialog());
                 // dispatch(openDialog('choose_cuisine_dialog'));
               }}
-              sx={{ width: 'fit-content'}}
+              sx={{ width: 'fit-content' }}
             >
               <Typography variant="h4" fontWeight={'500'} color={'secondary'}>
-                {item.name}
+                {item?.name}
+                {item?.state && `, ${item?.state}`}
               </Typography>
             </Button>
           ))}
