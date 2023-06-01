@@ -166,19 +166,15 @@ export default function OrderCard({ isPickup }) {
         </Typography>
       </Stack>
 
-      {delivery_fee > 0 && (
-        <>
-          <Divider sx={{ mb: 2 }} />
-          <Stack direction={'row'} justifyContent={'space-between'} mb={2}>
-            <Typography variant={'body2'}>{'Delivery Fee:'}</Typography>
-            <Typography fontWeight={'bold'} color={'secondary'}>
-              ${delivery_fee}
-            </Typography>
-          </Stack>
-        </>
-      )}
+      <Divider sx={{ mb: 2 }} />
+      <Stack direction={'row'} justifyContent={'space-between'} mb={2}>
+        <Typography variant={'body2'}>{'Delivery Fee:'}</Typography>
+        <Typography fontWeight={'bold'} color={'secondary'}>
+          ${delivery_fee}
+        </Typography>
+      </Stack>
 
-      {!isPickup && tips && (
+      {!isPickup && (
         <>
           <Divider sx={{ mb: 2 }} />
           <Stack direction={'row'} justifyContent={'space-between'} mb={2}>
