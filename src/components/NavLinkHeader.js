@@ -29,7 +29,7 @@ export default function NavLinkHeader({ cuisine = '', chef = '' }) {
         <NextLink color="inherit" href={`/cities/4/${cuisineId}/`} passHref>
           <Link
             onClick={() => {
-              if (!chefId) dispatch(openDialog('choose_cuisine_dialog'));
+              if (!chefId) dispatch(openDialog('choose_city_dialog'));
             }}
             color="inherit"
           >

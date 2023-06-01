@@ -178,19 +178,23 @@ export default function OrderCard({ isPickup }) {
         </>
       )}
 
-      <Divider sx={{ mb: 2 }} />
-      <Stack direction={'row'} justifyContent={'space-between'} mb={2}>
-        <Typography variant={'body2'}>{'Tip:'}</Typography>
-        <Typography fontWeight={'bold'} color={'secondary'}>
-          ${tips}
-        </Typography>
-      </Stack>
+      {!isPickup && (
+        <>
+          <Divider sx={{ mb: 2 }} />
+          <Stack direction={'row'} justifyContent={'space-between'} mb={2}>
+            <Typography variant={'body2'}>{'Tip:'}</Typography>
+            <Typography fontWeight={'bold'} color={'secondary'}>
+              ${tips == '' ? 0 : tips}
+            </Typography>
+          </Stack>
+        </>
+      )}
 
       <Divider sx={{ mb: 2 }} />
       <Stack direction={'row'} justifyContent={'space-between'} mb={2}>
         <Typography variant={'body2'}>{'Total:'}</Typography>
         <Typography fontWeight={'bold'} color={'secondary'}>
-          ${order_total + tips}
+          ${order_total + (tips == '' ? 0 : tips)}
         </Typography>
       </Stack>
 
@@ -198,35 +202,41 @@ export default function OrderCard({ isPickup }) {
 
       <Box mt={5} />
 
-      <Typography variant="subtitle1" gutterBottom>
-        {'Tips'}
-      </Typography>
-      <Stack direction={'row'} spacing={1} alignItems={'center'}>
-        <TextField
-          fullWidth
-          InputProps={{
-            startAdornment: <InputAdornment position="start">$</InputAdornment>,
-          }}
-          type={'number'}
-          value={tips}
-          label={'Fair enough'}
-          variant={'filled'}
-          size={'small'}
-          onChange={(e) => setTips(parseFloat(e.target.value))}
-        />
-        <TopBottomButtonStyle orientation={'vertical'} color={'inherit'}>
-          <Button onClick={() => setTips(tips + 1)}>
-            <Iconify icon={'material-symbols:keyboard-arrow-up-rounded'} sx={{ height: 24 }} />
-          </Button>
-          <Button
-            onClick={() => {
-              if (tips > 0) setTips(tips - 1);
-            }}
-          >
-            <Iconify icon={'material-symbols:keyboard-arrow-down-rounded'} sx={{ height: 24 }} />
-          </Button>
-        </TopBottomButtonStyle>
-      </Stack>
+      {!isPickup && (
+        <>
+          <Typography variant="subtitle1" gutterBottom>
+            {'Tip your delivery person'}
+          </Typography>
+          <Stack direction={'row'} spacing={1} alignItems={'center'}>
+            <TextField
+              fullWidth
+              InputProps={{
+                startAdornment: <InputAdornment position="start">$</InputAdornment>,
+              }}
+              type={'number'}
+              value={tips}
+              label={'Fair enough'}
+              variant={'filled'}
+              size={'small'}
+              onChange={(e) => {
+                setTips(e.target.value);
+              }}
+            />
+            <TopBottomButtonStyle orientation={'vertical'} color={'inherit'}>
+              <Button onClick={() => setTips(tips + 1)}>
+                <Iconify icon={'material-symbols:keyboard-arrow-up-rounded'} sx={{ height: 24 }} />
+              </Button>
+              <Button
+                onClick={() => {
+                  if (tips > 0) setTips(tips - 1);
+                }}
+              >
+                <Iconify icon={'material-symbols:keyboard-arrow-down-rounded'} sx={{ height: 24 }} />
+              </Button>
+            </TopBottomButtonStyle>
+          </Stack>
+        </>
+      )}
 
       <Box mt={5} />
 

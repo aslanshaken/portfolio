@@ -103,11 +103,11 @@ export function getCities() {
 
 // ----------------------------------------------------------------------
 
-export function getAllChefs() {
+export function getAllChefs(cityId) {
   return async (dispatch) => {
     dispatch(startLoading());
     try {
-      const response = await axios.get(`/api/${process.env.API_VERSION}/cities/4/chefs`);
+      const response = await axios.get(`/api/${process.env.API_VERSION}/cities/${cityId}/chefs`);
       let data = response.data;
 
       data.sort((a, b) => (a.can_sell === b.can_sell ? 0 : a.can_sell ? -1 : 1));
@@ -122,12 +122,13 @@ export function getAllChefs() {
 
 // ----------------------------------------------------------------------
 
-export function getCuisines() {
+export function getCuisines(cityId) {
   return async (dispatch) => {
     dispatch(startLoading());
     try {
-      const response = await axios.get(`/api/${process.env.API_VERSION}/find_local_chefs`);
+      const response = await axios.get(`/api/${process.env.API_VERSION}/cities/${cityId}/cuisines`);
       dispatch(slice.actions.getCuisinesSuccess(response.data.cuisines));
+      return response.data.cuisines[0].id;
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }
