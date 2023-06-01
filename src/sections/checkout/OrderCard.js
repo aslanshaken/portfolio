@@ -178,7 +178,7 @@ export default function OrderCard({ isPickup }) {
         </>
       )}
 
-      {!isPickup && (
+      {!isPickup && tips && (
         <>
           <Divider sx={{ mb: 2 }} />
           <Stack direction={'row'} justifyContent={'space-between'} mb={2}>
@@ -190,13 +190,17 @@ export default function OrderCard({ isPickup }) {
         </>
       )}
 
-      <Divider sx={{ mb: 2 }} />
-      <Stack direction={'row'} justifyContent={'space-between'} mb={2}>
-        <Typography variant={'body2'}>{'Total:'}</Typography>
-        <Typography fontWeight={'bold'} color={'secondary'}>
-          ${order_total + (tips == '' ? 0 : tips)}
-        </Typography>
-      </Stack>
+      {order_total && (
+        <>
+          <Divider sx={{ mb: 2 }} />
+          <Stack direction={'row'} justifyContent={'space-between'} mb={2}>
+            <Typography variant={'body2'}>{'Total:'}</Typography>
+            <Typography fontWeight={'bold'} color={'secondary'}>
+              ${order_total + parseFloat(tips == '' ? 0 : tips)}
+            </Typography>
+          </Stack>
+        </>
+      )}
 
       <Divider sx={{ mb: 2 }} />
 

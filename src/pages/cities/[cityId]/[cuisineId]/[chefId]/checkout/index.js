@@ -17,6 +17,7 @@ import { FOOD_SELECTOR, getOrderDetail } from 'src/redux/slices/food';
 import { PATH_PAGE } from 'src/routes/paths';
 import { useRouter } from 'next/router';
 import { HEADER } from 'src/config';
+import LoadingScreen from 'src/components/LoadingScreen';
 
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
@@ -44,6 +45,8 @@ export default function CheckoutPage() {
 
   const [isPickup, setIsPickup] = useState(true);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     if (cart.length === 0) {
       router.push(PATH_PAGE.home);
@@ -51,14 +54,22 @@ export default function CheckoutPage() {
   }, []);
 
   useEffect(() => {
-    dispatch(getOrderDetail(orderId));
+    const fetch = async () => {
+      setIsLoading(true);
+      await dispatch(getOrderDetail(orderId));
+      setIsLoading(false);
+    };
+
+    fetch();
   }, [dispatch, orderId]);
 
   useEffect(() => {
     if (orderDetail) setIsPickup(orderDetail?.is_pickup);
   }, [orderDetail]);
 
-  return (
+  return isLoading ? (
+    <LoadingScreen inner />
+  ) : (
     <Page title="Search Chef">
       <Container>
         <Box position={'relative'}>

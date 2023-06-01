@@ -31,7 +31,7 @@ export default function ChefPage() {
 
   const [selectedTime, setSelectedTime] = useState(scheduleTime);
 
-  const { cuisines } = useSelector(CITYCUISINE_SELECTOR);
+  const { chef } = useSelector(CITYCUISINE_SELECTOR);
 
   const { isAuthenticated } = useAuth();
 
@@ -47,7 +47,9 @@ export default function ChefPage() {
     async function fetch() {
       setIsLoading(true);
       await dispatch(getChefs(cityId, cuisineId, chefId));
-      await dispatch(getFoodsByChef(cityId, cuisineId, chefId, scheduleDate));
+      await dispatch(
+        getFoodsByChef(cityId, cuisineId, chefId, cart[0]?.user_id === chef?.chef?.id ? scheduleDate : '')
+      );
       setIsLoading(false);
     }
 

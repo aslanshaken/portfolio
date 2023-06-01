@@ -30,6 +30,7 @@ import Image from 'src/components/Image';
 import LoadingScreen from 'src/components/LoadingScreen';
 import { HEADER } from 'src/config';
 import { openDialog } from 'src/redux/slices/dialog';
+import useResponsive from 'src/hooks/useResponsive';
 
 // --------------------------------------------
 
@@ -91,18 +92,15 @@ export default function ChooseChef() {
   const { cuisineId, cityId } = router.query;
   const [searchKey, setSearchKey] = useState('');
   const [status, setStatus] = useState(false);
+  const isDesktop = useResponsive('up', 'sm');
 
   const searchChefs = (key) => {
     if (key.length > 3) {
       setWarnningMsg();
       const filteredArray = chefs.filter(
         (item) =>
-          Object.values(item.chef).some(
-            (val) => typeof val === 'string' && val.toLowerCase().includes(key.toLowerCase())
-          ) ||
-          item.foods.find((food) =>
-            Object.values(food).some((val) => typeof val === 'string' && val.toLowerCase().includes(key.toLowerCase()))
-          )
+          item.chef.birth_place.toLowerCase().includes(key.toLowerCase()) ||
+          item.foods.find((food) => food.title.toLowerCase().includes(key.toLowerCase()))
       );
       setChefsArray(filteredArray);
     } else {
@@ -139,6 +137,10 @@ export default function ChooseChef() {
     if (event.key === 'Enter') {
       onSubmit();
     }
+    if (event.key === 'Backspace') {
+      setSearchKey('');
+      searchChefs('');
+    }
   };
 
   if (error) return <LoadingScreen inner />;
@@ -160,6 +162,7 @@ export default function ChooseChef() {
                 sx={{ padding: 1 }}
                 onKeyDown={handleKeyDown}
                 InputProps={{
+                  ...(isDesktop ? { style: { fontSize: '16px' } } : { style: { fontSize: '11px' } }),
                   startAdornment: (
                     <InputAdornment position="start">
                       <Iconify icon={'mingcute:search-line'} className="defaultIconSize" />
@@ -221,8 +224,8 @@ export default function ChooseChef() {
                   src={'/assets/search-chef/Texture.png'}
                   sx={{ position: 'absolute', width: '100%', height: '100%', top: -2 }}
                 />
-                <Typography color={'white'} variant="h4" fontWeight={400}>
-                  Get free delivery on orders over $50
+                <Typography color={'white'} fontSize={{ xs: 16, sm: 20 }} fontWeight={400}>
+                  Get free delivery on orders over $100
                 </Typography>
               </Stack>
               {city && (
