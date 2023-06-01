@@ -26,12 +26,10 @@ ChefPage.getLayout = function getLayout(page) {
 export default function ChefPage() {
   const [selectedDate, setSelectedDate] = useState();
 
-  const { checkout } = useSelector(FOOD_SELECTOR);
+  const { checkout, foods } = useSelector(FOOD_SELECTOR);
   const { scheduleTime, scheduleDate, cart } = checkout;
 
   const [selectedTime, setSelectedTime] = useState(scheduleTime);
-
-  const { chef } = useSelector(CITYCUISINE_SELECTOR);
 
   const { isAuthenticated } = useAuth();
 
@@ -43,13 +41,17 @@ export default function ChefPage() {
 
   const dispatch = useDispatch();
 
+  const [foodsArray, setFoodsArray] = useState();
+
+  useEffect(() => {
+    setFoodsArray(foods?.[selectedDate]?.foods);
+  }, [foods, selectedDate]);
+
   useEffect(() => {
     async function fetch() {
       setIsLoading(true);
       await dispatch(getChefs(cityId, cuisineId, chefId));
-      await dispatch(
-        getFoodsByChef(cityId, cuisineId, chefId, cart[0]?.user_id === chef?.chef?.id ? scheduleDate : '')
-      );
+      await dispatch(getFoodsByChef(cityId, cuisineId, chefId, cart[0]?.user_id == chefId ? scheduleDate : ''));
       setIsLoading(false);
     }
 
@@ -61,12 +63,14 @@ export default function ChefPage() {
   ) : (
     <Page title="Search Chef">
       <ChefHeader
+        foodsArray={foodsArray}
+        setFoodsArray={setFoodsArray}
         selectedDate={selectedDate}
         setSelectedDate={setSelectedDate}
         selectedTime={selectedTime}
         setSelectedTime={setSelectedTime}
       />
-      <FoodSection selectedDate={selectedDate} selectedTime={selectedTime} />
+      <FoodSection foodsArray={foodsArray} selectedDate={selectedDate} selectedTime={selectedTime} />
     </Page>
   );
 }

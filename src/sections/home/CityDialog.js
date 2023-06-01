@@ -36,7 +36,7 @@ export default function CityDialog({ isOpen }) {
               key={item.id}
               onClick={async () => {
                 const cuisineId = await dispatch(getCuisines(item.id));
-                await router.push(`/cities/${item.id}/${cuisineId}/`);
+                await router.push(`/cities/${item.id}/7/`);
                 dispatch(closeDialog());
                 // dispatch(openDialog('choose_cuisine_dialog'));
               }}

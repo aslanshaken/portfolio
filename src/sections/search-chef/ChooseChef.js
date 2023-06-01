@@ -85,11 +85,11 @@ const VisitChefLinkStyle = styled(Link)(() => ({
 
 export default function ChooseChef() {
   const [currentPage, setCurrentPage] = useState(1);
-  const [warnningMsg, setWarnningMsg] = useState();
   const { chefs, city, error } = useSelector(CITYCUISINE_SELECTOR);
   const router = useRouter();
-  const [chefArray, setChefsArray] = useState(chefs);
   const { cuisineId, cityId } = router.query;
+  const [warnningMsg, setWarnningMsg] = useState();
+  const [chefsArray, setChefsArray] = useState(chefs);
   const [searchKey, setSearchKey] = useState('');
   const [status, setStatus] = useState(false);
   const isDesktop = useResponsive('up', 'sm');
@@ -100,7 +100,8 @@ export default function ChooseChef() {
       const filteredArray = chefs.filter(
         (item) =>
           item.chef.birth_place.toLowerCase().includes(key.toLowerCase()) ||
-          item.foods.find((food) => food.title.toLowerCase().includes(key.toLowerCase()))
+          item.foods.find((food) => food.title.toLowerCase().includes(key.toLowerCase())) ||
+          item.foods.find((food) => food.cuisine.name.toLowerCase().includes(key.toLowerCase()))
       );
       setChefsArray(filteredArray);
     } else {
@@ -111,6 +112,31 @@ export default function ChooseChef() {
       }
       setChefsArray(chefs);
     }
+  };
+
+  const filterChefsByDeliveryAvailable = () => {
+    const filteredArray = chefs.filter((item) => item.chef.delivery_available);
+    setChefsArray(filteredArray);
+  };
+
+  const filterChefsByHalal = () => {
+    const filteredArray = chefs.filter((item) => item.chef.halal);
+    setChefsArray(filteredArray);
+  };
+
+  const filterChefsByCatering = () => {
+    const filteredArray = chefs.filter((item) => item.chef.catering);
+    setChefsArray(filteredArray);
+  };
+
+  const filterChefsByFrozen = () => {
+    const filteredArray = chefs.filter((item) => item.chef.delivery_available);
+    setChefsArray(filteredArray);
+  };
+
+  const filterChefsByCakes = () => {
+    const filteredArray = chefs.filter((item) => item.chef.delivery_available);
+    setChefsArray(filteredArray);
   };
 
   useEffect(() => {
@@ -203,11 +229,21 @@ export default function ChooseChef() {
                 >
                   All Chefs
                 </Button>
-                {/* <Button color="secondary">Delivery today</Button>
-                <Button color="secondary">Halal</Button>
-                <Button color="secondary">Catering</Button>
-                <Button color="secondary">Frozen Meals</Button>
-                <Button color="secondary">Cakes</Button> */}
+                <Button onClick={filterChefsByDeliveryAvailable} color="secondary">
+                  Delivery today
+                </Button>
+                <Button onClick={filterChefsByHalal} color="secondary">
+                  Halal
+                </Button>
+                <Button onClick={filterChefsByCatering} color="secondary">
+                  Catering
+                </Button>
+                {/* <Button onClick={filterChefsByFrozen} color="secondary">
+                  Frozen Meals
+                </Button>
+                <Button onClick={filterChefsByCakes} color="secondary">
+                  Cakes
+                </Button> */}
               </Stack>
 
               <Divider sx={{ marginTop: 2 }} />
@@ -264,7 +300,7 @@ export default function ChooseChef() {
               ))}
             </Box> */}
           </Stack>
-          {chefArray?.length === 0 ? (
+          {chefsArray?.length === 0 ? (
             <Stack textAlign={'center'} position={'relative'} minHeight={300} backgroundColor="white" padding={6}>
               <Image
                 src="/assets/search-chef/oops.png"
@@ -277,7 +313,7 @@ export default function ChooseChef() {
               </Stack>
             </Stack>
           ) : (
-            chefArray?.slice((currentPage - 1) * 10, currentPage * 10).map((item, _i) => (
+            chefsArray?.slice((currentPage - 1) * 10, currentPage * 10).map((item, _i) => (
               <Box key={'chef-link' + _i} position={'relative'}>
                 <NextLink
                   href={
@@ -309,14 +345,17 @@ export default function ChooseChef() {
                       }}
                     >
                       {item?.chef?.time_to_cook && (
-                        <Typography variant="subtitle1">
-                          {item?.chef?.time_to_cook}
-                          {item?.chef?.time_to_cook == 1 ? 'hr' : 'hrs'}
-                        </Typography>
-                      )}
-                      {item?.chef?.can_sell && item?.chef?.delivery_fee && (
                         <Stack direction={'row'} gap={0.7}>
-                          <Typography>Delivery fee: </Typography>
+                          <Typography>Ready in: </Typography>
+                          <Typography variant="subtitle1">
+                            {item?.chef?.time_to_cook}
+                            {item?.chef?.time_to_cook == 1 ? 'hr' : 'hrs'}
+                          </Typography>
+                        </Stack>
+                      )}
+                      {item?.chef?.delivery_available && item?.chef?.delivery_fee && (
+                        <Stack direction={'row'} gap={0.7}>
+                          <Typography>Delivery: </Typography>
                           <Typography variant="subtitle1" display={'flex'} flexWrap={'nowrap'}>
                             ${item?.chef?.delivery_fee ?? 4.99}
                           </Typography>
@@ -387,7 +426,9 @@ export default function ChooseChef() {
             ))
           )}
         </Box>
-        {chefArray?.length > 10 && <Pagination count={Math.ceil(chefs?.length / 10)} setCurrentPage={setCurrentPage} />}
+        {chefsArray?.length > 10 && (
+          <Pagination count={Math.ceil(chefs?.length / 10)} setCurrentPage={setCurrentPage} />
+        )}
       </Container>
     </RootStyle>
   );

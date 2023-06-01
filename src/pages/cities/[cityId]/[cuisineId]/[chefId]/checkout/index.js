@@ -18,8 +18,17 @@ import { PATH_PAGE } from 'src/routes/paths';
 import { useRouter } from 'next/router';
 import { HEADER } from 'src/config';
 import LoadingScreen from 'src/components/LoadingScreen';
+import Image from 'src/components/Image';
+import styled from '@emotion/styled';
 
-// ----------------------------------------------------------------------
+// --------------------------------------------
+
+const RootStyle = styled('div')(({ theme }) => ({
+  paddingTop: HEADER.MOBILE_HEIGHT,
+  [theme.breakpoints.up('md')]: {
+    paddingTop: HEADER.MAIN_DESKTOP_HEIGHT,
+  },
+}));
 // ----------------------------------------------------------------------
 
 CheckoutPage.getLayout = function getLayout(page) {
@@ -72,29 +81,33 @@ export default function CheckoutPage() {
   ) : (
     <Page title="Search Chef">
       <Container>
-        <Box position={'relative'}>
-          <Box
-            sx={{
-              position: 'absolute',
-              zIndex: 10,
-              left: 0,
-              top: { xs: HEADER.MOBILE_HEIGHT, md: HEADER.MAIN_DESKTOP_HEIGHT },
-            }}
+        <RootStyle position={'relative'}>
+          <Stack
+            sx={{ width: '100%' }}
+            textAlign={'center'}
+            position={'relative'}
+            backgroundColor={(theme) => theme.palette.secondary.main}
+            padding={2}
+            my={6}
           >
-            <NextLink
-              href={PATH_PAGE.searchChef.cities({ cityId: '4', cuisineId: cuisineId, chefId: chefId })}
-              passHref
-            >
-              <Link underline="none">
-                <Typography mt={2} sx={{ color: 'black' }} className="sign-up">
-                  Go back to chef
-                </Typography>
-              </Link>
-            </NextLink>
-          </Box>
-        </Box>
+            <Image
+              src={'/assets/search-chef/Texture.png'}
+              sx={{ position: 'absolute', width: '100%', height: '100%', top: -2 }}
+            />
+            <Typography color={'white'} fontSize={{ xs: 16, sm: 20 }} fontWeight={400}>
+              Get free delivery on orders over $100
+            </Typography>
+          </Stack>
+          <NextLink href={PATH_PAGE.searchChef.cities({ cityId: '4', cuisineId: cuisineId, chefId: chefId })} passHref>
+            <Link underline="none">
+              <Typography mt={2} sx={{ color: 'black' }} className="sign-up">
+                Go back to chef
+              </Typography>
+            </Link>
+          </NextLink>
+          <Typography variant="h3" my={3}>Checkout</Typography>
+        </RootStyle>
       </Container>
-      <HeroHeader title={'Checkout'} bottomBorder={false} />
 
       <Container>
         <Grid container spacing={2}>

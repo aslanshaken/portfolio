@@ -89,7 +89,7 @@ export default function OrderCard({ isPickup }) {
 
   const dispatch = useDispatch();
 
-  const [tips, setTips] = useState(orderDetail?.tips ?? 0);
+  const [tips, setTips] = useState(orderDetail?.tips ?? '');
 
   const sendPromocode = async () => {
     const response = await dispatch(applyCoupon(promocode, orderId));
@@ -186,17 +186,13 @@ export default function OrderCard({ isPickup }) {
         </>
       )}
 
-      {order_total && (
-        <>
-          <Divider sx={{ mb: 2 }} />
-          <Stack direction={'row'} justifyContent={'space-between'} mb={2}>
-            <Typography variant={'body2'}>{'Total:'}</Typography>
-            <Typography fontWeight={'bold'} color={'secondary'}>
-              ${order_total + parseFloat(tips == '' ? 0 : tips)}
-            </Typography>
-          </Stack>
-        </>
-      )}
+      <Divider sx={{ mb: 2 }} />
+      <Stack direction={'row'} justifyContent={'space-between'} mb={2}>
+        <Typography variant={'body2'}>{'Total:'}</Typography>
+        <Typography fontWeight={'bold'} color={'secondary'}>
+          ${order_total + parseFloat(tips == '' ? 0 : tips)}
+        </Typography>
+      </Stack>
 
       <Divider sx={{ mb: 2 }} />
 

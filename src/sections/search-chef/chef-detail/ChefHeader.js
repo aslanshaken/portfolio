@@ -1,6 +1,17 @@
 import PropTypes from 'prop-types';
 import NextLink from 'next/link';
-import { Avatar, Box, Button, Divider, Typography, Hidden, Stack, Link } from '@mui/material';
+import {
+  Avatar,
+  Box,
+  Button,
+  Divider,
+  Typography,
+  Hidden,
+  Stack,
+  Link,
+  TextField,
+  InputAdornment,
+} from '@mui/material';
 import Container from '../../../components/Container';
 import Iconify from '../../../components/Iconify';
 import ReadMore from '../../../components/ReadMore';
@@ -13,15 +24,34 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { PATH_PAGE } from 'src/routes/paths';
 import ScheduleDialog from 'src/sections/checkout/ScheduleDialog';
+import useResponsive from 'src/hooks/useResponsive';
+import Image from 'src/components/Image';
+import styled from '@emotion/styled';
+import { HEADER } from 'src/config';
 
 ChefHeader.propTypes = {
   selectedDate: PropTypes.string,
   setSelectedDate: PropTypes.func,
 };
+// --------------------------------------------
+
+const RootStyle = styled('div')(({ theme }) => ({
+  paddingTop: HEADER.MOBILE_HEIGHT,
+  [theme.breakpoints.up('md')]: {
+    paddingTop: HEADER.MAIN_DESKTOP_HEIGHT,
+  },
+}));
 
 // ----------------------------------------------------------------------
 
-export default function ChefHeader({ selectedDate, setSelectedDate, selectedTime, setSelectedTime }) {
+export default function ChefHeader({
+  selectedDate,
+  setSelectedDate,
+  selectedTime,
+  setSelectedTime,
+  foodsArray,
+  setFoodsArray,
+}) {
   const router = useRouter();
   const [nextChefId, setNextChefId] = useState();
   const [prevChefId, setPrevChefId] = useState();
@@ -34,6 +64,10 @@ export default function ChefHeader({ selectedDate, setSelectedDate, selectedTime
   const [formattedDate, setFormattedDate] = useState();
   const [categories, setCategories] = useState();
   const [slots, setSlots] = useState();
+  const [warnningMsg, setWarnningMsg] = useState();
+  const [searchKey, setSearchKey] = useState('');
+  const [status, setStatus] = useState(false);
+  const isDesktop = useResponsive('up', 'sm');
 
   useEffect(() => {
     if (chefId && chefs) {
@@ -73,8 +107,68 @@ export default function ChefHeader({ selectedDate, setSelectedDate, selectedTime
     }
   }, [selectedDate]);
 
+  const searchFoods = (key) => {
+    if (key.length > 3) {
+      setWarnningMsg();
+      const filteredArray = foodsArray.filter((item) => item.title.toLowerCase().includes(key.toLowerCase()));
+      setFoodsArray(filteredArray);
+    } else {
+      if (key.length > 1 && key.length < 4) {
+        setWarnningMsg('requires at least 4 letters');
+      } else {
+        setWarnningMsg();
+      }
+      setFoodsArray(foods?.[selectedDate]?.foods);
+    }
+  };
+
+  const filterFoodsByDeliveryAvailable = () => {
+    const filteredArray = foodsArray.filter((item) => item.chef.delivery_available);
+    setFoodsArray(filteredArray);
+  };
+
+  const filterFoodsByHalal = () => {
+    const filteredArray = foodsArray.filter((item) => item.chef.halal);
+    setFoodsArray(filteredArray);
+  };
+
+  const filterFoodsByCatering = () => {
+    const filteredArray = foodsArray.filter((item) => item.chef.catering);
+    setFoodsArray(filteredArray);
+  };
+
+  useEffect(() => {
+    if (searchKey === '') {
+      setStatus(false);
+    }
+  }, [searchKey]);
+
+  const onSubmit = () => {
+    if (searchKey != '') {
+      setStatus(!status);
+      if (status) {
+        setSearchKey('');
+        searchFoods('');
+      } else {
+        searchFoods(searchKey);
+      }
+    } else {
+      setFoodsArray(foods?.[selectedDate]?.foods);
+    }
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      onSubmit();
+    }
+    if (event.key === 'Backspace') {
+      setSearchKey('');
+      searchFoods('');
+    }
+  };
+
   return (
-    <>
+    <RootStyle>
       <ScheduleDialog
         slots={slots}
         categories={categories}
@@ -86,8 +180,87 @@ export default function ChefHeader({ selectedDate, setSelectedDate, selectedTime
         onClose={() => setIsOpenScheduleDialog(false)}
       />
 
-      <HeroHeader cuisine={'Back'} />
+      {/* <HeroHeader cuisine={'Back'} /> */}
       <Container>
+        <Stack>
+          <TextField
+            onChange={(e) => setSearchKey(e.target.value)}
+            size="large"
+            fullWidth
+            value={searchKey}
+            placeholder="Search for a meal"
+            hiddenLabel
+            variant="filled"
+            sx={{ padding: 1, marginTop: 4 }}
+            onKeyDown={handleKeyDown}
+            InputProps={{
+              ...(isDesktop ? { style: { fontSize: '16px' } } : { style: { fontSize: '11px' } }),
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Iconify icon={'mingcute:search-line'} className="defaultIconSize" />
+                </InputAdornment>
+              ),
+              endAdornment: (
+                <Button
+                  onClick={() => {
+                    onSubmit();
+                  }}
+                  sx={{ width: 100 }}
+                  size="medium"
+                  color="secondary"
+                  variant={status ? 'outlined' : 'contained'}
+                >
+                  {status ? 'Clear' : 'Search'}
+                </Button>
+              ),
+            }}
+          />
+
+          <Typography color={'error'}>{warnningMsg}</Typography>
+
+          <Stack marginTop={2} direction={'row'} gap={2} flexWrap={'wrap'}>
+            <NextLink color="inherit" href={`/cities/${cityId}/${cuisineId}/`} passHref>
+              <Button color="secondary">Go back</Button>
+            </NextLink>
+            <Button
+              color="secondary"
+              onClick={() => {
+                setSearchKey('');
+                searchFoods('');
+              }}
+            >
+              All Chefs
+            </Button>
+            {/* <Button onClick={filterFoodsByDeliveryAvailable} color="secondary">
+              Frozen Meals
+            </Button>
+            <Button onClick={filterFoodsByHalal} color="secondary">
+              Random Food title 1
+            </Button>
+            <Button onClick={filterFoodsByCatering} color="secondary">
+              Random Food title 2
+            </Button> */}
+          </Stack>
+
+          <Divider sx={{ marginTop: 2 }} />
+
+          <Stack
+            textAlign={'center'}
+            position={'relative'}
+            backgroundColor={(theme) => theme.palette.secondary.main}
+            padding={2}
+            marginTop={6}
+            marginBottom={6}
+          >
+            <Image
+              src={'/assets/search-chef/Texture.png'}
+              sx={{ position: 'absolute', width: '100%', height: '100%', top: -2 }}
+            />
+            <Typography color={'white'} fontSize={{ xs: 16, sm: 20 }} fontWeight={400}>
+              Get free delivery on orders over $100
+            </Typography>
+          </Stack>
+        </Stack>
         <Stack marginTop={2} direction={'row'} gap={6} width={'100%'} justifyContent={'space-between'}>
           {prevChefId ? (
             <NextLink href={PATH_PAGE.searchChef.cities({ cityId, cuisineId, chefId: prevChefId })} passHref>
@@ -285,6 +458,6 @@ export default function ChefHeader({ selectedDate, setSelectedDate, selectedTime
           <Divider />
         </Box>
       </Container>
-    </>
+    </RootStyle>
   );
 }
