@@ -192,11 +192,11 @@ export default function ChooseChef() {
                 >
                   All Chefs
                 </Button>
-                <Button color="secondary">Delivery today</Button>
+                {/* <Button color="secondary">Delivery today</Button>
                 <Button color="secondary">Halal</Button>
                 <Button color="secondary">Catering</Button>
                 <Button color="secondary">Frozen Meals</Button>
-                <Button color="secondary">Cakes</Button>
+                <Button color="secondary">Cakes</Button> */}
               </Stack>
 
               <Divider sx={{ marginTop: 2 }} />
@@ -219,7 +219,8 @@ export default function ChooseChef() {
               </Stack>
               {city && (
                 <Typography variant="h3" color={'black'} marginTop={4}>
-                  Chefs in {city?.name}, TX
+                  Chefs in {city?.name}
+                  {city?.state && `, ${city?.state}`}
                 </Typography>
               )}
             </Stack>
@@ -296,9 +297,15 @@ export default function ChooseChef() {
                         borderColor: colors.grey[300],
                       }}
                     >
-                      <Typography>
-                        {item?.chef?.time_to_cook}hrs
-                      </Typography>
+                      <Typography variant="subtitle1">{item?.chef?.time_to_cook}hrs</Typography>
+                      {item?.chef?.can_sell && item?.chef?.delivery_fee && (
+                        <Stack direction={'row'} gap={0.7}>
+                          <Typography>Delivery fee: </Typography>
+                          <Typography variant="subtitle1" display={'flex'} flexWrap={'nowrap'}>
+                            ${item?.chef?.delivery_fee ?? 4.99}
+                          </Typography>
+                        </Stack>
+                      )}
                       <Box>
                         <Typography display={'flex'} flexWrap={'nowrap'} gap={1} variant="subtitle1">
                           <Iconify
@@ -308,18 +315,12 @@ export default function ChooseChef() {
                           {item?.chef?.rating}
                         </Typography>
                       </Box>
-                      <Stack direction={'row'} gap={0.7}>
+                      {/* <Stack direction={'row'} gap={0.7}>
                         <Typography>Orders: </Typography>
                         <Typography variant="subtitle1" display={'flex'} flexWrap={'nowrap'}>
                           {item?.chef?.orders}
                         </Typography>
-                      </Stack>
-                      <Stack direction={'row'} gap={0.7}>
-                        <Typography>Delivery fee: </Typography>
-                        <Typography variant="subtitle1" display={'flex'} flexWrap={'nowrap'}>
-                          ${item?.chef?.delivery_fee ?? 4.99}
-                        </Typography>
-                      </Stack>
+                      </Stack> */}
                     </Box>
                     <Grid container spacing={{ xs: 5, md: 2 }} py={2}>
                       <Grid item xs={12} lg={4} ml={1}>
