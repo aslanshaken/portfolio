@@ -40,7 +40,7 @@ export default function ChefListPage() {
       SetIsLoading(true);
       await dispatch(getChefs(cityId, cuisineId));
       SetIsLoading(false);
-      // dispatch(getCity(router.query.cityId));
+      dispatch(getCity(router.query.cityId));
     }
     fetch();
   }, [cityId, cuisineId]);
