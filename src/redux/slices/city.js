@@ -80,7 +80,7 @@ const slice = createSlice({
 export default slice.reducer;
 
 // Actions
-export const { startLoading } = slice.actions;
+export const { startLoading, getCitySuccess } = slice.actions;
 
 // Selector
 export const CITYCUISINE_SELECTOR = (state) => state.cityCuisine;
