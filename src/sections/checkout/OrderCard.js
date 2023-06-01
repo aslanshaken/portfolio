@@ -89,7 +89,7 @@ export default function OrderCard({ isPickup }) {
 
   const dispatch = useDispatch();
 
-  const [tips, setTips] = useState(orderDetail?.tips ?? 0);
+  const [tips, setTips] = useState(orderDetail?.tips ?? '');
 
   const sendPromocode = async () => {
     const response = await dispatch(applyCoupon(promocode, orderId));
@@ -166,17 +166,13 @@ export default function OrderCard({ isPickup }) {
         </Typography>
       </Stack>
 
-      {delivery_fee > 0 && (
-        <>
-          <Divider sx={{ mb: 2 }} />
-          <Stack direction={'row'} justifyContent={'space-between'} mb={2}>
-            <Typography variant={'body2'}>{'Delivery Fee:'}</Typography>
-            <Typography fontWeight={'bold'} color={'secondary'}>
-              ${delivery_fee}
-            </Typography>
-          </Stack>
-        </>
-      )}
+      <Divider sx={{ mb: 2 }} />
+      <Stack direction={'row'} justifyContent={'space-between'} mb={2}>
+        <Typography variant={'body2'}>{'Delivery Fee:'}</Typography>
+        <Typography fontWeight={'bold'} color={'secondary'}>
+          ${delivery_fee}
+        </Typography>
+      </Stack>
 
       {!isPickup && (
         <>
@@ -194,7 +190,7 @@ export default function OrderCard({ isPickup }) {
       <Stack direction={'row'} justifyContent={'space-between'} mb={2}>
         <Typography variant={'body2'}>{'Total:'}</Typography>
         <Typography fontWeight={'bold'} color={'secondary'}>
-          ${order_total + (tips == '' ? 0 : tips)}
+          ${(order_total + parseFloat(tips == '' ? 0 : tips)).toFixed(2)}
         </Typography>
       </Stack>
 

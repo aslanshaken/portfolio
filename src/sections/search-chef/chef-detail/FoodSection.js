@@ -43,6 +43,7 @@ import NewCartDialog from './NewCartDialog';
 import { useRouter } from 'next/router';
 import useAuth from 'src/hooks/useAuth';
 import { PATH_AUTH } from 'src/routes/paths';
+import Image from 'src/components/Image';
 
 // --------------------------------------------
 
@@ -97,7 +98,7 @@ const SideBarStyle = styled(Box)(() => ({
 
 // --------------------------------------------
 
-export default function FoodSection({ selectedDate, selectedTime }) {
+export default function FoodSection({ selectedDate, selectedTime, foodsArray }) {
   const [currentPage, setCurrentPage] = useState(1);
 
   const router = useRouter();
@@ -148,13 +149,11 @@ export default function FoodSection({ selectedDate, selectedTime }) {
     [cart]
   );
 
-  const { foods } = useSelector(FOOD_SELECTOR);
-
   return (
     <RootStyle>
       <CartDialog
         data={selectedItemData}
-        foods={foods?.[selectedDate]?.foods}
+        foods={foodsArray}
         setSelectedItemData={setSelectedItemData}
         open={isOpenCartDlg}
         onSubmit={(data) => {
@@ -277,31 +276,49 @@ export default function FoodSection({ selectedDate, selectedTime }) {
               </Grid>
             </Grid> */}
             <Grid container spacing={3}>
-              {foods?.[selectedDate]?.foods?.slice((currentPage - 1) * 12, currentPage * 12).map((item) => (
-                <Grid key={item?.id} item lg={4} md={6} sm={6} xs={12} width={1}>
-                  <FoodCartCard
-                    data={item}
-                    name={item?.title}
-                    cover={item?.image_url}
-                    price={item?.current_price}
-                    min_order={item?.min_order}
-                    we_kc={`${item?.gram} gr / ${item?.kc} kc`}
-                    quantity={item?.quantity}
-                    measurement={item?.measurement}
-                    setIsOpenNewCartDlg={setIsOpenNewCartDlg}
-                    setSelectedItemData={setSelectedItemData}
-                    onClick={() => handleClickItem(item)}
-                    selectedDate={selectedDate}
-                    selectedTime={selectedTime}
+              {foodsArray?.length === 0 ? (
+                <Stack
+                  width={'100%'}
+                  textAlign={'center'}
+                  position={'relative'}
+                  minHeight={300}
+                  backgroundColor="white"
+                  padding={6}
+                >
+                  <Image
+                    src="/assets/search-chef/oops.png"
+                    width={300}
+                    sx={{ position: 'absolute', right: { lg: 200, md: 100, xs: 0 }, bottom: 0, zIndex: 0 }}
                   />
-                </Grid>
-              ))}
+                  <Stack gap={3} zIndex={1}>
+                    <Typography variant="h3">We are sorry</Typography>
+                    <Typography>We couldn't find any matching results for your search</Typography>
+                  </Stack>
+                </Stack>
+              ) : (
+                foodsArray?.slice((currentPage - 1) * 12, currentPage * 12).map((item) => (
+                  <Grid key={item?.id} item lg={4} md={6} sm={6} xs={12} width={1}>
+                    <FoodCartCard
+                      data={item}
+                      name={item?.title}
+                      cover={item?.image_url}
+                      price={item?.current_price}
+                      min_order={item?.min_order}
+                      we_kc={`${item?.gram} gr / ${item?.kc} kc`}
+                      quantity={item?.quantity}
+                      measurement={item?.measurement}
+                      setIsOpenNewCartDlg={setIsOpenNewCartDlg}
+                      setSelectedItemData={setSelectedItemData}
+                      onClick={() => handleClickItem(item)}
+                      selectedDate={selectedDate}
+                      selectedTime={selectedTime}
+                    />
+                  </Grid>
+                ))
+              )}
             </Grid>
-            {foods?.[selectedDate]?.foods?.length > 12 && (
-              <Pagination
-                count={Math.ceil(foods?.[selectedDate]?.foods?.length / 12)}
-                setCurrentPage={setCurrentPage}
-              />
+            {foodsArray?.length > 12 && (
+              <Pagination count={Math.ceil(foodsArray?.length / 12)} setCurrentPage={setCurrentPage} />
             )}
           </Stack>
         </Stack>
