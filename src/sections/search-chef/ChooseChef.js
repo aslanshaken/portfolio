@@ -148,7 +148,7 @@ export default function ChooseChef() {
             <Stack>
               <TextField
                 onChange={(e) => setSearchKey(e.target.value)}
-                size="small"
+                size="large"
                 fullWidth
                 value={searchKey}
                 placeholder="Search for a meal, cuisine or country"
@@ -167,9 +167,10 @@ export default function ChooseChef() {
                       onClick={() => {
                         onSubmit();
                       }}
-                      size="small"
+                      sx={{ width: 100 }}
+                      size="medium"
                       color="secondary"
-                      variant="outlined"
+                      variant={status ? 'outlined' : 'contained'}
                     >
                       {status ? 'Clear' : 'Search'}
                     </Button>
@@ -297,7 +298,12 @@ export default function ChooseChef() {
                         borderColor: colors.grey[300],
                       }}
                     >
-                      <Typography variant="subtitle1">{item?.chef?.time_to_cook}hrs</Typography>
+                      {item?.chef?.time_to_cook && (
+                        <Typography variant="subtitle1">
+                          {item?.chef?.time_to_cook}
+                          {item?.chef?.time_to_cook == 1 ? 'hr' : 'hrs'}
+                        </Typography>
+                      )}
                       {item?.chef?.can_sell && item?.chef?.delivery_fee && (
                         <Stack direction={'row'} gap={0.7}>
                           <Typography>Delivery fee: </Typography>
