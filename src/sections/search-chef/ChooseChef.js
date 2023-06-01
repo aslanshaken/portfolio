@@ -296,6 +296,9 @@ export default function ChooseChef() {
                         borderColor: colors.grey[300],
                       }}
                     >
+                      <Typography>
+                        {item?.chef?.time_to_cook}hrs
+                      </Typography>
                       <Box>
                         <Typography display={'flex'} flexWrap={'nowrap'} gap={1} variant="subtitle1">
                           <Iconify
