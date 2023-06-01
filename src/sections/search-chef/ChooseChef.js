@@ -212,7 +212,7 @@ export default function ChooseChef() {
 
               <Typography color={'error'}>{warnningMsg}</Typography>
 
-              <Box marginTop={2} whiteSpace={'nowrap'} sx={{ overflowX: 'scroll' }}>
+              <Box marginTop={2} whiteSpace={'nowrap'} sx={{ overflowX: 'auto' }}>
                 <Button
                   sx={{ textTransform: 'none' }}
                   color="secondary"

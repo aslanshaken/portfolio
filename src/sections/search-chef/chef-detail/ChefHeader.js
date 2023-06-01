@@ -218,7 +218,7 @@ export default function ChefHeader({
 
           <Typography color={'error'}>{warnningMsg}</Typography>
 
-          <Box marginTop={2} whiteSpace={'nowrap'} sx={{ overflowX: 'scroll' }}>
+          <Box marginTop={2} whiteSpace={'nowrap'} sx={{ overflowX: 'auto' }}>
             <NextLink color="inherit" href={`/cities/${cityId}/${cuisineId}/`} passHref>
               <Button color="secondary">Go back</Button>
             </NextLink>
