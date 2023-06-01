@@ -222,7 +222,7 @@ export default function ChefHeader({
             <NextLink color="inherit" href={`/cities/${cityId}/${cuisineId}/`} passHref>
               <Button color="secondary">Go back</Button>
             </NextLink>
-            <Button
+            {/* <Button
               color="secondary"
               onClick={() => {
                 setSearchKey('');
@@ -230,7 +230,7 @@ export default function ChefHeader({
               }}
             >
               All Foods
-            </Button>
+            </Button> */}
             {/* <Button onClick={filterFoodsByDeliveryAvailable} color="secondary">
               Frozen Meals
             </Button>

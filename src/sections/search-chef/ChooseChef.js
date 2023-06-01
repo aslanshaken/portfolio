@@ -354,7 +354,7 @@ export default function ChooseChef() {
                         </Stack>
                       )}
                       {item?.chef?.delivery_available &&
-                        (item?.chef?.delivery_fee ? (
+                        (item?.chef?.delivery_fee >= 1 ? (
                           <Stack direction={'row'} gap={0.7}>
                             <Typography>Delivery: </Typography>
                             <Typography variant="subtitle1" display={'flex'} flexWrap={'nowrap'}>
@@ -363,7 +363,7 @@ export default function ChooseChef() {
                           </Stack>
                         ) : (
                           <Typography variant="subtitle1" display={'flex'} flexWrap={'nowrap'}>
-                            Pickup Only
+                            Pick up Only
                           </Typography>
                         ))}
                       <Box>
