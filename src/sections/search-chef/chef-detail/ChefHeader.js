@@ -51,6 +51,7 @@ export default function ChefHeader({
   setSelectedTime,
   foodsArray,
   setFoodsArray,
+  setSearchIsLoading,
 }) {
   const router = useRouter();
   const [nextChefId, setNextChefId] = useState();
@@ -107,6 +108,13 @@ export default function ChefHeader({
     }
   }, [selectedDate]);
 
+  const searchLoading = () => {
+    setSearchIsLoading(true);
+    setTimeout(() => {
+      setSearchIsLoading(false);
+    }, 100);
+  };
+
   const searchFoods = (key) => {
     if (key.length > 3) {
       setWarnningMsg();
@@ -145,6 +153,7 @@ export default function ChefHeader({
 
   const onSubmit = () => {
     if (searchKey != '') {
+      searchLoading();
       setStatus(!status);
       if (status) {
         setSearchKey('');
@@ -162,6 +171,7 @@ export default function ChefHeader({
       onSubmit();
     }
     if (event.key === 'Backspace') {
+      searchLoading();
       setSearchKey('');
       searchFoods('');
     }

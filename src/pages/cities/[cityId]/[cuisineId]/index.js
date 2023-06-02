@@ -25,7 +25,7 @@ ChefListPage.getLayout = function getLayout(page) {
 export default function ChefListPage() {
   const { cities, error } = useSelector(CITYCUISINE_SELECTOR);
 
-  const [loading, SetIsLoading] = useState(true);
+  const [loading, setIsLoading] = useState(true);
 
   const router = useRouter();
 
@@ -37,9 +37,9 @@ export default function ChefListPage() {
 
   useEffect(() => {
     async function fetch() {
-      SetIsLoading(true);
+      setIsLoading(true);
       await dispatch(getChefs(cityId, cuisineId));
-      SetIsLoading(false);
+      setIsLoading(false);
       dispatch(getCitySuccess(cities.find(({ id }) => id == cityId)));
       // dispatch(getCity(router.query.cityId));
     }

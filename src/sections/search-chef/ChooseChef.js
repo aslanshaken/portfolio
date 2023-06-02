@@ -84,6 +84,7 @@ const VisitChefLinkStyle = styled(Link)(() => ({
 // --------------------------------------------
 
 export default function ChooseChef() {
+  const [searchIsLoading, setSearchIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const { chefs, city, error } = useSelector(CITYCUISINE_SELECTOR);
   const router = useRouter();
@@ -120,11 +121,13 @@ export default function ChooseChef() {
   };
 
   const filterChefsByHalal = () => {
+    searchLoading();
     const filteredArray = chefs.filter((item) => item.chef.halal);
     setChefsArray(filteredArray);
   };
 
   const filterChefsByCatering = () => {
+    searchLoading();
     const filteredArray = chefs.filter((item) => item.chef.catering);
     setChefsArray(filteredArray);
   };
@@ -145,8 +148,16 @@ export default function ChooseChef() {
     }
   }, [searchKey]);
 
+  const searchLoading = () => {
+    setSearchIsLoading(true);
+    setTimeout(() => {
+      setSearchIsLoading(false);
+    }, 100);
+  };
+
   const onSubmit = () => {
     if (searchKey != '') {
+      searchLoading();
       setStatus(!status);
       if (status) {
         setSearchKey('');
@@ -164,6 +175,7 @@ export default function ChooseChef() {
       onSubmit();
     }
     if (event.key === 'Backspace') {
+      searchLoading();
       setSearchKey('');
       searchChefs('');
     }
@@ -223,15 +235,16 @@ export default function ChooseChef() {
                 <Button
                   color="secondary"
                   onClick={() => {
+                    searchLoading();
                     setSearchKey('');
                     searchChefs('');
                   }}
                 >
                   All Chefs
                 </Button>
-                <Button onClick={filterChefsByDeliveryAvailable} color="secondary">
+                {/* <Button onClick={filterChefsByDeliveryAvailable} color="secondary">
                   Delivery today
-                </Button>
+                </Button> */}
                 <Button onClick={filterChefsByHalal} color="secondary">
                   Halal
                 </Button>
@@ -300,7 +313,11 @@ export default function ChooseChef() {
               ))}
             </Box> */}
           </Stack>
-          {chefsArray?.length === 0 ? (
+          {searchIsLoading ? (
+            <Stack position={'relative'} my={30}>
+              <LoadingScreen />
+            </Stack>
+          ) : chefsArray?.length === 0 ? (
             <Stack textAlign={'center'} position={'relative'} minHeight={300} backgroundColor="white" padding={6}>
               <Image
                 src="/assets/search-chef/oops.png"
@@ -393,7 +410,14 @@ export default function ChooseChef() {
                             />
                             <Iconify
                               icon={'material-symbols:verified'}
-                              sx={{ width: 25, height: 25, color: '#0ED3CF', position: 'absolute', top: 10, right: 10 }}
+                              sx={{
+                                width: 25,
+                                height: 25,
+                                color: '#0ED3CF',
+                                position: 'absolute',
+                                top: 10,
+                                right: 10,
+                              }}
                             />
                           </Box>
                           <Stack spacing={2}>
