@@ -115,7 +115,7 @@ export default function FoodCartCard(props) {
           >
             <Box>
               <Typography
-                variant="h5"
+                variant="h6"
                 color={'text.primary'}
                 fontWeight="bold"
                 sx={{
@@ -134,7 +134,7 @@ export default function FoodCartCard(props) {
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                 }}
-                variant="h6"
+                variant="h7"
                 fontWeight={600}
               >
                 {`$${price} / ${quantity} ${measurement || ''}`}
