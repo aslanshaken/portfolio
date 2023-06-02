@@ -341,7 +341,7 @@ export default function ChefHeader({
                     <Typography color={'black'} variant={'h3'} fontWeight={'600'}>
                       {chef?.company_name}
                     </Typography>
-                    <Typography py={3} color={'black'} variant={'subtitle1'}>
+                    <Typography pb={1} color={'black'} variant={'subtitle1'}>
                       by {chef?.first_name} {chef?.last_name}
                     </Typography>
                   </Stack>

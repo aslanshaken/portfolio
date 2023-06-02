@@ -115,9 +115,9 @@ export default function FoodCartCard(props) {
           >
             <Box>
               <Typography
-                variant="subtitle1"
+                variant="h5"
                 color={'text.primary'}
-                fontWeight={400}
+                fontWeight="bold"
                 sx={{
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
@@ -128,9 +128,17 @@ export default function FoodCartCard(props) {
               >
                 {name}
               </Typography>
-              <GradientText variant="subtitle1" fontWeight={600}>
+              <Typography
+                sx={{
+                  background: `linear-gradient(to right, #56420D, #CFAA4C)`,
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                }}
+                variant="h6"
+                fontWeight={600}
+              >
                 {`$${price} / ${quantity} ${measurement || ''}`}
-              </GradientText>
+              </Typography>
               <Box sx={{ height: 10 }}>
                 <Typography variant="caption" color="text.secondary">
                   {min_order > 1 && `min orders ${`${min_order} ${measurement || ''}`}`}
