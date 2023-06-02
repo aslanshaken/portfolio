@@ -99,9 +99,14 @@ const SideBarStyle = styled(Box)(() => ({
 
 // --------------------------------------------
 
-export default function FoodSection({ selectedDate, selectedTime, foodsArray, searchIsLoading }) {
-  const [currentPage, setCurrentPage] = useState(1);
-
+export default function FoodSection({
+  selectedDate,
+  selectedTime,
+  foodsArray,
+  searchIsLoading,
+  currentPage,
+  setCurrentPage,
+}) {
   const router = useRouter();
 
   const { cityId, cuisineId, chefId } = router.query;

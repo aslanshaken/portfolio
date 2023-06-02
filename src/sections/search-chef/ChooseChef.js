@@ -96,6 +96,7 @@ export default function ChooseChef() {
   const isDesktop = useResponsive('up', 'sm');
 
   const searchChefs = (key) => {
+    setCurrentPage(1);
     if (key.length > 3) {
       setWarnningMsg();
       const filteredArray = chefs.filter(

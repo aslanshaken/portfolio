@@ -52,6 +52,7 @@ export default function ChefHeader({
   foodsArray,
   setFoodsArray,
   setSearchIsLoading,
+  setCurrentPage,
 }) {
   const router = useRouter();
   const [nextChefId, setNextChefId] = useState();
@@ -116,6 +117,7 @@ export default function ChefHeader({
   };
 
   const searchFoods = (key) => {
+    setCurrentPage(1);
     if (key.length > 3) {
       setWarnningMsg();
       const filteredArray = foodsArray.filter((item) => item.title.toLowerCase().includes(key.toLowerCase()));

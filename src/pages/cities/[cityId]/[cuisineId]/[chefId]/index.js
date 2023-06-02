@@ -46,6 +46,8 @@ export default function ChefPage() {
 
   const [foodsArray, setFoodsArray] = useState();
 
+  const [currentPage, setCurrentPage] = useState(1);
+
   useEffect(() => {
     setFoodsArray(foods?.[selectedDate]?.foods);
   }, [foods, selectedDate]);
@@ -66,6 +68,7 @@ export default function ChefPage() {
   ) : (
     <Page title="Search Chef">
       <ChefHeader
+        setCurrentPage={setCurrentPage}
         setSearchIsLoading={setSearchIsLoading}
         foodsArray={foodsArray}
         setFoodsArray={setFoodsArray}
@@ -75,6 +78,8 @@ export default function ChefPage() {
         setSelectedTime={setSelectedTime}
       />
       <FoodSection
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
         searchIsLoading={searchIsLoading}
         foodsArray={foodsArray}
         selectedDate={selectedDate}
