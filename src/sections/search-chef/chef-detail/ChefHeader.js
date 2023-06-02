@@ -18,7 +18,7 @@ import ReadMore from '../../../components/ReadMore';
 import HeroHeader from 'src/components/HeroHeader';
 import { useSelector } from 'src/redux/store';
 import { CITYCUISINE_SELECTOR } from 'src/redux/slices/city';
-import { addHours, format, isAfter, isSameDay, isToday, isTomorrow, parse, parseISO } from 'date-fns';
+import { addDays, addHours, format, isAfter, isSameDay, isToday, isTomorrow, parse, parseISO } from 'date-fns';
 import { FOOD_SELECTOR, setScheduleTime } from 'src/redux/slices/food';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
@@ -85,9 +85,12 @@ export default function ChefHeader({
       (item) => isSameDay(new Date(item), new Date()) || isAfter(new Date(item), new Date())
     );
     const initialSlots = foods?.[availableDates[0]]?.slots;
-    const currentTimePlusFiveHours = addHours(new Date(), chef?.time_to_cook);
+    const currentTimePlusFiveHours = addHours(new Date(), chef?.time_to_cook ?? 0);
     const filteredArray = initialSlots?.filter((time) => parse(time, 'hh:mm a', new Date()) > currentTimePlusFiveHours);
     setSlots(filteredArray?.length === 0 ? foods?.[availableDates[1]]?.slots : filteredArray);
+    const tomorrowSlots = foods?.[availableDates[1]]?.slots.filter(
+      (time) => addDays(parse(time, 'hh:mm a', new Date()), 1) > currentTimePlusFiveHours
+    );
     const temp = filteredArray?.length === 0 ? availableDates.slice(1, availableDates.length - 1) : availableDates;
     setCategories(temp);
 
@@ -96,7 +99,7 @@ export default function ChefHeader({
       setSelectedTime(scheduleTime);
     } else {
       setSelectedDate(filteredArray?.length === 0 ? availableDates[1] : availableDates[0]);
-      setSelectedTime(filteredArray?.length === 0 ? foods?.[availableDates[1]]?.slots?.[0] : filteredArray?.[0]);
+      setSelectedTime(filteredArray?.length === 0 ? tomorrowSlots?.[0] : filteredArray?.[0]);
     }
   }, []);
 
