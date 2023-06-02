@@ -60,7 +60,7 @@ export default function ContactUsForm() {
         }}
       >
         <Typography variant="h6" fontWeight={500}>
-          Unlock the earning potential of your kitchen with our supportAsk a question
+          Unlock the earning potential of your kitchen with our support
         </Typography>
 
         <RHFTextField
