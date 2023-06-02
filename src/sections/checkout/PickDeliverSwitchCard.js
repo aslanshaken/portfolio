@@ -68,7 +68,7 @@ export default function PickDeliverSwitchCard({ isPickup = true, setIsPickup }) 
                 // successAlert(
                 //   'At the moment, delivery services are not available, but we are actively working towards making it possible'
                 // );
-                if (isPickup && !orderDetail?.chef?.delivery_available) {
+                if (isPickup && orderDetail?.chef?.delivery_available) {
                   setIsloading(true);
                   await dispatch(updateIsPickup(false, orderId));
                   await dispatch(getOrderDetail(orderId));
