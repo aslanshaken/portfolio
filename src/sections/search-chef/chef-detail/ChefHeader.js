@@ -112,7 +112,7 @@ export default function ChefHeader({
     setSearchIsLoading(true);
     setTimeout(() => {
       setSearchIsLoading(false);
-    }, 100);
+    }, 500);
   };
 
   const searchFoods = (key) => {

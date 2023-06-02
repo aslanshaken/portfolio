@@ -152,7 +152,7 @@ export default function ChooseChef() {
     setSearchIsLoading(true);
     setTimeout(() => {
       setSearchIsLoading(false);
-    }, 100);
+    }, 500);
   };
 
   const onSubmit = () => {

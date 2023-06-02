@@ -278,7 +278,7 @@ export default function FoodSection({ selectedDate, selectedTime, foodsArray, se
             </Grid> */}
             <Grid container spacing={3}>
               {searchIsLoading ? (
-                <Stack position={'relative'} my={30}>
+                <Stack position={'relative'} my={20} sx={{ width: '100%' }}>
                   <LoadingScreen />
                 </Stack>
               ) : foodsArray?.length === 0 ? (
