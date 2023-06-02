@@ -59,8 +59,8 @@ export default function ContactUsForm() {
           padding: 5,
         }}
       >
-        <Typography variant="h3" fontWeight={500}>
-          Ask a question
+        <Typography variant="h6" fontWeight={500}>
+          Unlock the earning potential of your kitchen with our supportAsk a question
         </Typography>
 
         <RHFTextField
@@ -100,7 +100,7 @@ export default function ContactUsForm() {
             color="primary"
             sx={{ padding: '20px 40px', width: 'fit-content', borderRadius: 50 }}
           >
-            Ask a question
+            Get started
           </Button>
           <IconButton
             sx={(theme) => ({ background: theme.palette.gradients.primary })}

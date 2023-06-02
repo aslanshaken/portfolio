@@ -81,32 +81,31 @@ export default function FoodCartCard(props) {
         square
         {...other}
       >
+        {chefname && (
+          <Stack p={2} direction={'row'} alignItems={'center'} spacing={2} position={'relative'} zIndex={10}>
+            <Avatar src={`/assets/search-chef/chefs/${chefavatar}.png`} sx={{ height: 56, width: 56 }} />
+            <Typography color={'text.secondary'}>{chefname}</Typography>
+          </Stack>
+        )}
+        <Box
+          className="food-image-wrapper"
+          sx={{
+            mt: !chefname && '1rem',
+            margin: 'auto',
+            width: '100%',
+            height: '300px',
+            position: 'relative',
+            // clipPath: 'circle(80px at center)',
+          }}
+        >
+          <Image alt={name} src={cover} sx={{ position: 'absolute', width: '100%', height: '100%', top: 0 }} />
+          <Stack className="food-backdrop" alignItems={'center'} justifyContent={'center'}>
+            <Button onClick={onClick} variant="outlined" className="food-view-button">
+              View food
+            </Button>
+          </Stack>
+        </Box>
         <CardContent>
-          {chefname && (
-            <Stack p={2} direction={'row'} alignItems={'center'} spacing={2} position={'relative'} zIndex={10}>
-              <Avatar src={`/assets/search-chef/chefs/${chefavatar}.png`} sx={{ height: 56, width: 56 }} />
-              <Typography color={'text.secondary'}>{chefname}</Typography>
-            </Stack>
-          )}
-          <Box
-            className="food-image-wrapper"
-            sx={{
-              mt: !chefname && '1rem',
-              margin: 'auto',
-              width: '160px',
-              height: '160px',
-              position: 'relative',
-              clipPath: 'circle(80px at center)',
-            }}
-          >
-            <Image alt={name} src={cover} sx={{ position: 'absolute', width: '100%', height: '100%', top: 0 }} />
-            <Stack className="food-backdrop" alignItems={'center'} justifyContent={'center'}>
-              <Button onClick={onClick} variant="outlined" className="food-view-button">
-                View food
-              </Button>
-            </Stack>
-          </Box>
-
           <Stack
             direction="row"
             gap={1}
@@ -129,9 +128,9 @@ export default function FoodCartCard(props) {
               >
                 {name}
               </Typography>
-              <Typography color="text.primary" variant="subtitle1" fontWeight={600}>
+              <GradientText variant="subtitle1" fontWeight={600}>
                 {`$${price} / ${quantity} ${measurement || ''}`}
-              </Typography>
+              </GradientText>
               <Box sx={{ height: 10 }}>
                 <Typography variant="caption" color="text.secondary">
                   {min_order > 1 && `min orders ${`${min_order} ${measurement || ''}`}`}

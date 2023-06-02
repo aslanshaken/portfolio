@@ -370,19 +370,18 @@ export default function ChooseChef() {
                           </Typography>
                         </Stack>
                       )}
-                      {item?.chef?.delivery_available &&
-                        (item?.chef?.delivery_fee >= 1 ? (
-                          <Stack direction={'row'} gap={0.7}>
-                            <Typography>Delivery: </Typography>
-                            <Typography variant="subtitle1" display={'flex'} flexWrap={'nowrap'}>
-                              ${item?.chef?.delivery_fee ?? 4.99}
-                            </Typography>
-                          </Stack>
-                        ) : (
+                      {item?.chef?.delivery_available && item?.chef?.delivery_fee > 1 ? (
+                        <Stack direction={'row'} gap={0.7}>
+                          <Typography>Delivery: </Typography>
                           <Typography variant="subtitle1" display={'flex'} flexWrap={'nowrap'}>
-                            Pick up Only
+                            ${item?.chef?.delivery_fee ?? 4.99}
                           </Typography>
-                        ))}
+                        </Stack>
+                      ) : (
+                        <Typography variant="subtitle1" display={'flex'} flexWrap={'nowrap'}>
+                          Pick up Only
+                        </Typography>
+                      )}
                       <Box>
                         <Typography display={'flex'} flexWrap={'nowrap'} gap={1} variant="subtitle1">
                           <Iconify

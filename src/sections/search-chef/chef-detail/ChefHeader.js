@@ -70,14 +70,14 @@ export default function ChefHeader({
   const [status, setStatus] = useState(false);
   const isDesktop = useResponsive('up', 'sm');
 
-  useEffect(() => {
-    if (chefId && chefs) {
-      const availableChefs = chefs?.filter((item) => item?.chef?.can_sell);
-      const currentIndex = availableChefs?.findIndex((item) => item.chef.id == chefId);
-      setPrevChefId(availableChefs?.[currentIndex - 1]?.chef?.id);
-      setNextChefId(availableChefs?.[currentIndex + 1]?.chef?.id);
-    }
-  }, [chefId, chefs]);
+  // useEffect(() => {
+  //   if (chefId && chefs) {
+  //     const availableChefs = chefs?.filter((item) => item?.chef?.can_sell);
+  //     const currentIndex = availableChefs?.findIndex((item) => item.chef.id == chefId);
+  //     setPrevChefId(availableChefs?.[currentIndex - 1]?.chef?.id);
+  //     setNextChefId(availableChefs?.[currentIndex + 1]?.chef?.id);
+  //   }
+  // }, [chefId, chefs]);
 
   useEffect(() => {
     const availableDates = Object.keys(foods)?.filter(
@@ -254,7 +254,7 @@ export default function ChefHeader({
 
           <Divider sx={{ marginTop: 2 }} />
 
-          <Stack
+          {/* <Stack
             textAlign={'center'}
             position={'relative'}
             backgroundColor={(theme) => theme.palette.secondary.main}
@@ -269,9 +269,9 @@ export default function ChefHeader({
             <Typography color={'white'} fontSize={{ xs: 16, sm: 20 }} fontWeight={400}>
               Get free delivery on orders over $100
             </Typography>
-          </Stack>
+          </Stack> */}
         </Stack>
-        <Stack marginTop={2} direction={'row'} gap={6} width={'100%'} justifyContent={'space-between'}>
+        {/* <Stack marginTop={2} direction={'row'} gap={6} width={'100%'} justifyContent={'space-between'}>
           {prevChefId ? (
             <NextLink href={PATH_PAGE.searchChef.cities({ cityId, cuisineId, chefId: prevChefId })} passHref>
               <Link underline="none">Previous Chef</Link>
@@ -286,7 +286,7 @@ export default function ChefHeader({
           ) : (
             <Box> </Box>
           )}
-        </Stack>
+        </Stack> */}
         <Box display={'flex'} mb={7}>
           <Box px={2} width={'100%'}>
             <Box
@@ -310,11 +310,11 @@ export default function ChefHeader({
                     src={chef?.image_url}
                     sx={{
                       width: {
-                        md: 150,
+                        sm: 150,
                         xs: 130,
                       },
                       height: {
-                        md: 150,
+                        sm: 150,
                         xs: 130,
                       },
                     }}
@@ -336,11 +336,11 @@ export default function ChefHeader({
                     <Typography color={'black'} variant={'h3'} fontWeight={'600'}>
                       {chef?.company_name}
                     </Typography>
-                    <Typography py={3} display={{ xs: 'block', sm: 'none' }} color={'black'} variant={'subtitle1'}>
+                    <Typography py={3} color={'black'} variant={'subtitle1'}>
                       by {chef?.first_name} {chef?.last_name}
                     </Typography>
                   </Stack>
-                  <Stack
+                  {/* <Stack
                     display={{ xs: 'flex', sm: 'none' }}
                     direction={'row'}
                     flexWrap={'wrap'}
@@ -413,9 +413,9 @@ export default function ChefHeader({
                       </Typography>
                       <Typography variant="subtitle1">${chef?.delivery_fee ?? 4.99}</Typography>
                     </Stack>
-                  </Stack>
-                  <Box marginTop={{ xs: 2, md: 0 }}>
-                    <Hidden mdDown>
+                  </Stack> */}
+                  <Box>
+                    <Hidden smDown>
                       <Box maxWidth={'600px'}>
                         <ReadMore>{chef?.about_me}</ReadMore>
                       </Box>
@@ -424,7 +424,7 @@ export default function ChefHeader({
                 </Stack>
               </Stack>
             </Box>
-            <Hidden mdUp>
+            <Hidden smUp>
               <Box maxWidth={'600px'}>
                 <ReadMore>{chef?.about_me}</ReadMore>
               </Box>
