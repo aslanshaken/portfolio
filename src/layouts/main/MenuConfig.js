@@ -32,7 +32,7 @@ export const homeMenuConfig = [
   //   target: 'choose_city_dialog',
   // },
   {
-    title: 'Contact Us',
+    title: 'Become a chef',
     path: '/contact-us',
   },
 ];

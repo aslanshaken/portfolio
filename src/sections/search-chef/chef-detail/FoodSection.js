@@ -44,6 +44,7 @@ import { useRouter } from 'next/router';
 import useAuth from 'src/hooks/useAuth';
 import { PATH_AUTH } from 'src/routes/paths';
 import Image from 'src/components/Image';
+import LoadingScreen from 'src/components/LoadingScreen';
 
 // --------------------------------------------
 
@@ -98,9 +99,14 @@ const SideBarStyle = styled(Box)(() => ({
 
 // --------------------------------------------
 
-export default function FoodSection({ selectedDate, selectedTime, foodsArray }) {
-  const [currentPage, setCurrentPage] = useState(1);
-
+export default function FoodSection({
+  selectedDate,
+  selectedTime,
+  foodsArray,
+  searchIsLoading,
+  currentPage,
+  setCurrentPage,
+}) {
   const router = useRouter();
 
   const { cityId, cuisineId, chefId } = router.query;
@@ -276,7 +282,11 @@ export default function FoodSection({ selectedDate, selectedTime, foodsArray }) 
               </Grid>
             </Grid> */}
             <Grid container spacing={3}>
-              {foodsArray?.length === 0 ? (
+              {searchIsLoading ? (
+                <Stack position={'relative'} my={20} sx={{ width: '100%' }}>
+                  <LoadingScreen />
+                </Stack>
+              ) : foodsArray?.length === 0 ? (
                 <Stack
                   width={'100%'}
                   textAlign={'center'}

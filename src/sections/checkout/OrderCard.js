@@ -219,12 +219,12 @@ export default function OrderCard({ isPickup }) {
               }}
             />
             <TopBottomButtonStyle orientation={'vertical'} color={'inherit'}>
-              <Button onClick={() => setTips(tips + 1)}>
+              <Button onClick={() => setTips(parseFloat(tips) + 1)}>
                 <Iconify icon={'material-symbols:keyboard-arrow-up-rounded'} sx={{ height: 24 }} />
               </Button>
               <Button
                 onClick={() => {
-                  if (tips > 0) setTips(tips - 1);
+                  if (tips > 0) setTips(parseFloat(tips) - 1);
                 }}
               >
                 <Iconify icon={'material-symbols:keyboard-arrow-down-rounded'} sx={{ height: 24 }} />

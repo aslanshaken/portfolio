@@ -18,7 +18,7 @@ import ReadMore from '../../../components/ReadMore';
 import HeroHeader from 'src/components/HeroHeader';
 import { useSelector } from 'src/redux/store';
 import { CITYCUISINE_SELECTOR } from 'src/redux/slices/city';
-import { addHours, format, isAfter, isSameDay, isToday, isTomorrow, parse, parseISO } from 'date-fns';
+import { addDays, addHours, format, isAfter, isSameDay, isToday, isTomorrow, parse, parseISO } from 'date-fns';
 import { FOOD_SELECTOR, setScheduleTime } from 'src/redux/slices/food';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
@@ -51,6 +51,8 @@ export default function ChefHeader({
   setSelectedTime,
   foodsArray,
   setFoodsArray,
+  setSearchIsLoading,
+  setCurrentPage,
 }) {
   const router = useRouter();
   const [nextChefId, setNextChefId] = useState();
@@ -69,23 +71,26 @@ export default function ChefHeader({
   const [status, setStatus] = useState(false);
   const isDesktop = useResponsive('up', 'sm');
 
-  useEffect(() => {
-    if (chefId && chefs) {
-      const availableChefs = chefs?.filter((item) => item?.chef?.can_sell);
-      const currentIndex = availableChefs?.findIndex((item) => item.chef.id == chefId);
-      setPrevChefId(availableChefs?.[currentIndex - 1]?.chef?.id);
-      setNextChefId(availableChefs?.[currentIndex + 1]?.chef?.id);
-    }
-  }, [chefId, chefs]);
+  // useEffect(() => {
+  //   if (chefId && chefs) {
+  //     const availableChefs = chefs?.filter((item) => item?.chef?.can_sell);
+  //     const currentIndex = availableChefs?.findIndex((item) => item.chef.id == chefId);
+  //     setPrevChefId(availableChefs?.[currentIndex - 1]?.chef?.id);
+  //     setNextChefId(availableChefs?.[currentIndex + 1]?.chef?.id);
+  //   }
+  // }, [chefId, chefs]);
 
   useEffect(() => {
     const availableDates = Object.keys(foods)?.filter(
       (item) => isSameDay(new Date(item), new Date()) || isAfter(new Date(item), new Date())
     );
     const initialSlots = foods?.[availableDates[0]]?.slots;
-    const currentTimePlusFiveHours = addHours(new Date(), chef?.time_to_cook);
+    const currentTimePlusFiveHours = addHours(new Date(), chef?.time_to_cook ?? 0);
     const filteredArray = initialSlots?.filter((time) => parse(time, 'hh:mm a', new Date()) > currentTimePlusFiveHours);
     setSlots(filteredArray?.length === 0 ? foods?.[availableDates[1]]?.slots : filteredArray);
+    const tomorrowSlots = foods?.[availableDates[1]]?.slots.filter(
+      (time) => addDays(parse(time, 'hh:mm a', new Date()), 1) > currentTimePlusFiveHours
+    );
     const temp = filteredArray?.length === 0 ? availableDates.slice(1, availableDates.length - 1) : availableDates;
     setCategories(temp);
 
@@ -94,7 +99,7 @@ export default function ChefHeader({
       setSelectedTime(scheduleTime);
     } else {
       setSelectedDate(filteredArray?.length === 0 ? availableDates[1] : availableDates[0]);
-      setSelectedTime(filteredArray?.length === 0 ? foods?.[availableDates[1]]?.slots?.[0] : filteredArray?.[0]);
+      setSelectedTime(filteredArray?.length === 0 ? tomorrowSlots?.[0] : filteredArray?.[0]);
     }
   }, []);
 
@@ -107,7 +112,15 @@ export default function ChefHeader({
     }
   }, [selectedDate]);
 
+  const searchLoading = () => {
+    setSearchIsLoading(true);
+    setTimeout(() => {
+      setSearchIsLoading(false);
+    }, 500);
+  };
+
   const searchFoods = (key) => {
+    setCurrentPage(1);
     if (key.length > 3) {
       setWarnningMsg();
       const filteredArray = foodsArray.filter((item) => item.title.toLowerCase().includes(key.toLowerCase()));
@@ -145,6 +158,7 @@ export default function ChefHeader({
 
   const onSubmit = () => {
     if (searchKey != '') {
+      searchLoading();
       setStatus(!status);
       if (status) {
         setSearchKey('');
@@ -162,6 +176,7 @@ export default function ChefHeader({
       onSubmit();
     }
     if (event.key === 'Backspace') {
+      searchLoading();
       setSearchKey('');
       searchFoods('');
     }
@@ -244,7 +259,7 @@ export default function ChefHeader({
 
           <Divider sx={{ marginTop: 2 }} />
 
-          <Stack
+          {/* <Stack
             textAlign={'center'}
             position={'relative'}
             backgroundColor={(theme) => theme.palette.secondary.main}
@@ -259,9 +274,9 @@ export default function ChefHeader({
             <Typography color={'white'} fontSize={{ xs: 16, sm: 20 }} fontWeight={400}>
               Get free delivery on orders over $100
             </Typography>
-          </Stack>
+          </Stack> */}
         </Stack>
-        <Stack marginTop={2} direction={'row'} gap={6} width={'100%'} justifyContent={'space-between'}>
+        {/* <Stack marginTop={2} direction={'row'} gap={6} width={'100%'} justifyContent={'space-between'}>
           {prevChefId ? (
             <NextLink href={PATH_PAGE.searchChef.cities({ cityId, cuisineId, chefId: prevChefId })} passHref>
               <Link underline="none">Previous Chef</Link>
@@ -276,7 +291,7 @@ export default function ChefHeader({
           ) : (
             <Box> </Box>
           )}
-        </Stack>
+        </Stack> */}
         <Box display={'flex'} mb={7}>
           <Box px={2} width={'100%'}>
             <Box
@@ -300,11 +315,11 @@ export default function ChefHeader({
                     src={chef?.image_url}
                     sx={{
                       width: {
-                        md: 150,
+                        sm: 150,
                         xs: 130,
                       },
                       height: {
-                        md: 150,
+                        sm: 150,
                         xs: 130,
                       },
                     }}
@@ -326,11 +341,11 @@ export default function ChefHeader({
                     <Typography color={'black'} variant={'h3'} fontWeight={'600'}>
                       {chef?.company_name}
                     </Typography>
-                    <Typography py={3} display={{ xs: 'block', sm: 'none' }} color={'black'} variant={'subtitle1'}>
+                    <Typography py={3} color={'black'} variant={'subtitle1'}>
                       by {chef?.first_name} {chef?.last_name}
                     </Typography>
                   </Stack>
-                  <Stack
+                  {/* <Stack
                     display={{ xs: 'flex', sm: 'none' }}
                     direction={'row'}
                     flexWrap={'wrap'}
@@ -403,9 +418,9 @@ export default function ChefHeader({
                       </Typography>
                       <Typography variant="subtitle1">${chef?.delivery_fee ?? 4.99}</Typography>
                     </Stack>
-                  </Stack>
-                  <Box marginTop={{ xs: 2, md: 0 }}>
-                    <Hidden mdDown>
+                  </Stack> */}
+                  <Box>
+                    <Hidden smDown>
                       <Box maxWidth={'600px'}>
                         <ReadMore>{chef?.about_me}</ReadMore>
                       </Box>
@@ -414,7 +429,7 @@ export default function ChefHeader({
                 </Stack>
               </Stack>
             </Box>
-            <Hidden mdUp>
+            <Hidden smUp>
               <Box maxWidth={'600px'}>
                 <ReadMore>{chef?.about_me}</ReadMore>
               </Box>

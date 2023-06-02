@@ -27,7 +27,10 @@ export default function ChefPage() {
   const [selectedDate, setSelectedDate] = useState();
 
   const { checkout, foods } = useSelector(FOOD_SELECTOR);
+
   const { scheduleTime, scheduleDate, cart } = checkout;
+
+  const [searchIsLoading, setSearchIsLoading] = useState(false);
 
   const [selectedTime, setSelectedTime] = useState(scheduleTime);
 
@@ -42,6 +45,8 @@ export default function ChefPage() {
   const dispatch = useDispatch();
 
   const [foodsArray, setFoodsArray] = useState();
+
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     setFoodsArray(foods?.[selectedDate]?.foods);
@@ -63,6 +68,8 @@ export default function ChefPage() {
   ) : (
     <Page title="Search Chef">
       <ChefHeader
+        setCurrentPage={setCurrentPage}
+        setSearchIsLoading={setSearchIsLoading}
         foodsArray={foodsArray}
         setFoodsArray={setFoodsArray}
         selectedDate={selectedDate}
@@ -70,7 +77,14 @@ export default function ChefPage() {
         selectedTime={selectedTime}
         setSelectedTime={setSelectedTime}
       />
-      <FoodSection foodsArray={foodsArray} selectedDate={selectedDate} selectedTime={selectedTime} />
+      <FoodSection
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        searchIsLoading={searchIsLoading}
+        foodsArray={foodsArray}
+        selectedDate={selectedDate}
+        selectedTime={selectedTime}
+      />
     </Page>
   );
 }
