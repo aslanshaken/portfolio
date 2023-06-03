@@ -95,7 +95,7 @@ export default function Resume() {
               pb: (theme) => `calc(${theme.spacing(1)} + 3px)`,
             }}
           >
-            <Link textDecoration="none" color="inherit" href="https://docs.google.com/document/d/e/2PACX-1vTYjF00y1yqbsET4w4Tcd_-VD2MSpA4DKraTyMklttpnJHSeI-doC5OR2w3qTCBauHnaWCospu1kYZ-/pub">
+            <Link textDecoration="none" color="inherit" href="https://docs.google.com/document/d/1BRHoPwNf7MGSJRIxaAeHv_C5TIaBv_Jq/edit?usp=sharing&ouid=105436288719072033535&rtpof=true&sd=true">
               <h4>Resume</h4>
             </Link>
             <ImageMarked className="MuiImageMarked-root" />

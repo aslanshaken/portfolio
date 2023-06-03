@@ -22,11 +22,12 @@ export default function Waterfall() {
       </TimelineItem>
       <TimelineItem>
         <TimelineSeparator>
-          <TimelineDot variant="outlined" color="error" />
+          <TimelineDot variant="outlined" color="secondary" />
           <TimelineConnector />
         </TimelineSeparator>
         <TimelineContent>
-        Technical Support Fundamentals by Google
+          NY City College of Technology - 
+          C.S. (Software Development)
         </TimelineContent>
       </TimelineItem>
       <TimelineItem>
@@ -40,20 +41,37 @@ export default function Waterfall() {
       </TimelineItem>
       <TimelineItem>
         <TimelineSeparator>
+          <TimelineDot variant="outlined" color="success"  />
+          <TimelineConnector />
+        </TimelineSeparator>
+        <TimelineContent>
+         Google Data Analytics Certification
+        </TimelineContent>
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineSeparator>
           <TimelineDot variant="outlined" color="secondary" />
           <TimelineConnector />
         </TimelineSeparator>
         <TimelineContent>
-          NY City College of Technology - 
-          C.S. (Software Development)
+          Google IT Support Certification  
         </TimelineContent>
       </TimelineItem>
       <TimelineItem>
         <TimelineSeparator>
           <TimelineDot variant="outlined" color="success"  />
+          <TimelineConnector />
         </TimelineSeparator>
         <TimelineContent>
-         Google Data Analytics Certification
+        Google Project Management Certification
+        </TimelineContent>
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineSeparator>
+          <TimelineDot variant="outlined" color="secondary" />
+        </TimelineSeparator>
+        <TimelineContent>
+          Saylor Academy - Software Engineer
         </TimelineContent>
       </TimelineItem>
     </Timeline>

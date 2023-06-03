@@ -41,7 +41,7 @@ function About() {
             <br/>
             <Divider />
             <br/>
-            <h6>Based in NYC but open to relocate</h6>
+            <h6>Based in Austin, TX but open to relocate</h6>
             <h6>aslanshaken@gmail.com</h6>
             <Grid
             container
@@ -58,17 +58,10 @@ function About() {
         </Grid>
         <Grid textAlign='center' width='85%' className="mb-5 mt-5 g-p-font">
           <p>
-            During 4+ years of my career I've worked on
-            numerous complex business applications (mostly FinTech/AdTech
-            related ones). I've gained vast experience with designing
-            software architecture, integrating third-party software,
-            optimization and migrating codebase to different technologies. I'm
-            passionate about my work and always eager to learn and try
-            something new. I deeply care about maintainability and
-            aesthetics of software code I create, so I always tend to
-            follow coding conventions, maintain code quality and introduce
-            best practices. A fast learner with strong time management and 
-            multi-tasking skills.
+          A self-driven entrepreneur with 5 years of software engineering experience, I have successfully launched my own start up called Cookk,
+          designed software architecture, integrated third-party software, and optimized complex business applications. I have strong
+          problem-solving skills, as well as the ability to collaborate effectively as a reliable, proactive team player. Passionate about my
+          work, I consistently strive to learn and embrace new technologies and methodologies
           </p>
         </Grid>
       </Grid>

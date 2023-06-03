@@ -10,6 +10,8 @@ import QLine from "../../assets/q-line.png";
 import Gym from "../../assets/gym.png";
 import Ava from "../../assets/ava.png";
 import Link from '@mui/material/Link';
+import Go4ProfitNew from "../../assets/go4ProfitNew.png";
+import Cookk from "../../assets/cookk.png";
 
 export default function Project() {
   return (
@@ -67,6 +69,18 @@ export default function Project() {
         sx={{'&:hover': {opacity: [0.9, 0.8, 0.7]}}}>
             <Link href="https://whimsical-tartufo-1178e3.netlify.app/">
               <img src={Ava} width="100%" height="auto" alt="ava" />
+            </Link>
+        </Grid>
+        <Grid item xs={2} sm={4} md={3}
+        sx={{'&:hover': {opacity: [0.9, 0.8, 0.7]}}}>
+            <Link href="https://github.com/aslanshaken/go4profit-v3">
+              <img src={Go4ProfitNew} width="100%" height="auto" alt="ava" />
+            </Link>
+        </Grid>
+        <Grid item xs={2} sm={4} md={3}
+        sx={{'&:hover': {opacity: [0.9, 0.8, 0.7]}}}>
+            <Link href="https://cookk.co/">
+              <img src={Cookk} width="100%" height="auto" alt="ava" />
             </Link>
         </Grid>
       </Grid>
