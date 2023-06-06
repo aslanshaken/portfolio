@@ -173,36 +173,38 @@ export default function ChefHeader({
             sx={{ padding: 1, marginTop: 4 }}
             onKeyDown={handleKeyDown}
             InputProps={{
-              ...(isDesktop ? { style: { fontSize: '16px' } } : { style: { fontSize: '11px' } }),
               startAdornment: (
                 <InputAdornment position="start">
                   <Iconify icon={'mingcute:search-line'} className="defaultIconSize" />
                 </InputAdornment>
               ),
-              endAdornment: (
-                <Button
-                  onClick={() => {
-                    onSubmit();
-                  }}
-                  sx={{ width: 100 }}
-                  size="medium"
-                  color="secondary"
-                  variant={status ? 'outlined' : 'contained'}
-                >
-                  {status ? 'Clear' : 'Search'}
-                </Button>
-              ),
+              ...(isDesktop && {
+                endAdornment: (
+                  <Button
+                    onClick={() => {
+                      onSubmit();
+                    }}
+                    sx={{ width: 100 }}
+                    size="medium"
+                    color="secondary"
+                    variant={status ? 'outlined' : 'contained'}
+                  >
+                    {status ? 'Clear' : 'Search'}
+                  </Button>
+                ),
+              }),
             }}
           />
 
           <Typography color={'error'}>{warnningMsg}</Typography>
 
-          <Box marginTop={2} whiteSpace={'nowrap'} sx={{ overflowX: 'auto' }}>
+          <Box whiteSpace={'nowrap'} sx={{ overflowX: 'auto' }}>
             <NextLink color="inherit" href={`/cities/${cityId}/${cuisineId}/`} passHref>
-              <Button color="secondary">Go back</Button>
+              <Button size='large' color="secondary">Go back</Button>
             </NextLink>
           </Box>
 
+          <Divider sx={{mb:2}} />
           <Image alt="header" height="180px" src="../../../../assets/single-chef/header.png" />
         </Stack>
         <Box display={'flex'} mb={7} mt={{ sm: -14, xs: -10 }}>

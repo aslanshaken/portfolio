@@ -1,9 +1,6 @@
 import PropTypes from 'prop-types';
-import { Avatar, Box, Button, Card, CardContent, Stack, Typography } from '@mui/material';
-import { IconButtonAnimate } from './animate';
-import GradientText from './GradientText';
+import { Avatar, Box, Card, CardContent, Stack, Typography } from '@mui/material';
 import Image from './Image';
-import Iconify from './Iconify';
 import CountBox from './countBox';
 import styled from '@emotion/styled';
 

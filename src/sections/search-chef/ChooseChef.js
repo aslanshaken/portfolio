@@ -1,5 +1,16 @@
 import styled from '@emotion/styled';
-import { Box, Grid, InputAdornment, Stack, TextField, Typography, Backdrop, Button, Divider } from '@mui/material';
+import {
+  Box,
+  Grid,
+  InputAdornment,
+  Stack,
+  TextField,
+  Typography,
+  Backdrop,
+  Button,
+  Divider,
+  Card,
+} from '@mui/material';
 import Container from '../../components/Container';
 import Iconify from '../../components/Iconify';
 import NextLink from 'next/link';
@@ -168,25 +179,27 @@ export default function ChooseChef() {
                 sx={{ padding: 1 }}
                 onKeyDown={handleKeyDown}
                 InputProps={{
-                  ...(isDesktop ? { style: { fontSize: '16px' } } : { style: { fontSize: '11px' } }),
+                  ...(isDesktop ? { style: { fontSize: '16px' } } : { style: { fontSize: '15px' } }),
                   startAdornment: (
                     <InputAdornment position="start">
                       <Iconify icon={'mingcute:search-line'} className="defaultIconSize" />
                     </InputAdornment>
                   ),
-                  endAdornment: (
-                    <Button
-                      onClick={() => {
-                        onSubmit();
-                      }}
-                      sx={{ width: 100 }}
-                      size="medium"
-                      color="secondary"
-                      variant={status ? 'outlined' : 'contained'}
-                    >
-                      {status ? 'Clear' : 'Search'}
-                    </Button>
-                  ),
+                  ...(isDesktop && {
+                    endAdornment: (
+                      <Button
+                        onClick={() => {
+                          onSubmit();
+                        }}
+                        sx={{ width: 100 }}
+                        size="medium"
+                        color="secondary"
+                        variant={status ? 'outlined' : 'contained'}
+                      >
+                        {status ? 'Clear' : 'Search'}
+                      </Button>
+                    ),
+                  }),
                 }}
               />
 
@@ -215,14 +228,20 @@ export default function ChooseChef() {
                   alignItems={'center'}
                   onClick={() => {
                     searchLoading();
-                    setSearchKey('');
-                    searchChefs('');
+                    setSearchKey('EurAsian');
+                    searchChefs('eurasian');
                   }}
                   sx={{ cursor: 'pointer' }}
                 >
                   <Image alt="eurasian" width="50px" src="../../../../assets/chefs/eurasian.png" />
                   <Typography variant="subtitle1" color="secondary">
                     EurAsian
+                  </Typography>
+                </Stack>
+                <Stack alignItems={'center'} onClick={() => {}} sx={{ cursor: 'pointer' }}>
+                  <Image alt="eurasian" width="50px" src="../../../../assets/chefs/cakes.png" />
+                  <Typography variant="subtitle1" color="secondary">
+                    Cakes
                   </Typography>
                 </Stack>
                 <Stack alignItems={'center'} onClick={filterChefsByHalal} sx={{ cursor: 'pointer' }}>
@@ -295,7 +314,9 @@ export default function ChooseChef() {
                   passHref
                 >
                   <Grid item xs={12} sm={6} lg={4} position={'relative'}>
-                    <Image alt="Travis Howard" src={item?.chef?.image_url} sx={{ width: '100%', height: 180 }} />
+                    <Card>
+                      <Image alt="Travis Howard" src={item?.chef?.image_url} sx={{ width: '100%', height: 180 }} />
+                    </Card>
                     <Stack direction={'row'} marginTop={2} justifyContent={'space-between'} alignItems={'center'}>
                       <Typography variant="h6" mr={3}>
                         {item?.chef?.company_name}
