@@ -34,20 +34,6 @@ const FoodCard = styled('div')(() => ({
     opacity: 0,
     transition: '.3s ease',
   },
-
-  '.food-image-wrapper:hover .food-backdrop': {
-    top: 0,
-    height: '100%',
-    opacity: 1,
-  },
-
-  '.food-image-wrapper:hover .food-view-button': {
-    display: 'block',
-  },
-
-  '.food-view-button': {
-    display: 'none',
-  },
 }));
 
 export default function FoodCartCard(props) {
@@ -87,24 +73,12 @@ export default function FoodCartCard(props) {
             <Typography color={'text.secondary'}>{chefname}</Typography>
           </Stack>
         )}
-        <Box
-          className="food-image-wrapper"
-          sx={{
-            mt: !chefname && '1rem',
-            margin: 'auto',
-            width: '100%',
-            height: '300px',
-            position: 'relative',
-            // clipPath: 'circle(80px at center)',
-          }}
-        >
-          <Image alt={name} src={cover} sx={{ position: 'absolute', width: '100%', height: '100%', top: 0 }} />
-          <Stack className="food-backdrop" alignItems={'center'} justifyContent={'center'}>
-            <Button onClick={onClick} variant="outlined" className="food-view-button">
-              View food
-            </Button>
-          </Stack>
-        </Box>
+        <Image
+          onClick={onClick}
+          alt={name}
+          src={cover}
+          sx={{ width: '100%', cursor:'pointer', height: 300, top: 0 }}
+        />
         <CardContent>
           <Stack
             direction="row"
