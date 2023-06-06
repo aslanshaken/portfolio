@@ -164,46 +164,6 @@ export default function FoodSection({
           overflow="hidden"
           width={1}
         >
-          {/* {!selectedDate && <Backdrop open={true} className="overlay" />} */}
-          {/* <MotionContainer
-            {...(isDesktop && {
-              action: true,
-              animate: isHiddenCategory,
-              variants: {
-                initial: { x: 0 },
-                animate: { x: -355 },
-                exit: { x: 0 },
-              },
-              sx: { minWidth: 350, position: 'relative' },
-            })}
-          >
-            {isDesktop && (
-              <IconButton
-                sx={{
-                  position: 'absolute',
-                  zIndex: 5,
-                  right: isHiddenCategory ? -55 : 0,
-                }}
-                onClick={handleClickHideButton}
-              >
-                <Iconify
-                  icon={
-                    isHiddenCategory
-                      ? 'material-symbols:keyboard-double-arrow-right'
-                      : 'material-symbols:keyboard-double-arrow-left'
-                  }
-                  sx={{ width: '30px', height: '30px' }}
-                />
-              </IconButton>
-            )}
-            <Box position={'relative'} pt={1}>
-              <MenuSearchForm />
-            </Box>
-
-            <MenuCategoryForm />
-            <MenuAllerogyForm />
-          </MotionContainer> */}
-
           <Stack
             {...(isDesktop && {
               sx: {
@@ -213,39 +173,6 @@ export default function FoodSection({
               },
             })}
           >
-            {/* {!selectedDate && (
-              <Typography
-                variant="h3"
-                sx={{ position: 'absolute', left: '40%', top: '50%', zIndex: 5, fontWeight: '500' }}
-              >
-                Choose date first
-              </Typography>
-            )} */}
-            {/* <Grid container sx={{ marginTop: '-20px', marginBottom: '20px' }}>
-              <Grid item md={8} sm={4} />
-              <Grid item md={4} sm={12} xs={12}>
-                <Autocomplete
-                  fullWidth
-                  disablePortal
-                  autoHighlight
-                  options={sort_type}
-                  getOptionLabel={(option) => option.name}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      variant="filled"
-                      label="Choose a short"
-                      size="small"
-                      inputProps={{
-                        ...params.inputProps,
-                        autoComplete: 'new-password',
-                      }}
-                    />
-                  )}
-                  sx={{ mt: 3 }}
-                />
-              </Grid>
-            </Grid> */}
             <Grid container spacing={3}>
               {searchIsLoading ? (
                 <Stack position={'relative'} my={20} sx={{ width: '100%' }}>

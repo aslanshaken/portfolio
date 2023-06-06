@@ -50,7 +50,7 @@ export default function ConfirmNotes() {
           {delivery_fee > 0 && (
             <Stack direction={'row'} justifyContent={'space-between'}>
               <Typography variant={'body2'} color={'text.secondary'} fontWeight={'600'}>
-                {'Delivery Fee'}
+                {'Delivery fee'}
               </Typography>
               <Typography fontWeight={'bold'} color={'secondary'}>
                 ${delivery_fee}

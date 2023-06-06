@@ -55,7 +55,6 @@ export default function ChefPage() {
   useEffect(() => {
     async function fetch() {
       setIsLoading(true);
-      await dispatch(getChefs(cityId, cuisineId, chefId));
       await dispatch(getFoodsByChef(cityId, cuisineId, chefId, cart[0]?.user_id == chefId ? scheduleDate : ''));
       setIsLoading(false);
     }

@@ -47,7 +47,6 @@ export default function FoodCartCard(props) {
     price,
     measurement,
     onClick = () => {},
-    onClickPlus = () => {},
     selectedDate,
     selectedTime,
     setIsOpenNewCartDlg = () => {},
@@ -77,7 +76,7 @@ export default function FoodCartCard(props) {
           onClick={onClick}
           alt={name}
           src={cover}
-          sx={{ width: '100%', cursor:'pointer', height: 300, top: 0 }}
+          sx={{ width: '100%', cursor: 'pointer', height: 300, top: 0 }}
         />
         <CardContent>
           <Stack
@@ -85,7 +84,6 @@ export default function FoodCartCard(props) {
             gap={1}
             justifyContent={'space-between'}
             alignItems={'center'}
-            sx={{ paddingTop: '2rem', paddingBottom: '1rem', paddingRight: '1rem', paddingLeft: '1rem' }}
           >
             <Box>
               <Typography
@@ -102,15 +100,7 @@ export default function FoodCartCard(props) {
               >
                 {name}
               </Typography>
-              <Typography
-                sx={{
-                  background: `linear-gradient(to right, #56420D, #CFAA4C)`,
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                }}
-                variant="h7"
-                fontWeight={600}
-              >
+              <Typography color={'gray'} variant="h7" fontWeight={600}>
                 {`$${price} / ${quantity} ${measurement || ''}`}
               </Typography>
               <Box sx={{ height: 10 }}>
@@ -120,9 +110,6 @@ export default function FoodCartCard(props) {
               </Box>
             </Box>
             <Box>
-              {/* <IconButtonAnimate sx={{ p: 0, width: 33, height: 33 }} onClick={onClickPlus}>
-              <Iconify icon={'ic:outline-plus'} sx={{ width: 33, height: 33, color: 'text.secondary' }} />
-            </IconButtonAnimate> */}
               <CountBox
                 selectedDate={selectedDate}
                 selectedTime={selectedTime}
