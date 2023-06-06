@@ -173,13 +173,12 @@ export default function ChooseChef() {
                 size="large"
                 fullWidth
                 value={searchKey}
-                placeholder="Search for a meal, cuisine or country"
+                placeholder="Search for a meal, cuisine"
                 hiddenLabel
                 variant="filled"
                 sx={{ padding: 1 }}
                 onKeyDown={handleKeyDown}
                 InputProps={{
-                  ...(isDesktop ? { style: { fontSize: '16px' } } : { style: { fontSize: '15px' } }),
                   startAdornment: (
                     <InputAdornment position="start">
                       <Iconify icon={'mingcute:search-line'} className="defaultIconSize" />

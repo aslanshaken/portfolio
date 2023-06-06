@@ -42,10 +42,7 @@ export default function ChefHeader({
   setCurrentPage,
 }) {
   const router = useRouter();
-  const { chefs } = useSelector(CITYCUISINE_SELECTOR);
-  const { cityId, cuisineId, chefId } = router.query;
-  const chefData = chefs.find((item) => item.chef.id == chefId);
-  const { chef } = chefData ?? {};
+  const { cityId, cuisineId } = router.query;
   const [isOpenScheduleDialog, setIsOpenScheduleDialog] = useState(false);
   const { foods, checkout } = useSelector(FOOD_SELECTOR);
   const { cart, scheduleDate, scheduleTime } = checkout;
@@ -56,11 +53,12 @@ export default function ChefHeader({
   const [searchKey, setSearchKey] = useState('');
   const [status, setStatus] = useState(false);
   const isDesktop = useResponsive('up', 'sm');
+  const availableDates = Object.keys(foods)?.filter(
+    (item) => isSameDay(new Date(item), new Date()) || isAfter(new Date(item), new Date())
+  );
+  const { chef } = foods?.[availableDates[0]]?.foods?.[0] ?? {};
 
   useEffect(() => {
-    const availableDates = Object.keys(foods)?.filter(
-      (item) => isSameDay(new Date(item), new Date()) || isAfter(new Date(item), new Date())
-    );
     const initialSlots = foods?.[availableDates[0]]?.slots;
     const currentTimePlusFiveHours = addHours(new Date(), chef?.time_to_cook ?? 0);
     const filteredArray = initialSlots?.filter((time) => parse(time, 'hh:mm a', new Date()) > currentTimePlusFiveHours);
@@ -200,11 +198,13 @@ export default function ChefHeader({
 
           <Box whiteSpace={'nowrap'} sx={{ overflowX: 'auto' }}>
             <NextLink color="inherit" href={`/cities/${cityId}/${cuisineId}/`} passHref>
-              <Button size='large' color="secondary">Go back</Button>
+              <Button size="large" color="secondary">
+                Go back
+              </Button>
             </NextLink>
           </Box>
 
-          <Divider sx={{mb:2}} />
+          <Divider sx={{ mb: 2 }} />
           <Image alt="header" height="180px" src="../../../../assets/single-chef/header.png" />
         </Stack>
         <Box display={'flex'} mb={7} mt={{ sm: -14, xs: -10 }}>
