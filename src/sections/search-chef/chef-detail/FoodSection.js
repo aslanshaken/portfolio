@@ -1,54 +1,30 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
 // @mui
 import {
-  Autocomplete,
   Typography,
   Grid,
-  TextField,
-  Box,
-  Backdrop,
-  IconButton,
   Stack,
-  CircularProgress,
 } from '@mui/material';
 // components
 import Container from '../../../components/Container';
 import Pagination from '../../../components/Pagination';
 // sections
-import MenuSearchForm from './MenuSearchForm';
-import MenuCategoryForm from './MenuCategoryForm';
-import MenuAllerogyForm from './MenuAllerogyForm';
-import DropHiddenButton from '../../../components/DropHiddenButton';
 import CartDialog from './CartDialog';
 import { useDispatch, useSelector } from '../../../redux/store';
 import {
-  addFoodCart,
-  clearCart,
-  getFoodsByChef,
-  setError,
   setScheduleDate,
   setScheduleTime,
   updateFoodCart,
 } from '../../../redux/slices/food';
-import { getMockTypeData } from '../../../utils/functions';
 import FoodCartCard from 'src/components/FoodCartCard';
-import Iconify from 'src/components/Iconify';
-import MotionContainer from 'src/components/animate/MotionContainer';
-import { AnimatePresence } from 'framer-motion';
 import useResponsive from 'src/hooks/useResponsive';
-import { CITYCUISINE_SELECTOR } from 'src/redux/slices/city';
 import { FOOD_SELECTOR } from 'src/redux/slices/food';
 import NewCartDialog from './NewCartDialog';
-import { useRouter } from 'next/router';
-import useAuth from 'src/hooks/useAuth';
-import { PATH_AUTH } from 'src/routes/paths';
 import Image from 'src/components/Image';
 import LoadingScreen from 'src/components/LoadingScreen';
 
 // --------------------------------------------
-
-const sort_type = [{ name: 'sort by Popularity' }, { name: 'sort by New' }, { name: 'sort by Oldest' }];
 
 const RootStyle = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -91,12 +67,6 @@ const RootStyle = styled('div')(({ theme }) => ({
   },
 }));
 
-const SideBarStyle = styled(Box)(() => ({
-  '& *': {
-    transition: '500ms !important',
-  },
-}));
-
 // --------------------------------------------
 
 export default function FoodSection({
@@ -107,17 +77,12 @@ export default function FoodSection({
   currentPage,
   setCurrentPage,
 }) {
-  const router = useRouter();
-
-  const { cityId, cuisineId, chefId } = router.query;
-
-  const { isAuthenticated } = useAuth();
 
   const { checkout } = useSelector(FOOD_SELECTOR);
 
   const { cart } = checkout;
 
-  const [isHiddenCategory, setIsHiddenCategory] = useState(false);
+  const [isHiddenCategory] = useState(false);
 
   const isDesktop = useResponsive('up', 'md');
 
@@ -296,6 +261,7 @@ export default function FoodSection({
                   padding={6}
                 >
                   <Image
+                    alt="oops"
                     src="/assets/search-chef/oops.png"
                     width={300}
                     sx={{ position: 'absolute', right: { lg: 200, md: 100, xs: 0 }, bottom: 0, zIndex: 0 }}

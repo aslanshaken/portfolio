@@ -199,7 +199,10 @@ export default function ChefHeader({
       <Container>
         <Stack>
           <TextField
-            onChange={(e) => setSearchKey(e.target.value)}
+            onChange={(e) => {
+              setStatus(false);
+              setSearchKey(e.target.value);
+            }}
             size="large"
             fullWidth
             value={searchKey}
