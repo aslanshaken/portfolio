@@ -1,7 +1,7 @@
 // layouts
 import Layout from '../../layouts';
 // components
-import { Box, Table, TableBody, TableContainer } from '@mui/material';
+import { Autocomplete, Box, Stack, Table, TableBody, TableContainer, TextField } from '@mui/material';
 import Page from '../../components/Page';
 import Scrollbar from 'src/components/Scrollbar';
 import { TableEmptyRows, TableHeadCustom, TableNoData } from 'src/components/table';
@@ -13,58 +13,11 @@ import { useDispatch } from 'src/redux/store';
 import { FOOD_SELECTOR, getOrders } from 'src/redux/slices/food';
 import { useSelector } from 'react-redux';
 import LoadingScreen from 'src/components/LoadingScreen';
+import { parse } from 'date-fns';
 // sections
 
-// const datas = [
-//   {
-//     _id: 1,
-//     order_number: '#16516165',
-//     items_iamge: '/assets/dashboard/order/item1.png',
-//     chef: 'Michael Jackson',
-//     cuisine: 'Japan cuisine',
-//     price: '$23.98',
-//     status: 'In Progress',
-//   },
-//   {
-//     _id: 2,
-//     order_number: '#16516165',
-//     items_iamge: '/assets/dashboard/order/item1.png',
-//     chef: 'Michael Jackson',
-//     cuisine: 'Japan cuisine',
-//     price: '$23.98',
-//     status: 'Canceled',
-//   },
-//   {
-//     _id: 3,
-//     order_number: '#16516165',
-//     items_iamge: '/assets/dashboard/order/item1.png',
-//     chef: 'Michael Jackson',
-//     cuisine: 'Japan cuisine',
-//     price: '$23.98',
-//     status: 'Delivered',
-//   },
-//   {
-//     _id: 4,
-//     order_number: '#16516165',
-//     items_iamge: '/assets/dashboard/order/item1.png',
-//     chef: 'Michael Jackson',
-//     cuisine: 'Japan cuisine',
-//     price: '$23.98',
-//     status: 'Canceled',
-//   },
-//   {
-//     _id: 5,
-//     order_number: '#16516165',
-//     items_iamge: '/assets/dashboard/order/item1.png',
-//     chef: 'Michael Jackson',
-//     cuisine: 'Japan cuisine',
-//     price: '$23.98',
-//     status: 'Canceled',
-//   },
-// ];
-
 const TABLE_HEAD = [
-  { id: 'order_number', label: 'Order Number', align: 'left', width: 180 },
+  { id: 'order_number', label: 'Order', align: 'left', width: 180 },
   { id: 'order_date', label: 'Order Date', align: 'center' },
   { id: 'chef', label: 'Chef', align: 'center' },
   { id: 'price', label: 'Price', align: 'center' },
@@ -92,25 +45,40 @@ export default function OrderPage() {
 
   const { orders: allOrders, loading } = useSelector(FOOD_SELECTOR);
 
-  const orders = allOrders?.filter((item) => item?.status !== 'initiated');
+  const [orders, setOrders] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(1);
 
+  const [sortItem, setSortItem] = useState();
+
+  useEffect(() => {
+    const filteredOrders = allOrders
+      ?.filter((item) => item?.status == (!sortItem ? 'received' : sortItem) && item?.status !== 'initiated')
+      .sort((a, b) => parse(b.order_date, 'MM/dd/yyyy', new Date()) - parse(a.order_date, 'MM/dd/yyyy', new Date()));
+    setOrders(filteredOrders);
+  }, [allOrders, sortItem]);
+
   const isNotFound = !orders.length;
 
-  // const sort_type = [{ name: 'sort by Popularity' }, { name: 'sort by New' }, { name: 'sort by Oldest' }];
-  // const order_date = [{ name: 'Last week' }, { name: 'Last week' }, { name: 'Last week' }];
+  const sort_type = [
+    { name: 'received' },
+    { name: 'initiated' },
+    { name: 'picked up' },
+    { name: 'delivered' },
+    { name: 'working on' },
+  ];
 
   return loading ? (
     <LoadingScreen inner />
   ) : (
     <Page title="Orders : Dashboard">
-      {/* <Stack direction={'row'} spacing={2} maxWidth={500} sx={{ ml: 'auto', mb: 3 }}>
+      <Stack direction={'row'} spacing={2} maxWidth={300} sx={{ ml: 'auto', mb: 3 }}>
         <Autocomplete
           fullWidth
           disablePortal
           autoHighlight
           options={sort_type}
+          onChange={(e) => setSortItem(e.target.innerText)}
           getOptionLabel={(option) => option.name}
           renderInput={(params) => (
             <TextField
@@ -125,26 +93,7 @@ export default function OrderPage() {
             />
           )}
         />
-        <Autocomplete
-          fullWidth
-          disablePortal
-          autoHighlight
-          options={order_date}
-          getOptionLabel={(option) => option.name}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              variant="filled"
-              size="small"
-              label="Last week"
-              inputProps={{
-                ...params.inputProps,
-                autoComplete: 'new-password',
-              }}
-            />
-          )}
-        />
-      </Stack> */}
+      </Stack>
       <Scrollbar>
         <TableContainer sx={{ position: 'relative' }}>
           <Table size={'small'}>

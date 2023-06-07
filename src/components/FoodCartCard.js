@@ -75,48 +75,41 @@ export default function FoodCartCard(props) {
           src={cover}
           sx={{ width: '100%', cursor: 'pointer', height: 300, top: 0 }}
         />
-        <CardContent>
-          <Stack
-            direction="row"
-            gap={1}
-            justifyContent={'space-between'}
-            alignItems={'center'}
-          >
-            <Box>
-              <Typography
-                variant="h6"
-                color={'text.primary'}
-                fontWeight="bold"
-                sx={{
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  display: '-webkit-box',
-                  WebkitLineClamp: 1,
-                  WebkitBoxOrient: 'vertical',
-                }}
-              >
-                {name}
+        <Stack py={2} px={1} direction="row" gap={1} justifyContent={'space-between'} alignItems={'center'}>
+          <Box>
+            <Typography
+              variant="h6"
+              color={'text.primary'}
+              fontWeight="bold"
+              sx={{
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                display: '-webkit-box',
+                WebkitLineClamp: 1,
+                WebkitBoxOrient: 'vertical',
+              }}
+            >
+              {name}
+            </Typography>
+            <Typography color={'gray'} variant="h7" fontWeight={600}>
+              {`$${price} / ${quantity} ${measurement || ''}`}
+            </Typography>
+            <Box sx={{ height: 10 }}>
+              <Typography variant="caption" color="text.secondary">
+                {min_order > 1 && `min orders ${`${min_order} ${measurement || ''}`}`}
               </Typography>
-              <Typography color={'gray'} variant="h7" fontWeight={600}>
-                {`$${price} / ${quantity} ${measurement || ''}`}
-              </Typography>
-              <Box sx={{ height: 10 }}>
-                <Typography variant="caption" color="text.secondary">
-                  {min_order > 1 && `min orders ${`${min_order} ${measurement || ''}`}`}
-                </Typography>
-              </Box>
             </Box>
-            <Box>
-              <CountBox
-                selectedDate={selectedDate}
-                selectedTime={selectedTime}
-                setIsOpenNewCartDlg={setIsOpenNewCartDlg}
-                setSelectedItemData={setSelectedItemData}
-                data={data}
-              />
-            </Box>
-          </Stack>
-        </CardContent>
+          </Box>
+          <Box>
+            <CountBox
+              selectedDate={selectedDate}
+              selectedTime={selectedTime}
+              setIsOpenNewCartDlg={setIsOpenNewCartDlg}
+              setSelectedItemData={setSelectedItemData}
+              data={data}
+            />
+          </Box>
+        </Stack>
       </Card>
     </FoodCard>
   );

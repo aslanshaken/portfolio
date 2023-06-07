@@ -108,12 +108,14 @@ export default function ChooseChef() {
 
   const filterChefsByHalal = () => {
     searchLoading();
+    setSearchKey('');
     const filteredArray = chefs.filter((item) => item.chef.halal);
     setChefsArray(filteredArray);
   };
 
   const filterChefsByCatering = () => {
     searchLoading();
+    setSearchKey('');
     const filteredArray = chefs.filter((item) => item.chef.catering);
     setChefsArray(filteredArray);
   };
@@ -301,7 +303,7 @@ export default function ChooseChef() {
               </Stack>
             </Stack>
           ) : (
-            <Grid container spacing={{ xs: 5, md: 8 }}>
+            <Grid container spacing={4}>
               {chefsArray?.slice((currentPage - 1) * 12, currentPage * 12).map((item, _i) => (
                 <NextLink
                   key={'chef-link' + _i}
@@ -312,38 +314,51 @@ export default function ChooseChef() {
                   }
                   passHref
                 >
-                  <Grid item xs={12} sm={6} lg={4} position={'relative'}>
-                    <Card>
-                      <Image alt="Travis Howard" src={item?.chef?.image_url} sx={{ width: '100%', height: 180 }} />
-                    </Card>
-                    <Stack direction={'row'} marginTop={2} justifyContent={'space-between'} alignItems={'center'}>
-                      <Typography variant="h6" mr={3}>
-                        {item?.chef?.company_name}
-                      </Typography>
-                      <Typography
-                        variant="subtitle1"
-                        sx={{ borderRadius: 10, background: 'lightGray', py: 0.5, px: 1.5 }}
+                  <Grid item xs={12} sm={6} lg={4}>
+                    <Stack position={'relative'}>
+                      <Card sx={{ borderRadius: 4, border: '0.5px solid #e1e1e1' }}>
+                        <Image
+                          objectFit="contain"
+                          alt="Travis Howard"
+                          src={item?.chef?.image_url}
+                          sx={{ width: '100%', height: 180 }}
+                        />
+                      </Card>
+                      <Stack
+                        px={1}
+                        direction={'row'}
+                        marginTop={2}
+                        justifyContent={'space-between'}
+                        alignItems={'center'}
                       >
-                        {item?.chef?.rating}
-                      </Typography>
-                    </Stack>
-                    <Stack direction={'row'}>
-                      {item?.chef?.delivery_available && item?.chef?.delivery_fee > 1
-                        ? `Delivery:  $${item?.chef?.delivery_fee ?? 4.99}`
-                        : `Pick up Only`}
-                      {item?.chef?.time_to_cook &&
-                        ` * Schedule 
+                        <Typography variant="h6" mr={3}>
+                          {item?.chef?.company_name}
+                        </Typography>
+                        <Typography
+                          variant="subtitle1"
+                          sx={{ borderRadius: 10, background: 'lightGray', py: 0.5, px: 1.5 }}
+                        >
+                          {item?.chef?.rating}
+                        </Typography>
+                      </Stack>
+                      <Stack px={1} direction={'row'}>
+                        {item?.chef?.delivery_available && item?.chef?.delivery_fee > 1
+                          ? `Delivery:  $${Math.floor((item?.chef?.delivery_fee ?? 4.9) * 10) / 10}`
+                          : `Pick up Only`}
+                        {item?.chef?.time_to_cook &&
+                          ` * Schedule 
                           ${item?.chef?.time_to_cook}
                           ${item?.chef?.time_to_cook == 1 ? 'hr' : 'hrs'}
                           ahead`}
+                      </Stack>
+                      {!item?.chef?.can_sell && (
+                        <Backdrop position={'absolute'} open={true} className="overlay">
+                          <Typography variant="h3" sx={{ color: '#333' }}>
+                            Comming Soon
+                          </Typography>
+                        </Backdrop>
+                      )}
                     </Stack>
-                    {!item?.chef?.can_sell && (
-                      <Backdrop position={'absolute'} open={true} className="overlay">
-                        <Typography variant="h3" sx={{ color: '#333' }}>
-                          Comming Soon
-                        </Typography>
-                      </Backdrop>
-                    )}
                   </Grid>
                 </NextLink>
               ))}

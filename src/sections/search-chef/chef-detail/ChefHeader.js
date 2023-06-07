@@ -277,8 +277,70 @@ export default function ChefHeader({
             </Hidden>
           </Box>
         </Box>
+        <Stack
+          display={{ xs: 'flex', sm: 'none' }}
+          direction={'row'}
+          flexWrap={'wrap'}
+          gap={1}
+          justifyContent={'space-between'}
+          px={2}
+          width={'100%'}
+        >
+          <Stack gap={1}>
+            <Stack direction={'row'} gap={0.7}>
+              <Typography variant={'subtitle1'} color={'gray'}>
+                Rating: {chef?.rating}
+              </Typography>
+            </Stack>
+            <Stack direction={'row'} gap={0.7}>
+              <Typography variant={'subtitle1'} color={'gray'}>
+                Deliveries: {chef?.orders}
+              </Typography>
+            </Stack>
+          </Stack>
+          <Stack gap={1}>
+            <Stack direction={'row'} gap={0.7}>
+              <Typography variant={'subtitle1'} color={'gray'}>
+                Zip code: {chef?.primary_address?.zip}
+              </Typography>
+            </Stack>
+            <Stack direction={'row'} gap={0.7}>
+              <Typography variant={'subtitle1'} color={'gray'}>
+                Delivery fee: ${chef?.delivery_fee ?? 4.99}
+              </Typography>
+            </Stack>
+          </Stack>
+        </Stack>
+        <Stack
+          marginBottom={2}
+          direction={'row'}
+          display={{ xs: 'none', sm: 'flex' }}
+          gap={2}
+          flexWrap={'wrap'}
+          justifyContent={{ xs: 'center', sm: 'left' }}
+        >
+          <Stack direction={'row'} gap={0.7}>
+            <Typography variant={'subtitle1'} color={'gray'}>
+              Rating: {chef?.rating}
+            </Typography>
+          </Stack>
+          <Stack direction={'row'} gap={0.7}>
+            <Typography variant={'subtitle1'} color={'gray'}>
+              Deliveries: {chef?.orders}
+            </Typography>
+          </Stack>
+          <Stack direction={'row'} gap={0.7}>
+            <Typography variant={'subtitle1'} color={'gray'}>
+              Zip code: {chef?.primary_address?.zip}
+            </Typography>
+          </Stack>
+          <Stack direction={'row'} gap={0.7}>
+            <Typography variant={'subtitle1'} color={'gray'}>
+              Delivery fee: ${chef?.delivery_fee ?? 4.99}
+            </Typography>
+          </Stack>
+        </Stack>
         <Box>
-          <Divider />
           <Box my={4}>
             <Box mb={2}>
               <Typography variant="h3" color={'black'}>
