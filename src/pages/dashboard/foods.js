@@ -2,9 +2,11 @@
 import Layout from '../../layouts';
 // components
 import Page from '../../components/Page';
-import { Box, Grid } from '@mui/material';
+import { Box, Button, Grid } from '@mui/material';
 import FoodCartCard from 'src/components/FoodCartCard';
 import Pagination from 'src/components/Pagination';
+import { useState } from 'react';
+import FoodDialog from 'src/sections/@dashboard/foods/foodDialog';
 // sections
 
 // ----------------------------------------------------------------------
@@ -16,26 +18,19 @@ FoodsPage.getLayout = function getLayout(page) {
 // ----------------------------------------------------------------------
 
 export default function FoodsPage() {
+  const [foodDialogIsOpen, setFoodDialogIsOpen] = useState(false);
+
   return (
     <Page title="Personal Account : Dashboard">
-      <Grid container spacing={3}>
-        {[].map((item) => (
-          <Grid key={item.id} item xs={12} sm={6} md={4}>
-            <FoodCartCard
-              chefavatar={item.chefavatar}
-              chefname={item.chefname}
-              sx={{ mt: -2 }}
-              name={item.name}
-              cover={`/assets/search-chef/foods/${item.filename}.png`}
-              price={item.price}
-              we_kc={`${item.weight} gr / ${item.kc} kc`}
-            />
-          </Grid>
-        ))}
-      </Grid>
-
-      <Box mt={10} />
-      <Pagination />
+      <FoodDialog open={foodDialogIsOpen} onClose={() => setFoodDialogIsOpen(false)} />
+      <Button
+        onClick={() => setFoodDialogIsOpen(true)}
+        variant="outlined"
+        color="secondary"
+        sx={{ textTransform: 'none' }}
+      >
+        Create a food
+      </Button>
     </Page>
   );
 }

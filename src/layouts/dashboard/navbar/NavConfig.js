@@ -32,6 +32,11 @@ const navConfig = [
         path: PATH_DASHBOARD.wishlist,
         icon: <Iconify icon={'emojione-monotone:pot-of-food'} />,
       },
+      {
+        title: 'Available dates',
+        path: PATH_DASHBOARD.availableDates,
+        icon: <Iconify icon={'mdi:calendar'} />,
+      },
     ],
   },
 ];
