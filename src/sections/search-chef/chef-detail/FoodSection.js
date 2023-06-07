@@ -73,6 +73,7 @@ export default function FoodSection({
   selectedDate,
   selectedTime,
   foodsArray,
+  filteredFoodsArray,
   searchIsLoading,
   currentPage,
   setCurrentPage,
@@ -178,7 +179,7 @@ export default function FoodSection({
                 <Stack position={'relative'} my={20} sx={{ width: '100%' }}>
                   <LoadingScreen />
                 </Stack>
-              ) : foodsArray?.length === 0 ? (
+              ) : filteredFoodsArray?.length === 0 ? (
                 <Stack
                   width={'100%'}
                   textAlign={'center'}
@@ -199,7 +200,7 @@ export default function FoodSection({
                   </Stack>
                 </Stack>
               ) : (
-                foodsArray?.slice((currentPage - 1) * 12, currentPage * 12).map((item) => (
+                filteredFoodsArray?.slice((currentPage - 1) * 12, currentPage * 12).map((item) => (
                   <Grid key={item?.id} item lg={4} md={6} sm={6} xs={12} width={1}>
                     <FoodCartCard
                       data={item}
@@ -220,8 +221,8 @@ export default function FoodSection({
                 ))
               )}
             </Grid>
-            {foodsArray?.length > 12 && (
-              <Pagination count={Math.ceil(foodsArray?.length / 12)} setCurrentPage={setCurrentPage} />
+            {filteredFoodsArray?.length > 12 && (
+              <Pagination count={Math.ceil(filteredFoodsArray?.length / 12)} setCurrentPage={setCurrentPage} />
             )}
           </Stack>
         </Stack>
