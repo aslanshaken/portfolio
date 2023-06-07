@@ -74,7 +74,7 @@ export default function PickDeliverSwitchCard({ isPickup = true, setIsPickup }) 
                   await dispatch(getOrderDetail(orderId));
                   setIsloading(false);
                 } else {
-                  errorAlert(`A user can't place an order for delivery`);
+                  errorAlert(`Apologies, but delivery is currently unavailable`);
                 }
               }}
             >

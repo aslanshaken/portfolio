@@ -37,7 +37,7 @@ export default function WelcomeDialog({ isOpen, setIsOpen }) {
           -
         </Typography>
         <Typography variant="h4" fontWeight={'normal'}>
-          No Service Fee
+          No Service fee
         </Typography>
         <Typography mt={8}>No code required. Limited time offer. Ends April 30, 2023 </Typography>
       </Stack>

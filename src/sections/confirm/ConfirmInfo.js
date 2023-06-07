@@ -1,4 +1,4 @@
-import { Chip, Divider, Stack, styled, Typography } from '@mui/material';
+import { Chip, Divider, IconButton, Stack, styled, Typography } from '@mui/material';
 import Avatar from 'src/components/Avatar';
 import Image from 'src/components/Image';
 import { HEADER } from 'src/config';
@@ -9,6 +9,7 @@ import { parse, format } from 'date-fns';
 import { CITYCUISINE_SELECTOR } from 'src/redux/slices/city';
 import Label from 'src/components/Label';
 import { STATUS_COLOR } from '../@dashboard/orders/OrderTableRow';
+import Iconify from 'src/components/Iconify';
 
 const RootStyle = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -34,6 +35,10 @@ export default function ConfirmInfo() {
   const { primary_address } = chef_details ?? {};
   const orderDate = order_date ? format(parse(order_date, 'MM/dd/yyyy', new Date()), 'MMMM d, yyyy') : '';
   const pickupDate = pickup_date ? format(parse(pickup_date, 'MM/dd/yyyy', new Date()), 'MMMM d, yyyy') : '';
+
+  const handleCall = () => {
+    window.location.href = 'tel:+19299285292';
+  };
 
   // const { user } = useAuth();
   // const { checkout } = useSelector(FOOD_SELECTOR);
@@ -123,6 +128,17 @@ export default function ConfirmInfo() {
                 </Label>
               </Stack>
             )}
+            <Stack spacing={1} textAlign={'center'} alignItems={'center'}>
+              <Typography variant="subtitle1">Status</Typography>
+              <IconButton
+                sx={(theme) => ({ background: theme.palette.gradients.primary, width: 40, height: 40 })}
+                onClick={handleCall}
+                size="large"
+                variant="contained"
+              >
+                <Iconify color={'white'} icon={'material-symbols:phone-enabled'} />
+              </IconButton>
+            </Stack>
           </Stack>
           <Stack spacing={1} order={{ xs: 1, md: 3 }}>
             <Typography variant="body2" color={'text.secondary'}>

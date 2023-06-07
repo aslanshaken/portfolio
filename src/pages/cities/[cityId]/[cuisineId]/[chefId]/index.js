@@ -52,10 +52,24 @@ export default function ChefPage() {
     setFoodsArray(foods?.[selectedDate]?.foods);
   }, [foods, selectedDate]);
 
+  const [filteredFoodsArray, setFilteredFoodsArray] = useState([]);
+
+  useEffect(() => {
+    if (foodsArray) {
+      const sumArray = [];
+      foodsArray.map((item) => {
+        const findFood = sumArray.find((food) => food.title.split('with')[0] === item.title.split('with')[0]);
+        if (!findFood) {
+          sumArray.push(item);
+        }
+      });
+      setFilteredFoodsArray(sumArray)
+    }
+  }, [foodsArray]);
+
   useEffect(() => {
     async function fetch() {
       setIsLoading(true);
-      await dispatch(getChefs(cityId, cuisineId, chefId));
       await dispatch(getFoodsByChef(cityId, cuisineId, chefId, cart[0]?.user_id == chefId ? scheduleDate : ''));
       setIsLoading(false);
     }
@@ -82,6 +96,7 @@ export default function ChefPage() {
         setCurrentPage={setCurrentPage}
         searchIsLoading={searchIsLoading}
         foodsArray={foodsArray}
+        filteredFoodsArray={filteredFoodsArray}
         selectedDate={selectedDate}
         selectedTime={selectedTime}
       />

@@ -39,5 +39,6 @@ export const PATH_DASHBOARD = {
   account: path(ROOTS_DASHBOARD, '/account'),
   payments: path(ROOTS_DASHBOARD, '/payments'),
   orders: path(ROOTS_DASHBOARD, '/orders'),
-  wishlist: path(ROOTS_DASHBOARD, '/wishlist'),
+  wishlist: path(ROOTS_DASHBOARD, '/foods'),
+  availableDates: path(ROOTS_DASHBOARD, '/available-dates'),
 };

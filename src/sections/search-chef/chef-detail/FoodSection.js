@@ -1,54 +1,30 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
 // @mui
 import {
-  Autocomplete,
   Typography,
   Grid,
-  TextField,
-  Box,
-  Backdrop,
-  IconButton,
   Stack,
-  CircularProgress,
 } from '@mui/material';
 // components
 import Container from '../../../components/Container';
 import Pagination from '../../../components/Pagination';
 // sections
-import MenuSearchForm from './MenuSearchForm';
-import MenuCategoryForm from './MenuCategoryForm';
-import MenuAllerogyForm from './MenuAllerogyForm';
-import DropHiddenButton from '../../../components/DropHiddenButton';
 import CartDialog from './CartDialog';
 import { useDispatch, useSelector } from '../../../redux/store';
 import {
-  addFoodCart,
-  clearCart,
-  getFoodsByChef,
-  setError,
   setScheduleDate,
   setScheduleTime,
   updateFoodCart,
 } from '../../../redux/slices/food';
-import { getMockTypeData } from '../../../utils/functions';
 import FoodCartCard from 'src/components/FoodCartCard';
-import Iconify from 'src/components/Iconify';
-import MotionContainer from 'src/components/animate/MotionContainer';
-import { AnimatePresence } from 'framer-motion';
 import useResponsive from 'src/hooks/useResponsive';
-import { CITYCUISINE_SELECTOR } from 'src/redux/slices/city';
 import { FOOD_SELECTOR } from 'src/redux/slices/food';
 import NewCartDialog from './NewCartDialog';
-import { useRouter } from 'next/router';
-import useAuth from 'src/hooks/useAuth';
-import { PATH_AUTH } from 'src/routes/paths';
 import Image from 'src/components/Image';
 import LoadingScreen from 'src/components/LoadingScreen';
 
 // --------------------------------------------
-
-const sort_type = [{ name: 'sort by Popularity' }, { name: 'sort by New' }, { name: 'sort by Oldest' }];
 
 const RootStyle = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -91,33 +67,23 @@ const RootStyle = styled('div')(({ theme }) => ({
   },
 }));
 
-const SideBarStyle = styled(Box)(() => ({
-  '& *': {
-    transition: '500ms !important',
-  },
-}));
-
 // --------------------------------------------
 
 export default function FoodSection({
   selectedDate,
   selectedTime,
   foodsArray,
+  filteredFoodsArray,
   searchIsLoading,
   currentPage,
   setCurrentPage,
 }) {
-  const router = useRouter();
-
-  const { cityId, cuisineId, chefId } = router.query;
-
-  const { isAuthenticated } = useAuth();
 
   const { checkout } = useSelector(FOOD_SELECTOR);
 
   const { cart } = checkout;
 
-  const [isHiddenCategory, setIsHiddenCategory] = useState(false);
+  const [isHiddenCategory] = useState(false);
 
   const isDesktop = useResponsive('up', 'md');
 
@@ -199,46 +165,6 @@ export default function FoodSection({
           overflow="hidden"
           width={1}
         >
-          {/* {!selectedDate && <Backdrop open={true} className="overlay" />} */}
-          {/* <MotionContainer
-            {...(isDesktop && {
-              action: true,
-              animate: isHiddenCategory,
-              variants: {
-                initial: { x: 0 },
-                animate: { x: -355 },
-                exit: { x: 0 },
-              },
-              sx: { minWidth: 350, position: 'relative' },
-            })}
-          >
-            {isDesktop && (
-              <IconButton
-                sx={{
-                  position: 'absolute',
-                  zIndex: 5,
-                  right: isHiddenCategory ? -55 : 0,
-                }}
-                onClick={handleClickHideButton}
-              >
-                <Iconify
-                  icon={
-                    isHiddenCategory
-                      ? 'material-symbols:keyboard-double-arrow-right'
-                      : 'material-symbols:keyboard-double-arrow-left'
-                  }
-                  sx={{ width: '30px', height: '30px' }}
-                />
-              </IconButton>
-            )}
-            <Box position={'relative'} pt={1}>
-              <MenuSearchForm />
-            </Box>
-
-            <MenuCategoryForm />
-            <MenuAllerogyForm />
-          </MotionContainer> */}
-
           <Stack
             {...(isDesktop && {
               sx: {
@@ -248,45 +174,12 @@ export default function FoodSection({
               },
             })}
           >
-            {/* {!selectedDate && (
-              <Typography
-                variant="h3"
-                sx={{ position: 'absolute', left: '40%', top: '50%', zIndex: 5, fontWeight: '500' }}
-              >
-                Choose date first
-              </Typography>
-            )} */}
-            {/* <Grid container sx={{ marginTop: '-20px', marginBottom: '20px' }}>
-              <Grid item md={8} sm={4} />
-              <Grid item md={4} sm={12} xs={12}>
-                <Autocomplete
-                  fullWidth
-                  disablePortal
-                  autoHighlight
-                  options={sort_type}
-                  getOptionLabel={(option) => option.name}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      variant="filled"
-                      label="Choose a short"
-                      size="small"
-                      inputProps={{
-                        ...params.inputProps,
-                        autoComplete: 'new-password',
-                      }}
-                    />
-                  )}
-                  sx={{ mt: 3 }}
-                />
-              </Grid>
-            </Grid> */}
             <Grid container spacing={3}>
               {searchIsLoading ? (
                 <Stack position={'relative'} my={20} sx={{ width: '100%' }}>
                   <LoadingScreen />
                 </Stack>
-              ) : foodsArray?.length === 0 ? (
+              ) : filteredFoodsArray?.length === 0 ? (
                 <Stack
                   width={'100%'}
                   textAlign={'center'}
@@ -296,6 +189,7 @@ export default function FoodSection({
                   padding={6}
                 >
                   <Image
+                    alt="oops"
                     src="/assets/search-chef/oops.png"
                     width={300}
                     sx={{ position: 'absolute', right: { lg: 200, md: 100, xs: 0 }, bottom: 0, zIndex: 0 }}
@@ -306,7 +200,7 @@ export default function FoodSection({
                   </Stack>
                 </Stack>
               ) : (
-                foodsArray?.slice((currentPage - 1) * 12, currentPage * 12).map((item) => (
+                filteredFoodsArray?.slice((currentPage - 1) * 12, currentPage * 12).map((item) => (
                   <Grid key={item?.id} item lg={4} md={6} sm={6} xs={12} width={1}>
                     <FoodCartCard
                       data={item}
@@ -327,8 +221,8 @@ export default function FoodSection({
                 ))
               )}
             </Grid>
-            {foodsArray?.length > 12 && (
-              <Pagination count={Math.ceil(foodsArray?.length / 12)} setCurrentPage={setCurrentPage} />
+            {filteredFoodsArray?.length > 12 && (
+              <Pagination count={Math.ceil(filteredFoodsArray?.length / 12)} setCurrentPage={setCurrentPage} />
             )}
           </Stack>
         </Stack>

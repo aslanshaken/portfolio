@@ -1,31 +1,25 @@
 import styled from '@emotion/styled';
 import {
   Box,
-  Link,
-  colors,
   Grid,
   InputAdornment,
   Stack,
   TextField,
   Typography,
-  CircularProgress,
   Backdrop,
   Button,
   Divider,
+  Card,
 } from '@mui/material';
 import Container from '../../components/Container';
 import Iconify from '../../components/Iconify';
-import Avatar from '../../components/Avatar';
 import NextLink from 'next/link';
 import { PATH_PAGE } from '../../routes/paths';
 import { useRouter } from 'next/router';
-import FoodCarousel from './choose-chef/FoodCarousel';
 import Pagination from '../../components/Pagination';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
-import { dispatch, useDispatch, useSelector } from 'src/redux/store';
-import { CITYCUISINE_SELECTOR, getChefs } from 'src/redux/slices/city';
-import useAuth from 'src/hooks/useAuth';
+import { dispatch, useSelector } from 'src/redux/store';
+import { CITYCUISINE_SELECTOR } from 'src/redux/slices/city';
 import Image from 'src/components/Image';
 import LoadingScreen from 'src/components/LoadingScreen';
 import { HEADER } from 'src/config';
@@ -77,10 +71,6 @@ const RootStyle = styled('div')(({ theme }) => ({
   },
 }));
 
-const VisitChefLinkStyle = styled(Link)(() => ({
-  cursor: 'pointer',
-}));
-
 // --------------------------------------------
 
 export default function ChooseChef() {
@@ -116,30 +106,17 @@ export default function ChooseChef() {
     }
   };
 
-  const filterChefsByDeliveryAvailable = () => {
-    const filteredArray = chefs.filter((item) => item.chef.delivery_available);
-    setChefsArray(filteredArray);
-  };
-
   const filterChefsByHalal = () => {
     searchLoading();
+    setSearchKey('');
     const filteredArray = chefs.filter((item) => item.chef.halal);
     setChefsArray(filteredArray);
   };
 
   const filterChefsByCatering = () => {
     searchLoading();
+    setSearchKey('');
     const filteredArray = chefs.filter((item) => item.chef.catering);
-    setChefsArray(filteredArray);
-  };
-
-  const filterChefsByFrozen = () => {
-    const filteredArray = chefs.filter((item) => item.chef.delivery_available);
-    setChefsArray(filteredArray);
-  };
-
-  const filterChefsByCakes = () => {
-    const filteredArray = chefs.filter((item) => item.chef.delivery_available);
     setChefsArray(filteredArray);
   };
 
@@ -191,74 +168,96 @@ export default function ChooseChef() {
           <Stack my={4}>
             <Stack>
               <TextField
-                onChange={(e) => setSearchKey(e.target.value)}
+                onChange={(e) => {
+                  setSearchKey(e.target.value);
+                  setStatus(false);
+                }}
                 size="large"
                 fullWidth
                 value={searchKey}
-                placeholder="Search for a meal, cuisine or country"
+                placeholder="Search for a meal, cuisine"
                 hiddenLabel
                 variant="filled"
                 sx={{ padding: 1 }}
                 onKeyDown={handleKeyDown}
                 InputProps={{
-                  ...(isDesktop ? { style: { fontSize: '16px' } } : { style: { fontSize: '11px' } }),
                   startAdornment: (
                     <InputAdornment position="start">
                       <Iconify icon={'mingcute:search-line'} className="defaultIconSize" />
                     </InputAdornment>
                   ),
-                  endAdornment: (
-                    <Button
-                      onClick={() => {
-                        onSubmit();
-                      }}
-                      sx={{ width: 100 }}
-                      size="medium"
-                      color="secondary"
-                      variant={status ? 'outlined' : 'contained'}
-                    >
-                      {status ? 'Clear' : 'Search'}
-                    </Button>
-                  ),
+                  ...(isDesktop && {
+                    endAdornment: (
+                      <Button
+                        onClick={() => {
+                          onSubmit();
+                        }}
+                        sx={{ width: 100 }}
+                        size="medium"
+                        color="secondary"
+                        variant={status ? 'outlined' : 'contained'}
+                      >
+                        {status ? 'Clear' : 'Search'}
+                      </Button>
+                    ),
+                  }),
                 }}
               />
 
               <Typography color={'error'}>{warnningMsg}</Typography>
 
-              <Box marginTop={2} whiteSpace={'nowrap'} sx={{ overflowX: 'auto' }}>
-                <Button
-                  sx={{ textTransform: 'none' }}
-                  color="secondary"
+              <Stack
+                direction={'row'}
+                alignItems={'end'}
+                gap={3}
+                marginTop={2}
+                whiteSpace={'nowrap'}
+                sx={{ overflowX: 'auto' }}
+              >
+                <Stack
+                  alignItems={'center'}
                   onClick={() => dispatch(openDialog('choose_city_dialog'))}
+                  sx={{ cursor: 'pointer' }}
                 >
-                  Select a different city
-                </Button>
-                <Button
-                  color="secondary"
+                  <Image alt="another-city" width="50px" src="../../../../assets/chefs/another-city.png" />
+                  <Typography variant="subtitle1" color="secondary">
+                    Another City
+                  </Typography>
+                </Stack>
+                <Stack
+                  gap={1}
+                  alignItems={'center'}
                   onClick={() => {
                     searchLoading();
-                    setSearchKey('');
-                    searchChefs('');
+                    setSearchKey('EurAsian');
+                    searchChefs('eurasian');
                   }}
+                  sx={{ cursor: 'pointer' }}
                 >
-                  All Chefs
-                </Button>
-                {/* <Button onClick={filterChefsByDeliveryAvailable} color="secondary">
-                  Delivery today
-                </Button> */}
-                <Button onClick={filterChefsByHalal} color="secondary">
-                  Halal
-                </Button>
-                <Button onClick={filterChefsByCatering} color="secondary">
-                  Catering
-                </Button>
-                {/* <Button onClick={filterChefsByFrozen} color="secondary">
-                  Frozen Meals
-                </Button>
-                <Button onClick={filterChefsByCakes} color="secondary">
-                  Cakes
-                </Button> */}
-              </Box>
+                  <Image alt="eurasian" width="50px" src="../../../../assets/chefs/eurasian.png" />
+                  <Typography variant="subtitle1" color="secondary">
+                    EurAsian
+                  </Typography>
+                </Stack>
+                <Stack alignItems={'center'} onClick={() => {}} sx={{ cursor: 'pointer' }}>
+                  <Image alt="eurasian" width="50px" src="../../../../assets/chefs/cakes.png" />
+                  <Typography variant="subtitle1" color="secondary">
+                    Cakes
+                  </Typography>
+                </Stack>
+                <Stack alignItems={'center'} onClick={filterChefsByHalal} sx={{ cursor: 'pointer' }}>
+                  <Image alt="eurasian" width="50px" src="../../../../assets/chefs/halal.png" />
+                  <Typography variant="subtitle1" color="secondary">
+                    Halal
+                  </Typography>
+                </Stack>
+                <Stack gap={1} alignItems={'center'} onClick={filterChefsByCatering} sx={{ cursor: 'pointer' }}>
+                  <Image alt="eurasian" width="50px" src="../../../../assets/chefs/catering.png" />
+                  <Typography variant="subtitle1" color="secondary">
+                    Catering
+                  </Typography>
+                </Stack>
+              </Stack>
 
               <Divider sx={{ marginTop: 2 }} />
 
@@ -271,6 +270,7 @@ export default function ChooseChef() {
                 marginBottom={6}
               >
                 <Image
+                  alt="teexture"
                   src={'/assets/search-chef/Texture.png'}
                   sx={{ position: 'absolute', width: '100%', height: '100%', top: -2 }}
                 />
@@ -280,39 +280,11 @@ export default function ChooseChef() {
               </Stack>
               {city && (
                 <Typography variant="h3" color={'black'} marginTop={4}>
-                  Chefs in {city?.name}
+                  {city?.name}
                   {city?.state && `, ${city?.state}`}
                 </Typography>
               )}
             </Stack>
-            {/* <Box
-              display={'flex'}
-              position={'relative'}
-              zIndex={10}
-              justifyContent={'space-between'}
-              gap={2}
-              px={{md:8}}
-              overflow={'auto'}
-              mt={3}
-              pb={1}
-            >
-              {categories.map((item) => (
-                <Button
-                  key={item.id}
-                  variant={'outlined'}
-                  sx={(theme) => ({
-                    whiteSpace: 'nowrap',
-                    minWidth: 'fit-content',
-                    border: item.id === selectedDate && 'none',
-                    background: item.id === selectedDate ? '#595959' : 'white',
-                    color: item.id === selectedDate ? theme.palette.GradientText : '#31342B',
-                  })}
-                  onClick={() => setSelectedDate(item.id)}
-                >
-                  {item.label}
-                </Button>
-              ))}
-            </Box> */}
           </Stack>
           {searchIsLoading ? (
             <Stack position={'relative'} my={30}>
@@ -331,9 +303,10 @@ export default function ChooseChef() {
               </Stack>
             </Stack>
           ) : (
-            chefsArray?.slice((currentPage - 1) * 10, currentPage * 10).map((item, _i) => (
-              <Box key={'chef-link' + _i} position={'relative'}>
+            <Grid container spacing={4}>
+              {chefsArray?.slice((currentPage - 1) * 12, currentPage * 12).map((item, _i) => (
                 <NextLink
+                  key={'chef-link' + _i}
                   href={
                     item?.chef?.can_sell
                       ? PATH_PAGE.searchChef.cities({ cityId, cuisineId, chefId: item?.chef?.id })
@@ -341,142 +314,61 @@ export default function ChooseChef() {
                   }
                   passHref
                 >
-                  <Box
-                    mb={4}
-                    sx={{
-                      border: '1px solid',
-                      borderColor: colors.grey[300],
-                      borderRadius: 1,
-                      cursor: 'pointer',
-                    }}
-                  >
-                    <Box
-                      container
-                      display={'flex'}
-                      flexWrap={'wrap'}
-                      gap={{ xs: 1.5, sm: 4 }}
-                      px={{ sm: 4, xs: 1 }}
-                      py={2}
-                      sx={{
-                        borderBottom: '1px solid',
-                        borderColor: colors.grey[300],
-                      }}
-                    >
-                      {item?.chef?.time_to_cook && (
-                        <Stack direction={'row'} gap={0.7}>
-                          <Typography>Ready in: </Typography>
-                          <Typography variant="subtitle1">
-                            {item?.chef?.time_to_cook}
-                            {item?.chef?.time_to_cook == 1 ? 'hr' : 'hrs'}
-                          </Typography>
-                        </Stack>
-                      )}
-                      {item?.chef?.delivery_available && item?.chef?.delivery_fee > 1 ? (
-                        <Stack direction={'row'} gap={0.7}>
-                          <Typography>Delivery: </Typography>
-                          <Typography variant="subtitle1" display={'flex'} flexWrap={'nowrap'}>
-                            ${item?.chef?.delivery_fee ?? 4.99}
-                          </Typography>
-                        </Stack>
-                      ) : (
-                        <Typography variant="subtitle1" display={'flex'} flexWrap={'nowrap'}>
-                          Pick up Only
+                  <Grid item xs={12} sm={6} lg={4}>
+                    <Stack position={'relative'}>
+                      <Card sx={{ borderRadius: 4, border: '0.5px solid #e1e1e1' }}>
+                        <Image
+                          objectFit="contain"
+                          alt="Travis Howard"
+                          src={item?.chef?.image_url}
+                          sx={{ width: '100%', height: 180 }}
+                        />
+                      </Card>
+                      <Stack
+                        px={1}
+                        direction={'row'}
+                        marginTop={2}
+                        justifyContent={'space-between'}
+                        alignItems={'center'}
+                      >
+                        <Typography variant="h6" mr={3}>
+                          {item?.chef?.company_name}
                         </Typography>
-                      )}
-                      <Box>
-                        <Typography display={'flex'} flexWrap={'nowrap'} gap={1} variant="subtitle1">
-                          <Iconify
-                            icon={'material-symbols:star'}
-                            sx={{ width: 21, height: 21, color: 'primary.main' }}
-                          />{' '}
+                        <Typography
+                          variant="subtitle1"
+                          sx={{ borderRadius: 10, background: 'lightGray', py: 0.5, px: 1.5 }}
+                        >
                           {item?.chef?.rating}
                         </Typography>
-                      </Box>
-                      {/* <Stack direction={'row'} gap={0.7}>
-                        <Typography>Orders: </Typography>
-                        <Typography variant="subtitle1" display={'flex'} flexWrap={'nowrap'}>
-                          {item?.chef?.orders}
-                        </Typography>
-                      </Stack> */}
-                    </Box>
-                    <Grid container spacing={{ xs: 5, md: 2 }} py={2}>
-                      <Grid item xs={12} lg={4} ml={1}>
-                        <Box display={'flex'} gap={2} alignItems={'center'} px={2} height={'100%'}>
-                          <Box position="relative">
-                            <Image
-                              alt="Travis Howard"
-                              src={item?.chef?.image_url}
-                              sx={{ borderRadius: '50%', width: { lg: 180, xs: 150 }, height: { lg: 180, xs: 150 } }}
-                            />
-                            <Iconify
-                              icon={'material-symbols:verified'}
-                              sx={{
-                                width: 25,
-                                height: 25,
-                                color: '#0ED3CF',
-                                position: 'absolute',
-                                top: 10,
-                                right: 10,
-                              }}
-                            />
-                          </Box>
-                          <Stack spacing={2}>
-                            <Typography variant="subtitle1" mr={3}>
-                              {item?.chef?.company_name}
-                            </Typography>
-                            <Typography variant="caption">
-                              by {item?.chef?.first_name} {item?.chef?.last_name}
-                            </Typography>
-                            {item?.chef?.status && (
-                              <Typography color={'primary'} variant="subtitle1">
-                                {item?.chef?.status}
-                              </Typography>
-                            )}
-                            {/* <Box display={{ xs: 'block', lg: 'none' }}>
-                        <VisitChef />
-                      </Box> */}
-                          </Stack>
-                        </Box>
-                      </Grid>
-                      <Grid item xs={12} lg={8} py={2} alignItems={'center'} height={'100%'} ml={{ lg: -4 }}>
-                        {item?.foods?.length > 0 && <FoodCarousel foods={item?.foods} />}
-                      </Grid>
-                    </Grid>
-                  </Box>
+                      </Stack>
+                      <Stack px={1} direction={'row'}>
+                        {item?.chef?.delivery_available && item?.chef?.delivery_fee > 1
+                          ? `Delivery:  $${Math.floor((item?.chef?.delivery_fee ?? 4.9) * 10) / 10}`
+                          : `Pick up Only`}
+                        {item?.chef?.time_to_cook &&
+                          ` * Schedule 
+                          ${item?.chef?.time_to_cook}
+                          ${item?.chef?.time_to_cook == 1 ? 'hr' : 'hrs'}
+                          ahead`}
+                      </Stack>
+                      {!item?.chef?.can_sell && (
+                        <Backdrop position={'absolute'} open={true} className="overlay">
+                          <Typography variant="h3" sx={{ color: '#333' }}>
+                            Comming Soon
+                          </Typography>
+                        </Backdrop>
+                      )}
+                    </Stack>
+                  </Grid>
                 </NextLink>
-                {!item?.chef?.can_sell && (
-                  <Backdrop position={'absolute'} open={true} className="overlay">
-                    <Typography variant="h3" sx={{ color: '#333' }}>
-                      Comming Soon
-                    </Typography>
-                  </Backdrop>
-                )}
-              </Box>
-            ))
+              ))}
+            </Grid>
           )}
         </Box>
-        {chefsArray?.length > 10 && (
-          <Pagination count={Math.ceil(chefs?.length / 10)} setCurrentPage={setCurrentPage} />
+        {chefsArray?.length > 12 && (
+          <Pagination count={Math.ceil(chefs?.length / 12)} setCurrentPage={setCurrentPage} />
         )}
       </Container>
     </RootStyle>
-  );
-}
-
-// -------------------------------------------------
-
-function VisitChef() {
-  return (
-    <VisitChefLinkStyle underline="none">
-      <Stack direction="row" spacing={1}>
-        <Typography variant="subtitle2" color={'secondary'} whiteSpace={'nowrap'}>
-          Visit Chef
-        </Typography>
-        <Iconify
-          icon={'material-symbols:arrow-right-alt-rounded'}
-          sx={{ width: 21, height: 21, color: 'primary.main' }}
-        />
-      </Stack>
-    </VisitChefLinkStyle>
   );
 }

@@ -27,11 +27,16 @@ const navConfig = [
         path: PATH_DASHBOARD.orders,
         icon: <Iconify icon={'fluent-mdl2:activate-orders'} />,
       },
-      // {
-      //   title: 'Wishlist',
-      //   path: PATH_DASHBOARD.wishlist,
-      //   icon: <Iconify icon={'mdi:cards-heart-outline'} />,
-      // },
+      {
+        title: 'Foods',
+        path: PATH_DASHBOARD.wishlist,
+        icon: <Iconify icon={'emojione-monotone:pot-of-food'} />,
+      },
+      {
+        title: 'Available dates',
+        path: PATH_DASHBOARD.availableDates,
+        icon: <Iconify icon={'mdi:calendar'} />,
+      },
     ],
   },
 ];

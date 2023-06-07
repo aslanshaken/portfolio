@@ -1,9 +1,6 @@
 import PropTypes from 'prop-types';
-import { Avatar, Box, Button, Card, CardContent, Stack, Typography } from '@mui/material';
-import { IconButtonAnimate } from './animate';
-import GradientText from './GradientText';
+import { Avatar, Box, Card, CardContent, Stack, Typography } from '@mui/material';
 import Image from './Image';
-import Iconify from './Iconify';
 import CountBox from './countBox';
 import styled from '@emotion/styled';
 
@@ -34,20 +31,6 @@ const FoodCard = styled('div')(() => ({
     opacity: 0,
     transition: '.3s ease',
   },
-
-  '.food-image-wrapper:hover .food-backdrop': {
-    top: 0,
-    height: '100%',
-    opacity: 1,
-  },
-
-  '.food-image-wrapper:hover .food-view-button': {
-    display: 'block',
-  },
-
-  '.food-view-button': {
-    display: 'none',
-  },
 }));
 
 export default function FoodCartCard(props) {
@@ -61,7 +44,6 @@ export default function FoodCartCard(props) {
     price,
     measurement,
     onClick = () => {},
-    onClickPlus = () => {},
     selectedDate,
     selectedTime,
     setIsOpenNewCartDlg = () => {},
@@ -87,78 +69,47 @@ export default function FoodCartCard(props) {
             <Typography color={'text.secondary'}>{chefname}</Typography>
           </Stack>
         )}
-        <Box
-          className="food-image-wrapper"
-          sx={{
-            mt: !chefname && '1rem',
-            margin: 'auto',
-            width: '100%',
-            height: '300px',
-            position: 'relative',
-            // clipPath: 'circle(80px at center)',
-          }}
-        >
-          <Image alt={name} src={cover} sx={{ position: 'absolute', width: '100%', height: '100%', top: 0 }} />
-          <Stack className="food-backdrop" alignItems={'center'} justifyContent={'center'}>
-            <Button onClick={onClick} variant="outlined" className="food-view-button">
-              View food
-            </Button>
-          </Stack>
-        </Box>
-        <CardContent>
-          <Stack
-            direction="row"
-            gap={1}
-            justifyContent={'space-between'}
-            alignItems={'center'}
-            sx={{ paddingTop: '2rem', paddingBottom: '1rem', paddingRight: '1rem', paddingLeft: '1rem' }}
-          >
-            <Box>
-              <Typography
-                variant="h5"
-                color={'text.primary'}
-                fontWeight="bold"
-                sx={{
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  display: '-webkit-box',
-                  WebkitLineClamp: 1,
-                  WebkitBoxOrient: 'vertical',
-                }}
-              >
-                {name}
+        <Image
+          onClick={onClick}
+          alt={name}
+          src={cover}
+          sx={{ width: '100%', cursor: 'pointer', height: 300, top: 0 }}
+        />
+        <Stack py={2} px={1} direction="row" gap={1} justifyContent={'space-between'} alignItems={'center'}>
+          <Box>
+            <Typography
+              variant="h6"
+              color={'text.primary'}
+              fontWeight="bold"
+              sx={{
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                display: '-webkit-box',
+                WebkitLineClamp: 1,
+                WebkitBoxOrient: 'vertical',
+              }}
+            >
+              {name}
+            </Typography>
+            <Typography color={'gray'} variant="h7" fontWeight={600}>
+              {`$${price} / ${quantity} ${measurement || ''}`}
+            </Typography>
+            <Box sx={{ height: 10 }}>
+              <Typography variant="caption" color="text.secondary">
+                {min_order > 1 && `min orders ${`${min_order} ${measurement || ''}`}`}
               </Typography>
-              <Typography
-                sx={{
-                  background: `linear-gradient(to right, #56420D, #CFAA4C)`,
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                }}
-                variant="h6"
-                fontWeight={600}
-              >
-                {`$${price} / ${quantity} ${measurement || ''}`}
-              </Typography>
-              <Box sx={{ height: 10 }}>
-                <Typography variant="caption" color="text.secondary">
-                  {min_order > 1 && `min orders ${`${min_order} ${measurement || ''}`}`}
-                </Typography>
-              </Box>
             </Box>
-            <Box>
-              {/* <IconButtonAnimate sx={{ p: 0, width: 33, height: 33 }} onClick={onClickPlus}>
-              <Iconify icon={'ic:outline-plus'} sx={{ width: 33, height: 33, color: 'text.secondary' }} />
-            </IconButtonAnimate> */}
-              <CountBox
-                selectedDate={selectedDate}
-                selectedTime={selectedTime}
-                setIsOpenNewCartDlg={setIsOpenNewCartDlg}
-                setSelectedItemData={setSelectedItemData}
-                data={data}
-              />
-            </Box>
-          </Stack>
-        </CardContent>
+          </Box>
+          <Box>
+            <CountBox
+              selectedDate={selectedDate}
+              selectedTime={selectedTime}
+              setIsOpenNewCartDlg={setIsOpenNewCartDlg}
+              setSelectedItemData={setSelectedItemData}
+              data={data}
+            />
+          </Box>
+        </Stack>
       </Card>
     </FoodCard>
   );

@@ -97,21 +97,21 @@ export default function OrderTableRow({ row, selected, headLabel, onEditRow, onS
   ) : (
     <NextLink href={PATH_PAGE.orderConfirm.orders({ orderId })} passHref>
       <Link>
-        <Card sx={{ my: 1, px: 6, py: 2 }}>
+        <Card sx={{ my: 4, px: 6, py: 2 }}>
           <Stack direction={'row'} gap={2} justifyContent={'space-between'}>
-            <Typography variant="subtitle1" color="grey">
+            <Typography variant="subtitle1" fontWeight={400} color="grey">
               Order Number :
             </Typography>
             <Typography>#{order_num}</Typography>
           </Stack>
           <Stack direction={'row'} gap={2} justifyContent={'space-between'}>
-            <Typography variant="subtitle1" color="grey">
+            <Typography variant="subtitle1" fontWeight={400} color="grey">
               Order Date :
             </Typography>
             <Typography>{order_date}</Typography>
           </Stack>
           <Stack direction={'row'} gap={2} justifyContent={'space-between'}>
-            <Typography variant="subtitle1" color="grey">
+            <Typography variant="subtitle1" fontWeight={400} color="grey">
               Chef :
             </Typography>
             <Typography>
@@ -119,13 +119,13 @@ export default function OrderTableRow({ row, selected, headLabel, onEditRow, onS
             </Typography>
           </Stack>
           <Stack direction={'row'} gap={2} justifyContent={'space-between'}>
-            <Typography variant="subtitle1" color="grey">
+            <Typography variant="subtitle1" fontWeight={400} color="grey">
               Price :
             </Typography>
             <Typography>${order_total}</Typography>
           </Stack>
           <Stack direction={'row'} gap={2} justifyContent={'space-between'}>
-            <Typography variant="subtitle1" color="grey">
+            <Typography variant="subtitle1" fontWeight={400} color="grey">
               Status :
             </Typography>
             {status && (
