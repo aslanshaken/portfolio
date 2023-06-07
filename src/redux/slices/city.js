@@ -143,7 +143,7 @@ export function getChefs(cityId = null, cuisineId = null, chefId = null) {
     try {
       const response = await axios.get(`/api/${process.env.API_VERSION}/cities/${cityId}/cuisines/${cuisineId}`);
       let data = response.data.data;
-
+      data.sort((a, b) => b.chef.total_orders - a.chef.total_orders);
       data.sort((a, b) => (a.chef.can_sell === b.chef.can_sell ? 0 : a.chef.can_sell ? -1 : 1));
 
       dispatch(slice.actions.getChefsSuccess(data));
