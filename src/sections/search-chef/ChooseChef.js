@@ -318,7 +318,7 @@ export default function ChooseChef() {
                     <Stack position={'relative'}>
                       <Card sx={{ borderRadius: 4, border: '0.5px solid #e1e1e1' }}>
                         <Image
-                          objectFit="contain"
+                          objectFit="cover"
                           alt="Travis Howard"
                           src={item?.chef?.bg_image_url}
                           sx={{ width: '100%', height: 180 }}
