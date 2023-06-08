@@ -59,7 +59,7 @@ export default function ContactUsForm() {
           padding: 5,
         }}
       >
-        <Typography variant="h6" fontWeight={500}>
+        <Typography variant="h4" fontWeight={500}>
           Unlock the earning potential of your kitchen with our support
         </Typography>
 

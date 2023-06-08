@@ -82,7 +82,7 @@ export default function HomePage() {
           onClick={() => dispatch(openDialog('choose_city_dialog'))}
           sx={{ borderRadius: 10, px: 6 }}
         >
-          <Typography variant="h6">Find Home Chefs</Typography>
+          <Typography variant="h6">Find Local Cooks</Typography>
         </Button>
       </Box>
     </Page>

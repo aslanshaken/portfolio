@@ -219,9 +219,9 @@ export default function ChooseChef() {
                   onClick={() => dispatch(openDialog('choose_city_dialog'))}
                   sx={{ cursor: 'pointer' }}
                 >
-                  <Image alt="another-city" width="50px" src="../../../../assets/chefs/another-city.png" />
-                  <Typography variant="subtitle1" color="secondary">
-                    Another City
+                  <Image alt="another-city" width="30px" src="../../../../assets/chefs/another-city.png" />
+                  <Typography variant="subtitle3" color="secondary" fontSize="14px">
+                    Another city
                   </Typography>
                 </Stack>
                 <Stack
@@ -234,26 +234,26 @@ export default function ChooseChef() {
                   }}
                   sx={{ cursor: 'pointer' }}
                 >
-                  <Image alt="eurasian" width="50px" src="../../../../assets/chefs/eurasian.png" />
-                  <Typography variant="subtitle1" color="secondary">
+                  <Image alt="eurasian" width="30px" src="../../../../assets/chefs/eurasian.png" />
+                  <Typography variant="subtitle3" color="secondary" fontSize="14px">
                     EurAsian
                   </Typography>
                 </Stack>
                 <Stack alignItems={'center'} onClick={() => {}} sx={{ cursor: 'pointer' }}>
-                  <Image alt="eurasian" width="50px" src="../../../../assets/chefs/cakes.png" />
-                  <Typography variant="subtitle1" color="secondary">
+                  <Image alt="eurasian" width="30px" src="../../../../assets/chefs/cakes.png" />
+                  <Typography variant="subtitle3" color="secondary" fontSize="14px">
                     Cakes
                   </Typography>
                 </Stack>
                 <Stack alignItems={'center'} onClick={filterChefsByHalal} sx={{ cursor: 'pointer' }}>
-                  <Image alt="eurasian" width="50px" src="../../../../assets/chefs/halal.png" />
-                  <Typography variant="subtitle1" color="secondary">
+                  <Image alt="eurasian" width="30px" src="../../../../assets/chefs/halal.png" />
+                  <Typography variant="subtitle3" color="secondary" fontSize="14px">
                     Halal
                   </Typography>
                 </Stack>
                 <Stack gap={1} alignItems={'center'} onClick={filterChefsByCatering} sx={{ cursor: 'pointer' }}>
-                  <Image alt="eurasian" width="50px" src="../../../../assets/chefs/catering.png" />
-                  <Typography variant="subtitle1" color="secondary">
+                  <Image alt="eurasian" width="30px" src="../../../../assets/chefs/catering.png" />
+                  <Typography variant="subtitle3" color="secondary" fontSize="14px">
                     Catering
                   </Typography>
                 </Stack>
@@ -303,7 +303,7 @@ export default function ChooseChef() {
               </Stack>
             </Stack>
           ) : (
-            <Grid container spacing={4}>
+            <Grid container spacing={5}>
               {chefsArray?.slice((currentPage - 1) * 12, currentPage * 12).map((item, _i) => (
                 <NextLink
                   key={'chef-link' + _i}
@@ -320,30 +320,38 @@ export default function ChooseChef() {
                         <Image
                           objectFit="contain"
                           alt="Travis Howard"
-                          src={item?.chef?.image_url}
+                          src={item?.chef?.bg_image_url}
                           sx={{ width: '100%', height: 180 }}
                         />
+                        {!item?.chef?.can_sell && (
+                          <Backdrop position={'absolute'} open={true} className="overlay">
+                            <Typography variant="h4" sx={{ color: '#333' }}>
+                              Comming Soon
+                            </Typography>
+                          </Backdrop>
+                        )}
                       </Card>
                       <Stack
                         px={1}
                         direction={'row'}
-                        marginTop={2}
+                        marginTop={1}
                         justifyContent={'space-between'}
                         alignItems={'center'}
                       >
-                        <Typography variant="h6" mr={3}>
+                        <Typography variant="h7" mr={3} fontWeight={500}>
                           {item?.chef?.company_name}
                         </Typography>
                         <Typography
-                          variant="subtitle1"
-                          sx={{ borderRadius: 10, background: 'lightGray', py: 0.5, px: 1.5 }}
+                          sx={{ borderRadius: 10, background: 'lightGray', py: 0.3, px: 0.5 }}
+                          fontSize="14px"
                         >
-                          {item?.chef?.rating}
+                          {/* {item?.chef?.rating} */}
+                          4.9
                         </Typography>
                       </Stack>
-                      <Stack px={1} direction={'row'}>
+                      <Stack px={1} direction={'row'} fontSize={'14px'}>
                         {item?.chef?.delivery_available && item?.chef?.delivery_fee > 1
-                          ? `Delivery:  $${Math.floor((item?.chef?.delivery_fee ?? 4.9) * 10) / 10}`
+                          ? `$${Math.floor((item?.chef?.delivery_fee ?? 4.99) * 10) / 10} Delivery`
                           : `Pick up Only`}
                         {item?.chef?.time_to_cook &&
                           ` * Schedule 
@@ -351,13 +359,6 @@ export default function ChooseChef() {
                           ${item?.chef?.time_to_cook == 1 ? 'hr' : 'hrs'}
                           ahead`}
                       </Stack>
-                      {!item?.chef?.can_sell && (
-                        <Backdrop position={'absolute'} open={true} className="overlay">
-                          <Typography variant="h3" sx={{ color: '#333' }}>
-                            Comming Soon
-                          </Typography>
-                        </Backdrop>
-                      )}
                     </Stack>
                   </Grid>
                 </NextLink>
