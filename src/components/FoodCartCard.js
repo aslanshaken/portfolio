@@ -73,14 +73,14 @@ export default function FoodCartCard(props) {
           onClick={onClick}
           alt={name}
           src={cover}
-          sx={{ width: '100%', cursor: 'pointer', height: 300, top: 0 }}
+          sx={{ width: '100%', cursor: 'pointer', height: 150, top: 0 }}
         />
         <Stack py={2} px={1} direction="row" gap={1} justifyContent={'space-between'} alignItems={'center'}>
           <Box>
             <Typography
-              variant="h6"
+              variant="h7"
               color={'text.primary'}
-              fontWeight="bold"
+              fontWeight="600"
               sx={{
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
@@ -91,12 +91,12 @@ export default function FoodCartCard(props) {
             >
               {name}
             </Typography>
-            <Typography color={'gray'} variant="h7" fontWeight={600}>
+            <Typography color={'gray'} fontWeight={400}>
               {`$${price} / ${quantity} ${measurement || ''}`}
             </Typography>
             <Box sx={{ height: 10 }}>
               <Typography variant="caption" color="text.secondary">
-                {min_order > 1 && `min orders ${`${min_order} ${measurement || ''}`}`}
+                {min_order > 1 && `min order ${`${min_order} ${measurement || ''}`}s`}
               </Typography>
             </Box>
           </Box>

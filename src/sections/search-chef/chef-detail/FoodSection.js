@@ -1,22 +1,14 @@
 import { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
 // @mui
-import {
-  Typography,
-  Grid,
-  Stack,
-} from '@mui/material';
+import { Typography, Grid, Stack } from '@mui/material';
 // components
 import Container from '../../../components/Container';
 import Pagination from '../../../components/Pagination';
 // sections
 import CartDialog from './CartDialog';
 import { useDispatch, useSelector } from '../../../redux/store';
-import {
-  setScheduleDate,
-  setScheduleTime,
-  updateFoodCart,
-} from '../../../redux/slices/food';
+import { setScheduleDate, setScheduleTime, updateFoodCart } from '../../../redux/slices/food';
 import FoodCartCard from 'src/components/FoodCartCard';
 import useResponsive from 'src/hooks/useResponsive';
 import { FOOD_SELECTOR } from 'src/redux/slices/food';
@@ -78,7 +70,6 @@ export default function FoodSection({
   currentPage,
   setCurrentPage,
 }) {
-
   const { checkout } = useSelector(FOOD_SELECTOR);
 
   const { cart } = checkout;

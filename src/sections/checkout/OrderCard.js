@@ -50,6 +50,7 @@ export default function OrderCard({ isPickup }) {
   const [disabled, setDisabled] = useState(true);
   const [promocode, setPromocode] = useState();
   const { changeAddress } = useAuth();
+  const [warnningMsg, setWarnningMsg] = useState();
 
   const { user } = useAuth();
 
@@ -219,10 +220,16 @@ export default function OrderCard({ isPickup }) {
               variant={'filled'}
               size={'small'}
               onChange={(e) => {
-                setTips(e.target.value);
+                if (e.target.value.length > 3) {
+                  setWarnningMsg('Max 3 characters allowed');
+                  e.target.value = '';
+                } else {
+                  setWarnningMsg();
+                }
+                setTips(e.target.value.replace(/[^0-9]/g, ''));
               }}
             />
-            <TopBottomButtonStyle orientation={'vertical'} color={'inherit'}>
+            {/* <TopBottomButtonStyle orientation={'vertical'} color={'inherit'}>
               <Button onClick={() => setTips(parseFloat(tips) + 1)}>
                 <Iconify icon={'material-symbols:keyboard-arrow-up-rounded'} sx={{ height: 24 }} />
               </Button>
@@ -233,11 +240,11 @@ export default function OrderCard({ isPickup }) {
               >
                 <Iconify icon={'material-symbols:keyboard-arrow-down-rounded'} sx={{ height: 24 }} />
               </Button>
-            </TopBottomButtonStyle>
+            </TopBottomButtonStyle> */}
           </Stack>
         </>
       )}
-
+      <Typography color={'error'}>{warnningMsg}</Typography>
       <Box mt={5} />
 
       <Typography variant="subtitle1" gutterBottom>

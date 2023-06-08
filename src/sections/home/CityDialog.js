@@ -44,7 +44,7 @@ export default function CityDialog({ isOpen }) {
             >
               <Typography variant="h4" fontWeight={'500'} color={'secondary'}>
                 {item?.name}
-                {item?.state && `, ${item?.state}`}
+                {/* {item?.state && `, ${item?.state}`} */}
               </Typography>
             </Button>
           ))}
