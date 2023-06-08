@@ -52,10 +52,23 @@ export default function OrderPage() {
   const [sortItem, setSortItem] = useState();
 
   useEffect(() => {
-    const filteredOrders = allOrders
-      ?.filter((item) => item?.status == (!sortItem ? 'received' : sortItem) && item?.status !== 'initiated')
-      .sort((a, b) => parse(b.order_date, 'MM/dd/yyyy', new Date()) - parse(a.order_date, 'MM/dd/yyyy', new Date()));
-    setOrders(filteredOrders);
+    if(sortItem){
+      let arrayForSort = [...sort_by_type(allOrders)]
+      const filteredOrders = arrayForSort.sort((a, b) => {
+        if (a?.status === sortItem && b?.status !== sortItem) {
+          return -1;
+        } else if (a?.status !== sortItem && b?.status === sortItem) {
+          return 1;
+        } else {
+          return 0;
+        }
+      })
+      setOrders(filteredOrders);
+    }
+    else{
+      setOrders(sort_by_type(allOrders));
+      setCurrentPage(1)
+    }
   }, [allOrders, sortItem]);
 
   const isNotFound = !orders.length;
@@ -67,6 +80,18 @@ export default function OrderPage() {
     { name: 'delivered' },
     { name: 'working on' },
   ];
+
+  const sort_by_type = (orders) => {
+    var arrayForSort = [...orders];
+    const filteredOrders = arrayForSort.sort((a, b) => {
+      const statusA = a?.status;
+      const statusB = b?.status;
+      const indexA = sort_type.findIndex(item => item.name === statusA);
+      const indexB = sort_type.findIndex(item => item.name === statusB);
+      return indexA - indexB;
+    });
+    return filteredOrders
+  } 
 
   return loading ? (
     <LoadingScreen inner />
