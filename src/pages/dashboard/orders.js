@@ -54,7 +54,8 @@ export default function OrderPage() {
   useEffect(() => {
     if(sortItem){
       let arrayForSort = [...sort_by_type(allOrders)]
-      const filteredOrders = arrayForSort.sort((a, b) => {
+      const filteredOrders = arrayForSort
+      .sort((a, b) => {
         if (a?.status === sortItem && b?.status !== sortItem) {
           return -1;
         } else if (a?.status !== sortItem && b?.status === sortItem) {
@@ -75,7 +76,6 @@ export default function OrderPage() {
 
   const sort_type = [
     { name: 'received' },
-    { name: 'initiated' },
     { name: 'picked up' },
     { name: 'delivered' },
     { name: 'working on' },
@@ -83,7 +83,9 @@ export default function OrderPage() {
 
   const sort_by_type = (orders) => {
     var arrayForSort = [...orders];
-    const filteredOrders = arrayForSort.sort((a, b) => {
+    const filteredOrders = arrayForSort
+    .filter((item) => item?.status !== 'initiated')
+    .sort((a, b) => {
       const statusA = a?.status;
       const statusB = b?.status;
       const indexA = sort_type.findIndex(item => item.name === statusA);
