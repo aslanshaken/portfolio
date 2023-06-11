@@ -100,19 +100,19 @@ export default function OrderTableRow({ row, selected, headLabel, onEditRow, onS
         <Card sx={{ my: 4, px: 6, py: 2 }}>
           <Stack direction={'row'} gap={2} justifyContent={'space-between'}>
             <Typography variant="subtitle1" fontWeight={400} color="grey">
-              Order Number :
+              Number:
             </Typography>
-            <Typography>#{order_num}</Typography>
+            <Typography fontWeight={600}>#{order_num}</Typography>
           </Stack>
           <Stack direction={'row'} gap={2} justifyContent={'space-between'}>
             <Typography variant="subtitle1" fontWeight={400} color="grey">
-              Order Date :
+              Date:
             </Typography>
             <Typography>{order_date}</Typography>
           </Stack>
           <Stack direction={'row'} gap={2} justifyContent={'space-between'}>
             <Typography variant="subtitle1" fontWeight={400} color="grey">
-              Chef :
+              Chef:
             </Typography>
             <Typography>
               {chef?.first_name} {chef?.last_name}
@@ -120,13 +120,13 @@ export default function OrderTableRow({ row, selected, headLabel, onEditRow, onS
           </Stack>
           <Stack direction={'row'} gap={2} justifyContent={'space-between'}>
             <Typography variant="subtitle1" fontWeight={400} color="grey">
-              Price :
+              Price:
             </Typography>
             <Typography>${order_total}</Typography>
           </Stack>
           <Stack direction={'row'} gap={2} justifyContent={'space-between'}>
             <Typography variant="subtitle1" fontWeight={400} color="grey">
-              Status :
+              Status:
             </Typography>
             {status && (
               <Label variant={'ghost'} color={STATUS_COLOR[status]} sx={{ textTransform: 'capitalize' }}>

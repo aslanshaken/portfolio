@@ -128,12 +128,12 @@ export default function ConfirmInfo() {
                 </Label>
               </Stack>
             )}
-            <Stack spacing={1} textAlign={'center'} alignItems={'center'}>
-              <Typography variant="subtitle1">Status</Typography>
+            <Stack spacing={2} textAlign={'center'} alignItems={'center'}>
+              <Typography variant="subtitle1">Support</Typography>
               <IconButton
-                sx={(theme) => ({ background: theme.palette.gradients.primary, width: 40, height: 40 })}
+                sx={(theme) => ({ background: theme.palette.gradients.primary, width: 30, height: 30 })}
                 onClick={handleCall}
-                size="large"
+                size="medium"
                 variant="contained"
               >
                 <Iconify color={'white'} icon={'material-symbols:phone-enabled'} />
