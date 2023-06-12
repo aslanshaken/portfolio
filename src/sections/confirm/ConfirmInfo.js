@@ -103,6 +103,7 @@ export default function ConfirmInfo() {
             flexWrap={'nowrap'}
             justifyContent={{ xs: 'space-between', md: 'flex-start' }}
             gap={8}
+            spacing={8}
           >
             <Stack spacing={1}>
               <Typography variant="subtitle1">Chef</Typography>
@@ -128,6 +129,15 @@ export default function ConfirmInfo() {
                 </Label>
               </Stack>
             )}
+          </Stack>
+          <Stack
+            order={{ xs: 3, md: 1 }}
+            whiteSpace={'nowrap'}
+            direction={'row'}
+            flexWrap={'nowrap'}
+            justifyContent={{ xs: 'space-between', md: 'flex-start' }}
+            gap={8}
+          >
             <Stack spacing={2} textAlign={'center'} alignItems={'center'}>
               <Typography variant="subtitle1">Support</Typography>
               <IconButton

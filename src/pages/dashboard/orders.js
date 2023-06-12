@@ -13,6 +13,7 @@ import { useDispatch } from 'src/redux/store';
 import { FOOD_SELECTOR, getOrders } from 'src/redux/slices/food';
 import { useSelector } from 'react-redux';
 import LoadingScreen from 'src/components/LoadingScreen';
+import useAuth from 'src/hooks/useAuth';
 import { parse } from 'date-fns';
 // sections
 
@@ -33,6 +34,8 @@ OrderPage.getLayout = function getLayout(page) {
 // ----------------------------------------------------------------------
 
 export default function OrderPage() {
+  const { user }  = useAuth();
+
   const { page, order, orderBy, rowsPerPage } = useTable({
     defaultOrderBy: 'order_number',
   });
@@ -67,25 +70,30 @@ export default function OrderPage() {
       setOrders(filteredOrders);
     }
     else{
-      setOrders(sort_by_type(allOrders));
+      setOrders(sort_by_type(allOrders).sort((a, b) => parse(b.order_date, 'MM/dd/yyyy', new Date()) - parse(a.order_date, 'MM/dd/yyyy', new Date())));
       setCurrentPage(1)
     }
   }, [allOrders, sortItem]);
 
   const isNotFound = !orders.length;
 
-  const sort_type = [
+  var sort_type = [
     { name: 'received' },
     { name: 'picked up' },
     { name: 'delivered' },
     { name: 'working on' },
   ];
 
+  if (user && user?.user?.role === 'Chef'){
+    sort_type.unshift({ name: 'initiated' });
+  }
   const sort_by_type = (orders) => {
     var arrayForSort = [...orders];
-    const filteredOrders = arrayForSort
-    .filter((item) => item?.status !== 'initiated')
-    .sort((a, b) => {
+
+    var filteredOrders = user?.user?.role === 'Chef' ? arrayForSort : arrayForSort
+    .filter((item) => item?.status !== 'initiated');
+
+    filteredOrders.sort((a, b) => {
       const statusA = a?.status;
       const statusB = b?.status;
       const indexA = sort_type.findIndex(item => item.name === statusA);
@@ -93,7 +101,7 @@ export default function OrderPage() {
       return indexA - indexB;
     });
     return filteredOrders
-  } 
+  }
 
   return loading ? (
     <LoadingScreen inner />
