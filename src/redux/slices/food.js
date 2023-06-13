@@ -233,19 +233,12 @@ export function getFoodsByChef(cityId, cuisineId, chefId, selectedDate) {
   };
 }
 
-export function getFoodsByChefId(chefId) {
+export function getFoodsByChefToken() {
   return async (dispatch) => {
     dispatch(startLoading());
     try {
-      const response = await axios.get(
-        `/api/${process.env.API_VERSION}/chefs/${chefId}/foods`,
-        {
-          params: {
-            selected_date: formattedDate,
-          },
-        }
-      );
-      dispatch(slice.actions.getFoodsSuccess(response.data.data));
+      const response = await axios.get(`/api/${process.env.API_VERSION}/chefs/foods`);
+      dispatch(slice.actions.getFoodsSuccess(response.data));
     } catch (error) {
       dispatch(slice.actions.setError(error));
     }
@@ -323,6 +316,21 @@ export function updateScheduleTime(orderId, scheduleTime) {
     });
     setScheduleTime(scheduleTime);
     return response.data;
+  };
+}
+
+export function updateFoodItem(data, foodId) {
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try {
+      delete data?.id
+      const response = await axios.put(`/api/${process.env.API_VERSION}/chefs/foods/${foodId}`, {
+        food: data,
+      });
+      return response.data;
+    } catch (error) {
+      dispatch(slice.actions.setError(error));
+    }
   };
 }
 

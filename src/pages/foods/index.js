@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'src/redux/store';
 import { CITYCUISINE_SELECTOR, getChefs } from 'src/redux/slices/city';
 import { useRouter } from 'next/router';
 import LoadingScreen from 'src/components/LoadingScreen';
-import { FOOD_SELECTOR, getFoodsByChefId } from 'src/redux/slices/food';
+import { FOOD_SELECTOR, getFoodsByChefToken } from 'src/redux/slices/food';
 import FoodDialog from 'src/sections/@dashboard/foods/foodDialog';
 import { Box, Button, Grid } from '@mui/material';
 // sections
@@ -49,8 +49,10 @@ export default function FoodsPage() {
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-  setFoodsArray(foods?.[selectedDate]?.foods);
-  }, [foods, selectedDate]);
+    if(foods.length > 0){
+      setFoodsArray(foods);
+    }
+  }, [foods]);
 
   const [filteredFoodsArray, setFilteredFoodsArray] = useState([]);
 
@@ -70,10 +72,9 @@ export default function FoodsPage() {
   useEffect(() => {
     async function fetch() {
         setIsLoading(true);
-        await dispatch(getFoodsByChefId(chefId));
+        await dispatch(getFoodsByChefToken());
         setIsLoading(false);
     }
-
     fetch();
   }, [dispatch, router, isAuthenticated, chefId]);
 
