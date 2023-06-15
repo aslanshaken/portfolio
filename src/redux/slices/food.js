@@ -269,6 +269,18 @@ export function getOrders() {
   };
 }
 
+export function getCustomerOrders() {
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try {
+      const response = await axios.get(`/api/${process.env.API_VERSION}/chefs/orders`);
+      dispatch(slice.actions.setOrders(response.data.orders_data));
+    } catch (error) {
+      dispatch(slice.actions.setError(error));
+    }
+  };
+}
+
 export function deleteCart(orderId, foodId) {
   return async (dispatch) => {
     dispatch(startLoading());

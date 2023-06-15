@@ -9,7 +9,7 @@ import useAuth from 'src/hooks/useAuth';
 
 const navConfig = () => { 
   const { user }  = useAuth();
-  const orderTitle = user && user?.user?.role === 'EndUser' ? 'Your Orders' : 'Customer Orders'
+  const orderTitle = user && user?.user?.role === 'Chef' ? 'Your Orders' : 'Orders'
 
   var config = [
     // APP
@@ -37,6 +37,11 @@ const navConfig = () => {
   ]
   if(user && user?.user?.role === 'Chef'){
     config[0].items?.push(
+      {
+        title: 'Customer Orders',
+        path: PATH_DASHBOARD.customerOrders,
+        icon: <Iconify icon={'emojione-monotone:pot-of-food'} />,
+      },
       {
         title: 'Foods',
         path: PATH_DASHBOARD.wishlist,
