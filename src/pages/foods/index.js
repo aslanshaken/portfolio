@@ -91,15 +91,7 @@ export default function FoodsPage() {
     setSelectedDate={setSelectedDate}
     selectedTime={selectedTime}
     setSelectedTime={setSelectedTime}
-    /> */}
-      <Button
-        onClick={() => setFoodDialogIsOpen(true)}
-        variant="outlined"
-        color="secondary"
-        sx={{ textTransform: 'none' }}
-      >
-        Create a food
-      </Button>
+  /> */}
     <FoodSection
       currentPage={currentPage}
       setCurrentPage={setCurrentPage}

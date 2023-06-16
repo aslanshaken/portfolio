@@ -58,6 +58,8 @@ export default function EditFoodDialog({ data, foods, setSelectedItemData, ...ot
     try {
       if(data && data?.id ){
         var response = await dispatch(updateFoodItem(data, data?.id));
+        other.onClose();
+        location.reload();
       }
     } catch (error) {
       setErrorMsg(error.message);

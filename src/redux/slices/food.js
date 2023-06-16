@@ -17,6 +17,7 @@ const initialState = {
     priceRange: '',
     rating: '',
   },
+  availableDates: {},
   orders: [],
   savedCards: [],
   checkout: {
@@ -111,6 +112,11 @@ const slice = createSlice({
     setOrders(state, action) {
       state.loading = false;
       state.orders = action.payload;
+    },
+
+    setAvailableDates(state, action) {
+      state.loading = false;
+      state.availableDates = action.payload;
     },
 
     setScheduleDate(state, action) {
@@ -281,6 +287,18 @@ export function getCustomerOrders() {
   };
 }
 
+export function getChefAvailableDates() {
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try {
+      const response = await axios.get(`/api/${process.env.API_VERSION}/chefs/available_dates`);
+      dispatch(slice.actions.setAvailableDates(response.data));
+    } catch (error) {
+      dispatch(slice.actions.setError(error));
+    }
+  };
+}
+
 export function deleteCart(orderId, foodId) {
   return async (dispatch) => {
     dispatch(startLoading());
@@ -312,6 +330,28 @@ export function applyCoupon(promocode, orderId) {
     try {
       const response = await axios.post(`/api/${process.env.API_VERSION}/orders/${orderId}/apply_coupon`, {
         code: promocode,
+      });
+      return response.data;
+    } catch (error) {
+      dispatch(slice.actions.setError(error));
+    }
+  };
+}
+
+export function createAvailableDate(data) {
+  const originalDate = new Date(data.date);
+  const formattedDate = originalDate.toLocaleDateString('en-US', {
+    month: '2-digit',
+    day: '2-digit',
+    year: 'numeric'
+  });
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try{
+      const response = await axios.post(`/api/${process.env.API_VERSION}/chefs/available_dates`, {
+        date: formattedDate,
+        food_id: data.foodId,
+        max_order: data.maxOrder
       });
       return response.data;
     } catch (error) {
@@ -448,3 +488,16 @@ export function deleteCard() {
     }
   };
 }
+
+export function removeFoodItem(foodId) {
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try {
+      const response = await axios.delete(`/api/${process.env.API_VERSION}/chefs/available_dates/${foodId}`);
+      return response;
+    } catch (error) {
+      dispatch(slice.actions.setError(error));
+    }
+  };
+}
+
