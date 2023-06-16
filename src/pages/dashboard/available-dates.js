@@ -60,9 +60,7 @@ export default function AvailableDatesPage() {
 
   useEffect(() => {
     async function fetch() {
-        setIsLoading(true);
-        await dispatch(getFoodsByChefToken());
-        setIsLoading(false);
+      await dispatch(getFoodsByChefToken());
     }
     fetch();
   }, [dispatch, router, isAuthenticated, chefId]);
