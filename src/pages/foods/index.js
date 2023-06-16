@@ -28,7 +28,7 @@ export default function FoodsPage() {
 
   const [selectedDate, setSelectedDate] = useState();
 
-  const { checkout, foods } = useSelector(FOOD_SELECTOR);
+  const { checkout, foods, reloading } = useSelector(FOOD_SELECTOR);
 
   const { scheduleTime, scheduleDate, cart } = checkout;
 
@@ -76,22 +76,12 @@ export default function FoodsPage() {
         setIsLoading(false);
     }
     fetch();
-  }, [dispatch, router, isAuthenticated, chefId]);
+  }, [dispatch, router, isAuthenticated, chefId, reloading]);
 
   return loading ? (
   <LoadingScreen inner />
   ) : (
   <Page title="Search Chef">
-    {/* <ChefHeader
-    setCurrentPage={setCurrentPage}
-    setSearchIsLoading={setSearchIsLoading}
-    foodsArray={foodsArray}
-    setFoodsArray={setFoodsArray}
-    selectedDate={selectedDate}
-    setSelectedDate={setSelectedDate}
-    selectedTime={selectedTime}
-    setSelectedTime={setSelectedTime}
-  /> */}
     <FoodSection
       currentPage={currentPage}
       setCurrentPage={setCurrentPage}

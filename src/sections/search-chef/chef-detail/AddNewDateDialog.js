@@ -2,22 +2,17 @@ import * as Yup from 'yup';
 //next
 import { useState } from 'react';
 import { LoadingButton } from '@mui/lab';
-import { useRouter } from 'next/router';
-import { Dialog, DialogContent, IconButton, Button, TextField, Box, Stack, Grid, Alert } from '@mui/material';
+import { Dialog, DialogContent, Stack, Grid, Alert } from '@mui/material';
 import Iconify from 'src/components/Iconify';
-import useAuth from 'src/hooks/useAuth';
-import { dispatch, useSelector } from 'src/redux/store';
-import { FOOD_SELECTOR, createAvailableDate } from 'src/redux/slices/food';
+import { dispatch } from 'src/redux/store';
+import { createAvailableDate, startReloading } from 'src/redux/slices/food';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { RHFNumberField, RHFFoodDropdown, RHFDatePicker } from '../../../components/hook-form';
 import FormProvider from '../../../components/hook-form/FormProvider';
 
 export default function AddNewDateDialog ({ onClose, ...other }) {
-  const { isAuthenticated } = useAuth();
-  const { checkout } = useSelector(FOOD_SELECTOR);
   const [errorMsg, setErrorMsg] = useState();
-  const router = useRouter();
 
   const AvailableDateSchema = Yup.object().shape({
     date: Yup.string(),
@@ -39,9 +34,9 @@ export default function AddNewDateDialog ({ onClose, ...other }) {
   const onSubmit = async (data) => {
     try {
       if(data){
-        var response = await dispatch(createAvailableDate(data));
+        await dispatch(createAvailableDate(data));
         onClose();
-        location.reload();
+        dispatch(startReloading());
       }
     } catch (error) {
       setErrorMsg(error.message);
@@ -90,7 +85,7 @@ export default function AddNewDateDialog ({ onClose, ...other }) {
                     <RHFFoodDropdown 
                       name="foodId"
                       label="Select Food"
-                      foodsArray={other.foodsArray}
+                      foodsarray={other.foodsarray}
                     />
                   </Grid>
                 </Grid>

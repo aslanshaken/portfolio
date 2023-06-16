@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Avatar, Box, Card, CardContent, Stack, Typography, Button } from '@mui/material';
+import { Avatar, Box, Card, Stack, Typography, Button } from '@mui/material';
 import Image from './Image';
 import CountBox from './countBox';
 import styled from '@emotion/styled';

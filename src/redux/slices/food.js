@@ -7,6 +7,7 @@ import { parse, format } from 'date-fns';
 
 const initialState = {
   loading: false,
+  reloading: false,
   error: null,
   foods: [],
   popularFoods: [],
@@ -43,6 +44,10 @@ const slice = createSlice({
   reducers: {
     startLoading(state) {
       state.loading = true;
+    },
+
+    startReloading(state) {
+      state.reloading = !state.reloading;
     },
 
     updateFoodCart(state, action) {
@@ -177,6 +182,7 @@ export default slice.reducer;
 // Actions
 export const {
   startLoading,
+  startReloading,
   updateFoodCart,
   setError,
   setOrderId,
@@ -489,11 +495,27 @@ export function deleteCard() {
   };
 }
 
-export function removeFoodItem(foodId) {
+export function removeFoodItem(foodId, availableDateId) {
   return async (dispatch) => {
     dispatch(startLoading());
     try {
-      const response = await axios.delete(`/api/${process.env.API_VERSION}/chefs/available_dates/${foodId}`);
+      const response = await axios.post(`/api/${process.env.API_VERSION}/chefs/available_dates/remove_food_on_date`, {
+        food_id: foodId,
+        av_id: availableDateId
+      });
+      return response;
+    } catch (error) {
+      dispatch(slice.actions.setError(error));
+    }
+  };
+}
+export function removeAvailableDate(dateIds) {
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try {
+      const response = await axios.post(`/api/${process.env.API_VERSION}/chefs/available_dates/remove_all_food_on_date`, {
+        ids: dateIds
+      });
       return response;
     } catch (error) {
       dispatch(slice.actions.setError(error));

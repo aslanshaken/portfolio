@@ -8,7 +8,7 @@ RHFFoodDropdown.propTypes = {
   foodsArray: PropTypes.array,
 };
 
-export default function RHFFoodDropdown({ name, foodsArray, ...other }) {
+export default function RHFFoodDropdown({ name, foodsarray, ...other }) {
   const { control } = useFormContext();
 
   return (
@@ -29,7 +29,7 @@ export default function RHFFoodDropdown({ name, foodsArray, ...other }) {
             <MenuItem value="">
               <em>Select Food</em>
             </MenuItem>
-            {foodsArray.map((food, index) => (
+            {foodsarray.map((food, index) => (
               <MenuItem key={index} value={food.id}>
                 {food.title}
               </MenuItem>

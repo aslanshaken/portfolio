@@ -5,27 +5,22 @@ import { LoadingButton } from '@mui/lab';
 import {
   Dialog,
   DialogContent,
-  Divider,
   Grid,
   IconButton,
-  Typography,
   Stack,
   Box,
   Alert
 } from '@mui/material';
 import Image from '../../../components/Image';
 import Iconify from '../../../components/Iconify';
-import useAuth from 'src/hooks/useAuth';
-import { dispatch, useSelector } from 'src/redux/store';
-import { FOOD_SELECTOR, updateFoodItem } from 'src/redux/slices/food';
+import { dispatch } from 'src/redux/store';
+import { updateFoodItem, startReloading } from 'src/redux/slices/food';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { RHFTextField, RHFTextArea, RHFNumberField, RHFDropdown } from '../../../components/hook-form';
 import FormProvider from '../../../components/hook-form/FormProvider';
 
 export default function EditFoodDialog({ data, foods, setSelectedItemData, ...other }) {
-  const { isAuthenticated } = useAuth();
-  const { checkout } = useSelector(FOOD_SELECTOR);
   const [errorMsg, setErrorMsg] = useState();
 
   const FoodSchema = Yup.object().shape({
@@ -57,9 +52,9 @@ export default function EditFoodDialog({ data, foods, setSelectedItemData, ...ot
   const onSubmit = async (data) => {
     try {
       if(data && data?.id ){
-        var response = await dispatch(updateFoodItem(data, data?.id));
+        await dispatch(updateFoodItem(data, data?.id));
         other.onClose();
-        location.reload();
+        dispatch(startReloading());
       }
     } catch (error) {
       setErrorMsg(error.message);
