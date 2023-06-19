@@ -25,9 +25,9 @@ export default function ContactUsPage() {
           <Grid item md={5} xs={12}>
             <Stack sx={{ display: 'flex', justifyContent: 'space-between', height: '100%' }}>
               <ContactUsForm />
-              <Box>
+              {/* <Box>
                 <Image src={'/assets/contact-us/vegetable.png'} alt={'vegetable'} width={'400px'} />
-              </Box>
+              </Box> */}
             </Stack>
           </Grid>
           <Grid item md={6} xs={12}>

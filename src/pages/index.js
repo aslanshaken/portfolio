@@ -80,9 +80,25 @@ export default function HomePage() {
           variant="contained"
           size="large"
           onClick={() => dispatch(openDialog('choose_city_dialog'))}
-          sx={{ borderRadius: 10, px: 6 }}
+          sx={{
+            m: 'auto',
+            borderRadius: 10,
+            px: 6,
+            height: 45,
+            minWidth: 230,
+            color: 'gray',
+            fontSize: { xs: 16, sm: 18 },
+            fontWeight: 600,
+            background: 'transparent',
+            border: 'solid 3px',
+
+            '&:hover': {
+              background: 'transparent',
+              borderColor: (theme) => theme.palette.primary.main,
+            },
+          }}
         >
-          <Typography variant="h6">Find Local Cooks</Typography>
+          <Typography variant="h6">Find desserts</Typography>
         </Button>
       </Box>
     </Page>

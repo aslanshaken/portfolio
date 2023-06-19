@@ -3,18 +3,28 @@ import Container from 'src/components/Container';
 import Image from 'src/components/Image';
 
 const cards = [
-  { image: 'image 33', title: '1', content: `Discover nearby chefs offering diverse cuisines` },
-  { image: 'image 35', title: '2', content: `Select your meals - homemade, catering, or cakes` },
-  { image: 'image 36', title: '3', content: `Sit back and relax - we'll deliver it to your door` },
+  {
+    image: 'image 33',
+    title: '1',
+    content: `Discover nearby restaurants and home bakers that offer delicious desserts`,
+    type: 'png',
+  },
+  {
+    image: 'image 34',
+    title: '2',
+    type: 'png',
+    content: `Choose your desserts - allergy-free, organic, homemade, and more`,
+  },
+  { image: 'image 35', title: '3', content: `Sit back and relax - we'll deliver it to your door`, type: 'png' },
 ];
 
 export default function HowItWork() {
   return (
     <Container>
-      <Typography variant="h3" fontWeight={'500'} color={'secondary'} textAlign={'center'} mt={10}>
+      <Typography variant="h3" fontWeight={'500'} color={'secondary'} textAlign={'center'} mt={5}>
         How it works
       </Typography>
-      <Grid container mt={8}>
+      <Grid container mt={2}>
         {cards.map((item, _i) => (
           <Grid
             item
@@ -30,15 +40,15 @@ export default function HowItWork() {
           >
             <Box>
               <Image
-                src={`/assets/home/how-it-work/${item.image}.jpg`}
+                src={`/assets/home/how-it-work/${item.image}.${item.type}`}
                 alt="green iguana"
-                sx={{ height: 320, width: '100%' }}
+                sx={{ height: 210, width: '100%' }}
               />
             </Box>
-            <Typography gutterBottom variant="h3" my={6}>
+            <Typography gutterBottom variant="h3" my={4}>
               {item.title}
             </Typography>
-            <Typography variant="h5" fontWeight={'500'}>
+            <Typography variant="h6" fontWeight={'500'}>
               {item.content}
             </Typography>
           </Grid>

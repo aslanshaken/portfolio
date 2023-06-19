@@ -63,10 +63,11 @@ export default function SearchInput({ buttonLabel = 'Search' }) {
           fontSize: { xs: 16, sm: 18 },
           fontWeight: 600,
           // display: { xs: 'flex', md: 'none' },
+          background: 'transparent',
+          border: 'solid 3px',
 
           '&:hover': {
             background: 'transparent',
-            border: 'solid 1px',
             borderColor: (theme) => theme.palette.primary.main,
           },
         }}

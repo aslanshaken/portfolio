@@ -8,11 +8,7 @@ export default function PolicyDialog({ ...other }) {
   return (
     <Dialog maxWidth={'sm'} fullWidth {...other}>
       <DialogContent sx={{ p: 0 }}>
-        <IconButton
-          onClick={other.onClose}
-          width={'fit-content'}
-          sx={{ position: 'absolute', right: '0' }}
-        >
+        <IconButton onClick={other.onClose} width={'fit-content'} sx={{ position: 'absolute', right: '0' }}>
           <Iconify icon={'iconoir:cancel'} />
         </IconButton>
         <Container sx={{ py: 6 }}>
@@ -24,9 +20,9 @@ export default function PolicyDialog({ ...other }) {
             <Typography>Introduction:</Typography>
 
             <Typography>
-              Hello, everyone! Welcome to Cookk, an innovative food sharing platform connecting talented home cooks with
-              customers and businesses seeking fresh, homemade meals. We are committed to protecting your privacy and
-              ensuring the security of your personal information. This Privacy Policy outlines how we collect, use,
+              Hello, everyone! Welcome to Cookk, an innovative food sharing platform connecting talented home bakers and restaurants
+              with customers and businesses seeking fresh, homemade meals. We are committed to protecting your privacy
+              and ensuring the security of your personal information. This Privacy Policy outlines how we collect, use,
               disclose, and safeguard your information when you use our website. By accessing or using Cookk, you agree
               to the terms and conditions of this policy.
             </Typography>
