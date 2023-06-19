@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
-import { Avatar, Box, Card, CardContent, Stack, Typography } from '@mui/material';
+import { Avatar, Box, Card, CardContent, Stack, Typography, Button } from '@mui/material';
 import Image from './Image';
 import CountBox from './countBox';
 import styled from '@emotion/styled';
+import useAuth from 'src/hooks/useAuth';
 
 // ----------------------------------------------------------------------
 
@@ -34,6 +35,8 @@ const FoodCard = styled('div')(() => ({
 }));
 
 export default function FoodCartCard(props) {
+  const { user } = useAuth();
+
   const {
     data,
     chefname,
@@ -48,6 +51,7 @@ export default function FoodCartCard(props) {
     selectedTime,
     setIsOpenNewCartDlg = () => {},
     setSelectedItemData = () => {},
+    handleEditItem = () => {},
     min_order,
     ...other
   } = props;
@@ -100,15 +104,19 @@ export default function FoodCartCard(props) {
               </Typography>
             </Box>
           </Box>
-          <Box>
-            <CountBox
-              selectedDate={selectedDate}
-              selectedTime={selectedTime}
-              setIsOpenNewCartDlg={setIsOpenNewCartDlg}
-              setSelectedItemData={setSelectedItemData}
-              data={data}
-            />
-          </Box>
+          { user && user?.user?.role === 'Chef' ?
+            <Button onClick={handleEditItem}>Edit</Button> : 
+            <Box>
+              <CountBox
+                selectedDate={selectedDate}
+                selectedTime={selectedTime}
+                setIsOpenNewCartDlg={setIsOpenNewCartDlg}
+                setSelectedItemData={setSelectedItemData}
+                data={data}
+              />
+            </Box>
+          }
+
         </Stack>
       </Card>
     </FoodCard>

@@ -7,6 +7,7 @@ import Container from '../../../components/Container';
 import Pagination from '../../../components/Pagination';
 // sections
 import CartDialog from './CartDialog';
+import EditFoodDialog from './EditFoodDialog';
 import { useDispatch, useSelector } from '../../../redux/store';
 import { setScheduleDate, setScheduleTime, updateFoodCart } from '../../../redux/slices/food';
 import FoodCartCard from 'src/components/FoodCartCard';
@@ -15,6 +16,7 @@ import { FOOD_SELECTOR } from 'src/redux/slices/food';
 import NewCartDialog from './NewCartDialog';
 import Image from 'src/components/Image';
 import LoadingScreen from 'src/components/LoadingScreen';
+import useAuth from 'src/hooks/useAuth';
 
 // --------------------------------------------
 
@@ -70,6 +72,8 @@ export default function FoodSection({
   currentPage,
   setCurrentPage,
 }) {
+  const { user } = useAuth()
+
   const { checkout } = useSelector(FOOD_SELECTOR);
 
   const { cart } = checkout;
@@ -79,6 +83,8 @@ export default function FoodSection({
   const isDesktop = useResponsive('up', 'md');
 
   const [isOpenCartDlg, setIsOpenCartDlg] = useState(false);
+
+  const [isOpenEditDlg, setIsOpenEditDlg] = useState(false);
 
   const [isOpenNewCartDlg, setIsOpenNewCartDlg] = useState(false);
 
@@ -112,40 +118,62 @@ export default function FoodSection({
     [cart]
   );
 
+  const handleEditItem = (props) => {
+    let data = { ...props };
+    if (!data.min_order) {
+      data.min_order = 1;
+    }
+    data.count = cart.find((item) => item?.id === data.id) ? 1 : data.min_order;
+    setIsOpenEditDlg(true);
+    setSelectedItemData(data);
+  }
+
   return (
     <RootStyle>
-      <CartDialog
-        data={selectedItemData}
-        foods={foodsArray}
-        setSelectedItemData={setSelectedItemData}
-        open={isOpenCartDlg}
-        onSubmit={(data) => {
-          dispatch(setScheduleDate(selectedDate));
-          dispatch(setScheduleTime(selectedTime));
-          handleClickAddCart(data);
-          setIsOpenCartDlg(false);
-        }}
-        onClose={() => setIsOpenCartDlg(false)}
-      />
+      { user && user?.user?.role === 'Chef' ? (
+        <EditFoodDialog
+          data={selectedItemData}
+          foods={foodsArray}
+          setSelectedItemData={setSelectedItemData}
+          open={isOpenEditDlg}
+          onClose={() => setIsOpenEditDlg(false)}
+        />
+      ) : 
+      <>
+        <CartDialog
+          data={selectedItemData}
+          foods={foodsArray}
+          setSelectedItemData={setSelectedItemData}
+          open={isOpenCartDlg}
+          onSubmit={(data) => {
+            dispatch(setScheduleDate(selectedDate));
+            dispatch(setScheduleTime(selectedTime));
+            handleClickAddCart(data);
+            setIsOpenCartDlg(false);
+          }}
+          onClose={() => setIsOpenCartDlg(false)}
+        />
 
-      <NewCartDialog
-        open={isOpenNewCartDlg}
-        onSubmit={() => {
-          dispatch(setScheduleDate(selectedDate));
-          dispatch(setScheduleTime(selectedTime));
-          dispatch(updateFoodCart({ actionType: 'clear' }));
-          dispatch(
-            updateFoodCart({
-              data: selectedItemData,
-              actionType: 'add',
-            })
-          );
-          setIsOpenNewCartDlg(false);
-        }}
-        onClose={() => {
-          setIsOpenNewCartDlg(false);
-        }}
-      />
+        <NewCartDialog
+          open={isOpenNewCartDlg}
+          onSubmit={() => {
+            dispatch(setScheduleDate(selectedDate));
+            dispatch(setScheduleTime(selectedTime));
+            dispatch(updateFoodCart({ actionType: 'clear' }));
+            dispatch(
+              updateFoodCart({
+                data: selectedItemData,
+                actionType: 'add',
+              })
+            );
+            setIsOpenNewCartDlg(false);
+          }}
+          onClose={() => {
+            setIsOpenNewCartDlg(false);
+          }}
+        />
+      </>
+      }
 
       <Container sx={{ display: 'flex', justifyContent: 'center' }}>
         <Stack
@@ -182,7 +210,7 @@ export default function FoodSection({
                   <Image
                     alt="oops"
                     src="/assets/search-chef/oops.png"
-                    width={300}
+                    width={'300'}
                     sx={{ position: 'absolute', right: { lg: 200, md: 100, xs: 0 }, bottom: 0, zIndex: 0 }}
                   />
                   <Stack gap={3} zIndex={1}>
@@ -203,6 +231,7 @@ export default function FoodSection({
                       quantity={item?.quantity}
                       measurement={item?.measurement}
                       setIsOpenNewCartDlg={setIsOpenNewCartDlg}
+                      handleEditItem={() => handleEditItem(item)}
                       setSelectedItemData={setSelectedItemData}
                       onClick={() => handleClickItem(item)}
                       selectedDate={selectedDate}

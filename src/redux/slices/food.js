@@ -7,6 +7,7 @@ import { parse, format } from 'date-fns';
 
 const initialState = {
   loading: false,
+  reloading: false,
   error: null,
   foods: [],
   popularFoods: [],
@@ -17,6 +18,7 @@ const initialState = {
     priceRange: '',
     rating: '',
   },
+  availableDates: {},
   orders: [],
   savedCards: [],
   checkout: {
@@ -42,6 +44,10 @@ const slice = createSlice({
   reducers: {
     startLoading(state) {
       state.loading = true;
+    },
+
+    startReloading(state) {
+      state.reloading = !state.reloading;
     },
 
     updateFoodCart(state, action) {
@@ -113,6 +119,11 @@ const slice = createSlice({
       state.orders = action.payload;
     },
 
+    setAvailableDates(state, action) {
+      state.loading = false;
+      state.availableDates = action.payload;
+    },
+
     setScheduleDate(state, action) {
       state.loading = false;
       state.checkout.scheduleDate = action.payload;
@@ -171,6 +182,7 @@ export default slice.reducer;
 // Actions
 export const {
   startLoading,
+  startReloading,
   updateFoodCart,
   setError,
   setOrderId,
@@ -233,6 +245,18 @@ export function getFoodsByChef(cityId, cuisineId, chefId, selectedDate) {
   };
 }
 
+export function getFoodsByChefToken() {
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try {
+      const response = await axios.get(`/api/${process.env.API_VERSION}/chefs/foods`);
+      dispatch(slice.actions.getFoodsSuccess(response.data));
+    } catch (error) {
+      dispatch(slice.actions.setError(error));
+    }
+  };
+}
+
 export function getOrderDetail(orderId) {
   return async (dispatch) => {
     dispatch(startLoading());
@@ -251,6 +275,30 @@ export function getOrders() {
     try {
       const response = await axios.get(`/api/${process.env.API_VERSION}/orders`);
       dispatch(slice.actions.setOrders(response.data.orders_data));
+    } catch (error) {
+      dispatch(slice.actions.setError(error));
+    }
+  };
+}
+
+export function getCustomerOrders() {
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try {
+      const response = await axios.get(`/api/${process.env.API_VERSION}/chefs/orders`);
+      dispatch(slice.actions.setOrders(response.data.orders_data));
+    } catch (error) {
+      dispatch(slice.actions.setError(error));
+    }
+  };
+}
+
+export function getChefAvailableDates() {
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try {
+      const response = await axios.get(`/api/${process.env.API_VERSION}/chefs/available_dates`);
+      dispatch(slice.actions.setAvailableDates(response.data));
     } catch (error) {
       dispatch(slice.actions.setError(error));
     }
@@ -296,6 +344,28 @@ export function applyCoupon(promocode, orderId) {
   };
 }
 
+export function createAvailableDate(data) {
+  const originalDate = new Date(data.date);
+  const formattedDate = originalDate.toLocaleDateString('en-US', {
+    month: '2-digit',
+    day: '2-digit',
+    year: 'numeric'
+  });
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try{
+      const response = await axios.post(`/api/${process.env.API_VERSION}/chefs/available_dates`, {
+        date: formattedDate,
+        food_id: data.foodId,
+        max_order: data.maxOrder
+      });
+      return response.data;
+    } catch (error) {
+      dispatch(slice.actions.setError(error));
+    }
+  };
+}
+
 export function updateScheduleTime(orderId, scheduleTime) {
   return async (dispatch) => {
     dispatch(startLoading());
@@ -304,6 +374,21 @@ export function updateScheduleTime(orderId, scheduleTime) {
     });
     setScheduleTime(scheduleTime);
     return response.data;
+  };
+}
+
+export function updateFoodItem(data, foodId) {
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try {
+      delete data?.id
+      const response = await axios.put(`/api/${process.env.API_VERSION}/chefs/foods/${foodId}`, {
+        food: data,
+      });
+      return response.data;
+    } catch (error) {
+      dispatch(slice.actions.setError(error));
+    }
   };
 }
 
@@ -409,3 +494,32 @@ export function deleteCard() {
     }
   };
 }
+
+export function removeFoodItem(foodId, availableDateId) {
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try {
+      const response = await axios.post(`/api/${process.env.API_VERSION}/chefs/available_dates/remove_food_on_date`, {
+        food_id: foodId,
+        av_id: availableDateId
+      });
+      return response;
+    } catch (error) {
+      dispatch(slice.actions.setError(error));
+    }
+  };
+}
+export function removeAvailableDate(dateIds) {
+  return async (dispatch) => {
+    dispatch(startLoading());
+    try {
+      const response = await axios.post(`/api/${process.env.API_VERSION}/chefs/available_dates/remove_all_food_on_date`, {
+        ids: dateIds
+      });
+      return response;
+    } catch (error) {
+      dispatch(slice.actions.setError(error));
+    }
+  };
+}
+

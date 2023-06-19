@@ -4,41 +4,57 @@ import { PATH_DASHBOARD } from '../../../routes/paths';
 import Label from '../../../components/Label';
 import Iconify from '../../../components/Iconify';
 
+import useAuth from 'src/hooks/useAuth';
 // ----------------------------------------------------------------------
 
-const navConfig = [
-  // APP
-  // ----------------------------------------------------------------------
-  {
-    subheader: '',
-    items: [
+const navConfig = () => { 
+  const { user }  = useAuth();
+  const orderTitle = user && user?.user?.role === 'Chef' ? 'Your Orders' : 'Orders'
+
+  var config = [
+    // APP
+    // ----------------------------------------------------------------------
+    {
+      subheader: '',
+      items: [
+        {
+          title: 'Personal Account',
+          path: PATH_DASHBOARD.account,
+          icon: <Iconify icon={'ph:user-circle-light'} sx={{ width: 28, height: 28 }} />,
+        },
+        {
+          title: 'Payments',
+          path: PATH_DASHBOARD.payments,
+          icon: <Iconify icon={'fluent-mdl2:payment-card'} />,
+        },
+        {
+          title: orderTitle ,
+          path: PATH_DASHBOARD.orders,
+          icon: <Iconify icon={'fluent-mdl2:activate-orders'} />,
+        }
+      ],
+    },
+  ]
+  if(user && user?.user?.role === 'Chef'){
+    config[0].items?.push(
       {
-        title: 'Personal Account',
-        path: PATH_DASHBOARD.account,
-        icon: <Iconify icon={'ph:user-circle-light'} sx={{ width: 28, height: 28 }} />,
+        title: 'Customer Orders',
+        path: PATH_DASHBOARD.customerOrders,
+        icon: <Iconify icon={'emojione-monotone:pot-of-food'} />,
       },
       {
-        title: 'Payments',
-        path: PATH_DASHBOARD.payments,
-        icon: <Iconify icon={'fluent-mdl2:payment-card'} />,
+        title: 'Foods',
+        path: PATH_DASHBOARD.wishlist,
+        icon: <Iconify icon={'emojione-monotone:pot-of-food'} />,
       },
       {
-        title: 'Orders',
-        path: PATH_DASHBOARD.orders,
-        icon: <Iconify icon={'fluent-mdl2:activate-orders'} />,
-      },
-      // {
-      //   title: 'Foods',
-      //   path: PATH_DASHBOARD.wishlist,
-      //   icon: <Iconify icon={'emojione-monotone:pot-of-food'} />,
-      // },
-      // {
-      //   title: 'Available dates',
-      //   path: PATH_DASHBOARD.availableDates,
-      //   icon: <Iconify icon={'mdi:calendar'} />,
-      // },
-    ],
-  },
-];
+        title: 'Available dates',
+        path: PATH_DASHBOARD.availableDates,
+        icon: <Iconify icon={'mdi:calendar'} />,
+      }
+    )
+  }
+return config;
+};
 
 export default navConfig;
