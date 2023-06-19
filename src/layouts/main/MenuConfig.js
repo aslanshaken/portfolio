@@ -32,7 +32,7 @@ export const homeMenuConfig = [
   //   target: 'choose_city_dialog',
   // },
   {
-    title: 'Become a Chef',
+    title: 'Register your business here',
     path: '/contact-us',
   },
 ];

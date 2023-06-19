@@ -219,7 +219,7 @@ export default function ChooseChef() {
                   onClick={() => dispatch(openDialog('choose_city_dialog'))}
                   sx={{ cursor: 'pointer' }}
                 >
-                  <Image alt="another-city" width="30px" src="../../../../assets/chefs/another-city.png" />
+                  <Image alt="another-city" width="45px" src="../../../../assets/chefs/another-city.png" />
                   <Typography variant="subtitle3" color="secondary" fontSize="14px">
                     Another city
                   </Typography>
@@ -227,34 +227,42 @@ export default function ChooseChef() {
                 <Stack
                   gap={1}
                   alignItems={'center'}
-                  onClick={() => {
-                    searchLoading();
-                    setSearchKey('EurAsian');
-                    searchChefs('eurasian');
-                  }}
+                  // onClick={() => {
+                  //   searchLoading();
+                  //   setSearchKey('EurAsian');
+                  //   searchChefs('eurasian');
+                  // }}
                   sx={{ cursor: 'pointer' }}
                 >
-                  <Image alt="eurasian" width="30px" src="../../../../assets/chefs/eurasian.png" />
+                  <Image alt="eurasian" width="45px" src="../../../../assets/chefs/cookies.png" />
                   <Typography variant="subtitle3" color="secondary" fontSize="14px">
-                    EurAsian
+                    Cookies
                   </Typography>
                 </Stack>
-                <Stack alignItems={'center'} onClick={() => {}} sx={{ cursor: 'pointer' }}>
-                  <Image alt="eurasian" width="30px" src="../../../../assets/chefs/cakes.png" />
+                <Stack alignItems={'center'} sx={{ cursor: 'pointer' }}>
+                  <Image alt="eurasian" width="45px" src="../../../../assets/chefs/cakes.png" />
                   <Typography variant="subtitle3" color="secondary" fontSize="14px">
                     Cakes
                   </Typography>
                 </Stack>
-                <Stack alignItems={'center'} onClick={filterChefsByHalal} sx={{ cursor: 'pointer' }}>
-                  <Image alt="eurasian" width="30px" src="../../../../assets/chefs/halal.png" />
+                {/*  onClick={filterChefsByHalal} */}
+                <Stack alignItems={'center'} sx={{ cursor: 'pointer' }}>
+                  <Image alt="eurasian" width="45px" src="../../../../assets/chefs/organic.png" />
                   <Typography variant="subtitle3" color="secondary" fontSize="14px">
-                    Halal
+                    Organic
                   </Typography>
                 </Stack>
-                <Stack gap={1} alignItems={'center'} onClick={filterChefsByCatering} sx={{ cursor: 'pointer' }}>
-                  <Image alt="eurasian" width="30px" src="../../../../assets/chefs/catering.png" />
+                {/* onClick={filterChefsByCatering} */}
+                <Stack gap={1} alignItems={'center'} sx={{ cursor: 'pointer' }}>
+                  <Image alt="eurasian" width="33px" src="../../../../assets/chefs/gluten-free.png" />
                   <Typography variant="subtitle3" color="secondary" fontSize="14px">
-                    Catering
+                    Gluten-Free
+                  </Typography>
+                </Stack>
+                <Stack gap={1} alignItems={'center'} sx={{ cursor: 'pointer' }}>
+                  <Image alt="eurasian" width="33px" src="../../../../assets/chefs/nut.png" />
+                  <Typography variant="subtitle3" color="secondary" fontSize="14px">
+                    Nut-Free
                   </Typography>
                 </Stack>
               </Stack>

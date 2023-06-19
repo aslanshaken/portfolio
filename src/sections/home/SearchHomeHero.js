@@ -36,7 +36,7 @@ export default function SearchHomeHero() {
     <RootStyle>
       <Container>
         <Stack
-          spacing={12}
+          spacing={8}
           sx={{
             mx: 'auto',
             mt: { xs: 10, md: 0 },
@@ -51,16 +51,18 @@ export default function SearchHomeHero() {
             maxWidth: 'md',
           }}
         >
-          <Typography textAlign={'center'} variant="h3" fontSize="2.5rem !important" color={'#FFFFFF'}>
-            Taste homemade cooking <br />
-            from your community
+          <Typography
+            textAlign={'center'}
+            variant="h3"
+            fontSize="2rem !important"
+            fontFamily="Verdana"
+            color={'#FFFFFF'}
+          >
+            Desserts <br />
+            from Restaurants and Home Bakers
           </Typography>
           <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 2, sm: 0 }} position={'relative'}>
-            <SearchInput
-              icon="ic:outline-location-on"
-              placeholder="Enter delivery address"
-              buttonLabel="Find Local Cooks"
-            />
+            <SearchInput icon="ic:outline-location-on" placeholder="Find desserts" buttonLabel="Find desserts" />
           </Stack>
         </Stack>
         <GradientText
