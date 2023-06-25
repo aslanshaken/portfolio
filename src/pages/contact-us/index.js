@@ -74,8 +74,8 @@ export default function ContactUsPage() {
           src={'/assets/search-chef/Texture.png'}
           sx={{ position: 'absolute', width: '100%', height: '100%', top: -2 }}
         />
-        <Typography color={'white'} fontSize={{ xs: 11, sm: 20 }} fontWeight={500}>
-          Level up your dessert business today by signing up with us!
+        <Typography color={'white'} fontSize={{ xs: 16, sm: 22 }} fontWeight={500}>
+          Level up your dessert business today!
         </Typography>
       </Stack>
       <Container sx={{ py: 10 }}>
