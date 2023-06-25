@@ -16,6 +16,7 @@ const RootStyle = styled('div')(() => ({
 export default function GeneralQuestions() {
   const dispatch = useDispatch();
   const { faqs: accordions } = useSelector(CITYCUISINE_SELECTOR);
+  const commonlyFaqs = accordions.filter((a) => a.topic === 'General Question');
 
   useEffect(() => {
     dispatch(getFaqs());
@@ -27,7 +28,7 @@ export default function GeneralQuestions() {
         <Typography textAlign={'center'} variant={'h3'} my={4}>
           General questions
         </Typography>
-        <AccordionGroup data={accordions} />
+        <AccordionGroup data={commonlyFaqs} />
       </Container>
     </RootStyle>
   );

@@ -50,17 +50,9 @@ export default function ContactUsForm() {
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-      <Stack
-        spacing={3}
-        py={6}
-        px={{ xs: 2, sm: 6, md: 2, lg: 6 }}
-        sx={{
-          borderRadius: 1,
-          padding: 5,
-        }}
-      >
+      <Stack spacing={3} px={{ xs: 2, sm: 6, md: 2, lg: 6 }} sx={{ borderRadius: 1 }}>
         <Typography variant="h4" fontWeight={500}>
-          Unlock the earning potential of your kitchen with our support
+          Contact Us
         </Typography>
 
         <RHFTextField
