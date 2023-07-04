@@ -58,11 +58,12 @@ export default function SearchHomeHero() {
             fontFamily="Verdana"
             color={'#FFFFFF'}
           >
-            Desserts <br />
-            from Restaurants and Home Bakers
+            Delicious Homemade Food
+            <br />
+            and more, delivered
           </Typography>
           <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 2, sm: 0 }} position={'relative'}>
-            <SearchInput icon="ic:outline-location-on" placeholder="Find desserts" buttonLabel="Find desserts" />
+            <SearchInput icon="ic:outline-location-on" placeholder="Find food" buttonLabel="Find food" />
           </Stack>
         </Stack>
         <GradientText
@@ -73,9 +74,9 @@ export default function SearchHomeHero() {
         >
           Delicious
         </GradientText>
-        <Box sx={{ position: 'absolute', width: 1, height: 1, left: 0, top: '65%' }}>
+        {/* <Box sx={{ position: 'absolute', width: 1, height: 1, left: 0, top: '65%' }}>
           <FruitsTop />
-        </Box>
+        </Box> */}
       </Container>
     </RootStyle>
   );

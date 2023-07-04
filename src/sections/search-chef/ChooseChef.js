@@ -224,6 +224,13 @@ export default function ChooseChef() {
                     Another city
                   </Typography>
                 </Stack>
+                <Stack gap={1} alignItems={'center'} sx={{ cursor: 'pointer' }}>
+                  <Image alt="eurasian" width="33px" src="../../../../assets/chefs/asian.png" />
+                  <Typography variant="subtitle3" color="secondary" fontSize="14px">
+                    EurAsian
+                  </Typography>
+                </Stack>
+
                 <Stack
                   gap={1}
                   alignItems={'center'}
@@ -246,25 +253,6 @@ export default function ChooseChef() {
                   </Typography>
                 </Stack>
                 {/*  onClick={filterChefsByHalal} */}
-                <Stack alignItems={'center'} sx={{ cursor: 'pointer' }}>
-                  <Image alt="eurasian" width="45px" src="../../../../assets/chefs/organic.png" />
-                  <Typography variant="subtitle3" color="secondary" fontSize="14px">
-                    Organic
-                  </Typography>
-                </Stack>
-                {/* onClick={filterChefsByCatering} */}
-                <Stack gap={1} alignItems={'center'} sx={{ cursor: 'pointer' }}>
-                  <Image alt="eurasian" width="33px" src="../../../../assets/chefs/gluten-free.png" />
-                  <Typography variant="subtitle3" color="secondary" fontSize="14px">
-                    Gluten-Free
-                  </Typography>
-                </Stack>
-                <Stack gap={1} alignItems={'center'} sx={{ cursor: 'pointer' }}>
-                  <Image alt="eurasian" width="33px" src="../../../../assets/chefs/nut.png" />
-                  <Typography variant="subtitle3" color="secondary" fontSize="14px">
-                    Nut-Free
-                  </Typography>
-                </Stack>
               </Stack>
 
               <Divider sx={{ marginTop: 2 }} />

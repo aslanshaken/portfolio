@@ -16,7 +16,7 @@ export default function ServiceDialog({ ...other }) {
           <Stack gap={2}>
             <Typography>Terms of Service</Typography>
 
-            <Typography>Effective Date: 05/23/2023</Typography>
+            <Typography>Effective Date: 07/04/2023</Typography>
 
             <Typography>
               Welcome to Cookk! These Terms of Service ("Terms") govern your access to and use of the Cookk website (the

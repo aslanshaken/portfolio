@@ -98,7 +98,7 @@ export default function HomePage() {
             },
           }}
         >
-          <Typography variant="h6">Find desserts</Typography>
+          <Typography variant="h6">Find Food</Typography>
         </Button>
       </Box>
     </Page>

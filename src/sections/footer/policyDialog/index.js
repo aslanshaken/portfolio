@@ -15,16 +15,16 @@ export default function PolicyDialog({ ...other }) {
           <Stack gap={2}>
             <Typography>Privacy Policy</Typography>
 
-            <Typography>Effective Date: 05/23/2023</Typography>
+            <Typography>Effective Date: 07/04/2023</Typography>
 
             <Typography>Introduction:</Typography>
 
             <Typography>
-              Hello, everyone! Welcome to Cookk, an innovative food sharing platform connecting talented home bakers and restaurants
-              with customers and businesses seeking fresh, homemade meals. We are committed to protecting your privacy
-              and ensuring the security of your personal information. This Privacy Policy outlines how we collect, use,
-              disclose, and safeguard your information when you use our website. By accessing or using Cookk, you agree
-              to the terms and conditions of this policy.
+              Hello, everyone! Welcome to Cookk, an innovative food sharing platform connecting talented home chefs and
+              restaurants with customers and businesses seeking fresh, homemade meals and more. We are committed to
+              protecting your privacy and ensuring the security of your personal information. This Privacy Policy
+              outlines how we collect, use, disclose, and safeguard your information when you use our website. By
+              accessing or using Cookk, you agree to the terms and conditions of this policy.
             </Typography>
 
             <Typography>Information We Collect:</Typography>

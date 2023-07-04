@@ -6,14 +6,14 @@ const cards = [
   {
     image: 'image 33',
     title: '1',
-    content: `Discover nearby restaurants and home bakers that offer delicious desserts`,
+    content: `Discover nearby restaurants and home chefs that offer delicious food`,
     type: 'png',
   },
   {
     image: 'image 34',
     title: '2',
     type: 'png',
-    content: `Choose your desserts - allergy-free, organic, homemade, and more`,
+    content: `Choose your food - healthy, homemade, desserts and more`,
   },
   { image: 'image 35', title: '3', content: `Sit back and relax - we'll deliver it to your door`, type: 'png' },
 ];
