@@ -60,7 +60,7 @@ export default function SearchHomeHero() {
           >
             Delicious Homemade Food
             <br />
-            and more, delivered
+            and more. Delivered
           </Typography>
           <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 2, sm: 0 }} position={'relative'}>
             <SearchInput icon="ic:outline-location-on" placeholder="Find food" buttonLabel="Find food" />
