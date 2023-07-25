@@ -59,11 +59,11 @@ export default function ChefPage() {
       const sumArray = [];
       foodsArray.map((item) => {
         const findFood = sumArray.find((food) => food.title.split('with')[0] === item.title.split('with')[0]);
-        if (!findFood) {
-          sumArray.push(item);
-        }
+        // if (!findFood) {
+        sumArray.push(item);
+        //
       });
-      setFilteredFoodsArray(sumArray)
+      setFilteredFoodsArray(sumArray);
     }
   }, [foodsArray]);
 
