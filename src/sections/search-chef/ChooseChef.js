@@ -271,7 +271,7 @@ export default function ChooseChef() {
                   sx={{ position: 'absolute', width: '100%', height: '100%', top: -2 }}
                 />
                 <Typography color={'white'} fontSize={{ xs: 16, sm: 20 }} fontWeight={400}>
-                  Get free delivery on orders over $100
+                  Get free delivery on orders over $70
                 </Typography>
               </Stack>
               {city && (
