@@ -37,6 +37,7 @@ function About() {
           </Grid>
           <Grid item sm={8} md={6} className="text-center text-muted g-font" >
             <h2 className="header-color">Aslan Shaken</h2>
+            <br/>
             <h3>Software Engineer</h3>
             <h5>a creative, an innovator, a leader</h5>
             <br/>
