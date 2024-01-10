@@ -61,11 +61,10 @@ function About() {
           <h3>About me</h3>
           <br/>
           <p>
-          I am a results-driven software engineer with a proven track record in product support, development of scalable
-          full stack applications and database optimization. My approach is characterized by a strong entrepreneurial
-          mindset and strategic thinking, empowering me to identify innovative opportunities for business growth.
-          Proficient in various programming languages and possessing a keen eye for user experience, I am dedicated to
-          delivering impactful results in every project.
+          Experienced full-stack software engineer with 4 years in the field. I launched my own startup, demonstrating
+          an entrepreneurial mindset. Specializing in building secure and scalable technology products, including
+          expertise in crypto, I manage the entire development lifecycle, ensuring efficient design, testing, and
+          deployment. Adaptability is a key strength, enabling me to thrive in dynamic environments.
           </p>
         </Grid>
       </Grid>

@@ -80,16 +80,6 @@ export default function Project() {
       stacks: "React, Node.js, Express, MongoDB"
     },
     {
-      title: 'InfoBox',
-      link: 'https://github.com/aslanshaken/KZImmigrantGuide',
-      description: 'Creating a digital hub for everyone in the US, \
-      our non-profit project aims to provide accurate and up-to-date \
-      information on various topics like immigration, housing, job \
-      opportunities, and cultural events.',
-      imageSrc: require("../../assets/info-box.png"),
-      stacks: "Ruby on Rails, JavaScript and React"
-    },
-    {
       title: 'Bookkeeping Landing Page',
       link: 'https://github.com/aslanshaken/go4profit-v3',
       description: 'Created a website for Go4Profit, a bookkeeping \
@@ -123,6 +113,16 @@ export default function Project() {
       stacks: "JavaScript, TypeScript, React, Redux and MUI "
     },
     {
+      title: 'InfoBox',
+      link: 'https://github.com/aslanshaken/KZImmigrantGuide',
+      description: 'Creating a digital hub for everyone in the US, \
+      our non-profit project aims to provide accurate and up-to-date \
+      information on various topics like immigration, housing, job \
+      opportunities, and cultural events.',
+      imageSrc: require("../../assets/info-box.png"),
+      stacks: "Ruby on Rails, JavaScript and React"
+    },
+    {
       title: 'Tax and Bookkeeping',
       link: 'https://github.com/aslanshaken/UIX',
       description: 'A basic website for a company offering bookkeeping \
@@ -142,6 +142,17 @@ export default function Project() {
     },
     {
       title: 'Cookk',
+      link: 'https://cookk.co',
+      description: "I started Cookk to connect local consumers with home chefs, addressing \
+      problems like the need for healthy, customized meals and a platform for chefs to showcase \
+      their skills. Our mission is to provide a user-friendly app, allowing customers to find nearby \
+      chefs and explore a variety of meal options. In terms of technology, I managed the entire \
+      development lifecycle, from application design to testing and deployment.",
+      imageSrc: require("../../assets/cookkimg.png"),
+      stacks: "Ruby on Rails, React, AWS, Stripe, SendGrid, Sentry, and CloudFlare"
+    },
+    {
+      title: 'Republic Wallet / Republic Note',
       link: 'https://cookk.co',
       description: "I started Cookk to connect local consumers with home chefs, addressing \
       problems like the need for healthy, customized meals and a platform for chefs to showcase \
