@@ -8,7 +8,7 @@ import BackgroundImage from '../../assets/03.png';
 
 const ImageButton = styled(ButtonBase)(({ theme }) => ({
   position: 'relative',
-  height: 200,
+  height: 100,
   [theme.breakpoints.down('sm')]: {
     width: '100% !important',
     height: 100,
@@ -70,45 +70,41 @@ const ImageMarked = styled('span')(({ theme }) => ({
   transition: theme.transitions.create('opacity'),
 }));
 
-export default function Resume() {
+const Resume = () => {
   return (
-    <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%'}}>
-      <ImageButton
-        focusRipple
-        key={'Resume'}
-        style={{
-          width: '100%',
-        }}
-      >
+    <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%' }}>
+      <ImageButton focusRipple key={'Resume'} style={{ width: '100%' }}>
         <ImageSrc style={{ backgroundImage: `url(${BackgroundImage})` }} />
         <ImageBackdrop className='MuiImageBackdrop-root' />
-        <Image>
-          <Typography
-            component='span'
-            variant='subtitle1'
-            color='inherit'
-            sx={{
-              position: 'relative',
-              p: 4,
-              pt: 2,
-              pb: (theme) => `calc(${theme.spacing(1)} + 3px)`,
-            }}
-          >
-            <Link
-              textDecoration='none'
+        <Link
+          textDecoration='none'
+          color='inherit'
+          href='https://docs.google.com/document/d/1B0Swf8i7WrKl3D43qJY1SpaNKFJzrQqF/edit?usp=sharing&ouid=105436288719072033535&rtpof=true&sd=true'
+          target='_blank'
+        >
+          <Image>
+            <Typography
+              component='span'
+              variant='subtitle1'
               color='inherit'
-              href='https://docs.google.com/document/d/1B0Swf8i7WrKl3D43qJY1SpaNKFJzrQqF/edit?usp=sharing&ouid=105436288719072033535&rtpof=true&sd=true'
-              target='_blank' // Open in a new tab
+              sx={{
+                position: 'relative',
+                p: 4,
+                pt: 2,
+                pb: (theme) => `calc(${theme.spacing(1)} + 3px)`,
+              }}
             >
               <h4 style={{ margin: 0 }}>Resume</h4>
-            </Link>
-            <ImageMarked className='MuiImageMarked-root' />
-          </Typography>
-        </Image>
+              <ImageMarked className='MuiImageMarked-root' />
+            </Typography>
+          </Image>
+        </Link>
       </ImageButton>
       <br />
       <br />
       <br />
     </Box>
   );
-}
+};
+
+export default Resume;

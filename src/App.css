@@ -7,4 +7,27 @@
   font-family: 'Open Sans', sans-serif;
 }
 
+/* App.css */
+
+/* Add this class to hide header links on mobile */
+.hide-on-mobile {
+  display: none;
+}
+
+/* Add this class to show header links on desktop */
+.show-on-desktop {
+  display: block;
+}
+
+/* Media query to apply styles based on screen size */
+@media only screen and (min-width: 600px) {
+  .hide-on-mobile {
+    display: block;
+  }
+
+  .show-on-desktop {
+    display: none;
+  }
+}
+
 @import "~react-image-gallery/styles/css/image-gallery.css";

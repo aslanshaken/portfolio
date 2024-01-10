@@ -42,7 +42,7 @@ const experienceData = [
   },
   {
     image: Datadog,
-    title: 'Software Engineer Internship',
+    title: 'Software Engineer Intern',
     location: 'NYC, USA',
     date: '05/2021 - 08/2021',
   }
