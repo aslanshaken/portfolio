@@ -212,8 +212,8 @@ function App() {
         <div id="experience"><Experience /></div>
         <div id="project"><Project /></div>
         <div id="skills"><TextCarousel /></div>
-        {/* <div id="resume"><Resume /></div>
-        <div id="calendly"><Calendly /></div> */}
+        {/* <div id="resume"><Resume /></div> */}
+        {/* <div id="calendly"><Calendly /></div> */}
 
         {/* ScrollToTopButton */}
         {/* <ScrollToTopButton /> */}
