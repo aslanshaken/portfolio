@@ -36,7 +36,8 @@ function About() {
               />
           </Grid>
           <Grid item sm={8} md={6} className="text-center text-muted g-font" >
-            <h3>SOFTWARE ENGINEER</h3>
+            <h2 className="header-color">Aslan Shaken</h2>
+            <h3>Software Engineer</h3>
             <h5>a creative, an innovator, a leader</h5>
             <br/>
             <Divider />
@@ -56,12 +57,15 @@ function About() {
             </Grid>
           </Grid>
         </Grid>
-        <Grid textAlign='center' width='85%' className="mb-5 mt-5 g-p-font">
+        <Grid textAlign='center' width='80%' className="mb-5 mt-5 g-p-font">
+          <h3>About me</h3>
+          <br/>
           <p>
-          A self-driven entrepreneur with 5 years of software engineering experience, I have successfully launched my own start up called Cookk,
-          designed software architecture, integrated third-party software, and optimized complex business applications. I have strong
-          problem-solving skills, as well as the ability to collaborate effectively as a reliable, proactive team player. Passionate about my
-          work, I consistently strive to learn and embrace new technologies and methodologies
+          I am a results-driven software engineer with a proven track record in product support, development of scalable
+          full stack applications and database optimization. My approach is characterized by a strong entrepreneurial
+          mindset and strategic thinking, empowering me to identify innovative opportunities for business growth.
+          Proficient in various programming languages and possessing a keen eye for user experience, I am dedicated to
+          delivering impactful results in every project.
           </p>
         </Grid>
       </Grid>

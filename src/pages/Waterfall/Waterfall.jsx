@@ -16,8 +16,8 @@ export default function Waterfall() {
           <TimelineConnector />
         </TimelineSeparator>
         <TimelineContent>
-          Borough of Manhattan Community College - 
-          C.S.
+          BMCC (A.A.) - 
+          Computer Networking Tech
           </TimelineContent>
       </TimelineItem>
       <TimelineItem>
@@ -26,8 +26,8 @@ export default function Waterfall() {
           <TimelineConnector />
         </TimelineSeparator>
         <TimelineContent>
-          NY City College of Technology - 
-          C.S. (Software Development)
+          NYC College of Tech (B.A.) - 
+          Software Development
         </TimelineContent>
       </TimelineItem>
       <TimelineItem>

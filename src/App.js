@@ -28,20 +28,20 @@ theme = responsiveFontSizes(theme);
 
 
 function App() {
-  return(
-  <div className="App">
-    <ThemeProvider theme={theme}>
-          {/* <Header/> */}
-          {/* <Welcome/> */}
-          <About/>
-          {/* <Steps/> */}
-          {/* <Experience/> */}
-          <Waterfall/>
-          <Project/>
-          <TextCarousel/>
-          <Resume/>
-    </ThemeProvider>
-  </div>
+  return (
+    <div className="App">
+      <ThemeProvider theme={theme}>
+        {/* <Header/> */}
+        {/* <Welcome/> */}
+        <About />
+        {/* <Steps/> */}
+        {/* <Experience/> */}
+        <Waterfall />
+        <Project />
+        <TextCarousel />
+        <Resume />
+      </ThemeProvider>
+    </div>
   );
 }
 

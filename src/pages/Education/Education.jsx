@@ -29,7 +29,7 @@ export default function Education() {
               <Grid item xs container direction="column" spacing={2}>
                 <Grid item xs>
                   <Typography gutterBottom variant="subtitle1" component="div">
-                    New York City College of Technology
+                    NYC College of Technology
                   </Typography>
                   <Typography variant="body2" gutterBottom>
                     Bachelor's degree
