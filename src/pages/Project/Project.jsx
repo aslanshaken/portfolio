@@ -151,17 +151,17 @@ export default function Project() {
       imageSrc: require("../../assets/cookkimg.png"),
       stacks: "Ruby on Rails, React, AWS, Stripe, SendGrid, Sentry, and CloudFlare"
     },
-    {
-      title: 'Republic Wallet / Republic Note',
-      link: 'https://cookk.co',
-      description: "I started Cookk to connect local consumers with home chefs, addressing \
-      problems like the need for healthy, customized meals and a platform for chefs to showcase \
-      their skills. Our mission is to provide a user-friendly app, allowing customers to find nearby \
-      chefs and explore a variety of meal options. In terms of technology, I managed the entire \
-      development lifecycle, from application design to testing and deployment.",
-      imageSrc: require("../../assets/cookkimg.png"),
-      stacks: "Ruby on Rails, React, AWS, Stripe, SendGrid, Sentry, and CloudFlare"
-    },
+    // {
+    //   title: 'Republic Wallet / Republic Note',
+    //   link: 'https://cookk.co',
+    //   description: "I started Cookk to connect local consumers with home chefs, addressing \
+    //   problems like the need for healthy, customized meals and a platform for chefs to showcase \
+    //   their skills. Our mission is to provide a user-friendly app, allowing customers to find nearby \
+    //   chefs and explore a variety of meal options. In terms of technology, I managed the entire \
+    //   development lifecycle, from application design to testing and deployment.",
+    //   imageSrc: require("../../assets/cookkimg.png"),
+    //   stacks: "Ruby on Rails, React, AWS, Stripe, SendGrid, Sentry, and CloudFlare"
+    // },
     
   ];
 
