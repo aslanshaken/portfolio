@@ -58,6 +58,8 @@ function About() {
           </Grid>
         </Grid>
         <Grid textAlign='center' width='80%' className="mb-5 mt-5 g-p-font">
+          <h3>About me</h3>
+          <br/>
           <p>
           Experienced full-stack software engineer with 4 years in the field. I launched my own startup, demonstrating
           an entrepreneurial mindset. Specializing in building secure and scalable technology products, including

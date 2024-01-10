@@ -100,7 +100,7 @@ export default function Project() {
       purchases, and proceed with payments. For secure transactions, a dedicated \
       Stripe integration was implemented. Users are seamlessly redirected to the \
       payment flow after clicking on the payment link.',
-      imageSrc: require("../../assets/Dumpling.png"),
+      imageSrc: require("../../assets/dumpling.png"),
       stacks: "JavaScript, React, Stripe and MUI"
     },
     {
@@ -151,42 +151,58 @@ export default function Project() {
       imageSrc: require("../../assets/cookkimg.png"),
       stacks: "Ruby on Rails, React, AWS, Stripe, SendGrid, Sentry, and CloudFlare"
     },
-    // {
-    //   title: 'Republic Wallet / Republic Note',
-    //   link: 'https://cookk.co',
-    //   description: "I started Cookk to connect local consumers with home chefs, addressing \
-    //   problems like the need for healthy, customized meals and a platform for chefs to showcase \
-    //   their skills. Our mission is to provide a user-friendly app, allowing customers to find nearby \
-    //   chefs and explore a variety of meal options. In terms of technology, I managed the entire \
-    //   development lifecycle, from application design to testing and deployment.",
-    //   imageSrc: require("../../assets/cookkimg.png"),
-    //   stacks: "Ruby on Rails, React, AWS, Stripe, SendGrid, Sentry, and CloudFlare"
-    // },
+    {
+      title: 'Migrating from RESTful API to GraphQL',
+      link: 'https://republic.com',
+      description: "While working at Republic, I played a key role in the back-end \
+      team, leading the switch from a RESTful API to GraphQL using DDD \
+      principles. We took steps like evaluating the existing RESTful API, focusing \
+      on one part at a time, and creating a structured schema with types, queries, \
+      mutations, and resolvers. Testing was thorough, we worked on multiple parts \
+      simultaneously, helped clients transition smoothly, and documented everything. \
+      I was involved in tasks covering the database, back end, and front end.",
+      imageSrc: require("../../assets/graphql.jpg"),
+      stacks: "React, JavaScript, Typescript, Node.js, Mob X, Ruby on Rails, PostgreSQL and GraphQL"
+    },
+    {
+      title: 'Republic Wallet / Republic Note',
+      link: 'https://republic.com/note',
+      description: "During my time at Republic, I was part of the Republic\
+       Crypto X-team. Our team made significant contributions to crucial \
+       projects, including the Republic Wallet and Republic Note. Both \
+       projects were publicly launched on December 6, 2023, achieving a \
+       market cap of 60M. We were involved in the entire process, from \
+       planning and design to coding, testing, release, and continuous \
+       maintenance, ensuring the projects' smooth operation.",
+      imageSrc: require("../../assets/republicNote.png"),
+      stacks: "React, JavaScript, Typescript, Node.js, Mob X, Ruby on Rails, PostgreSQL and GraphQL"
+    },
     
   ];
 
 
   return (
-     <Box sx={{ flexGrow: 1, padding: "10% 8% 10% 8%" }}>
+  <Box sx={{ flexGrow: 1, padding: "10% 8% 10% 8%",  }}>
   <h3 className="text-center mb-4">Projects</h3>
   <p className="text-center mb-5">
-    Working on different projects helped me adapt to changes quickly and made me a mature team worker.
+    Working on different projects helped me adapt to changes quickly and made me a mature team worker
   </p>
   <Grid container spacing={{ xs: 2, md: 3 }}>
     {projects.slice().reverse().map((project, index) => (
       <React.Fragment key={index}>
-        {/* Grid container with Flexbox to align items */}
-        <Grid container item xs={12} md={12} sx={{ justifyContent: 'center', alignItems: 'flex-end', borderTop: '1px solid #ccc', margin: '10px 0' }}>
+        <Grid container item xs={12} md={12} sx={{ justifyContent: 'center', alignItems: 'center', borderTop: '1px solid #ccc'}}>
           <Grid item xs={12} md={6} sx={{ textAlign: 'center' }}>
             <Link href={project.link} sx={{ '&:hover': { opacity: [0.9, 0.8, 0.7] } }}>
-              <img src={project.imageSrc} width="70%" height="auto" alt={project.title} />
+              <img src={project.imageSrc} width="70%" height="auto" alt={project.title} style={{ borderRadius: '10%' }}  />
             </Link>
           </Grid>
-          <Grid item xs={12} md={6} sx={{ textAlign: 'center' }}>
+          <Grid item xs={12} md={6} sx={{ textAlign: 'center', marginTop: '20px' }}>
             <h4>{project.title}</h4>
-            <Link href={project.link} target="_blank" fontSize="13px" rel="noopener noreferrer">
+            <Link href={project.link} target="_blank" fontSize="15px" rel="noopener noreferrer">
               {project.link}
+              <br/>
             </Link>
+            <br/>
             <p><b>Description</b>: {project.description}</p>
             <p><b>Tech Stack</b>: {project.stacks}</p>
           </Grid>

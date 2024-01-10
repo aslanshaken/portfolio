@@ -4,14 +4,13 @@ import Box from '@mui/material/Box';
 import ButtonBase from '@mui/material/ButtonBase';
 import Typography from '@mui/material/Typography';
 import { Link } from '@mui/material';
-import BackgroundImage from '../../assets/03.png'
-
+import BackgroundImage from '../../assets/03.png';
 
 const ImageButton = styled(ButtonBase)(({ theme }) => ({
   position: 'relative',
   height: 200,
   [theme.breakpoints.down('sm')]: {
-    width: '100% !important', // Overrides inline-style
+    width: '100% !important',
     height: 100,
   },
   '&:hover, &.Mui-focusVisible': {
@@ -73,21 +72,21 @@ const ImageMarked = styled('span')(({ theme }) => ({
 
 export default function Resume() {
   return (
-    <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%', marginBottom:'5%'}}>
+    <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%'}}>
       <ImageButton
         focusRipple
-        key={"Resume"}
+        key={'Resume'}
         style={{
           width: '100%',
         }}
       >
         <ImageSrc style={{ backgroundImage: `url(${BackgroundImage})` }} />
-        <ImageBackdrop className="MuiImageBackdrop-root" />
+        <ImageBackdrop className='MuiImageBackdrop-root' />
         <Image>
           <Typography
-            component="span"
-            variant="subtitle1"
-            color="inherit"
+            component='span'
+            variant='subtitle1'
+            color='inherit'
             sx={{
               position: 'relative',
               p: 4,
@@ -95,16 +94,21 @@ export default function Resume() {
               pb: (theme) => `calc(${theme.spacing(1)} + 3px)`,
             }}
           >
-            <Link textDecoration="none" color="inherit" href="https://docs.google.com/document/d/1BRHoPwNf7MGSJRIxaAeHv_C5TIaBv_Jq/edit?usp=sharing&ouid=105436288719072033535&rtpof=true&sd=true">
-              <h4>Resume</h4>
+            <Link
+              textDecoration='none'
+              color='inherit'
+              href='https://docs.google.com/document/d/1B0Swf8i7WrKl3D43qJY1SpaNKFJzrQqF/edit?usp=sharing&ouid=105436288719072033535&rtpof=true&sd=true'
+              target='_blank' // Open in a new tab
+            >
+              <h4 style={{ margin: 0 }}>Resume</h4>
             </Link>
-            <ImageMarked className="MuiImageMarked-root" />
+            <ImageMarked className='MuiImageMarked-root' />
           </Typography>
         </Image>
       </ImageButton>
-      <br/>
-      <br/>
-      <br/>
+      <br />
+      <br />
+      <br />
     </Box>
   );
 }
