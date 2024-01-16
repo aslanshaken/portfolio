@@ -163,9 +163,9 @@ function App() {
               <Button color="inherit" onClick={() => scrollToSection('skills')}>
                 Skills
               </Button>
-              <Button color="inherit" onClick={() => scrollToSection('resume')}>
+              {/* <Button color="inherit" onClick={() => scrollToSection('resume')}>
                 Resume
-              </Button>
+              </Button> */}
             </div>
           </Toolbar>
         </AppBar>
