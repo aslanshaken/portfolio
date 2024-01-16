@@ -8,7 +8,8 @@ import 'bootstrap/dist/css/bootstrap.css'; // Bootstrap
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Router>
-    <App />
+    <div>The website is temporarily unavailable.</div>
+    {/* <App /> */}
   </Router>
 );
 
