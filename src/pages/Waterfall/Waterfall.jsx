@@ -36,7 +36,7 @@ export default function Waterfall() {
           <TimelineConnector />
         </TimelineSeparator>
         <TimelineContent>
-          General Assembly - Coding bootcamp
+          General Assembly - Coding bootcamp 500+ hours
           </TimelineContent>
       </TimelineItem>
       <TimelineItem>

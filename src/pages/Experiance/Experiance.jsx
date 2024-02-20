@@ -31,20 +31,20 @@ const experienceData = [
   {
     image: Cookk,
     title: 'Founder',
-    location: 'NYC, USA',
-    date: '03/2023 - 09/2023',
+    location: 'USA',
+    date: '6+ months',
   },
   {
     image: Republic,
     title: 'Software Engineer',
     location: 'NYC, USA',
-    date: '08/2021 - 08/2023',
+    date: '2 years',
   },
   {
     image: Datadog,
-    title: 'Software Engineer Intern',
+    title: 'Software Engineer',
     location: 'NYC, USA',
-    date: '05/2021 - 08/2021',
+    date: '3+ months',
   }
 ];
 

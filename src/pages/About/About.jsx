@@ -26,7 +26,7 @@ function About() {
          sm={12}
          md={12}
         >
-          <Grid item sm={4} md={6}>
+          <Grid item sm={4} md={6} marginTop={5}>
             <img 
               width='100%' 
               height='auto' 
@@ -61,10 +61,13 @@ function About() {
           <h3>About me</h3>
           <br/>
           <p>
-          Experienced full-stack software engineer with 4 years in the field. I launched my own startup, demonstrating
-          an entrepreneurial mindset. Specializing in building secure and scalable technology products, including
-          expertise in crypto, I manage the entire development lifecycle, ensuring efficient design, testing, and
-          deployment. Adaptability is a key strength, enabling me to thrive in dynamic environments.
+          Bachelor-educated software engineer, entrepreneur, and startup founder. With a solid understanding of various 
+          programming languages and frameworks, I effectively tackle complex problems. I manage the entire software 
+          development lifecycle within agile environments to build scalable full-stack web applications. I bring 
+          robust problem-solving skills, strong collaboration abilities, and easily adapt to new technologies 
+          and methodologies, translating complex technical concepts into user-friendly solutions. I've worked 
+          on various projects, including creating a crypto wallet valued at $50M, leading the backend transition 
+          to GraphQL, resolving production issues within the product support team, and developing an MVP for my startup.
           </p>
         </Grid>
       </Grid>
