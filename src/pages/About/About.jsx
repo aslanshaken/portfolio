@@ -50,10 +50,10 @@ function About() {
             justifyContent="center"
             alignItems="center"
              >
-            <SocialIcon url="https://twitter.com/aslanshaken" className="m-1"/>
-            <SocialIcon url="https://github.com/aslanshaken" className="m-1" />
-            <SocialIcon url="https://www.facebook.com/aslanshaken" className="m-1" />
             <SocialIcon url="https://www.linkedin.com/in/aslanshaken/" className="m-1" />
+            <SocialIcon url="https://github.com/aslanshaken" className="m-1" />
+            <SocialIcon url="https://twitter.com/aslanshaken" className="m-1"/>
+            <SocialIcon url="https://www.facebook.com/aslanshaken" className="m-1" />
             </Grid>
           </Grid>
         </Grid>
