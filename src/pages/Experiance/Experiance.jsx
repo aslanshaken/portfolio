@@ -43,7 +43,7 @@ const experienceData = [
   },
   {
     image: GA,
-    title: 'Software Engineer',
+    title: 'Software Engineer Fellow',
     location: 'NYC, USA',
     date: 'Aug 2017 - Dec 2017',
   },
