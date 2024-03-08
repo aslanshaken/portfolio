@@ -61,13 +61,14 @@ function About() {
           <h3>About me</h3>
           <br/>
           <p>
-          Bachelor-educated software engineer, entrepreneur, and startup founder. With a solid understanding of various 
-          programming languages and frameworks, I effectively tackle complex problems. I manage the entire software 
-          development lifecycle within agile environments to build scalable full-stack web applications. I bring 
-          robust problem-solving skills, strong collaboration abilities, and easily adapt to new technologies 
-          and methodologies, translating complex technical concepts into user-friendly solutions. I've worked 
-          on various projects, including creating a crypto wallet valued at $50M, leading the backend transition 
-          to GraphQL, resolving production issues within the product support team, and developing an MVP for my startup.
+            Passionate and results-driven software engineer with over 6 years of 
+            hands-on experience in full-stack web development. Proficient in a 
+            variety of programming languages and frameworks, including 
+            JavaScript, TypeScript, Ruby, Python, and React. Skilled in leading cross-functional 
+            teams to deliver scalable and robust software solutions. 
+            Committed to continuous learning and staying updated with 
+            emerging technologies. Adept at problem-solving and driving 
+            innovation in the fast-paced environments.
           </p>
         </Grid>
       </Grid>

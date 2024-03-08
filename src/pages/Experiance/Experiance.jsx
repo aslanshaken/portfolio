@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import Republic from '../../assets/republic.png';
 import Datadog from '../../assets/datadog.jpg';
 import Cookk from '../../assets/cookkk.png';
+import GA from '../../assets/GA.png'
 
 const ExperienceContainer = styled(Box)(({ theme }) => ({
   flexGrow: 1,
@@ -29,23 +30,23 @@ const Img = styled('img')({
 
 const experienceData = [
   {
-    image: Cookk,
-    title: 'Founder',
-    location: 'USA',
-    date: '6+ months',
-  },
-  {
     image: Republic,
     title: 'Software Engineer',
     location: 'NYC, USA',
-    date: '2 years',
+    date: 'June 2020 - February 2024',
   },
   {
     image: Datadog,
     title: 'Software Engineer',
     location: 'NYC, USA',
-    date: '3+ months',
-  }
+    date: 'January 2018 - April 2020',
+  },
+  {
+    image: GA,
+    title: 'Software Engineer',
+    location: 'NYC, USA',
+    date: 'August 2017 - December 2017',
+  },
 ];
 
 const Experience = () => {

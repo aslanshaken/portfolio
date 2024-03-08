@@ -141,6 +141,27 @@ export default function Project() {
       stacks: "JavaScript, TypeScript, Next.js, MUI, and Prisma"
     },
     {
+      title: 'Retail Management System',
+      link: 'https://github.com/aslanshaken/retail_application',
+      description: 'It offers a comprehensive platform \
+      for product management in retail settings. It features APIs for listing active products, \
+      searching, creating, updating, and deleting products. With PostgreSQL as its database, \
+      the system ensures data integrity, RESTful API design, error handling, and robust security \
+      measures.',
+      imageSrc: require("../../assets/Retail.png"),
+      stacks: "Ruby on Rails, API and PostgreSQL"
+    },
+     {
+      title: 'Task Management System',
+      link: 'https://github.com/aslanshaken/task-management',
+      description: 'This application delivers a suite of APIs for seamless task management, including \
+      creation, updating, assignment, progress tracking, and statistics retrieval.\
+      The system maintains data integrity, adopts RESTful API design principles, implements robust \
+      error handling, and enforces rigorous security measures.',
+      imageSrc: require("../../assets/task.png"),
+      stacks: "Ruby on Rails, API and PostgreSQL"
+    },
+    {
       title: 'Cookk',
       link: 'https://cookk.co',
       description: "I started Cookk to connect local consumers with home chefs, addressing \
