@@ -63,8 +63,7 @@ function About() {
           <p>
             Passionate and results-driven software engineer with over 6 years of 
             hands-on experience in full-stack web development. Proficient in a 
-            variety of programming languages and frameworks, including 
-            JavaScript, TypeScript, Ruby, Python, and React. Skilled in leading cross-functional 
+            variety of programming languages and frameworks. Skilled in leading cross-functional 
             teams to deliver scalable and robust software solutions. 
             Committed to continuous learning and staying updated with 
             emerging technologies. Adept at problem-solving and driving 
