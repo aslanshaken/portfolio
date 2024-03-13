@@ -33,7 +33,7 @@ const experienceData = [
     image: Republic,
     title: 'Software Engineer',
     location: 'NYC, USA',
-    date: 'Jul 2020 - Sept 2023',
+    date: 'Jul 2020 - Sep 2023',
   },
   {
     image: Datadog,
