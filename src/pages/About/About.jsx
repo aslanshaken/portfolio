@@ -61,7 +61,7 @@ function About() {
           <h3>About me</h3>
           <br/>
           <p>
-            Passionate and results-driven software engineer with over 6 years of 
+            Passionate and results-driven software engineer with over 5 years of 
             hands-on experience in full-stack web development. Proficient in a 
             variety of programming languages and frameworks. Skilled in leading cross-functional 
             teams to deliver scalable and robust software solutions. 

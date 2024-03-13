@@ -33,19 +33,19 @@ const experienceData = [
     image: Republic,
     title: 'Software Engineer',
     location: 'NYC, USA',
-    date: 'Jun 2020 - Feb 2024',
+    date: 'Jul 2020 - Sept 2023',
   },
   {
     image: Datadog,
     title: 'Software Engineer',
     location: 'NYC, USA',
-    date: 'Jan 2018 - Apr 2020',
+    date: 'Oct 2018 - Jun 2020',
   },
   {
     image: GA,
     title: 'Software Engineer Fellow',
     location: 'NYC, USA',
-    date: 'Aug 2017 - Dec 2017',
+    date: 'May 2018 - Sep 2018',
   },
 ];
 
