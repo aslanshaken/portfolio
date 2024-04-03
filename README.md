@@ -27,3 +27,4 @@ yarn start
 ```
 
 You can now access `http://localhost:3000`hello
+hello
