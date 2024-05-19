@@ -10,7 +10,7 @@
 
 .ab-img {
     padding: 15%;
-    -webkit-filter: grayscale(100%);
+    /* -webkit-filter: grayscale(100%); */
     border-radius: 100px;
 }
 
