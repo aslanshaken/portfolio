@@ -175,8 +175,8 @@ export default function Project() {
     {
       title: 'Migrating from RESTful API to GraphQL',
       link: 'https://republic.com',
-      description: "While working at Republic, I played a key role in the back-end \
-      team, leading the switch from a RESTful API to GraphQL using DDD \
+      description: "While working at Republic, I played a key role in the team, \
+      leading the switch from a RESTful API to GraphQL using DDD \
       principles. We took steps like evaluating the existing RESTful API, focusing \
       on one part at a time, and creating a structured schema with types, queries, \
       mutations, and resolvers. Testing was thorough, we worked on multiple parts \
