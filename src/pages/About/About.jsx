@@ -42,7 +42,7 @@ function About() {
             <br/>
             <Divider />
             <br/>
-            <h6>Based in Austin, TX but open to relocate</h6>
+            {/* <h6>Based in Austin, TX but open to relocate</h6> */}
             <h6>aslanshaken@gmail.com</h6>
             <Grid
             container
