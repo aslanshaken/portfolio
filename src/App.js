@@ -1,49 +1,35 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-
 import './App.css'
-
-import Header from './components/Header'
-import ReviewItem from './components/ReviewItem'
-import ReviewItems from './components/ReviewItems'
-
-// hard-coded list of available users in lieu of actually having
-// authentication or pulling users from a database
-const availableUsers = [
-  {
-    id: 'c98f52d2-d521-4ecc-bba1-d63ce7591bfb',
-    name: 'User A'
-  },
-  {
-    id: 'e2d648f2-476e-4833-acec-9f7559544dd8',
-    name: 'User B'
-  }
-]
+import Header from './components/Header/Header'
+import Projects from './components/Projects/Projects'
+import Home from './components/Home/Home'
+import Education from './components/Education/Education'
 
 const App = () => {
-  const [currentUser, setCurrentUser] = useState(availableUsers[0])
-
-  const setUser = user => setCurrentUser(user)
-
   return (
-    <div className="app">
-      <Header users={availableUsers} currentUser={currentUser} setUser={setUser} />
-      <div className="app__content-container">
-        <Router>
+    <Router>
+      <div className="app">
+        <Header />
+        <div className="app__content-container">
           <div className="app__content">
             <Route
               exact
               path="/"
-              render={() => <ReviewItems currentUser={currentUser} />}
+              render={() => <Home />}
             />
             <Route
-              path="/items/:itemId"
-              render={(props) => <ReviewItem {...props} currentUser={currentUser} />}
+              path="/education"
+              render={() => <Education />}
+            />
+            <Route
+              path="/projects"
+              render={() => <Projects />}
             />
           </div>
-        </Router>
-      </div>
-    </div>
+        </div>
+      </div >
+    </Router>
   )
 }
 
