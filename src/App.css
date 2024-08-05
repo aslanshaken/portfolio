@@ -1,8 +1,8 @@
-/* .app {
+.app {
   min-width: 550px;
 }
 
-.app__content-container {
+/* .app__content-container {
   position: relative;
   display: flex;
   height: auto;

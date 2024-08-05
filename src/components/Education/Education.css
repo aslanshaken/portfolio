@@ -1,7 +1,78 @@
 .education {
   display: flex;
   flex-direction: column;
-  /* justify-content: center;
-  align-items: center; */
-  margin: 5%;
+}
+
+.education__first {
+  display: flex;
+  flex-direction: column;
+  margin: 0.5%;
+  padding: 1%;
+}
+
+.education__content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.education__second {
+  display: flex;
+  flex-direction: column;
+  margin: 0.5%;
+  padding: 1%;
+}
+
+.education__certification__content {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  justify-items: center;
+}
+
+.education-card {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  background-color: #ffffff;
+  padding: 0%;
+  margin: 0;
+}
+
+.education-card .MuiListItem-root {
+  padding: 2%;
+}
+
+.education-card .MuiDivider-root {
+  margin: 0;
+}
+
+.education-certification-card {
+  width: 100%;
+  max-width: 250px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  background-color: #ffffff;
+  padding: 0%;
+  margin: 0;
+}
+
+.education-certification-card .MuiListItem-root {
+  padding: 2%;
+}
+
+.education-certification-card .MuiDivider-root {
+  margin: 0;
+}
+
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+  .education__content {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+    justify-items: center;
+  }
+
 }
