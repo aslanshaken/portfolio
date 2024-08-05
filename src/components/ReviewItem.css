@@ -1,0 +1,52 @@
+.review-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.review-item h3 {
+  flex: 1;
+}
+
+.comments-section {
+  margin-top: 20px;
+  width: 300px;
+}
+
+.comments-list {
+  border: 1px solid #ddd;
+  padding: 10px;
+  max-height: 400px;
+  overflow-y: scroll;
+  margin-bottom: 20px;
+}
+
+.comment {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+form {
+  display: flex;
+  gap: 10px;
+}
+
+input[type="text"] {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
