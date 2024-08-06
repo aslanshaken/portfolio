@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Container, Typography } from '@mui/material';
 import './Projects.css';
 import CookkImage from './images/cookk.png';
+import Button from '@mui/material/Button';
 
 const Cookk = () => {
   return (
@@ -13,6 +14,17 @@ const Cookk = () => {
       </div>
       <Typography variant="h2">
         <a href='https://github.com/UnitedFood/front-end' target='_blank' rel='noopener noreferrer' className="project-title">Cookk</a>
+      </Typography>
+
+      <div className='project-buttons'>
+        <Button size="small" variant='outlined' href='https://www.figma.com/board/lChJW00ET353gmxC69Rxrd/Cookk-Diagram?node-id=0-1&t=MMROurDNtqlEurGD-1' target='_blank'>Whiteboard</Button>
+        <Button size="small" variant='outlined' href='https://www.figma.com/design/6iDcJUwdqlc9lVLt6tkbEC/Cookk?node-id=0-1&t=bMPUnBs7kSD7zzVr-1' target='_blank'>MVP Design</Button>
+        <Button size="small" variant='outlined' href='https://youtu.be/DfgF7he-5tY?si=Grgrz2V00ZbaCCL8' target='_blank'>Video Demo</Button>
+      </div>
+
+
+      <Typography variant="body1" sx={{ mb: 2 }} className="project-description1">
+        Founded Cookk to bridge the gap between local consumers and home chefs, addressing the demand for healthy, personalized meals and providing chefs a platform to showcase their culinary talents.
       </Typography>
 
       <Typography variant="body1" sx={{ mb: 5 }} className="project-description1">

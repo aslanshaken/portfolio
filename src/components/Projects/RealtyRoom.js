@@ -2,7 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Typography } from '@mui/material';
 import './Projects.css';
-import RealtyRoomImage from './images/realtyroom.png';  // Replace with the appropriate image path
+import RealtyRoomImage from './images/realtyroom.png';
+import Button from '@mui/material/Button';
 
 const RealtyRoom = () => {
   return (
@@ -14,6 +15,12 @@ const RealtyRoom = () => {
       <Typography variant="h2">
         <a href='https://realtyroom.co' target='_blank' rel='noopener noreferrer' className="project-title">Realty Room</a>
       </Typography>
+
+      <div className='project-buttons'>
+        <Button size="small" variant='outlined' href='https://www.figma.com/board/wyJygT0hJvPSpwYXVkxqJh/Commercial-Leasing-Process?node-id=0-1&t=W7M1ncjazFOcoicK-1' target='_blank'>Whiteboard</Button>
+        <Button size="small" variant='outlined' href='https://www.figma.com/design/TDI0faOdiLxakII0wKLf74/Commercial-Leasing-Process?node-id=0-1&t=dEcQVpMlLCRmZcX8-1' target='_blank'>MVP Design</Button>
+        <Button size="small" variant='outlined' href='https://www.figma.com/design/wKofpEoVFQ1hev7ikm8oRC/Start-Up-Draft?t=E2tE2alqbFMrTHI8-1' target='_blank'>Pitch Deck</Button>
+      </div>
 
       <Typography variant="body1" sx={{ mb: 5 }} className="project-description1">
         <strong>Situation:</strong> I started Realty Room to create a platform that empowers commercial real estate brokers with AI tools to generate essential documents and provide immediate answers through an AI-powered chatbot. Despite having a strong vision and initial technological progress, the project faced significant challenges including logistical issues, poor market research, and limited networking opportunities. These factors ultimately led to the decision to halt further development.

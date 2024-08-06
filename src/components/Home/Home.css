@@ -56,4 +56,13 @@
   .home {
     flex-direction: column;
   }
+
+  .home__ava {
+    width: 250px;
+    display: none;
+  }
+
+  .home__left {
+    margin: 0;
+  }
 }

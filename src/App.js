@@ -9,6 +9,7 @@ import CryptoRepublicWallet from './components/Projects/CryptoRepublicWallet'
 import RestToGraphql from './components/Projects/RestToGraphql'
 import Cookk from './components/Projects/Cookk'
 import RealtyRoom from './components/Projects/RealtyRoom'
+import ManageContractors from './components/Projects/ManageContractors'
 
 const App = () => {
   return (
@@ -45,6 +46,10 @@ const App = () => {
             <Route
               path="/realtyroom"
               render={() => <RealtyRoom />}
+            />
+            <Route
+              path="/manage-contractors"
+              render={() => <ManageContractors />}
             />
           </div>
         </div>

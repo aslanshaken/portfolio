@@ -83,6 +83,22 @@ const Projects = () => {
               Personal
             </Typography>
             <Typography component="div" sx={{ mb: 1.5 }} >
+              AI Contractor Management
+            </Typography>
+            <Typography variant="body2">
+              AI Assistant tailored for managing telecom contractors for major companies like Spectrum and AT&T.
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Link to='/manage-contractors'><Button size="small">Learn More</Button></Link>
+          </CardActions>
+        </Card>
+        <Card sx={{ minWidth: 275 }}>
+          <CardContent>
+            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+              Personal
+            </Typography>
+            <Typography component="div" sx={{ mb: 1.5 }} >
               Task Management System
             </Typography>
             <Typography variant="body2">
