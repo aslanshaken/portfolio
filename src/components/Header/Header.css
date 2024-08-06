@@ -12,8 +12,7 @@
 }
 
 .header__title {
-  font-weight: normal;
-  font-size: 0.7rem;
+  font-weight: bolder;
   text-decoration: none;
   color: black;
 }
