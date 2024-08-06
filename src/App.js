@@ -10,6 +10,7 @@ import RestToGraphql from './components/Projects/RestToGraphql'
 import Cookk from './components/Projects/Cookk'
 import RealtyRoom from './components/Projects/RealtyRoom'
 import ManageContractors from './components/Projects/ManageContractors'
+import Work from './components/Work/Work'
 
 const App = () => {
   return (
@@ -50,6 +51,10 @@ const App = () => {
             <Route
               path="/manage-contractors"
               render={() => <ManageContractors />}
+            />
+            <Route
+              path="/work"
+              render={() => <Work />}
             />
           </div>
         </div>
