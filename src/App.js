@@ -5,6 +5,10 @@ import Header from './components/Header/Header'
 import Projects from './components/Projects/Projects'
 import Home from './components/Home/Home'
 import Education from './components/Education/Education'
+import CryptoRepublicWallet from './components/Projects/CryptoRepublicWallet'
+import RestToGraphql from './components/Projects/RestToGraphql'
+import Cookk from './components/Projects/Cookk'
+import RealtyRoom from './components/Projects/RealtyRoom'
 
 const App = () => {
   return (
@@ -25,6 +29,22 @@ const App = () => {
             <Route
               path="/projects"
               render={() => <Projects />}
+            />
+            <Route
+              path="/crypto-republic-wallet"
+              render={() => <CryptoRepublicWallet />}
+            />
+            <Route
+              path="/rest-to-graphql"
+              render={() => <RestToGraphql />}
+            />
+            <Route
+              path="/cookk"
+              render={() => <Cookk />}
+            />
+            <Route
+              path="/realtyroom"
+              render={() => <RealtyRoom />}
             />
           </div>
         </div>
