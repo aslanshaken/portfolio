@@ -5,6 +5,7 @@
   "scripts": {
     "start-client": "react-scripts start",
     "build-client": "react-scripts build",
+    "build": "npm run build-client",
     "start-server": "nodemon server/server.js",
     "start": "concurrently --kill-others-on-fail \"yarn start-server\" \"yarn start-client\"",
     "test": "react-scripts test --env=jsdom",
