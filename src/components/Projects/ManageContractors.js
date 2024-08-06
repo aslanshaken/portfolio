@@ -14,7 +14,7 @@ const ManageContractors = () => {
         <img src={ManageContractorsImage} alt="AI Project" />
       </div>
       <Typography variant="h2">
-        <a href='https://github.com/UnitedFood/front-end' target='_blank' rel='noopener noreferrer' className="project-title">AI Contractor Manager</a>
+        <a href='https://' target='_blank' rel='noopener noreferrer' className="project-title">AI Contractor Manager</a>
       </Typography>
 
       <div className='project-buttons'>
