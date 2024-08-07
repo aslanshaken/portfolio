@@ -4,6 +4,7 @@ import { Container, Typography } from '@mui/material';
 import './Projects.css';
 import CookkImage from './images/cookk.png';
 import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider'; 
 
 const Cookk = () => {
   return (
@@ -22,68 +23,36 @@ const Cookk = () => {
         <Button size="small" variant='outlined' href='https://youtu.be/DfgF7he-5tY?si=Grgrz2V00ZbaCCL8' target='_blank'>Video Demo</Button>
       </div>
 
+      <Divider sx={{ mb: 3 }} />
 
       <Typography variant="body1" sx={{ mb: 2 }} className="project-description1">
-        Founded Cookk to bridge the gap between local consumers and home chefs, addressing the demand for healthy, personalized meals and providing chefs a platform to showcase their culinary talents.
+        I've always been curious about what it’s like to build a startup from scratch and sell it to customers. So, I decided to put my software engineering skills and entrepreneurial mindset to the test. As an immigrant in the USA, I often struggled to find familiar, healthy, homemade food. Many home chefs were selling food through social media platforms like Facebook and WhatsApp, but there was no dedicated platform for them to showcase their skills (except a couple of them which didn't sovled the entire problem). I saw an opportunity to solve this problem and founded Cookk, a platform designed to connect local consumers with home chefs, offering healthy and customizable meals.
       </Typography>
 
-      <Typography variant="body1" sx={{ mb: 5 }} className="project-description1">
-        <strong>Situation:</strong> I started Cookk to connect local consumers with home chefs, aiming to address the need for healthy, customized meals and provide a platform for chefs to showcase their skills. Despite a strong vision and technological execution, Cookk faced significant challenges including logistical issues, insufficient market research, and limited networking, which ultimately hindered its success.
+      <Typography variant="body1" sx={{ mb: 2 }} className="project-description2">
+        In researching startup cases, I discovered that every venture is unique. Some founders raised money at the idea stage, while others built an MVP, gained traction, and then sought funding. Initially, I didn’t fully grasp concepts like product-market fit, value proposition, or customer engagement. As a software engineer, I jumped straight into building the MVP without much dialogue with potential users or chefs.
       </Typography>
 
-      <Typography variant="body1" sx={{ mb: 5 }} className="project-description">
-        <strong>Task:</strong> As the founder and lead developer of Cookk, my role was to independently develop a full-stack MVP within a month and manage the entire software development lifecycle. This involved creating a user-friendly app, integrating payment solutions, and ensuring a seamless connection between front-end and back-end components. I also had to navigate challenges related to market fit and operational efficiency.
-        <ul>
-          <li><strong>Development:</strong> Independently developed the full-stack MVP, overseeing the entire software development lifecycle.</li>
-          <li><strong>Market Research:</strong> Conducted initial market research and created a prototype based on competitor analysis.</li>
-          <li><strong>Technologies Used:</strong> Utilized Ruby on Rails for back-end, PostgreSQL for the database, React for front-end, and integrated Stripe for payments.</li>
-        </ul>
+      <Typography variant="body1" sx={{ mb: 2 }} className="project-description3">
+        As a solo founder, I started by analyzing competitors and their user flows. I created a simple prototype in Figma based on this analysis. I struggled to find a designer within my budget who understood user needs, so I ended up designing the product myself.
       </Typography>
 
-      <Typography variant="body1" sx={{ mb: 5 }} className="project-description">
-        <strong>Action:</strong>
-        <ul>
-          <li><strong>Prototyping and Design:</strong>
-            <ul>
-              <li><strong>Application Design:</strong> Developed a user-friendly prototype and gathered feedback from stakeholders.</li>
-            </ul>
-          </li>
-          <li><strong>Back-End Development:</strong>
-            <ul>
-              <li><strong>Database Design:</strong> Led the design of the PostgreSQL database schema, including tables for users, meals, and orders.</li>
-              <li><strong>API Development:</strong> Implemented APIs in Ruby on Rails for user management, meal listings, and order processing.</li>
-              <li><strong>Infrastructure:</strong> Set up AWS infrastructure from scratch and deployed server code.</li>
-            </ul>
-          </li>
-          <li><strong>Front-End Development:</strong>
-            <ul>
-              <li><strong>React Development:</strong> Built the front end using React, connecting it with server APIs.</li>
-              <li><strong>UI/UX:</strong> Used Material-UI and other libraries to enhance the user experience and ensure seamless interactions.</li>
-            </ul>
-          </li>
-          <li><strong>Payment Integration:</strong>
-            <ul>
-              <li><strong>Stripe Integration:</strong> Implemented Stripe for secure and efficient payment processing.</li>
-            </ul>
-          </li>
-          <li><strong>Networking and Partnerships:</strong>
-            <ul>
-              <li><strong>Investor Pitching:</strong> Created pitch decks to attract potential investors and engage in educational initiatives.</li>
-              <li><strong>Logistics:</strong> Integrated DoorDash’s White-Label Delivery service to manage delivery operations.</li>
-            </ul>
-          </li>
-        </ul>
+      <Typography variant="body1" sx={{ mb: 2 }} className="project-description4">
+        I developed a user-friendly prototype and laid out the system architecture, including functional and non-functional requirements, REST API endpoints, data schema design, and scalability considerations. My focus was on launching the MVP quickly, so I kept the functionalities simple. For the back end, I used Ruby on Rails due to its ease of use and my familiarity with it. I set up database tables, API endpoints for user management, meal listings, order processing, and integrated with PostgreSQL, SendGrid, and AWS (with help from a friend skilled in AWS infrastructure).
       </Typography>
 
-      <Typography variant="body1" sx={{ mb: 5 }} className="project-description">
-        <strong>Result:</strong> Despite the comprehensive development and strategic efforts, Cookk encountered several challenges:
-        <ul>
-          <li><strong>Logistical Issues:</strong> Difficulty in managing and scaling delivery logistics affected service reliability.</li>
-          <li><strong>Market Fit:</strong> Insufficient market research led to a mismatch between product features and customer needs.</li>
-          <li><strong>Networking Constraints:</strong> Limited networking and partnership opportunities restricted growth and investment prospects.</li>
-        </ul>
-        The experience provided valuable lessons in market research, logistical planning, and networking, highlighting the importance of these factors for startup success.
+      <Typography variant="body1" sx={{ mb: 2 }} className="project-description5">
+        For the front end, I used React, Material-UI, and other libraries to enhance user experience and ensure seamless interactions. I built all user-facing features and made the site mobile-responsive. I integrated Stripe for secure payments and attempted to use DoorDash’s White-Label Delivery service, but it didn’t work out.
       </Typography>
+
+      <Typography variant="body1" sx={{ mb: 2 }} className="project-description6">
+        After completing the full-stack app, I tested it with friends before launching publicly. After fixing some bugs and receiving a good number of orders (10-20 per day), I manually onboarded chefs and coordinated orders through calls, texts, and emails. Despite the traction, I wasn’t making any money, and I ran into challenges with delivery logistics, market research, and funding.
+      </Typography>
+
+      <Typography variant="body1" sx={{ mb: 2 }} className="project-description7">
+        I created pitch decks and applied to accelerators but faced rejections. Running out of budget and dealing with operational issues forced me to halt the project. Despite the setbacks, I gained valuable insights into the startup world. I learned that understanding market needs and conducting thorough research before diving into development are crucial. I realized I should have spent more time engaging with potential users and validating the product-market fit before building the MVP.
+      </Typography>
+
     </Container>
   );
 }

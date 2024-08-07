@@ -25,7 +25,19 @@ const ManageContractors = () => {
       <Divider sx={{ mb: 3 }} />
 
       <Typography variant="body1" sx={{ mb: 2 }} className="project-description1">
-        I embarked on developing the AI Assistant to Manage Contractors and discovered a significant market opportunity. The MVP I created resonated strongly with business owners in the telecommunications sector, who were facing challenges with managing contractors. I validated the product through extensive feedback, which confirmed a genuine need for this solution. The platform effectively addressed issues like payroll processing, equipment tracking, and contractor communication. However, despite the positive response and clear demand, I encountered major difficulties in securing the funding needed to advance and scale the project. As a result, I was unable to continue beyond the initial stages.
+        After facing setbacks with two startup ideas, I continued searching for new challenges to tackle. My wife runs a bookkeeping business and works with several clients in the telecommunications industry. She mentioned that these clients handle contractor payrolls weekly, using manual methods like Excel sheets and Google Drive. The business owners were frustrated with the repetitive, manual tasks involved.
+      </Typography>
+
+      <Typography variant="body1" sx={{ mb: 2 }} className="project-description2">
+        Seeing this as a significant problem, I realized we had a ready market eager for automation. My wife’s deep understanding of the manual processes and her connections in the industry made it a perfect opportunity. I researched available solutions and found none that effectively addressed the contractor weekly payroll issue. Conversations with other business owners confirmed that this was a common pain point.
+      </Typography>
+
+      <Typography variant="body1" sx={{ mb: 2 }} className="project-description3">
+        Encouraged by the clear B2B problem and the enthusiasm from potential users, I developed an MVP prototype and pitch deck. Sharing these with several businesses garnered positive feedback. The MVP resonated well with telecom business owners, validating the need for a solution that simplified payroll, tracked equipment, and improved contractor communication.
+      </Typography>
+
+      <Typography variant="body1" sx={{ mb: 2 }} className="project-description4">
+        Despite the positive validation and demand, I faced significant challenges in securing the funding necessary to advance the project. This difficulty in obtaining resources, coupled with financial strains, led me to pause my entrepreneurial efforts. I recognized that I still had much to learn and decided to focus on gaining more experience from experts. My goal is to either build a successful startup in the future or join an existing venture as a CTO. Overall, the experience was invaluable; it provided deep insights into the startup world that I wouldn’t have gained otherwise.
       </Typography>
     </Container>
   );

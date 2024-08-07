@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Container, Typography } from '@mui/material';
 import './Projects.css';
 import Republic from './images/Republic.png';
+import Divider from '@mui/material/Divider';
 
 const CryptoRepublicWallet = () => {
   return (
@@ -14,6 +15,7 @@ const CryptoRepublicWallet = () => {
       <Typography variant="h2">
         <a href='https://republic.com/note' target='_blank' rel='noopener noreferrer' className="project-title">Crypto Republic Wallet</a>
       </Typography>
+      <Divider sx={{ mb: 3 }} />
 
       <Typography variant="body1" sx={{ mb: 5 }} className="project-description1">
         During my time at Republic, after completing a project that migrated from REST API to GraphQL, I was assigned to a new team to develop the Republic Crypto Wallet from scratch for millions of users. The purpose of this product was to help crypto startup companies raise money on Republic and give investors access to invest in these companies. Our team consisted of 4 full-time software engineers, including myself, and 1 part-time QA engineer. The product we built was similar to those on Robinhood or Coinbase, where users could create a crypto wallet and buy and transfer assets across the blockchain network.

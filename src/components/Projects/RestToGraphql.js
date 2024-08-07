@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Container, Typography } from '@mui/material';
 import './Projects.css';
 import RestToGraphqlImage from './images/restgraphql.jpg';
+import Divider from '@mui/material/Divider';
 
 const RestToGraphql = () => {
   return (
@@ -14,6 +15,8 @@ const RestToGraphql = () => {
       <Typography variant="h4">
         <a href='https://republic.com' target='_blank' rel='noopener noreferrer' className="project-title">GraphQL Migration</a>
       </Typography>
+      <Divider sx={{ mb: 3 }} />
+
       <Typography variant="body1">
         Republic's product was originally developed by a third-party software agency in 2015. Over the years, various engineering teams and contractors made numerous changes to the codebase, each introducing their own naming conventions, structures, and complexities. After 6-7 years, the product had become difficult to scale. The engineering team struggled with making updates, maintaining the old code, and managing our RESTful API, which had become overly complex with multiple outdated endpoints.
       </Typography>
