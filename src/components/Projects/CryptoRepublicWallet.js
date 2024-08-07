@@ -16,71 +16,25 @@ const CryptoRepublicWallet = () => {
       </Typography>
 
       <Typography variant="body1" sx={{ mb: 5 }} className="project-description1">
-        <strong>Situation:</strong> During my tenure at Republic,
-        our team embarked on an ambitious project to create a
-        self-custodial crypto wallet and introduce the digital
-        Republic Note token. This initiative aimed to provide
-        users with a secure and independent means to receive
-        and manage digital assets directly, bypassing the need
-        for third-party custodial services. The goal was to
-        enhance security, user autonomy, and the overall user experience.
+        During my time at Republic, after completing a project that migrated from REST API to GraphQL, I was assigned to a new team to develop the Republic Crypto Wallet from scratch for millions of users. The purpose of this product was to help crypto startup companies raise money on Republic and give investors access to invest in these companies. Our team consisted of 4 full-time software engineers, including myself, and 1 part-time QA engineer. The product we built was similar to those on Robinhood or Coinbase, where users could create a crypto wallet and buy and transfer assets across the blockchain network.
       </Typography>
 
       <Typography variant="body1" sx={{ mb: 5 }} className="project-description">
-        <strong>Task:</strong> As part of a dedicated team of four engineers, we were responsible for end-to-end delivery of the project. Our responsibilities spanned across:
+        Our team was responsible for the entire software development lifecycle. Each team member was a full-stack engineer, and I played a significant role in every part of the process:
+
         <ul>
-          <li><strong>Planning and Design:</strong> Establishing the project requirements, creating architecture designs, and planning the development phases.</li>
-          <li><strong>Development:</strong> Implementing both the front end and back end functionalities.</li>
-          <li><strong>Testing:</strong> Ensuring the system was secure, reliable, and user-friendly through rigorous testing.</li>
-          <li><strong>Deployment:</strong> Successfully launching the product to the market.</li>
-        </ul>
-        The technologies we used included:
-        <ul>
-          <li><strong>Ruby on Rails:</strong> For back-end development, leveraging its convention over configuration approach for rapid development.</li>
-          <li><strong>PostgreSQL:</strong> As the database to ensure robust data management and transactions.</li>
-          <li><strong>GraphQL:</strong> For efficient and flexible API communication between the front end and back end.</li>
-          <li><strong>React with TypeScript:</strong> For building a robust, type-safe front-end application.</li>
+          <li><strong>Planning:</strong> I worked with stakeholders, product managers, and other teams to gather requirements and define the project's scope, timeline, and resources. My goal was to ensure our engineering team understood the problem we were solving, who our users were, and the solution we were providing so everyone stayed aligned.</li>
+          <li><strong>Designing:</strong> Once the scope was finalized, our team created the system architecture designs. We all contributed to designing functional and non-functional requirements, scalability, schema design, RESTful API endpoints, GraphQL schema, system components, and data flow. The product manager, designer, and I worked on simple prototypes, which the designer used to create the user flow.</li>
+          <li><strong>Implementation:</strong> We began building the product even though the designs were not fully finished. The product manager and I assigned roles and responsibilities based on each team member's strengths (e.g., frontend, backend, database, DevOps). We broke down the design into smaller tasks and user stories and prioritized tasks for the first sprint. We used React, TypeScript, GraphQL, REST API, Ruby on Rails, PostgreSQL, and AWS. I set up the development environment by creating a project repository on GitHub, establishing the basic server, routing, and middleware on the backend, and setting up the project structure, routing, and state management on the frontend. Using my experience on the GraphQL migration team, I created the basic types, resolvers, and mutations for the team to use as the code foundation. My tasks included backend work such as database creation, running migrations, implementing API endpoints, documenting everything, and writing unit tests. On the frontend, I created entire pages from scratch, connected frontend components to the backend API, handled API responses, and worked with a third-party team called Wallaby that managed the crypto wallet integration with the blockchain. When users created a crypto Republic wallet, we generated data on our backend and sent API requests to Wallaby’s backend to create the wallet on the blockchain network.</li>
+          <li><strong>Challenges:</strong> We faced issues with blockchain integration APIs. Some integrations didn’t work correctly on our server, requiring multiple API rewrites, database structure changes, and updates to code dependencies and authorization protocols. Since we were not crypto experts and the Wallaby team was new, these challenges came up. However, good collaboration, teamwork, and sometimes working late and on weekends helped us solve these problems together.</li>
+          <li><strong>Testing:</strong> After completing most of the product, we used a combination of automated and manual testing to identify bugs. The QA team and our team tested the entire product repeatedly to ensure everything functioned as expected and provided the best user experience. We prioritized our users, knowing that without them, there is no business.</li>
+          <li><strong>Deployment:</strong> We first launched the product in a staging environment for internal teams to use and test, where we identified errors and gathered suggestions. Then, we launched in production for stakeholders to review and ensure it met customer requirements. While everything was good and met expectations, we had to add some small new features, requiring code rewrites.</li>
+          <li><strong>Maintenance:</strong> After receiving stakeholder approval, we launched to the public on December 6th, 2023. In the maintenance phase, we fixed bugs and resolved customer issues. Additionally, we monitored system performance, security, and user experience to identify improvements.</li>
         </ul>
       </Typography>
+
       <Typography variant="body1" sx={{ mb: 5 }} className="project-description">
-        <strong>Action:</strong> Our development process was collaborative and iterative, involving close coordination with various stakeholders and experts. Here’s a detailed breakdown:
-        <ul>
-          <li><strong>Prototyping and Design:</strong>
-            <ul>
-              <li><strong>Collaboration with Designers:</strong> I worked closely with our designer to create a user-friendly prototype. We focused on intuitive navigation, security features, and seamless user experience.</li>
-              <li><strong>Feedback Loop:</strong> We gathered feedback from stakeholders and potential users early in the design phase to refine the prototype.</li>
-            </ul>
-          </li>
-          <li><strong>Back-End Development:</strong>
-            <ul>
-              <li><strong>Database Schema Design:</strong> I led the design of the database schema in PostgreSQL. This involved defining tables for users, wallets, transactions, and the Republic Note tokens. Ensuring data integrity and security was paramount.</li>
-              <li><strong>GraphQL API Development:</strong> I developed GraphQL models, types, resolvers, and mutations. This included creating secure endpoints for wallet creation, asset transactions, and balance inquiries.</li>
-              <li><strong>Blockchain Integration:</strong> We worked closely with Wallaby, a blockchain integration team, to ensure seamless and secure interactions with the blockchain for token transactions and asset management.</li>
-            </ul>
-          </li>
-          <li><strong>Front-End Development:</strong>
-            <ul>
-              <li><strong>React with TypeScript:</strong> I implemented the front-end application using React and TypeScript, focusing on type safety and maintainability. This included developing components for user authentication, wallet management, transaction history, and secure asset transfers.</li>
-              <li><strong>User Data Protection:</strong> We integrated advanced encryption techniques and secure storage solutions to protect user data and private keys.</li>
-            </ul>
-          </li>
-          <li><strong>Cross-Functional Collaboration:</strong>
-            <ul>
-              <li><strong>Crypto Experts:</strong> Regular consultations with crypto experts ensured compliance with best practices in blockchain security and functionality.</li>
-              <li><strong>DevOps Team:</strong> Collaborated with DevOps to set up continuous integration and continuous deployment (CI/CD) pipelines, ensuring smooth and reliable deployment processes.</li>
-              <li><strong>Quality Assurance (QA):</strong> Worked closely with QA to develop comprehensive test cases, perform extensive testing (including unit, integration, and end-to-end tests), and address any identified issues promptly.</li>
-            </ul>
-          </li>
-        </ul>
-      </Typography>
-      <Typography variant="body1" sx={{ mb: 5 }} className="project-description">
-        <strong>Result:</strong> The project culminated in the successful launch of the Republic self-custodial crypto wallet and the Republic Note token on December 6, 2023. The key outcomes included:
-        <ul>
-          <li><strong>Valuation:</strong> The project was valued at $50M, reflecting its market potential and innovation.</li>
-          <li><strong>Industry First:</strong> Republic became one of the first fintech companies to offer self-custodial wallets and digital token features, setting a new standard in the industry.</li>
-          <li><strong>User Satisfaction:</strong> User satisfaction improved significantly due to the enhanced security, autonomy, and user-friendly interface. Feedback highlighted the ease of use and trust in the system.</li>
-          <li><strong>Learning and Growth:</strong> This project was a profound learning experience, enhancing my skills in product development, blockchain integration, and cross-functional teamwork.</li>
-        </ul>
+        We used agile methodologies like Scrum for iterative development, with regular sprints and stand-up meetings. We tracked tasks, progress, and milestones using project management tools called Linear. We maintained clear and continuous communication with all stakeholders through meetings, reports, and collaboration tools. The project was valued at $50M. Republic became one of the first fintech companies to offer self-custodial wallets and digital token features, setting a new standard in the industry.
       </Typography>
     </Container>
   );
