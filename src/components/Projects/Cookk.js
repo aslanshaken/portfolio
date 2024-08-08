@@ -4,7 +4,7 @@ import { Container, Typography } from '@mui/material';
 import './Projects.css';
 import CookkImage from './images/cookk.png';
 import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider'; 
+import Divider from '@mui/material/Divider';
 
 const Cookk = () => {
   return (
@@ -50,7 +50,7 @@ const Cookk = () => {
       </Typography>
 
       <Typography variant="body1" sx={{ mb: 2 }} className="project-description7">
-        I created pitch decks and applied to accelerators but faced rejections. Running out of budget and dealing with operational issues forced me to halt the project. Despite the setbacks, I gained valuable insights into the startup world. I learned that understanding market needs and conducting thorough research before diving into development are crucial. I realized I should have spent more time engaging with potential users and validating the product-market fit before building the MVP.
+        I created pitch decks and applied to accelerators but faced rejections. Running out of budget and dealing with operational issues forced me to stop the project. Despite the setbacks, I gained valuable insights into the startup world. I learned that understanding market needs and conducting thorough research before diving into development are crucial. I realized I should have spent more time engaging with potential users and validating the product-market fit before building the MVP.
       </Typography>
 
     </Container>
