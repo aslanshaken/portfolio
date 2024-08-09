@@ -37,7 +37,15 @@ const ManageContractors = () => {
       </Typography>
 
       <Typography variant="body1" sx={{ mb: 2 }} className="project-description4">
-        Despite the positive validation and demand, I faced significant challenges in securing the funding necessary to advance the project. This difficulty in obtaining resources, coupled with financial strains, led me to pause my entrepreneurial efforts. I recognized that I still had much to learn and decided to focus on gaining more experience from experts. My goal is to either build a successful startup in the future or join an existing venture as a CTO. Overall, the experience was invaluable; it provided deep insights into the startup world that I wouldn’t have gained otherwise.
+        Despite the positive feedback and demand, I struggled to secure the funding
+        needed to move the project forward. The difficulty in getting resources,
+        along with financial pressures, led me to put my entrepreneurial
+        efforts on hold. I realized I still have a lot to learn, so I’ve
+        decided to focus on gaining more experience from experts.
+        My goal is to either successfully build a startup in the
+        future, not right now or join a mission driven company as software engineer. Overall, the
+        experience was incredibly valuable, giving me insights into
+        the startup world that I wouldn't have gained otherwise.
       </Typography>
     </Container>
   );
