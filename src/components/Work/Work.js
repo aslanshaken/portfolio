@@ -49,9 +49,9 @@ const Work = () => {
                     {work.title}
                   </Typography>
                   <Typography variant="body2">{work.location}</Typography>
-                  <Typography variant="subtitle1" component="div">
+                  {/* <Typography variant="subtitle1" component="div">
                     {work.date}
-                  </Typography>
+                  </Typography> */}
                 </Grid>
               </Grid>
             </Paper>
