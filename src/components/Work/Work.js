@@ -13,19 +13,19 @@ const workData = [
     image: Republic,
     title: 'Software Engineer',
     location: 'NYC, USA',
-    date: 'Jul 2020 - Feb 2024',
+    date: 'Aug 2021 - Jul 2024',
   },
   {
     image: Datadog,
     title: 'Software Engineer',
     location: 'NYC, USA',
-    date: 'Oct 2018 - Jun 2020',
+    date: 'Jan 2020 - Jun 2021',
   },
   {
     image: GA,
     title: 'Software Engineer Fellow',
     location: 'NYC, USA',
-    date: 'May 2018 - Sep 2018',
+    date: 'May 2019 - Sep 2019',
   },
 ];
 
@@ -49,9 +49,9 @@ const Work = () => {
                     {work.title}
                   </Typography>
                   <Typography variant="body2">{work.location}</Typography>
-                  {/* <Typography variant="subtitle1" component="div">
+                  <Typography variant="subtitle1" component="div">
                     {work.date}
-                  </Typography> */}
+                  </Typography>
                 </Grid>
               </Grid>
             </Paper>
