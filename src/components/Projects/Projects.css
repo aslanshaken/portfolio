@@ -28,7 +28,7 @@
 }
 
 .project-image img {
-  width: 60%;
+  width: 50%;
   height: auto;
 }
 
@@ -64,4 +64,8 @@
 
 .back-link:hover {
   text-decoration: underline;
+}
+
+.project-description {
+  padding: 0px 30px 0px 30px;
 }
