@@ -11,7 +11,7 @@ const Cookk = () => {
     <Container className="project-container">
       <Link to="/projects" className="back-link">Back to projects</Link>
       <Typography variant="h2">
-        <a href='https://github.com/UnitedFood/front-end' target='_blank' rel='noopener noreferrer' className="project-title">Cookk</a>
+        <a href='https://cookk.us' target='_blank' rel='noopener noreferrer' className="project-title">Cookk</a>
       </Typography>
       <div className="project-image">
         <img src={CookkImage} alt="Cookk Project" />
